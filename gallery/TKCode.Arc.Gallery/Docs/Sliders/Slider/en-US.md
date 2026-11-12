@@ -220,6 +220,17 @@ public partial class PriceFilterViewModel : ObservableObject
 - The command in the view is a `Button` bound to `ApplyCommand`; it stays enabled while the thumbs move, so the person
   can apply the new range at any point.
 
+### Sizing the parts
+
+`ThumbDiameter` (22 px) and `TrackThickness` (6 px) size the thumbs and the track of one slider. The theme fills in the
+default from the `SliderToken`, so a style or a value on the control replaces it. Without a `Label`, and with
+`IsValueVisible` set to `False`, the header row is left out of the layout, so a bare slider is only as tall as its
+control row and centres vertically in a toolbar or a table cell.
+
+```xml
+<arc:Slider ThumbDiameter="16" TrackThickness="4" IsValueVisible="False" Width="240" />
+```
+
 ### Using motion with restraint
 
 Motion on the slider tells the person what the thumb did: the bubble confirms the value, the digits roll to show the

@@ -22,8 +22,8 @@ context of the page, and it is non-modal by default, so the rest of the page sta
 
 ## When not to use
 
-- **A one-line label on hover or focus:** use `Tooltip`. A popover is opened by a click and holds controls; a tooltip is
-  read-only text that appears on hover.
+- **A one-line label on hover or focus:** use `Tooltip`. A popover holds controls and opens on a click by default; a
+  tooltip is read-only text that appears on hover.
 - **A read-only preview of a person or a link:** use `HoverCard`, which opens on hover and never takes focus.
 - **A decision that must be answered before the user continues:** use `Dialog`. A popover can be dismissed by a press
   outside it, so it cannot hold a confirmation such as deleting a workspace.
@@ -69,6 +69,30 @@ Set `Trigger` to the control that opens the panel. The content of the popover is
 
 Activating the trigger toggles the popover: a click, a tap or the keyboard activation of a button opens it, and the
 same activation closes it again. A non-button trigger opens the popover on `Enter` or `Space`.
+
+### Opening on hover
+
+`TriggerMode` chooses what on the trigger opens the panel. `Click` (the default) is described above. `Hover` opens the
+panel after the pointer has rested on the trigger for `OpenDelay` (100 ms) and closes it once the pointer has been away
+from both the trigger and the panel for `CloseDelay` (140 ms, long enough to cross the gap between them), so the reader
+can move into the panel and use it. Hovering does not take focus. Without a pointer there is no hovering: `Enter` or
+`Space` on the trigger opens the panel and moves focus into it, and a touch tap toggles it. `Manual` ignores the trigger
+altogether; set `IsOpen` or call `ShowAt`.
+
+<Demo name="Hover" />
+
+```xml
+<arc:Popover TriggerMode="Hover" OpenDelay="0:0:0.2">
+    <arc:Popover.Trigger>
+        <arc:Button Variant="Text" Content="What is a seat?" />
+    </arc:Popover.Trigger>
+    <TextBlock Text="A seat is one person with access to the workspace." />
+</arc:Popover>
+```
+
+Use `Hover` for an explanation the reader may just as well skip. Keep `Click` for a panel that holds a form, because a
+hover popover closes when the pointer leaves it. For a read-only preview of a person or a link use `HoverCard`, which
+waits longer to open and passes from one card to the next without waiting again.
 
 ### Attached to a control
 
@@ -146,6 +170,29 @@ confirmation or its own scrim.
 A popover can hold a small form, such as a filter. The page stays usable while it is open.
 
 <Demo name="SmallForm" />
+
+### Showing the content alone
+
+`HasShadow` (default `True`) draws the floating shadow around the panel. To show your content without the panel, set
+`HasShadow` to `False` and style `PopoverSurface` with a transparent background and no border or padding. Put the style
+in the `Styles` of the control that holds the popover to keep it to that part of the page.
+
+```xml
+<StackPanel>
+    <StackPanel.Styles>
+        <Style Selector="arc|PopoverSurface">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
+    </StackPanel.Styles>
+    <arc:Button Content="Info">
+        <arc:Popover.Attach>
+            <arc:Popover HasShadow="False" Content="Only the content is shown." />
+        </arc:Popover.Attach>
+    </arc:Button>
+</StackPanel>
+```
 
 ### Binding to a view model
 

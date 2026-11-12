@@ -5973,8 +5973,8 @@
         <target>按鈕高度：Small、Medium（預設）或 Large。</target>
       </trans-unit>
       <trans-unit id="Button.Variant">
-        <source>Visual style: Primary (default), Secondary, Ghost or Danger.</source>
-        <target>視覺樣式：Primary（預設）、Secondary、Ghost 或 Danger。</target>
+        <source>Visual style: Primary (default), Secondary, Ghost, Danger or Text (the content alone, without any chrome).</source>
+        <target>視覺樣式：Primary（預設）、Secondary、Ghost、Danger 或 Text（僅顯示內容，不帶任何外框）。</target>
       </trans-unit>
       <trans-unit id="ButtonGroup">
         <source>Two to five related actions joined into one surface with hairline dividers (Arc button group): Share, Duplicate and Archive on a document, zoom controls, Reply / Reply all / Forward. One soft highlight glides between segments under the pointer or keyboard focus (the dividers beside it step aside), the pressed segment answers in place, and an optional chevron segment (`Menu`) opens rarer or destructive actions in a menu aligned to the group's edge. Segments are `ButtonGroupItem`s declared inline or generated from `ItemsSource` (plain data becomes the label). When a horizontal row does not fit, segments with an icon drop their label (it moves to the tooltip and the accessible name); if it still does not fit the row scrolls sideways without a scrollbar. Keyboard: every segment is a Tab stop; the arrow keys along the orientation (mirrored right to left), Home and End move between segments and wrap; Enter or Space activates. On the chevron, Enter, Space or ArrowDown opens the menu on the first row and Escape returns focus. A label that changes right after its segment was pressed (Share to Copied) is announced once.</source>
@@ -12327,6 +12327,14 @@
       <trans-unit id="ElasticSlider.StartIcon">
         <source>Icon before the track; pushed outward when the track is pulled past its start.</source>
         <target>軌道之前的圖示；當軌道被拉過起點時向外推移。</target>
+      </trans-unit>
+      <trans-unit id="ElasticSlider.ThumbDiameter">
+        <source>Diameter of the thumbs in device-independent pixels. The theme sets it from the token; set it on the control, or from a style, to size the thumbs of one slider.</source>
+        <target>滑塊的直徑，單位為裝置無關像素。主題從權杖取值；在控制項上或透過樣式設定它，即可調整單一滑桿的滑塊大小。</target>
+      </trans-unit>
+      <trans-unit id="ElasticSlider.TrackThickness">
+        <source>Thickness of the track in device-independent pixels. The theme sets it from the token.</source>
+        <target>軌道的粗細，單位為裝置無關像素。主題從權杖取值。</target>
       </trans-unit>
       <trans-unit id="ElasticSlider.ValueCommitted">
         <source>Runs once a drag is released, a key changes the value or a mark label is clicked.</source>
@@ -25168,9 +25176,17 @@
         <source>Attaches a popover to any control: a click on the control toggles it.</source>
         <target>將浮層附加到任意控制項上：點擊該控制項即可切換其顯示。</target>
       </trans-unit>
+      <trans-unit id="Popover.CloseDelay">
+        <source>Time the pointer may be away from both the trigger and the panel before it closes in `Hover` mode (default 140ms; long enough to cross the gap between them).</source>
+        <target>`Hover` 模式下，指標同時離開觸發器和面板多久後關閉面板（預設 140ms，足夠穿過兩者之間的間隙）。</target>
+      </trans-unit>
       <trans-unit id="Popover.Closed">
         <source>Raised when the popover closes (the exit may still be playing).</source>
         <target>浮層關閉時觸發（退出動畫可能仍在播放）。</target>
+      </trans-unit>
+      <trans-unit id="Popover.HasShadow">
+        <source>Draws the floating shadow around the panel (default true). Turn it off, and style `PopoverSurface` with a transparent `Background` and no border, to show the content on its own.</source>
+        <target>在面板周圍繪製浮層陰影（預設 true）。關閉它，並為 `PopoverSurface` 設定透明的 `Background` 且不加邊框，即可只顯示內容本身。</target>
       </trans-unit>
       <trans-unit id="Popover.IsModal">
         <source>Modal: presses outside are swallowed (they only close the popover). Default false.</source>
@@ -25184,6 +25200,10 @@
         <source>Gap to the trigger in px (Arc: 6).</source>
         <target>與觸發器之間的間距，單位 px（Arc 為 6）。</target>
       </trans-unit>
+      <trans-unit id="Popover.OpenDelay">
+        <source>Hover time before the panel opens in `Hover` mode (default 100ms).</source>
+        <target>`Hover` 模式下，指標懸停多久後開啟面板（預設 100ms）。</target>
+      </trans-unit>
       <trans-unit id="Popover.Opened">
         <source>Raised when the popover opens.</source>
         <target>浮層開啟時觸發。</target>
@@ -25195,6 +25215,10 @@
       <trans-unit id="Popover.Trigger">
         <source>The control that opens the panel, shown in place of the popover (optional with `AttachProperty` or `ShowAt`).</source>
         <target>開啟面板的控制項，會顯示在浮層所在位置（可選，與 `AttachProperty` 或 `ShowAt` 搭配使用）。</target>
+      </trans-unit>
+      <trans-unit id="Popover.TriggerMode">
+        <source>What on the trigger opens the panel: `Click` (default), `Hover` or `Manual`.</source>
+        <target>觸發器上的哪種操作會開啟面板：`Click`（預設）、`Hover` 或 `Manual`。</target>
       </trans-unit>
       <trans-unit id="PresenceStack">
         <source>Who is looking at this page right now: the avatars of the current viewers, overlapping, each in a ring of their own color, the most recent first, with a "+N" chip for the rest and a rolling "N viewing" count. It follows a live list: a newcomer grows in at the front and sends out one ring while the others slide over, someone pushed past `MaxVisibleCount` slides into the chip, someone who leaves shrinks away and the gap closes. Idle viewers fade. The chip opens the full list. Joins and leaves are announced politely to screen readers.</source>
@@ -27131,6 +27155,14 @@
       <trans-unit id="RangeHistogramSlider.Step">
         <source>The grid the values rest on and the distance of one arrow key press.</source>
         <target>數值停靠的網格，也是按一次方向鍵移動的距離。</target>
+      </trans-unit>
+      <trans-unit id="RangeHistogramSlider.ThumbDiameter">
+        <source>Diameter of the thumbs in device-independent pixels. The theme sets it from the token; set it on the control, or from a style, to size the thumbs of one slider.</source>
+        <target>滑塊的直徑，單位為裝置無關像素。主題從權杖取值；在控制項上或透過樣式設定它，即可調整單一滑桿的滑塊大小。</target>
+      </trans-unit>
+      <trans-unit id="RangeHistogramSlider.TrackThickness">
+        <source>Thickness of the track in device-independent pixels. The theme sets it from the token.</source>
+        <target>軌道的粗細，單位為裝置無關像素。主題從權杖取值。</target>
       </trans-unit>
       <trans-unit id="RangeHistogramSlider.UpperThumbName">
         <source>The accessible name of the upper thumb; when null it is the label with ", maximum" appended.</source>
@@ -32623,6 +32655,14 @@
       <trans-unit id="Slider.StartContent">
         <source>Content before the track, such as an icon or a mute button.</source>
         <target>軌道前的內容，如圖示或靜音按鈕。</target>
+      </trans-unit>
+      <trans-unit id="Slider.ThumbDiameter">
+        <source>Diameter of the thumbs in device-independent pixels. The theme sets it from the `SliderToken`; set it on the control, or from a style, to size the thumbs of one slider.</source>
+        <target>滑塊的直徑，單位為裝置無關像素。主題從 `SliderToken` 取值；在控制項上或透過樣式設定它，即可調整單一滑桿的滑塊大小。</target>
+      </trans-unit>
+      <trans-unit id="Slider.TrackThickness">
+        <source>Thickness of the track in device-independent pixels. The theme sets it from the `SliderToken`.</source>
+        <target>軌道的粗細，單位為裝置無關像素。主題從 `SliderToken` 取值。</target>
       </trans-unit>
       <trans-unit id="Slider.UpperThumbName">
         <source>Accessible name of the upper range thumb; when null it is the Label with ", maximum" appended.</source>

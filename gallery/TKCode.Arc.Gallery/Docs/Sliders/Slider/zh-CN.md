@@ -1,7 +1,7 @@
 ---
 title: 滑块
 summary: 在轨道上选取一个值或一个范围，跟随指针移动。
-source-hash: e254658996f6
+source-hash: d79b02e3405f
 ---
 
 <Demo name="SingleValue" />
@@ -170,6 +170,14 @@ public partial class PriceFilterViewModel : ObservableObject
 - `LowerValue` 与 `UpperValue` 是范围模式下要绑定的双向属性；`Value` 是单值模式下的双向属性。绑定与 `IsRange` 相匹配的那一组。
 - 显式绑定 `Mode=TwoWay`。视图模型的 `MinPrice` 会在拖动的每一步更新，这对读数或摘要行是正确的，但对查询则不对。应从 `ApplyAsync` 执行查询，或从视图代码后置文件中的 `ValueCommitted` 执行，这样一次拖动只发送一个请求。
 - 视图中的命令是绑定到 `ApplyCommand` 的 `Button`；在滑块手柄移动时它保持可用，因此用户可以在任何时候应用新的范围。
+
+### 调整各部分大小
+
+`ThumbDiameter`（22 px）和 `TrackThickness`（6 px）可以调整单个滑动条的滑块和轨道大小。主题从 `SliderToken` 填入默认值，因此样式或控件上设置的值会替换它。没有 `Label` 且把 `IsValueVisible` 设为 `False` 时，标题行不再参与布局，所以单独的滑动条只有控件行那么高，在工具栏或表格单元格里可以垂直居中。
+
+```xml
+<arc:Slider ThumbDiameter="16" TrackThickness="4" IsValueVisible="False" Width="240" />
+```
 
 ### 克制地使用动效
 
