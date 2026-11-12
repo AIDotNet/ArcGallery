@@ -102,6 +102,7 @@ public static partial class GalleryCatalog
         ("2026-11-09", ["ContactSection"]),
         ("2026-11-09", ["FaqSection"]),
         ("2026-11-09", ["HeroSection"]),
+        ("2026-11-13", ["ImportWizard"]),
     }.SelectMany(g => g.Classes.Select(c => (c, g.Date))).ToDictionary(e => e.c, e => e.Date);
 
     private static string? AddedOnOf(string className) => s_addedOn.GetValueOrDefault(className);

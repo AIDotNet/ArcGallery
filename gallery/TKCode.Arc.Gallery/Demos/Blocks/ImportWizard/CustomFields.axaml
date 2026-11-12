@@ -1,0 +1,11 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.ImportWizardCustomFieldsDemo">
+    <!-- A product catalog: four fields with their own header names, checks and safe fixes, and a sample of its own. -->
+    <arc:ImportWizard x:Name="Wizard"
+                      Margin="0,12"
+                      Noun="product"
+                      PluralNoun="products"
+                      SampleFileName="catalog-export.csv" />
+</UserControl>

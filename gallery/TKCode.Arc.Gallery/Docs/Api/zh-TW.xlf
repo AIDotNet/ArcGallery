@@ -15704,6 +15704,106 @@
         <source>How far the pointer travels between two pictures, in px.</source>
         <target>兩張圖片之間指標移動的距離，單位為 px。</target>
       </trans-unit>
+      <trans-unit id="ImportRecord">
+        <source>One row sent to `ImportBatchAction`.</source>
+        <target>傳送給 `ImportBatchAction` 的一列資料。</target>
+      </trans-unit>
+      <trans-unit id="ImportTarget">
+        <source>A field the rows are imported into: how columns are recognised (header names, synonyms, values), how its values are checked and, when a safe correction exists, how they are cleaned up.</source>
+        <target>資料列要匯入的一個欄位：如何辨識對應的欄（表頭名稱、同義詞、取值），如何檢查它的值，以及在有安全修正時如何清理這些值。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard">
+        <source>A four step CSV import in one card: choose or drop a file and preview it, match every column to a field with a confidence for each automatic match, fix the cells with problems in place (or let "Clean up" apply the safe fixes) while the counts roll down, then import the good rows in batches and read the summary. Rows whose problems are not fixed are left out, not blocking, so the rest can be imported now. Describe the fields as `Targets` with their header names, validators and safe fixes; send each batch to your server with `ImportBatchAction` and read the totals in `Completed`. With no action set the import is simulated.</source>
+        <target>在一張卡片裡完成的四步 CSV 匯入：選擇或拖入檔案並預覽，把每一欄對應到欄位（每個自動對應都附上信心度），就地修正有問題的儲存格（或讓 "Clean up" 套用安全修正），同時計數滾動減少，最後分批匯入沒有問題的列並查看摘要。問題未修正的列會被略過而不會阻擋，其餘列可以立即匯入。用 `Targets` 描述欄位，包括表頭名稱、驗證器與安全修正；用 `ImportBatchAction` 把每一批傳送到你的伺服器，並在 `Completed` 中讀取總數。未設定動作時匯入為模擬。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.BatchImported">
+        <source>Raised after each batch was imported.</source>
+        <target>每一批匯入完成後觸發。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.BatchSize">
+        <source>Rows per batch (5; at least 1).</source>
+        <target>每批的列數（5；至少為 1）。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.CompactWidth">
+        <source>Below this width of the card the step bar shows only its marks and mapping rows stack (520).</source>
+        <target>卡片窄於此寬度時，步驟列只顯示標記，對應列改為上下排列（520）。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.Completed">
+        <source>Raised once every batch is done, with the totals.</source>
+        <target>所有批次完成後觸發一次，並附上總數。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.CompletedCommand">
+        <source>Run with the `ImportWizardCompletedEventArgs` once every batch is done.</source>
+        <target>所有批次完成後，以 `ImportWizardCompletedEventArgs` 為參數執行。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.ExistingKeys">
+        <source>Values of the key field (`IsKey`) that already exist; matching rows count as updates. Compared trimmed. Null with the default `Targets` uses the sample's four existing emails.</source>
+        <target>鍵欄位（`IsKey`）中已經存在的值；相符的列計為更新。比對時去除首尾空白。為 null 且使用預設 `Targets` 時，採用範例中已存在的四個電子郵件。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.Failed">
+        <source>Raised when `ImportBatchAction` threw; the import can be tried again.</source>
+        <target>`ImportBatchAction` 擲出例外時觸發；可以重試匯入。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.FileLoaded">
+        <source>Raised when a file was read and can be mapped.</source>
+        <target>檔案已讀取並可以開始對應時觸發。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.FileName">
+        <source>The loaded file's name; null before a file is loaded.</source>
+        <target>已載入檔案的名稱；載入檔案之前為 null。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.ImportBatchAction">
+        <source>Imports one batch of rows: awaited for each batch with a token that Cancel, starting over and the card leaving the window cancel. An exception stops the import, shows the message with a retry and raises `Failed`. Null simulates the import (about 388ms per batch).</source>
+        <target>匯入一批列：每一批都會被等待，並傳入一個權杖，按下取消、重新開始或卡片離開視窗時會取消它。擲出例外會停止匯入，顯示訊息與重試按鈕，並觸發 `Failed`。為 null 時模擬匯入（每批約 388ms）。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.Labels">
+        <source>Every word the card shows or announces.</source>
+        <target>卡片顯示或朗讀的所有文字。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.MaxRows">
+        <source>The most data rows a file may have (5,000); a larger file is refused with a message.</source>
+        <target>一個檔案最多允許的資料列數（5,000）；更大的檔案會被拒絕並顯示提示。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.Noun">
+        <source>The word for one record in the copy ("contact").</source>
+        <target>文案中表示一筆記錄的詞（"contact"）。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.PluralNoun">
+        <source>The word for several records in the copy ("contacts").</source>
+        <target>文案中表示多筆記錄的詞（"contacts"）。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.RowCount">
+        <source>How many data rows the loaded file has (0 before one is loaded).</source>
+        <target>已載入檔案的資料列數（載入檔案之前為 0）。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.SampleCsv">
+        <source>The text "Try a sample file" loads; null hides the button. Defaults to a sample customer list.</source>
+        <target>"Try a sample file" 載入的文字；為 null 時隱藏該按鈕。預設是一份客戶名單範例。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.SampleFileName">
+        <source>The file name shown for the sample file.</source>
+        <target>範例檔案顯示的檔名。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.SaveSkippedRowsAction">
+        <source>Saves the CSV of the rows that were left out: returns true when it was saved. Null asks for a place with the window's save dialog.</source>
+        <target>儲存被略過的列的 CSV：儲存成功時傳回 true。為 null 時用視窗的儲存對話框選擇位置。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.Step">
+        <source>The step shown.</source>
+        <target>目前顯示的步驟。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.StepChanged">
+        <source>Raised when another step is shown.</source>
+        <target>顯示另一個步驟時觸發。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.Targets">
+        <source>The fields to import into, in the order the review table shows them. Null uses a contact schema (name, email, company, role, phone, country, plan). Changing it starts over.</source>
+        <target>要匯入的欄位，順序即檢查表格中的欄順序。為 null 時使用聯絡人欄位（姓名、電子郵件、公司、角色、電話、國家、方案）。修改它會重新開始。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizardCompletedEventArgs">
+        <source>Arguments of `Completed` (also the parameter of `CompletedCommand`).</source>
+        <target>`Completed` 的參數（也是 `CompletedCommand` 的參數）。</target>
+      </trans-unit>
       <trans-unit id="InboxSidebar">
         <source>The navigation of a mail app, built on `Sidebar`: a rail toggle and Compose on top, the folders with their unread counts, the labels with colored dots under a heading that folds (with a "New label" row), and the storage meter and the signed-in account at the bottom. It collapses to a 64px icon rail where the folder icons, the label dots, Compose's pencil and the avatar stay and counts become dots; the width springs. Counts above 999 read "999+". Without `Folders` and `MailLabels` it shows an invented mailbox.</source>
         <target>郵件應用程式的導覽，以 `Sidebar` 為基礎建構：頂部是圖示列切換按鈕和寫信按鈕，下面是帶未讀數的資料夾、在可摺疊標題下帶彩色圓點的標籤（最後有一列「New label」），底部是儲存空間條和登入的帳號。它可收起為 64px 的圖示列，資料夾圖示、標籤圓點、寫信按鈕的筆和頭像都會保留，計數變成圓點；寬度以彈簧變化。超過 999 的計數顯示為「999+」。沒有 `Folders` 和 `MailLabels` 時顯示一個虛構的信箱。</target>

@@ -15704,6 +15704,106 @@
         <source>How far the pointer travels between two pictures, in px.</source>
         <target>两张图片之间指针移动的距离，单位为 px。</target>
       </trans-unit>
+      <trans-unit id="ImportRecord">
+        <source>One row sent to `ImportBatchAction`.</source>
+        <target>发送给 `ImportBatchAction` 的一行数据。</target>
+      </trans-unit>
+      <trans-unit id="ImportTarget">
+        <source>A field the rows are imported into: how columns are recognised (header names, synonyms, values), how its values are checked and, when a safe correction exists, how they are cleaned up.</source>
+        <target>行数据要导入的一个字段：如何识别对应的列（表头名称、同义词、取值），如何检查它的值，以及在有安全修正时如何清理这些值。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard">
+        <source>A four step CSV import in one card: choose or drop a file and preview it, match every column to a field with a confidence for each automatic match, fix the cells with problems in place (or let "Clean up" apply the safe fixes) while the counts roll down, then import the good rows in batches and read the summary. Rows whose problems are not fixed are left out, not blocking, so the rest can be imported now. Describe the fields as `Targets` with their header names, validators and safe fixes; send each batch to your server with `ImportBatchAction` and read the totals in `Completed`. With no action set the import is simulated.</source>
+        <target>在一张卡片里完成的四步 CSV 导入：选择或拖入文件并预览，把每一列匹配到字段（每个自动匹配都给出置信度），就地修正有问题的单元格（或让 "Clean up" 应用安全修正），同时计数滚动减少，最后分批导入无问题的行并查看汇总。问题未修正的行会被跳过而不会阻塞，其余行可以立即导入。用 `Targets` 描述字段，包括表头名称、校验器和安全修正；用 `ImportBatchAction` 把每一批发送到你的服务器，并在 `Completed` 中读取总数。未设置动作时导入为模拟。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.BatchImported">
+        <source>Raised after each batch was imported.</source>
+        <target>每一批导入完成后触发。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.BatchSize">
+        <source>Rows per batch (5; at least 1).</source>
+        <target>每批的行数（5；至少为 1）。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.CompactWidth">
+        <source>Below this width of the card the step bar shows only its marks and mapping rows stack (520).</source>
+        <target>卡片窄于此宽度时，步骤条只显示标记，映射行改为上下排列（520）。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.Completed">
+        <source>Raised once every batch is done, with the totals.</source>
+        <target>所有批次完成后触发一次，并带上总数。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.CompletedCommand">
+        <source>Run with the `ImportWizardCompletedEventArgs` once every batch is done.</source>
+        <target>所有批次完成后，以 `ImportWizardCompletedEventArgs` 为参数执行。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.ExistingKeys">
+        <source>Values of the key field (`IsKey`) that already exist; matching rows count as updates. Compared trimmed. Null with the default `Targets` uses the sample's four existing emails.</source>
+        <target>键字段（`IsKey`）中已经存在的值；匹配的行计为更新。比较时去掉首尾空格。为 null 且使用默认 `Targets` 时，采用样例中已存在的四个邮箱。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.Failed">
+        <source>Raised when `ImportBatchAction` threw; the import can be tried again.</source>
+        <target>`ImportBatchAction` 抛出异常时触发；可以重试导入。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.FileLoaded">
+        <source>Raised when a file was read and can be mapped.</source>
+        <target>文件已读取并可以开始映射时触发。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.FileName">
+        <source>The loaded file's name; null before a file is loaded.</source>
+        <target>已加载文件的名称；加载文件之前为 null。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.ImportBatchAction">
+        <source>Imports one batch of rows: awaited for each batch with a token that Cancel, starting over and the card leaving the window cancel. An exception stops the import, shows the message with a retry and raises `Failed`. Null simulates the import (about 388ms per batch).</source>
+        <target>导入一批行：每一批都会被等待，并传入一个令牌，点击取消、重新开始或卡片离开窗口时会取消它。抛出异常会停止导入，显示消息和重试按钮，并触发 `Failed`。为 null 时模拟导入（每批约 388ms）。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.Labels">
+        <source>Every word the card shows or announces.</source>
+        <target>卡片显示或播报的所有文字。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.MaxRows">
+        <source>The most data rows a file may have (5,000); a larger file is refused with a message.</source>
+        <target>一个文件最多允许的数据行数（5,000）；更大的文件会被拒绝并给出提示。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.Noun">
+        <source>The word for one record in the copy ("contact").</source>
+        <target>文案中表示一条记录的词（"contact"）。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.PluralNoun">
+        <source>The word for several records in the copy ("contacts").</source>
+        <target>文案中表示多条记录的词（"contacts"）。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.RowCount">
+        <source>How many data rows the loaded file has (0 before one is loaded).</source>
+        <target>已加载文件的数据行数（加载文件之前为 0）。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.SampleCsv">
+        <source>The text "Try a sample file" loads; null hides the button. Defaults to a sample customer list.</source>
+        <target>"Try a sample file" 加载的文本；为 null 时隐藏该按钮。默认是一份客户名单样例。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.SampleFileName">
+        <source>The file name shown for the sample file.</source>
+        <target>样例文件显示的文件名。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.SaveSkippedRowsAction">
+        <source>Saves the CSV of the rows that were left out: returns true when it was saved. Null asks for a place with the window's save dialog.</source>
+        <target>保存被跳过的行的 CSV：保存成功时返回 true。为 null 时用窗口的保存对话框选择位置。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.Step">
+        <source>The step shown.</source>
+        <target>当前显示的步骤。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.StepChanged">
+        <source>Raised when another step is shown.</source>
+        <target>显示另一个步骤时触发。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.Targets">
+        <source>The fields to import into, in the order the review table shows them. Null uses a contact schema (name, email, company, role, phone, country, plan). Changing it starts over.</source>
+        <target>要导入的字段，顺序即检查表格中的列顺序。为 null 时使用联系人字段（姓名、邮箱、公司、角色、电话、国家、套餐）。修改它会重新开始。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizardCompletedEventArgs">
+        <source>Arguments of `Completed` (also the parameter of `CompletedCommand`).</source>
+        <target>`Completed` 的参数（也是 `CompletedCommand` 的参数）。</target>
+      </trans-unit>
       <trans-unit id="InboxSidebar">
         <source>The navigation of a mail app, built on `Sidebar`: a rail toggle and Compose on top, the folders with their unread counts, the labels with colored dots under a heading that folds (with a "New label" row), and the storage meter and the signed-in account at the bottom. It collapses to a 64px icon rail where the folder icons, the label dots, Compose's pencil and the avatar stay and counts become dots; the width springs. Counts above 999 read "999+". Without `Folders` and `MailLabels` it shows an invented mailbox.</source>
         <target>邮件应用的导航，基于 `Sidebar` 构建：顶部是图标栏切换按钮和写邮件按钮，下面是带未读数的文件夹、在可折叠标题下带彩色圆点的标签（最后有一行“New label”），底部是存储空间条和登录的账号。它可收起为 64px 的图标栏，文件夹图标、标签圆点、写邮件按钮的笔和头像都会保留，计数变成圆点；宽度以弹簧变化。超过 999 的计数显示为“999+”。没有 `Folders` 和 `MailLabels` 时显示一个虚构的邮箱。</target>
