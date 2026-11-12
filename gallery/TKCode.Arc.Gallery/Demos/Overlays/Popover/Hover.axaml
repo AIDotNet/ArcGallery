@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.PopoverHoverDemo">
+    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="16">
+        <TextBlock Text="Rest the pointer on a button." VerticalAlignment="Center" Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+        <arc:Popover TriggerMode="Hover" Placement="Bottom">
+            <arc:Popover.Trigger>
+                <arc:Button Variant="Secondary" Content="What is a seat?" />
+            </arc:Popover.Trigger>
+            <TextBlock Text="A seat is one person with access to the workspace." TextWrapping="Wrap" />
+        </arc:Popover>
+        <arc:Popover TriggerMode="Hover" Placement="Bottom">
+            <arc:Popover.Trigger>
+                <arc:Button Variant="Text" Content="Billing details" />
+            </arc:Popover.Trigger>
+            <TextBlock Text="Seats are billed monthly, on the day the workspace was created." TextWrapping="Wrap" />
+        </arc:Popover>
+    </StackPanel>
+</UserControl>

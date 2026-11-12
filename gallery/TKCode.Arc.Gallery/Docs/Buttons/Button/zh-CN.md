@@ -1,7 +1,7 @@
 ---
 title: 按钮
 summary: 页面、表单、对话框或工具栏中单个操作的默认按钮：主要、次要、幽灵与危险四种样式，三种尺寸，加载时保持宽度不变。
-source-hash: 168d258ff01f
+source-hash: 06608c06416e
 ---
 
 <Demo name="Variants" />
@@ -56,18 +56,22 @@ source-hash: 168d258ff01f
 | `Secondary` | 带边框的表面 | 前景色 | 主按钮旁边的替代操作，例如“取消”或“存为草稿” |
 | `Ghost` | 透明，无边框 | 次要文字，悬停时为前景色 | 卡片与工具栏中的低强调操作，例如“查看历史” |
 | `Danger` | 带边框的表面 | 危险色 | 破坏性操作，颜色在按下之前发出警告 |
+| `Text` | 无：无填充、无边框、无内边距 | 次要文字，悬停时为前景色 | 只显示内容本身，例如一行中的图标或简短文字 |
 
 ```xml
 <arc:Button Content="保存更改" Variant="Primary" />
 <arc:Button Content="取消" Variant="Secondary" />
 <arc:Button Content="了解更多" Variant="Ghost" />
 <arc:Button Content="删除项目" Variant="Danger" />
+<arc:Button Content="编辑" Variant="Text" />
 ```
 
 每种变体都有自己的状态。`Primary` 在悬停和按下时降低不透明度。`Secondary` 与 `Ghost` 在悬停和按下时以弱化的表面色填充。
 放在凸起表面（对话框、抽屉、底部面板、弹出框或菜单）上时，`Ghost` 改用更明显的填充，因为弱化的表面色与凸起表面几乎同色。
 `Danger` 在悬停和按下时把边框变为危险色。禁用按钮保持其形状：`Primary` 淡化到 52% 的不透明度，而描边变体切换为弱化文字与弱化表面。
 禁用的危险标签会向表面色偏移，因此仍能辨认为危险操作。
+
+`Text` 只显示内容本身。它没有填充、边框、内边距和最小高度，因此按钮的大小恰好等于其文字或图标，`Size` 对它不起作用。只有颜色会响应指针：静止时为次要文字，悬停时为前景色，按下时变暗，禁用时为弱化文字。把它用于已有自身结构的一行中的图标或简短文字，仅含图标的 `Text` 按钮需要设置 `AutomationProperties.Name`。需要更大的点击目标时，自行添加 `Padding`、`MinWidth` 或 `MinHeight`。
 
 将 `Danger` 按钮与 `Primary` 操作分开放置，中间隔一个次要按钮或留出明显的间距，避免两者被误认。
 
@@ -264,6 +268,7 @@ SaaS 账单控制台中的付款设置面板。主操作“保存更改”位于
 | `Secondary` | 带边框的表面，用于主要操作旁边的替代操作。 |
 | `Ghost` | 透明按钮，用于低强调的操作。 |
 | `Danger` | 带危险色标签的表面，用于破坏性操作。 |
+| `Text` | 只显示内容本身，没有填充、边框、内边距和最小高度。 |
 
 `Size` 使用 `ControlSize` 的值 `Small`、`Medium`（默认）和 `Large`。
 

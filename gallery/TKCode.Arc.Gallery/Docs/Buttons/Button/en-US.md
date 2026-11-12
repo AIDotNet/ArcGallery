@@ -73,12 +73,14 @@ important is this action compared with the one next to it?"
 | `Secondary` | Surface with a border | Foreground colour | The alternative beside the primary, such as Cancel or Save as draft |
 | `Ghost` | Transparent, no border | Secondary text, foreground on hover | Low-emphasis actions in cards and toolbars, such as View history |
 | `Danger` | Surface with a border | Danger colour | A destructive action, where the colour warns before the press |
+| `Text` | None: no fill, border or padding | Secondary text, foreground on hover | The content alone, such as an icon or a short label inside a row |
 
 ```xml
 <arc:Button Content="Save changes" Variant="Primary" />
 <arc:Button Content="Cancel" Variant="Secondary" />
 <arc:Button Content="Learn more" Variant="Ghost" />
 <arc:Button Content="Delete project" Variant="Danger" />
+<arc:Button Content="Edit" Variant="Text" />
 ```
 
 Each variant has its own states. `Primary` lowers its opacity on hover and press. `Secondary` and `Ghost` fill with the
@@ -86,6 +88,12 @@ muted surface on hover and press. On a raised surface (a dialog, drawer, bottom 
 stronger fill instead, because the muted surface is nearly the colour of the raised one. `Danger` turns its border to the danger colour on hover and press. Disabled buttons
 keep their shape: `Primary` fades to 52 percent opacity, while the outlined variants switch to muted text on a muted
 surface. The disabled danger label is tinted toward the surface, so it still reads as a danger action.
+
+`Text` is the content alone. It has no fill, border, padding or minimum height, so the button is exactly as large as its
+label or icon, and `Size` does not apply to it. Only the colour answers the pointer: secondary text at rest, foreground
+on hover, dimmed while pressed and muted when disabled. Use it for an icon or a short label inside a row that already
+has its own structure, and give an icon-only one `AutomationProperties.Name`. Where you need a larger target, add your
+own `Padding`, `MinWidth` or `MinHeight`.
 
 Keep a `Danger` button apart from the `Primary` action, with a secondary button or a clear gap between them, so the two
 are not mistaken for each other.
@@ -322,6 +330,7 @@ Companion types used on this page:
 | `Secondary` | A surface with a border, for the alternative next to the primary action. |
 | `Ghost` | A transparent button for low-emphasis actions. |
 | `Danger` | A surface with a danger-coloured label, for destructive actions. |
+| `Text` | The content alone, without a fill, border, padding or minimum height. |
 
 `Size` uses the `ControlSize` values `Small`, `Medium` (the default) and `Large`.
 

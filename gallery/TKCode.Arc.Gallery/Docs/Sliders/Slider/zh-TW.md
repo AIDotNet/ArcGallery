@@ -1,7 +1,7 @@
 ---
 title: 滑桿
 summary: 在軌道上選取一個值或一個範圍，跟隨指標移動。
-source-hash: e254658996f6
+source-hash: d79b02e3405f
 ---
 
 <Demo name="SingleValue" />
@@ -170,6 +170,14 @@ public partial class PriceFilterViewModel : ObservableObject
 - `LowerValue` 與 `UpperValue` 是範圍模式下要繫結的雙向屬性；`Value` 是單值模式下的雙向屬性。繫結與 `IsRange` 相符的那一組。
 - 明確繫結 `Mode=TwoWay`。檢視模型的 `MinPrice` 會在拖曳的每一步更新，這對讀數或摘要列是正確的，但對查詢則不對。應從 `ApplyAsync` 執行查詢，或從檢視程式碼後置檔中的 `ValueCommitted` 執行，這樣一次拖曳只送出一個要求。
 - 檢視中的命令是繫結到 `ApplyCommand` 的 `Button`；在滑桿把手移動時它保持可用，因此使用者可以在任何時候套用新的範圍。
+
+### 調整各部分大小
+
+`ThumbDiameter`（22 px）和 `TrackThickness`（6 px）可以調整單一滑桿的滑塊和軌道大小。主題從 `SliderToken` 填入預設值，因此樣式或控制項上設定的值會取代它。沒有 `Label` 且把 `IsValueVisible` 設為 `False` 時，標題列不再參與配置，所以單獨的滑桿只有控制列那麼高，在工具列或表格儲存格裡可以垂直置中。
+
+```xml
+<arc:Slider ThumbDiameter="16" TrackThickness="4" IsValueVisible="False" Width="240" />
+```
 
 ### 節制地使用動態效果
 

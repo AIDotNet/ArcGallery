@@ -1,7 +1,7 @@
 ---
 title: 彈出框
 summary: 錨定在觸發控制項旁的小型非強制回應面板，承載可互動內容，例如共用設定或篩選表單。
-source-hash: d1f7039507e8
+source-hash: e4aeecf8376c
 ---
 
 <Demo name="Share" />
@@ -17,7 +17,7 @@ source-hash: d1f7039507e8
 
 ## 何時不用
 
-- **懸停或聚焦時的單行標籤：** 用 `Tooltip`。彈出框由點選開啟並承載控制項；工具提示是唯讀文字，在懸停時出現。
+- **懸停或聚焦時的單行標籤：** 用 `Tooltip`。彈出框承載控制項，預設由點選開啟；工具提示是唯讀文字，在懸停時出現。
 - **人員或連結的唯讀預覽：** 用 `HoverCard`，它在懸停時開啟，且從不取得焦點。
 - **使用者繼續之前必須作出的決定：** 用 `Dialog`。點選彈出框外部會將其關閉，因此它無法承載「刪除工作區」這類確認操作。
 - **僅有指令清單：** 用 `DropdownMenu`，它為操作提供方向鍵導覽和選單語意。
@@ -51,6 +51,23 @@ source-hash: d1f7039507e8
 ```
 
 啟動觸發器會切換彈出框：點選、輕觸或以鍵盤啟動按鈕都會開啟它，同一操作會再次將其關閉。非按鈕觸發器則在按下 `Enter` 或 `Space` 時開啟彈出框。
+
+### 懸停時開啟
+
+`TriggerMode` 決定觸發器上的哪種操作會開啟面板。`Click`（預設）見上文。`Hover` 在指標在觸發器上停留 `OpenDelay`（100 ms）後開啟面板，並在指標同時離開觸發器和面板 `CloseDelay`（140 ms，足夠穿過兩者之間的間隙）後關閉，因此閱讀者可以移入面板並操作其中的內容。懸停不會取得焦點。沒有指標就沒有懸停：在觸發器上按 `Enter` 或 `Space` 會開啟面板並把焦點移入其中，觸控輕點則切換面板。`Manual` 完全忽略觸發器，請設定 `IsOpen` 或呼叫 `ShowAt`。
+
+<Demo name="Hover" />
+
+```xml
+<arc:Popover TriggerMode="Hover" OpenDelay="0:0:0.2">
+    <arc:Popover.Trigger>
+        <arc:Button Variant="Text" Content="什麼是席位？" />
+    </arc:Popover.Trigger>
+    <TextBlock Text="一個席位對應一位可以存取工作區的成員。" />
+</arc:Popover>
+```
+
+`Hover` 適合閱讀者略過也無妨的說明。承載表單的面板請保持 `Click`，因為懸停彈出框會在指標離開時關閉。需要唯讀地預覽某個人或某個連結時，請使用 `HoverCard`：它的開啟延遲更長，並且可以在卡片之間連續切換而無需再次等待。
 
 ### 附加到控制項
 
@@ -113,6 +130,27 @@ share.Closed += (_, e) => status.Text = $"已關閉：{e.Reason}";
 彈出框可以承載小型表單，例如篩選條件。開啟時頁面仍可操作。
 
 <Demo name="SmallForm" />
+
+### 只顯示內容本身
+
+`HasShadow`（預設 `True`）會在面板周圍繪製浮層陰影。若只想顯示你的內容而不要面板，請把 `HasShadow` 設為 `False`，並用樣式讓 `PopoverSurface` 背景透明、無邊框、無內距。把樣式放在包含該彈出框的控制項的 `Styles` 中，可以把影響限制在頁面的這一部分。
+
+```xml
+<StackPanel>
+    <StackPanel.Styles>
+        <Style Selector="arc|PopoverSurface">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
+    </StackPanel.Styles>
+    <arc:Button Content="Info">
+        <arc:Popover.Attach>
+            <arc:Popover HasShadow="False" Content="只顯示內容本身。" />
+        </arc:Popover.Attach>
+    </arc:Button>
+</StackPanel>
+```
 
 ### 繫結到檢視模型
 
