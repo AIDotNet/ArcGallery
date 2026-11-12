@@ -1,0 +1,7 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.ImportWizardPreviewDemo">
+    <!-- No properties set: a contact schema, a sample customer list behind "Try a sample file" and a simulated import. -->
+    <arc:ImportWizard Margin="0,12" />
+</UserControl>

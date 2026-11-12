@@ -1,0 +1,7 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.ImportWizardNarrowDemo">
+    <!-- Below 520 wide the step bar shows "Step 1 of 4" with bare marks, and the mapping rows stack. -->
+    <arc:ImportWizard Width="380" Margin="0,12" />
+</UserControl>
