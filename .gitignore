@@ -1,0 +1,33 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+.artifacts/
+artifacts/
+*.user
+*.suo
+.vs/
+.idea/
+TestResults/
+# macOS
+.DS_Store
+.vscode/*
+!.vscode/settings.json
+
+# The TKCode.Arc checkout CI and the Dockerfile build against (Directory.Build.props)
+/arc
+
+# Local work area
+.work/
+
+# Signing material: never commit certificates or keys (CI reads them from GitHub secrets)
+*.p12
+*.pfx
+*.cer
+*.key
+*.mobileprovision
+*.keychain
+*.keychain-db
+
+# Python bytecode from the tools/ scripts
+__pycache__/
+*.pyc

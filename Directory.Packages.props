@@ -1,0 +1,4 @@
+<Project>
+    <!-- The package versions are the library's: one list for both repositories. -->
+    <Import Project="$(ArcRoot)Directory.Packages.props" />
+</Project>

@@ -1,0 +1,3 @@
+<Project>
+    <Import Project="$(ArcRoot)build/Arc.Repository.targets" />
+</Project>

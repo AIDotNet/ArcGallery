@@ -1,0 +1,12 @@
+<Project>
+    <!-- The TKCode.Arc checkout the gallery builds against (https://github.com/AIDotNet/TKCode.Arc). In order: -p:ArcRoot=...,
+         the ARC_ROOT environment variable, ./arc (what CI and the Dockerfile check out), then ../AtomUI.Arc next to this repository. -->
+    <PropertyGroup>
+        <ArcRoot Condition="'$(ArcRoot)' == '' And '$(ARC_ROOT)' != ''">$(ARC_ROOT)</ArcRoot>
+        <ArcRoot Condition="'$(ArcRoot)' == '' And Exists('$(MSBuildThisFileDirectory)arc/src')">$(MSBuildThisFileDirectory)arc/</ArcRoot>
+        <ArcRoot Condition="'$(ArcRoot)' == ''">$(MSBuildThisFileDirectory)../AtomUI.Arc/</ArcRoot>
+        <ArcRoot>$([MSBuild]::EnsureTrailingSlash('$(ArcRoot)'))</ArcRoot>
+    </PropertyGroup>
+    <!-- The same defaults, versions and metadata as the library's own projects. -->
+    <Import Project="$(ArcRoot)build/Arc.Repository.props" />
+</Project>

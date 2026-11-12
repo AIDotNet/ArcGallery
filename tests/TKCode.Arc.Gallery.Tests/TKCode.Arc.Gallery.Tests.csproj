@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>$(ArcTestTargetFramework)</TargetFramework>
+        <OutputType>Exe</OutputType>
+        <IsPackable>false</IsPackable>
+        <NoWarn>$(NoWarn);CS0436</NoWarn>
+        <!-- The Lucide generator compiles in the icons the tests use (LucideIconTests) plus the declared ones below. -->
+        <ArcLucideGenerator>true</ArcLucideGenerator>
+    </PropertyGroup>
+    <ItemGroup>
+        <!-- The Docs-section XAML examples, loaded at run time (GalleryGuidesTests), and a declared-only icon (LucideIconTests). -->
+        <LucideIcon Include="Sparkles;circle-dashed" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" />
+        <PackageReference Include="xunit.v3" />
+        <PackageReference Include="xunit.runner.visualstudio" />
+        <PackageReference Include="Shouldly" />
+        <PackageReference Include="Avalonia.Headless.XUnit" />
+        <PackageReference Include="Avalonia.Markup.Xaml.Loader" />
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc/TKCode.Arc.csproj" />
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Blocks/TKCode.Arc.Blocks.csproj" />
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Mobile/TKCode.Arc.Mobile.csproj" />
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.AdvancedCharts/TKCode.Arc.AdvancedCharts.csproj" />
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Special/TKCode.Arc.Special.csproj" />
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Workflow/TKCode.Arc.Workflow.csproj" />
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Dock/TKCode.Arc.Dock.csproj" />
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Terminal/TKCode.Arc.Terminal.csproj" />
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Video/TKCode.Arc.Video.csproj" />
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Pdf/TKCode.Arc.Pdf.csproj" />
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Themes.Corners/TKCode.Arc.Themes.Corners.csproj" />
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Themes.Pixel/TKCode.Arc.Themes.Pixel.csproj" />
+        <ProjectReference Include="../../gallery/TKCode.Arc.Gallery/TKCode.Arc.Gallery.csproj" />
+        <ProjectReference Include="../../gallery/TKCode.Arc.Gallery.Llms/TKCode.Arc.Gallery.Llms.csproj" />
+        <!-- The Docs-section pages show Lucide icons in their XAML examples. -->
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Icons.Lucide/TKCode.Arc.Icons.Lucide.csproj" />
+        <!-- PropertyGrid tests use [PropertyGridModel] types: the Foundation generator registers them (no themes or tokens here). -->
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Foundation.Generators/TKCode.Arc.Foundation.Generators.csproj"
+                          OutputItemType="Analyzer" ReferenceOutputAssembly="false" PrivateAssets="all" />
+    </ItemGroup>
+    <ItemGroup>
+        <!-- RepositoryPaths finds the TKCode.Arc checkout (src/ texts) the build resolved. -->
+        <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+            <_Parameter1>ArcRoot</_Parameter1>
+            <_Parameter2>$(ArcRoot)</_Parameter2>
+        </AssemblyAttribute>
+    </ItemGroup>
+    <ItemGroup>
+        <!-- Helpers the library's own test project shares with these tests (headless window, template probes, ...). -->
+        <Compile Include="$(ArcRoot)tests/TKCode.Arc.Tests/TestHelpers.cs" Link="Shared/TestHelpers.cs" />
+        <Compile Include="$(ArcRoot)tests/TKCode.Arc.Tests/NullTemplateProbe.cs" Link="Shared/NullTemplateProbe.cs" />
+        <Compile Include="$(ArcRoot)tests/TKCode.Arc.Tests/Pdf/PdfTestSupport.cs" Link="Shared/PdfTestSupport.cs" />
+    </ItemGroup>
+</Project>

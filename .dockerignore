@@ -1,0 +1,13 @@
+**/bin
+**/obj
+**/.git
+.github
+docs
+tests
+tools
+# The TKCode.Arc checkout (./arc) is built as it is, minus its tests, tools and design notes.
+arc/design
+arc/docs
+arc/tests
+arc/tools
+!arc/tools/pdf/sync-pdfjs.sh
