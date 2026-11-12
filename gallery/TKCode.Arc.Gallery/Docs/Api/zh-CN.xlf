@@ -25,8 +25,8 @@
         <target>行的尺寸；`Large` 适合页面级常见问题。</target>
       </trans-unit>
       <trans-unit id="AccordionItem">
-        <source>One row of an `Accordion`: `Header` is the question (the whole row is the trigger) and `Content` the answer. The answer stays mounted while closed so a second click mid-flight reverses from where it is; a closed answer takes no pointer or keyboard focus.</source>
-        <target>`Accordion` 的一行：`Header` 为问题（整行即触发器），`Content` 为答案。收起时答案仍保持挂载，因此动画中途再次点击会从当前位置反向；收起的答案不接收指针或键盘焦点。</target>
+        <source>One row of an `Accordion`: `Header` is the question (the whole row is the trigger) and `Content` the answer. An answer is built when its row first opens (or at once when the list sizes to its content) and then stays mounted while closed, so a second click mid-flight reverses from where it is; a closed answer takes no pointer or keyboard focus.</source>
+        <target>`Accordion` 中的一行：`Header` 是问题（整行都是触发器），`Content` 是答案。答案在该行第一次展开时创建（列表按内容定高时则立即创建），之后收起时仍保持挂载，因此动画途中再次点击会从当前位置反向；收起的答案不接收指针或键盘焦点。</target>
       </trans-unit>
       <trans-unit id="AccordionItem.ExpandedChanged">
         <source>Raised after the row opens or closes.</source>
@@ -6832,6 +6832,10 @@
         <source>Show the whole path in the field (true), or only the selected node (false).</source>
         <target>在字段中显示完整路径（true），或只显示选中的节点（false）。</target>
       </trans-unit>
+      <trans-unit id="Cascader.Size">
+        <source>Trigger height: Small 36, Medium 44 (default), Large 50, as for the text fields.</source>
+        <target>触发器高度：Small 36、Medium 44（默认）、Large 50，与文本输入框一致。</target>
+      </trans-unit>
       <trans-unit id="Cascader.TextSelector">
         <source>Label of a node; when null, `ToString()`.</source>
         <target>节点的标签；为 null 时使用 `ToString()`。</target>
@@ -8627,6 +8631,10 @@
       <trans-unit id="Combobox.SelectedText">
         <source>Label of the selected option, or null.</source>
         <target>所选选项的标签；无选中项时为 null。</target>
+      </trans-unit>
+      <trans-unit id="Combobox.Size">
+        <source>Trigger height: Small 36, Medium 44 (default), Large 50, as for the text fields.</source>
+        <target>触发器高度：Small 36、Medium 44（默认）、Large 50，与文本输入框一致。</target>
       </trans-unit>
       <trans-unit id="Combobox.TextSelector">
         <source>Label of a data item (AOT-safe alternative to `DisplayMemberBinding`).</source>
@@ -10844,6 +10852,10 @@
         <source>Shows the row gutter with row numbers and checkboxes for checking rows.</source>
         <target>显示带行号和勾选框的序号列，用于勾选行。</target>
       </trans-unit>
+      <trans-unit id="DataGrid.IsStriped">
+        <source>Alternates the row background: every second row line, counted from the top of the shown rows (after sorting, filtering, grouping and row inserts or removals; scrolling keeps the alternation), gets a slightly different fill in the cells and the gutter. Group header rows and the totals row are not striped. Checked rows, the selection and the active cell stay on top of the stripe. Default false.</source>
+        <target>交替行背景：从显示的行顶部起算（排序、筛选、分组以及插入或删除行之后；滚动不影响交替），每隔一行在单元格和行号栏使用略有不同的填充。分组标题行和合计行不加条纹。勾选的行、选区和当前单元格显示在条纹之上。默认为 false。</target>
+      </trans-unit>
       <trans-unit id="DataGrid.ItemsSource">
         <source>Row items: `DataGridRow` objects or any objects the columns can read. `INotifyCollectionChanged` sources are followed.</source>
         <target>行对象：`DataGridRow` 或列能读取的任意对象。会跟踪 `INotifyCollectionChanged` 数据源的变化。</target>
@@ -11133,8 +11145,8 @@
         <target>对列的值的一项检查。把规则添加到 `Rules`；在键入、粘贴、填充或由渲染器设置值时运行，`ValidateAll` 会对每一行运行它们。第一条返回消息的规则生效。</target>
       </trans-unit>
       <trans-unit id="DataTableColumn">
-        <source>One column of a `Table`. The cell value comes from `ValueSelector` or `Binding` (compiled against the table's item type in XAML); sorting uses `SortValueSelector` / `SortBinding` when given, else the cell value, and `Comparer` when given, else Arc's comparison (numbers numerically, text with natural ordering, empty values last in both directions). Cells are drawn as text; `CellTemplate` hosts custom content.</source>
-        <target>`Table` 的一列。单元格值来自 `ValueSelector` 或 `Binding`（在 XAML 中针对表格的项类型编译）；排序时，若提供了 `SortValueSelector` / `SortBinding` 则使用它们，否则使用单元格值；若提供了 `Comparer` 则使用它，否则使用 Arc 的比较方式（数字按数值比较，文本按自然顺序，空值在两个方向上都排在最后）。单元格以文本绘制；`CellTemplate` 用于承载自定义内容。</target>
+        <source>One column of a `Table`. The cell value comes from `ValueSelector` or `Binding` (compiled against the table's item type in XAML); sorting uses `SortValueSelector` / `SortBinding` when given, else the cell value, and `Comparer` when given, else Arc's comparison (numbers numerically, text with natural ordering, empty values last in both directions). Cells are drawn as one line of text; `TextWrapping` lets a column span several lines (the row grows to fit) and `CellTemplate` hosts custom content.</source>
+        <target>`Table` 的一列。单元格的值来自 `ValueSelector` 或 `Binding`（在 XAML 中针对表格的条目类型编译）；排序时若提供了 `SortValueSelector` / `SortBinding` 就用它，否则用单元格的值，若提供了 `Comparer` 就用它，否则用 Arc 的比较（数字按数值，文本按自然顺序，空值在两个方向上都排最后）。单元格绘制为单行文本；`TextWrapping` 让列可以跨多行（行随之变高），`CellTemplate` 可以承载自定义内容。</target>
       </trans-unit>
       <trans-unit id="DataTableColumn.CellTemplate">
         <source>Custom cell content (Arc `render`); the data context is the row item.</source>
@@ -11156,6 +11168,10 @@
         <source>Stable id reported by `SortKey` and sort events (defaults to `SortMemberPath`, then `Header`).</source>
         <target>稳定的标识，由 `SortKey` 和排序事件报告（默认为 `SortMemberPath`，其次为 `Header`）。</target>
       </trans-unit>
+      <trans-unit id="DataTableColumn.MaxLines">
+        <source>Most lines a wrapped cell shows before it ends with an ellipsis; 0 (the default) shows every line. Applies when `TextWrapping` wraps.</source>
+        <target>换行的单元格最多显示的行数，超出时以省略号结尾；0（默认）显示全部行。仅在 `TextWrapping` 换行时生效。</target>
+      </trans-unit>
       <trans-unit id="DataTableColumn.SortMemberPath">
         <source>Name of the member the column sorts by, reported as the sort key. The sorted value itself comes from `SortBinding`, `SortValueSelector` or the cell value.</source>
         <target>该列排序所依据的成员名称，作为排序键报告。实际用于排序的值来自 `SortBinding`、`SortValueSelector` 或单元格值。</target>
@@ -11163,6 +11179,10 @@
       <trans-unit id="DataTableColumn.StringFormat">
         <source>Format for cell text: a composite format (`{0:N0} items`) or a format string (`C0`).</source>
         <target>单元格文本的格式：复合格式（`{0:N0} items`）或格式字符串（`C0`）。</target>
+      </trans-unit>
+      <trans-unit id="DataTableColumn.TextWrapping">
+        <source>`Wrap` (or `WrapWithOverflow`) breaks cell text at the column width and at line breaks, and the row grows to the tallest wrapped cell (never below the standard row height). On a column with a `CellTemplate` it lets the template's content set the row height instead of being clipped to it. The default, `NoWrap`, keeps one line with an ellipsis and the uniform row height.</source>
+        <target>`Wrap`（或 `WrapWithOverflow`）在列宽和换行符处断开单元格文本，行高随最高的换行单元格增长（不低于标准行高）。在带 `CellTemplate` 的列上，它让模板内容决定行高，而不是被裁剪到行高。默认值 `NoWrap` 保持单行加省略号以及统一的行高。</target>
       </trans-unit>
       <trans-unit id="DataTableColumn.Width">
         <source>Pixel widths are fixed; Auto columns are measured once and held so sorting never reflows them; star columns share the rest.</source>
@@ -12237,8 +12257,40 @@
         <target>透镜在最强处（向外三分之一处）把点推开的距离，单位 px。</target>
       </trans-unit>
       <trans-unit id="Drawer">
-        <source>A temporary side surface for focused work that keeps the page in context: filters, settings, record details, forms too long for a dialog. Declare it anywhere; while `IsOpen` its panel springs in from `Side` above a lightly blurred scrim. The header is a drag handle: it follows the pointer toward the edge and rubber-bands the other way; past a third of the panel, or on a flick toward the edge faster than 500px/s, the drawer closes and keeps the flick's velocity; otherwise it springs back. A click, Escape or the scrim closes it with a quicker tween. The close button is always there; under reduced motion dragging is off and the panel only fades.</source>
-        <target>用于聚焦工作的临时侧边表面，可让页面保持上下文：筛选器、设置、记录详情、过长而不适合对话框的表单等。可在任意位置声明；当 `IsOpen` 为 true 时，其面板会从 `Side` 方向以弹簧弹入，并位于轻微模糊的遮罩之上。标题栏是拖动手柄：它跟随指针向边缘移动，向另一方向则产生橡皮筋回弹；超过面板的三分之一，或以快于 500px/s 的速度朝边缘轻扫时，抽屉会关闭并保留轻扫的速度；否则会弹回。点击、Escape 或遮罩会以较快的补间动画关闭它。关闭按钮始终存在；在减少动效模式下，拖动功能关闭，面板只淡入淡出。</target>
+        <source>A temporary side surface for focused work that keeps the page in context: filters, settings, record details, forms too long for a dialog. Declare it anywhere; while `IsOpen` its panel springs in from `Side` above a lightly blurred scrim. The header is a drag handle: it follows the pointer toward the edge and rubber-bands the other way; past a third of the panel, or on a flick toward the edge faster than 500px/s, the drawer closes and keeps the flick's velocity; otherwise it springs back. A click, Escape or the scrim closes it with a quicker tween. The close button is there unless `ShowCloseButton` or `ShowHeader` is off; under reduced motion dragging is off and the panel only fades.</source>
+        <target>一个临时的侧边表面，用于在保留页面上下文的同时专注处理事务：筛选、设置、记录详情、对对话框来说过长的表单。可以在任何位置声明；`IsOpen` 时面板从 `Side` 一侧以弹簧滑入，下方是轻度模糊的遮罩。标题栏是拖动手柄：朝边缘拖动时跟随指针，反方向则有橡皮筋阻尼；拖过面板的三分之一，或以超过 500px/s 的速度朝边缘轻扫，抽屉就会关闭并保留轻扫的速度；否则弹回原位。点击、Escape 或遮罩会以更快的补间关闭它。除非关闭了 `ShowCloseButton` 或 `ShowHeader`，否则会显示关闭按钮；减少动态效果时不能拖动，面板只淡入淡出。</target>
+      </trans-unit>
+      <trans-unit id="Drawer.HeaderContent">
+        <source>Content that replaces the default title row of the header.</source>
+        <target>替换标题栏默认标题行的内容。</target>
+      </trans-unit>
+      <trans-unit id="Drawer.IsFullScreen">
+        <source>Fills the viewport along the panel's axis, without corner radius or hairline.</source>
+        <target>沿面板的轴向铺满视口，不带圆角和细边线。</target>
+      </trans-unit>
+      <trans-unit id="Drawer.PanelCornerRadius">
+        <source>Corner radius of the panel; null (default) follows the theme.</source>
+        <target>面板的圆角；null（默认）跟随主题。</target>
+      </trans-unit>
+      <trans-unit id="Drawer.PanelHeight">
+        <source>Fixed height of top and bottom panels; null sizes to the content.</source>
+        <target>顶部和底部面板的固定高度；null 时按内容定高。</target>
+      </trans-unit>
+      <trans-unit id="Drawer.PanelMaxHeight">
+        <source>Maximum height of top and bottom panels; null follows the theme (32rem).</source>
+        <target>顶部和底部面板的最大高度；null 时跟随主题（32rem）。</target>
+      </trans-unit>
+      <trans-unit id="Drawer.PanelSize">
+        <source>Width of left and right panels; null follows the theme (30rem).</source>
+        <target>左侧和右侧面板的宽度；null 时跟随主题（30rem）。</target>
+      </trans-unit>
+      <trans-unit id="Drawer.ShowGrabber">
+        <source>Shows the grabber bar; null (default) shows it on bottom drawers only.</source>
+        <target>显示抓手条；null（默认）只在底部抽屉上显示。</target>
+      </trans-unit>
+      <trans-unit id="Drawer.ShowHeader">
+        <source>False hides the whole header; write your own at the top of the content.</source>
+        <target>False 隐藏整个标题栏；请在内容顶部自行编写标题。</target>
       </trans-unit>
       <trans-unit id="Drawer.Side">
         <source>Edge the panel is anchored to (default Right).</source>
@@ -23023,6 +23075,10 @@
       <trans-unit id="MultiSelect.SelectedValues">
         <source>Defines the `SelectedValues` property.</source>
         <target>定义 `SelectedValues` 属性。</target>
+      </trans-unit>
+      <trans-unit id="MultiSelect.Size">
+        <source>Trigger height: Small 36, Medium 44 (default), Large 50, as for the text fields.</source>
+        <target>触发器高度：Small 36、Medium 44（默认）、Large 50，与文本输入框一致。</target>
       </trans-unit>
       <trans-unit id="MultiSelect.TextSelector">
         <source>Returns the display text for an option.</source>
@@ -34904,6 +34960,10 @@
         <source>When true a third click on a sorted header clears the sort (Arc toggles between ascending and descending).</source>
         <target>为 true 时，对已排序的表头第三次点击会清除排序（Arc 中仅在升序和降序之间切换）。</target>
       </trans-unit>
+      <trans-unit id="Table.IsStriped">
+        <source>Alternates the row background: every second row, counted by its place in the shown order (after sorting; scrolling, inserts and removals keep the alternation), gets a slightly different fill. Hover and selection stay on top of the stripe. Default false.</source>
+        <target>交替行背景：按行在显示顺序中的位置计数（排序之后；滚动、插入和删除不影响交替），每隔一行使用略有不同的填充。悬停和选中显示在条纹之上。默认为 false。</target>
+      </trans-unit>
       <trans-unit id="Table.ItemNameOne">
         <source>Singular noun of the count line, as in "1 project".</source>
         <target>计数行中的单数名词，如“1 个项目”。</target>
@@ -37572,6 +37632,10 @@
         <source>In single mode, show the whole path in the field (true) or only the selected node (false).</source>
         <target>单选模式下，在字段中显示完整路径（true）或只显示选中的节点（false）。</target>
       </trans-unit>
+      <trans-unit id="TreeSelect.Size">
+        <source>Trigger height: Small 36, Medium 44 (default), Large 50, as for the text fields.</source>
+        <target>触发器高度：Small 36、Medium 44（默认）、Large 50，与文本输入框一致。</target>
+      </trans-unit>
       <trans-unit id="TreeSelect.TextSelector">
         <source>Label of a node; when null, `ToString()`. Searching matches this text.</source>
         <target>节点的标签；为 null 时使用 `ToString()`。搜索匹配的就是这段文字。</target>
@@ -37627,6 +37691,10 @@
       <trans-unit id="TreeTable.IsSelectable">
         <source>Adds a checkbox column. Checking a parent checks everything under it (Arc `selectable`).</source>
         <target>添加一个复选框列。勾选父行会勾选其下的所有内容（Arc 的 `selectable`）。</target>
+      </trans-unit>
+      <trans-unit id="TreeTable.IsStriped">
+        <source>Alternates the row background: every second visible row, counted from the top of what is shown (so expanding, collapsing, sorting and loading children keep the alternation; tree depth plays no part), gets a slightly different fill. The loading and retry lines of a parent that is still fetching are not striped and not counted. Hover, keyboard focus and selection stay on top of the stripe. Default false.</source>
+        <target>交替行背景：从显示内容的顶部起，每隔一个可见行使用略有不同的填充（因此展开、收起、排序和加载子项都不影响交替；树的层级不参与计算）。仍在加载的父项的加载行和重试行不加条纹，也不计数。悬停、键盘焦点和选中显示在条纹之上。默认为 false。</target>
       </trans-unit>
       <trans-unit id="TreeTable.ItemsSource">
         <source>The top-level rows.</source>

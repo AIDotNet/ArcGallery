@@ -1,6 +1,6 @@
 ---
 title: 更新日志
-source-hash: d98231ccb287
+source-hash: 48fec083ca53
 ---
 
 # 更新日志
@@ -9,12 +9,33 @@ TKCode.Arc 的所有重要变更，最新的在前。版本遵循[语义化版�
 
 每次发布附带的 NuGet 包：`TKCode.Arc`、`TKCode.Arc.Core`、`TKCode.Arc.Foundation`（0.3.2 起）、`TKCode.Arc.Fonts` `TKCode.Arc.Icons.Lucide`、`TKCode.Arc.Blocks`、`TKCode.Arc.AdvancedCharts` 、`TKCode.Arc.Special`、`TKCode.Arc.Workflow`、`TKCode.Arc.Dock`（0.4.0-preview.2 起）、`TKCode.Arc.Themes.Pixel`、`TKCode.Arc.Themes.Corners`、`TKCode.Arc.Mobile`、`TKCode.Arc.Terminal`、`TKCode.Arc.Audio`、`TKCode.Arc.Audio.Native`、`TKCode.Arc.Audio.Browser`、`TKCode.Arc.Templates`（0.4.0-preview.6 起）、`TKCode.Arc.Pdf`、`TKCode.Arc.Pdf.Native` 和 `TKCode.Arc.Pdf.Browser`（1.0.0 起），`TKCode.Arc.Video`、`TKCode.Arc.Video.Native` 和 `TKCode.Arc.Video.Browser`（1.1.0-preview.1 起）。
 
-## 1.1.0-preview.5（2026-11-12）
+## 1.1.0-preview.6（2026-11-13）
 
-`TKCode.Arc.Special` 的“停靠与标签页”分组被重建（`OrbitMenu`、`LiquidTabBar`、`ShareSheet`、`ActionMorph` 和 `MorphNav` 的 API 有变化，迁移说明见下文；`ToolDock` 是新增的），`AvatarUpload` 移入编辑器分组，应用反馈（#107–#112）带来了 `WindowCaptionButtons`、设置页选项、内容与媒体令牌，以及 `WaterfallPanel` 和 `TilePanel` 的自动尺寸。相对 1.1.0-preview.4 的破坏性变更仅出现在这五个 Special 控件中。安装时使用 `--version 1.1.0-preview.5`（或 `--prerelease`）。
+自 1.1.0-preview.4 以来的第一个已发布版本。1.1.0-preview.5 已准备好但从未推送到 NuGet，因此本版本也包含下面 1.1.0-preview.5 列出的全部内容。本版本的新内容：`ImportWizard` 区块（四步 CSV 导入，包括列匹配、行内修复和分批导入）、`Combobox`、`MultiSelect`、`TreeSelect` 和 `Cascader` 上的 `Size`、悬停弹出框与 `ButtonVariant.Text`、可调尺寸的滑块手柄和轨道，以及没有标题行的滑块。图库和文档站点现在位于它们自己的仓库 [AIDotNet/ArcGallery](https://github.com/AIDotNet/ArcGallery) 中。相对 1.1.0-preview.5 没有破坏性变更。安装时使用 `--version 1.1.0-preview.6`（或 `--prerelease`）。
 
 ### 新增
 
+- **`ImportWizard`**（`TKCode.Arc.Blocks`，Blocks › Developer）：集中在一张卡片中的四步 CSV 导入。拖入或选择文件并预览，将其列与你的字段匹配（每个猜测都带置信度），修复或清理有问题的单元格（计数同时递减），然后分批导入有效行并阅读汇总。字段以 `ImportTarget` 描述（表头名称、同义词、验证器、安全修复、值嗅探器），通过 `ImportBatchAction` 发送批次并读取 `Completed`；没有动作时导入为模拟。它以 Arc 的 Pro 导入向导为设计参考构建（ADR 0045），代码、文案和示例数据均为我们自己的。
+- **`Popover.TriggerMode`、`OpenDelay`、`CloseDelay` 和 `HasShadow`**（[#101](https://github.com/AIDotNet/TKCode.Arc/issues/101)）：`TriggerMode="Hover"` 在指针于触发器上停留 `OpenDelay`（100 ms）后打开弹出框，并在指针离开触发器和弹出框达 `CloseDelay`（140 ms）后关闭。悬停不会获取焦点；触发器上的 `Enter` / `Space` 为键盘打开弹出框并把焦点移入，触摸轻点则切换开关。`Manual` 忽略触发器（`IsOpen` / `ShowAt`）。`HasShadow="False"` 去掉弹出层的浮动阴影；此前当 `PopoverSurface` 被样式设为透明时，该阴影仍会在其周围可见。默认值（`Click`，阴影开启）不变。新增枚举 `PopoverTriggerMode`。
+- **`ButtonVariant.Text`**（[#101](https://github.com/AIDotNet/TKCode.Arc/issues/101)）：只包含内容的按钮，没有填充、边框、内边距或最小高度（`Size` 不适用）。静止时为次要文字色，悬停时为前景色，按下时变暗，禁用时变淡。用于仅图标或仅文字的操作，此时 `Ghost` 仍会增加悬停填充和内边距。
+- **`Slider`、`ElasticSlider` 和 `RangeHistogramSlider` 上的 `ThumbDiameter` 与 `TrackThickness`**（[#101](https://github.com/AIDotNet/TKCode.Arc/issues/101)）：可以通过控件或样式设置单个滑块的手柄和轨道尺寸。主题仍从控件的令牌填充默认值；此前该值作为本地值设在模板的导轨上，任何样式都无法覆盖。
+- **`Combobox`、`MultiSelect`、`TreeSelect` 和 `Cascader` 上的 `Size`**（[#115](https://github.com/AIDotNet/TKCode.Arc/issues/115)）：与 `Select`、`Input` 和 `DatePicker` 相同的 `ControlSize`（Small 36、Medium 44 为默认值、Large 50）。它们的触发器高度原先固定为 44，因此一排设置了 `Height="36"` 的字段会溢出其槽位，文字比相邻的 `TextBlock` 低约 4px。要获得 36px 的行，请使用 `Size="Small"` 而不是 `Height`。现有布局不变（默认仍为 Medium）。
+
+### 变更
+
+- **图库迁移到 [AIDotNet/ArcGallery](https://github.com/AIDotNet/ArcGallery)**：文档站点、演示、截图、桌面和浏览器宿主、`tools/docshots` 以及通过演示进行的测试都已离开本仓库。包本身不变。图库基于紧邻其旁的本仓库检出构建（`ArcRoot`），其发布版本带有相同的版本标签。
+
+### 修复
+
+- **没有标签也没有读数的 `Slider` 不再保留标题行**（[#101](https://github.com/AIDotNet/TKCode.Arc/issues/101)）：当 `IsValueVisible="False"` 且没有 `Label` 时，空的标题仍会在控件行上方占用其行高，使滑块偏离工具栏或表格单元格的垂直中心。现在该行退出布局（`:headerless`），滑块与其控件行一样高。
+
+## 1.1.0-preview.5（2026-11-12）
+
+`TKCode.Arc.Special` 的“停靠与标签页”分组被重建（`OrbitMenu`、`LiquidTabBar`、`ShareSheet`、`ActionMorph` 和 `MorphNav` 的 API 有变化，迁移说明见下文；`ToolDock` 是新增的），`AvatarUpload` 移入编辑器分组，应用反馈（#107–#112）带来了 `WindowCaptionButtons`、设置页选项、内容与媒体令牌，以及 `WaterfallPanel` 和 `TilePanel` 的自动尺寸。相对 1.1.0-preview.4 的破坏性变更仅出现在这五个 Special 控件中。该版本没有发布到 NuGet，其中的变更首次随 1.1.0-preview.6 发布。
+
+### 新增
+
+- **`Drawer` 全屏、自定义标题、抓手与尺寸**（[#116](https://github.com/AIDotNet/TKCode.Arc/issues/116)）：`IsFullScreen` 沿面板的轴向铺满窗口，并去掉圆角、细边线和间距；`ShowHeader` 隐藏整个标题栏，`HeaderContent` 用你自己的内容替换标题行；`ShowGrabber` 显示或隐藏抓手（默认 `null`：仅底部抽屉）；`PanelCornerRadius` 覆盖主题圆角（`0` 为直角）；`PanelSize`、`PanelMaxHeight` 和 `PanelHeight` 直接在抽屉上设置尺寸。默认值不变。标题栏被隐藏或替换后，默认的关闭按钮也会消失，因此请为用户提供另一种关闭方式。
 - **`WaterfallPanel` 和 `TilePanel` 自行排布同一模板的条目**（[#112](https://github.com/AIDotNet/TKCode.Arc/issues/112)，源自 [#86](https://github.com/AIDotNet/TKCode.Arc/issues/86)）：`WaterfallPanel.ItemSizing="Varied"` 让每个子项获得一个高度（以行数计的宽度），范围在 `MinItemSize` 与 `MaxItemSize` 之间，而不是测量其内容，因此用同一模板生成的卡片仍能组成瀑布墙；未设置的边界跟随列宽。`TilePanel.IsAutoSpan` 让未设置跨度的子项取 1×1、1×2、2×1 或 2×2，放在第一个空格并使较大的瓦片保持分开；设置 `IsAutoFill` 和 `Rows` 时，自动瓦片会铺满整个 `Columns` × `Rows` 网格。两个面板的尺寸都由子项的索引和新属性 `Seed` 决定，布局时从不使用随机值：相同的条目、种子和网格总得到相同的结果，调整大小也不会重新打乱。默认值（`Content` 尺寸、关闭自动跨度）保持现有布局不变。
 - **`InlineEdit.ReserveActionSpace`**（[#110](https://github.com/AIDotNet/TKCode.Arc/issues/110)）：`False` 去掉单行在文本后为保存和取消按钮保留的 66 px，使输入框紧贴文本，标签或徽章可以跟在名称后面。静止时框外不绘制任何东西（没有铅笔提示、保存中的旋转指示或结果标记）；编辑时按钮覆盖其后的内容，控件绘制在同一面板中其后面兄弟的上方。编辑时不会再恢复这段保留空间，因此按钮出现时文本和标签都不会跳动。多行输入框保留 38 px。默认值（`True`）不变。
 - **内容宽度与媒体令牌**（[#110](https://github.com/AIDotNet/TKCode.Arc/issues/110)）：`ContentMaxWidthSM` / `MD` / `LG` / `XL`（640 / 760 / 880 / 1120）限制页面的内容栏（阅读栏或单个表单、设置页、文档页、全宽分区），`MediaSizeSM` / `MD` / `LG` / `XL`（64 / 128 / 192 / 256）设置方形媒体的尺寸（行内缩略图、卡片预览、二维码或封面图、大图预览）。用法为 `{arc:ArcDesignTokenResource ContentMaxWidthMD}`，覆盖方式与其他 ArcDesign 令牌相同。它们追加在 `ArcDesignTokenKind` 末尾，因此现有成员的编号不变。

@@ -1,6 +1,6 @@
 ---
 title: 更新日誌
-source-hash: d98231ccb287
+source-hash: 48fec083ca53
 ---
 
 # 更新日誌
@@ -9,12 +9,33 @@ TKCode.Arc 的所有重要變更，最新的在前。版本遵循[語意化版�
 
 每次發行附帶的 NuGet 套件：`TKCode.Arc`、`TKCode.Arc.Core`、`TKCode.Arc.Foundation`（0.3.2 起）、`TKCode.Arc.Fonts` 、`TKCode.Arc.Icons.Lucide`、`TKCode.Arc.Blocks`、`TKCode.Arc.AdvancedCharts` 、`TKCode.Arc.Special`、`TKCode.Arc.Workflow`、`TKCode.Arc.Dock`（0.4.0-preview.2 起）、`TKCode.Arc.Themes.Pixel`、`TKCode.Arc.Themes.Corners`、`TKCode.Arc.Mobile`、`TKCode.Arc.Terminal`、`TKCode.Arc.Audio`、`TKCode.Arc.Audio.Native`、`TKCode.Arc.Audio.Browser`、`TKCode.Arc.Templates`（0.4.0-preview.6 起）、`TKCode.Arc.Pdf`、`TKCode.Arc.Pdf.Native` 和 `TKCode.Arc.Pdf.Browser`（1.0.0 起），`TKCode.Arc.Video`、`TKCode.Arc.Video.Native` 和 `TKCode.Arc.Video.Browser`（1.1.0-preview.1 起）。
 
-## 1.1.0-preview.5（2026-11-12）
+## 1.1.0-preview.6（2026-11-13）
 
-`TKCode.Arc.Special` 的 Docks and tabs 群組重新建構（`OrbitMenu`、`LiquidTabBar`、`ShareSheet`、`ActionMorph` 與 `MorphNav` 的 API 會變更，遷移方式見下文；`ToolDock` 為新增），`AvatarUpload` 移至 Editors 群組，來自應用程式的回饋（#107–#112）新增 `WindowCaptionButtons`、設定頁選項、內容與媒體權杖，並為 `WaterfallPanel` 與 `TilePanel` 加入自動尺寸。從 1.1.0-preview.4 起的破壞性變更僅限於這五個 Special 控制項。安裝時使用 `--version 1.1.0-preview.5`（或 `--prerelease`）。
+這是自 1.1.0-preview.4 以來第一個發布的版本。1.1.0-preview.5 已準備好但從未推送到 NuGet，因此本版本也包含下方 1.1.0-preview.5 列出的所有內容。本版新增：`ImportWizard` 區塊（四步驟的 CSV 匯入，包含欄位比對、列內修正與分批匯入）、`Combobox`、`MultiSelect`、`TreeSelect` 與 `Cascader` 的 `Size`、懸停彈出視窗與 `ButtonVariant.Text`、可調整大小的滑桿把手與軌道，以及不含標題列的滑桿。圖庫與文件網站現在位於其專屬儲存庫 [AIDotNet/ArcGallery](https://github.com/AIDotNet/ArcGallery)。相對於 1.1.0-preview.5 沒有破壞性變更。安裝時使用 `--version 1.1.0-preview.6`（或 `--prerelease`）。
 
 ### 新增
 
+- **`ImportWizard`**（`TKCode.Arc.Blocks`，Blocks › Developer）：單一卡片中的四步驟 CSV 匯入。拖曳或選擇檔案並預覽，將其欄位比對到你的欄位（每個猜測都附信心度），修正或清理有問題的儲存格（計數會同步遞減），接著分批匯入正常的列並閱讀摘要。欄位以 `ImportTarget` 描述（標題名稱、同義詞、驗證器、安全修正、值辨識器），以 `ImportBatchAction` 傳送批次並讀取 `Completed`；沒有動作時匯入為模擬執行。本元件以 Arc 的 Pro 匯入精靈作為設計參考建構（ADR 0045），程式碼、文案與範例資料皆為自行撰寫。
+- **`Popover.TriggerMode`、`OpenDelay`、`CloseDelay` 與 `HasShadow`**（[#101](https://github.com/AIDotNet/TKCode.Arc/issues/101)）：`TriggerMode="Hover"` 會在指標停留於觸發器 `OpenDelay`（100 ms）後開啟面板，並在指標離開觸發器與面板達 `CloseDelay`（140 ms）後關閉。懸停不會取得焦點；在觸發器上按下 `Enter` / `Space` 會為鍵盤開啟並將焦點移入，觸控點按則切換開關。`Manual` 會忽略觸發器（`IsOpen` / `ShowAt`）。`HasShadow="False"` 會移除彈出視窗的浮動陰影，此陰影先前會在樣式將 `PopoverSurface` 設為透明後仍然可見。預設值（`Click`、開啟陰影）不變。新增列舉 `PopoverTriggerMode`。
+- **`ButtonVariant.Text`**（[#101](https://github.com/AIDotNet/TKCode.Arc/issues/101)）：僅由內容組成的按鈕，沒有填色、邊框、內距或最小高度（`Size` 不適用）。靜止時為次要文字，懸停時為前景色，按下時變暗，停用時轉為淡色。適用於僅有圖示或僅有文字的操作，此時 `Ghost` 仍會加上懸停填色與內距。
+- **`Slider`、`ElasticSlider` 與 `RangeHistogramSlider` 上的 `ThumbDiameter` 與 `TrackThickness`**（[#101](https://github.com/AIDotNet/TKCode.Arc/issues/101)）：可從控制項或樣式設定單一滑桿的把手與軌道尺寸。主題仍以控制項的權杖填入預設值；先前此值以區域值設在範本的軌道上，樣式無法覆寫。
+- **`Combobox`、`MultiSelect`、`TreeSelect` 與 `Cascader` 的 `Size`**（[#115](https://github.com/AIDotNet/TKCode.Arc/issues/115)）：與 `Select`、`Input` 和 `DatePicker` 相同的 `ControlSize`（Small 36、預設 Medium 44、Large 50）。它們的觸發器高度先前固定為 44，因此一列設為 `Height="36"` 的欄位會溢出其配置空間，且文字比相鄰的 `TextBlock` 低約 4 px。需要 36 px 的列時請改用 `Size="Small"`，不要用 `Height`。既有版面不變（預設仍為 Medium）。
+
+### 變更
+
+- **圖庫已移至 [AIDotNet/ArcGallery](https://github.com/AIDotNet/ArcGallery)**：文件網站、示範、截圖、桌面與瀏覽器主機、`tools/docshots`，以及透過示範執行的測試都已離開本儲存庫。套件不變。圖庫會建置於旁邊的本儲存庫檢出之上（`ArcRoot`），且其發行版本帶有相同的版本標籤。
+
+### 修復
+
+- **不含標籤與讀數的 `Slider` 不再保留其標題列**（[#101](https://github.com/AIDotNet/TKCode.Arc/issues/101)）：當 `IsValueVisible="False"` 且沒有 `Label` 時，空的標題仍會佔用其上方控制列的行高，使滑桿偏離工具列或表格儲存格的垂直中心。現在該列會離開版面（`:headerless`），滑桿高度與其控制列相同。
+
+## 1.1.0-preview.5（2026-11-12）
+
+`TKCode.Arc.Special` 的 Docks and tabs 群組重新建構（`OrbitMenu`、`LiquidTabBar`、`ShareSheet`、`ActionMorph` 與 `MorphNav` 的 API 會變更，遷移方式見下文；`ToolDock` 為新增），`AvatarUpload` 移至 Editors 群組，來自應用程式的回饋（#107–#112）新增 `WindowCaptionButtons`、設定頁選項、內容與媒體權杖，並為 `WaterfallPanel` 與 `TilePanel` 加入自動尺寸。從 1.1.0-preview.4 起的破壞性變更僅限於這五個 Special 控制項。此版本沒有發布到 NuGet，其中的變更首次隨 1.1.0-preview.6 發布。
+
+### 新增
+
+- **`Drawer` 全螢幕、自訂標題、拖曳把手與尺寸**（[#116](https://github.com/AIDotNet/TKCode.Arc/issues/116)）：`IsFullScreen` 會沿面板的軸向填滿視窗，並移除圓角、細線與間距；`ShowHeader` 會隱藏整個標題列，`HeaderContent` 則以你自己的內容取代標題列；`ShowGrabber` 顯示或隱藏拖曳把手（預設 `null`：僅底部抽屜）；`PanelCornerRadius` 覆寫主題圓角（`0` 為直角）；`PanelSize`、`PanelMaxHeight` 與 `PanelHeight` 直接在抽屜本身設定尺寸。預設值不變。標題列隱藏或被取代時，預設的關閉按鈕也會一併消失，因此請提供其他關閉方式。
 - **`WaterfallPanel` 與 `TilePanel` 自行排列同一範本的項目**（[#112](https://github.com/AIDotNet/TKCode.Arc/issues/112)，源自 [#86](https://github.com/AIDotNet/TKCode.Arc/issues/86)）：`WaterfallPanel.ItemSizing="Varied"` 會為每個子項目指定高度（以列數計的寬度），介於 `MinItemSize` 與 `MaxItemSize` 之間，而不是量測其內容，因此由同一範本建立的卡片仍能組成瀑布流牆；未設定的上下限跟隨欄寬。`TilePanel.IsAutoSpan` 會讓沒有設定跨度的子項目取得 1×1、1×2、2×1 或 2×2，放在第一個空格並讓較大的磚塊彼此分開；同時設定 `IsAutoFill` 與 `Rows` 時，自動磚塊會調整大小以覆蓋整個 `Columns` × `Rows` 格線。兩個面板都依子項目的索引與新的 `Seed` 屬性決定尺寸，配置版面時絕不使用隨機值：相同的項目、種子值與格線永遠得到相同結果，調整大小也不會重新洗牌。預設值（`Content` 尺寸與關閉的自動跨度）保留現有版面。
 - **`InlineEdit.ReserveActionSpace`**（[#110](https://github.com/AIDotNet/TKCode.Arc/issues/110)）：`False` 會取消單行在文字後保留的 66 px，供儲存與取消按鈕使用，因此方塊貼合文字，標籤或徽章可以接在名稱後面。靜止時框外不繪製任何東西（沒有鉛筆提示、儲存中的旋轉指示或結果標記）；編輯時按鈕覆蓋其後的內容，且控制項會繪製在同一面板中較後面的兄弟之上。編輯時保留區不會回來，因此按鈕出現時文字與標籤都不會跳動。多行欄位仍保留其 38 px。預設值（`True`）不變。
 - **內容寬度與媒體權杖**（[#110](https://github.com/AIDotNet/TKCode.Arc/issues/110)）：`ContentMaxWidthSM` / `MD` / `LG` / `XL`（640 / 760 / 880 / 1120）限制頁面的內容欄寬（閱讀欄或單一表單、設定頁、文件頁、全寬區段），`MediaSizeSM` / `MD` / `LG` / `XL`（64 / 128 / 192 / 256）設定正方形媒體的大小（列中的縮圖、卡片預覽、QR code 或封面圖、大型圖片預覽）。以 `{arc:ArcDesignTokenResource ContentMaxWidthMD}` 使用，並可像任何 ArcDesign 權杖 一樣覆寫。兩者都附加在 `ArcDesignTokenKind` 之後，因此既有成員的數值不變。
