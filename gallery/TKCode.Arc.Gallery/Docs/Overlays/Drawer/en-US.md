@@ -68,9 +68,9 @@ where the panel for filters or details will open.
    1 px border under it. The title uses the large type size at medium weight; the description uses the small type
    size in the secondary text color, 8 px under the title and at most 512 px wide.
 2. **Close button** (`ShowCloseButton`, `CloseButtonName`): a 32 px button with the control radius and a 1 px border,
-   aligned to the title's first line. Its fill is the muted surface color at 65% opacity. It is always present and
+   aligned to the title's first line. Its fill is the muted surface color at 65% opacity. It is present unless `ShowCloseButton` or `ShowHeader` is off, or `HeaderContent` replaces the header, and
    is named "Close drawer" by default.
-3. **Grabber**: shown only on a `Bottom` drawer. It is a 36 × 4 px pill in the border-strong color at 75% opacity,
+3. **Grabber** (`ShowGrabber`): shown on a `Bottom` drawer by default; set `ShowGrabber` to show or hide it on any side. It is a 36 × 4 px pill in the border-strong color at 75% opacity,
    9 px below the top of the header.
 4. **Body** (`Content`): 24 px padding (20 px when narrow). The body scrolls while the header stays in place.
 5. **Actions** (`Actions`): right aligned, 24 px below the body. It is hidden when `Actions` is null.
@@ -83,6 +83,40 @@ where the panel for filters or details will open.
 
 A window narrower than 40 rem (640 px) makes the panel narrow: it takes almost the full width, and its corners and
 padding tighten.
+
+### Size, full screen and custom chrome
+
+Everything the drawer draws around its content can be switched off or replaced, and every default stays as it is until you set one.
+
+- `PanelSize` sets the width of a `Left` or `Right` drawer; `PanelHeight` fixes the height of a `Top` or `Bottom` drawer (without it the panel fits its content, up to `PanelMaxHeight`). Leave them `null` to follow the theme.
+- `IsFullScreen` fills the window along the panel's axis: the whole width for a side drawer, the whole height for a top or bottom drawer. The corner radius, the hairline and the gutter are dropped.
+- `PanelCornerRadius` overrides the theme's corner radius (`0` gives square corners); `null` follows the theme again.
+- `ShowHeader="False"` hides the whole header, close button included; write your own header at the top of the content. `HeaderContent` replaces only the title row of the header with your own content (the default title, description and close button are not shown then). The top area (header or grabber) stays the drag handle either way.
+- `ShowGrabber` shows or hides the grabber. Its default, `null`, shows it on `Bottom` drawers only.
+
+When you hide or replace the header, give the person a way out: a button with `arc:Dialog.Result` closes the drawer, and Escape and the scrim keep working.
+
+<Demo name="Custom" />
+
+```xml
+<!-- Full screen, your own header, no grabber -->
+<arc:Drawer Side="Bottom" IsFullScreen="True" ShowHeader="False" ShowGrabber="False" IsOpen="{Binding ShowPlayer}">
+    <DockPanel>
+        <arc:Button DockPanel.Dock="Left" Content="Back" arc:Dialog.Result="{x:False}" />
+        <TextBlock Text="Now playing" HorizontalAlignment="Center" />
+    </DockPanel>
+</arc:Drawer>
+
+<!-- Fixed height and square corners -->
+<arc:Drawer Title="Queue" Side="Bottom" PanelHeight="220" PanelCornerRadius="0" IsOpen="{Binding ShowQueue}" />
+
+<!-- Replace only the title row of the header -->
+<arc:Drawer Side="Right" PanelSize="360">
+    <arc:Drawer.HeaderContent>
+        <TextBlock Text="Playlist" Margin="24" />
+    </arc:Drawer.HeaderContent>
+</arc:Drawer>
+```
 
 ### Long content
 
@@ -304,8 +338,8 @@ default is `Right`.
 
 - The panel takes its name from `Title` and its help text from `Description`.
 - Focus moves into the drawer when it opens, Tab and Shift+Tab stay inside it, and focus returns to the opener on close.
-- Escape closes the drawer when `CloseOnEscape` is true. The close button is always present and is named "Close drawer"
-  by default; change it with `CloseButtonName`.
+- Escape closes the drawer when `CloseOnEscape` is true. The close button is named "Close drawer"
+  by default (change it with `CloseButtonName`); when you hide the header, provide your own way to close.
 - Dragging is optional. Under reduced motion it is off, so closing never depends on a gesture.
 
 ### Keyboard

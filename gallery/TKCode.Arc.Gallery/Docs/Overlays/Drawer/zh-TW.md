@@ -1,7 +1,7 @@
 ---
 title: 抽屜
 summary: 從視窗邊緣滑入的強制回應面板，用於圍繞目前檢視的專注工作，例如篩選或查看一筆記錄。
-source-hash: 3193854a7a8c
+source-hash: 6a337c4fb375
 ---
 
 <Demo name="Sides" />
@@ -49,14 +49,48 @@ source-hash: 3193854a7a8c
 ### 結構
 
 1. **頁首**（`Title`、`Description`）：頁首就是拖曳把手。它的內距為 24 px（窄視窗時為 20 px），下方有 1 px 邊框。標題使用大字級與中等字重；描述使用小字級與次要文字顏色，位於標題下方 8 px，最寬 512 px。
-2. **關閉按鈕**（`ShowCloseButton`、`CloseButtonName`）：32 px 的按鈕，使用控制項圓角與 1 px 邊框，與標題的第一行對齊。它的填色為淡化的表面色，不透明度 65%。它始終存在，預設名稱為「關閉抽屜」。
-3. **把手**：僅在 `Bottom` 抽屜上顯示。它是 36 × 4 px 的膠囊形，使用強邊框色，不透明度 75%，位於頁首頂部下方 9 px。
+2. **關閉按鈕**（`ShowCloseButton`、`CloseButtonName`）：32 px 的按鈕，使用控制項圓角與 1 px 邊框，與標題的第一行對齊。它的填色為淡化的表面色，不透明度 65%。除非關閉了 `ShowCloseButton` 或 `ShowHeader`，或以 `HeaderContent` 替換了頁首，否則它都存在，預設名稱為「關閉抽屜」。
+3. **把手**（`ShowGrabber`）：預設只在 `Bottom` 抽屜上顯示；可用 `ShowGrabber` 在任一邊緣顯示或隱藏。它是 36 × 4 px 的膠囊形，使用強邊框色，不透明度 75%，位於頁首頂部下方 9 px。
 4. **內文**（`Content`）：24 px 內距（窄視窗時為 20 px）。頁首保持不動，內文捲動。
 5. **操作區**（`Actions`）：靠右對齊，位於內文下方 24 px。當 `Actions` 為 null 時隱藏。
 6. **面板**：位於 `Left` 或 `Right` 邊緣時，寬度最多 480 px（30 rem），且不超過視窗減去 16 px 邊距（窄視窗時為 12 px）。位於 `Top` 或 `Bottom` 邊緣時，面板橫跨整個寬度，高度最多 512 px；若視窗高度較小，則取視窗高度。位於內側的圓角半徑為 22 px（窄視窗時為 18 px），細邊框只繪製在內側邊緣。
 7. **遮罩**：接近黑色的暗化層，不透明度 38%，比 `Dialog` 下方的遮罩更淺，並帶有 4 px 的背景模糊。開啟「減少透明度」設定時，模糊關閉。
 
 視窗寬度小於 40 rem（640 px）時，面板會變窄：幾乎占滿整個寬度，圓角與內距隨之收緊。
+
+### 尺寸、全螢幕與自訂外觀
+
+抽屜在內容周圍繪製的部分都可以關閉或替換；在你設定之前，所有預設行為維持不變。
+
+- `PanelSize` 設定 `Left` 或 `Right` 抽屜的寬度；`PanelHeight` 固定 `Top` 或 `Bottom` 抽屜的高度（未設定時面板貼合內容，最高為 `PanelMaxHeight`）。保持 `null` 則沿用主題。
+- `IsFullScreen` 沿面板的軸向鋪滿視窗：側邊抽屜佔滿整個寬度，頂部或底部抽屜佔滿整個高度，並去掉圓角、細邊框與邊距。
+- `PanelCornerRadius` 覆寫主題的圓角（`0` 即直角）；設回 `null` 則重新跟隨主題。
+- `ShowHeader="False"` 隱藏整個頁首（包含關閉按鈕），請在內容頂部自行撰寫頁首。`HeaderContent` 僅把頁首的標題列替換為你的內容（此時不顯示預設的標題、描述與關閉按鈕）。無論哪種方式，頂部區域（頁首或抓手）仍是拖曳把手。
+- `ShowGrabber` 顯示或隱藏抓手。預設值 `null` 表示只在 `Bottom` 抽屜上顯示。
+
+隱藏或替換頁首後，請替使用者保留離開的方式：帶有 `arc:Dialog.Result` 的按鈕會關閉抽屜，Escape 與遮罩依然有效。
+
+<Demo name="Custom" />
+
+```xml
+<!-- Full screen, your own header, no grabber -->
+<arc:Drawer Side="Bottom" IsFullScreen="True" ShowHeader="False" ShowGrabber="False" IsOpen="{Binding ShowPlayer}">
+    <DockPanel>
+        <arc:Button DockPanel.Dock="Left" Content="返回" arc:Dialog.Result="{x:False}" />
+        <TextBlock Text="正在播放" HorizontalAlignment="Center" />
+    </DockPanel>
+</arc:Drawer>
+
+<!-- Fixed height and square corners -->
+<arc:Drawer Title="佇列" Side="Bottom" PanelHeight="220" PanelCornerRadius="0" IsOpen="{Binding ShowQueue}" />
+
+<!-- Replace only the title row of the header -->
+<arc:Drawer Side="Right" PanelSize="360">
+    <arc:Drawer.HeaderContent>
+        <TextBlock Text="播放清單" Margin="24" />
+    </arc:Drawer.HeaderContent>
+</arc:Drawer>
+```
 
 ### 長內容
 
@@ -242,7 +276,7 @@ public partial class ReceivablesViewModel : ObservableObject
 
 - 面板的名稱來自 `Title`，說明文字來自 `Description`。
 - 抽屜開啟時焦點移入其中，Tab 與 Shift+Tab 停留在抽屜內，關閉時焦點回到開啟它的元素。
-- 當 `CloseOnEscape` 為 true 時，Escape 關閉抽屜。關閉按鈕始終存在，預設名稱為「關閉抽屜」；可用 `CloseButtonName` 修改。
+- 當 `CloseOnEscape` 為 true 時，Escape 關閉抽屜。關閉按鈕預設名稱為「關閉抽屜」（可用 `CloseButtonName` 修改）；隱藏頁首時，請自行提供關閉方式。
 - 拖曳是可選的。在減少動態效果下它會被關閉，因此關閉操作從不依賴手勢。
 
 ### 鍵盤

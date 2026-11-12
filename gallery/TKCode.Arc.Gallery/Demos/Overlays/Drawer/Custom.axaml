@@ -1,0 +1,41 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.DrawerCustomDemo">
+    <WrapPanel HorizontalAlignment="Center" ItemSpacing="12" LineSpacing="12">
+        <arc:Button Content="Full-screen player" Variant="Secondary" Click="OnPlayerClick" />
+        <arc:Button Content="Square sheet" Variant="Secondary" Click="OnSheetClick" />
+        <!-- A full-screen bottom drawer with its own header: no default header, no grabber, no radius. -->
+        <arc:Drawer x:Name="PlayerDrawer"
+                    Side="Bottom"
+                    IsFullScreen="True"
+                    ShowHeader="False"
+                    ShowGrabber="False">
+            <StackPanel Spacing="16">
+                <DockPanel>
+                    <arc:Button DockPanel.Dock="Left" Content="Back" Variant="Secondary" arc:Dialog.Result="{x:False}" />
+                    <TextBlock Text="Now playing"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontWeight="SemiBold"
+                               Foreground="{arc:ArcDesignTokenResource Foreground}" />
+                </DockPanel>
+                <TextBlock Text="Blue in Green · Miles Davis"
+                           FontSize="14"
+                           HorizontalAlignment="Center"
+                           Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+            </StackPanel>
+        </arc:Drawer>
+        <!-- A bottom sheet with a fixed height, square corners and a grabber on a side drawer's terms. -->
+        <arc:Drawer x:Name="SheetDrawer"
+                    Title="Queue"
+                    Side="Bottom"
+                    PanelHeight="220"
+                    PanelCornerRadius="0"
+                    ShowGrabber="False">
+            <TextBlock Text="Three tracks up next."
+                       FontSize="14"
+                       Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+        </arc:Drawer>
+    </WrapPanel>
+</UserControl>
