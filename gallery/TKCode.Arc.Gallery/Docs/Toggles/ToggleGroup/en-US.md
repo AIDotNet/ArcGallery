@@ -79,7 +79,7 @@ arrives.
 
 ### Disabled options
 
-`IsDisabled` on an option removes it from the keyboard and from the pointer while it keeps its place in the row.
+`IsEnabled="False"` on an option removes it from the keyboard and from the pointer while it keeps its place in the row.
 `IsEnabled="False"` on the group disables every option and fades the group.
 
 <Demo name="Disabled" />

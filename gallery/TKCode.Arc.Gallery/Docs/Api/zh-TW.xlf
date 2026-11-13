@@ -2648,6 +2648,10 @@
         <source>Listens for Cmd+K or Ctrl+K in the window and focuses the input.</source>
         <target>在視窗中監聽 Cmd+K 或 Ctrl+K，並聚焦輸入框。</target>
       </trans-unit>
+      <trans-unit id="AiCommandPalette.ItemInvoked">
+        <source>Raised when a page or action is chosen with Enter or a click. Close your dialog or navigate here. Bubbles.</source>
+        <target>用 Enter 或點按選取頁面或動作時引發。在這裡關閉對話方塊或進行導覽。會向上傳遞。</target>
+      </trans-unit>
       <trans-unit id="AiCommandPalette.ItemSelected">
         <source>Raised when a page or action is chosen with Enter or a click. Close your dialog or navigate here. Bubbles.</source>
         <target>用 Enter 或點按選取頁面或動作時引發。在這裡關閉對話方塊或進行導覽。會向上傳遞。</target>
@@ -5339,6 +5343,14 @@
       <trans-unit id="BillingToggleOption.Badge">
         <source>Short savings note, e.g. "Save 20%".</source>
         <target>簡短的優惠說明，例如「省 20%」。</target>
+      </trans-unit>
+      <trans-unit id="BillingToggleOption.IsEnabled">
+        <source>Whether the period can be chosen. A disabled period is dimmed and skipped by the arrow keys.</source>
+        <target>計費週期是否可以被選取。被停用的週期會變淡，方向鍵會略過它。</target>
+      </trans-unit>
+      <trans-unit id="BillingToggleOption.IsVisible">
+        <source>Whether the period is shown. A hidden period takes no room and is skipped by the arrow keys; it stays in the toggle's items, so when it is the selected one the selection is kept and only the indicator is not drawn.</source>
+        <target>計費週期是否顯示。被隱藏的週期不佔空間，方向鍵會略過它；它仍保留在開關的項目中，因此當它是選取項時，選取狀態會保留，只是不繪製指示器。</target>
       </trans-unit>
       <trans-unit id="BillingToggleOption.Label">
         <source>The option text, such as "Yearly"; falls back to `Value`.</source>
@@ -8688,6 +8700,10 @@
         <source>Cmd/Ctrl+K anywhere in the window focuses the search field (handled before the window's own shortcuts).</source>
         <target>視窗中任何位置按下 Cmd/Ctrl+K 都會聚焦搜尋欄（優先於視窗本身的快速鍵處理）。</target>
       </trans-unit>
+      <trans-unit id="CommandPalette.ItemInvoked">
+        <source>Raised when a command is chosen (Enter, or a click), after the query was cleared.</source>
+        <target>選取指令（按下 Enter 或點選）時觸發，且在查詢清除之後。</target>
+      </trans-unit>
       <trans-unit id="CommandPalette.ItemSelected">
         <source>Raised when a command is chosen (Enter, or a click), after the query was cleared.</source>
         <target>選取指令（按下 Enter 或點選）時觸發，且在查詢清除之後。</target>
@@ -8753,8 +8769,8 @@
         <target>在面板之外按下會關閉對話方塊（預設 true；可透過 `Closing` 取消）。</target>
       </trans-unit>
       <trans-unit id="CommandPaletteDialog.CloseOnSelect">
-        <source>Choosing a command closes the dialog, before `ItemSelected` is raised (default true).</source>
-        <target>選擇指令會關閉對話方塊，關閉發生在引發 `ItemSelected` 之前（預設 true）。</target>
+        <source>Choosing a command closes the dialog, before `ItemInvoked` is raised (default true).</source>
+        <target>選擇指令會關閉對話方塊，關閉發生在引發 `ItemInvoked` 之前（預設 true）。</target>
       </trans-unit>
       <trans-unit id="CommandPaletteDialog.Closed">
         <source>Raised when the dialog closes (the exit may still be playing).</source>
@@ -8791,6 +8807,10 @@
       <trans-unit id="CommandPaletteDialog.IsShortcutEnabled">
         <source>Turns the window-level open gesture on (default) or off. The gesture is ignored while the dialog is not attached, not visible or disabled, and while another modal is on top.</source>
         <target>開啟（預設）或關閉視窗層級的開啟手勢。對話方塊未在視窗中、不可見或已停用時，以及有另一個模態層位於最上層時，該手勢會被忽略。</target>
+      </trans-unit>
+      <trans-unit id="CommandPaletteDialog.ItemInvoked">
+        <source>Raised when a command is chosen (Enter or a click). With `CloseOnSelect` the dialog has already started to close, so a handler that opens another dialog finds the focus back on the page; the palette then runs `SelectCommand` and the command's own `Command`.</source>
+        <target>選擇指令（按 Enter 或點按）時引發。啟用 `CloseOnSelect` 時，對話方塊此時已開始關閉，因此開啟另一個對話方塊的處理常式會發現焦點已回到頁面；隨後面板會執行 `SelectCommand` 以及該指令自身的 `Command`。</target>
       </trans-unit>
       <trans-unit id="CommandPaletteDialog.ItemSelected">
         <source>Raised when a command is chosen (Enter or a click). With `CloseOnSelect` the dialog has already started to close, so a handler that opens another dialog finds the focus back on the page; the palette then runs `SelectCommand` and the command's own `Command`.</source>
@@ -8853,8 +8873,8 @@
         <target>在搜尋列中顯示可點按的「Esc」鍵帽（預設 true）。</target>
       </trans-unit>
       <trans-unit id="CommandPaletteItem">
-        <source>One command of a `CommandPalette`: a label with an optional description, group, icon, shortcut and search keywords. Choosing it raises `ItemSelected` and runs its `Command`.</source>
-        <target>`CommandPalette` 中的一條指令：包含名稱，以及可選的說明、群組、圖示、快速鍵與搜尋關鍵字。選取後會觸發 `ItemSelected` 並執行其 `Command`。</target>
+        <source>One command of a `CommandPalette`: a label with an optional description, group, icon, shortcut and search keywords. Choosing it raises `ItemInvoked` and runs its `Command`.</source>
+        <target>`CommandPalette` 中的一條指令：包含名稱，以及可選的說明、群組、圖示、快速鍵與搜尋關鍵字。選取後會觸發 `ItemInvoked` 並執行其 `Command`。</target>
       </trans-unit>
       <trans-unit id="CommandPaletteItem.Command">
         <source>Executed (when it can execute) after the command is chosen.</source>
@@ -8883,6 +8903,10 @@
       <trans-unit id="CommandPaletteItem.IsEnabled">
         <source>False dims the row; it cannot be highlighted or chosen.</source>
         <target>設為 False 時該列會變淡，無法被醒目提示或選取。</target>
+      </trans-unit>
+      <trans-unit id="CommandPaletteItem.IsVisible">
+        <source>False hides the command: it is not listed, found by the search or reachable by the arrow keys. It stays in the items.</source>
+        <target>設為 False 會隱藏該命令：它不會被列出、不會被搜尋找到，方向鍵也無法到達。它仍保留在項目中。</target>
       </trans-unit>
       <trans-unit id="CommandPaletteItem.Keywords">
         <source>Extra words that also find this command (replace the list to change them).</source>
@@ -10063,6 +10087,10 @@
       <trans-unit id="CoverFlow.SelectedItem">
         <source>The centred cover, or null.</source>
         <target>中間的封面，沒有時為 null。</target>
+      </trans-unit>
+      <trans-unit id="CoverFlow.SelectionChanged">
+        <source>Raised when `SelectedIndex` changes, whether a cover was brought to the centre or the index was set in code or through a binding.</source>
+        <target>`SelectedIndex` 改變時觸發，無論是某張封面被移到中央，還是在程式碼中或透過繫結設定了索引。</target>
       </trans-unit>
       <trans-unit id="CoverFlow.ShowsReflection">
         <source>Whether the covers stand on a glossy floor with their reflections under them (default true).</source>
@@ -11916,6 +11944,10 @@
         <source>The search text (two-way). Pages whose title contains it stay; their sections and parents open.</source>
         <target>搜尋文字（雙向）。標題包含它的頁面會保留，其分組和上層頁面會展開。</target>
       </trans-unit>
+      <trans-unit id="DocsSidebar.SelectionChanged">
+        <source>Raised when `CurrentKey` changes, whether a page was chosen or the key was set in code, through a binding or by your router. Choosing the page that is already current raises `PageInvoked` only.</source>
+        <target>`CurrentKey` 改變時觸發，無論是選取了頁面，還是在程式碼中、透過繫結或由你的路由設定了鍵。選取已經是目前頁面的頁面只會觸發 `PageInvoked`。</target>
+      </trans-unit>
       <trans-unit id="DocsSidebar.SelectedVersion">
         <source>The `Name` of the chosen version (two-way); null means the first.</source>
         <target>所選版本的 `Name`（雙向）；為 null 表示第一個。</target>
@@ -13215,6 +13247,10 @@
       <trans-unit id="ExpandingSearch.IsExpanded">
         <source>Whether the field is open (two-way).</source>
         <target>欄位是否展開（雙向繫結）。</target>
+      </trans-unit>
+      <trans-unit id="ExpandingSearch.ItemInvoked">
+        <source>Raised when a result or suggestion is chosen (after the field folds back).</source>
+        <target>選取結果或建議項目時觸發（在欄位收回之後）。</target>
       </trans-unit>
       <trans-unit id="ExpandingSearch.ItemSelected">
         <source>Raised when a result or suggestion is chosen (after the field folds back).</source>
@@ -15907,6 +15943,10 @@
       <trans-unit id="InboxSidebar.SelectedKey">
         <source>The key of the open folder or label (two-way); bind it to your route.</source>
         <target>開啟的資料夾或標籤的鍵（雙向）；可繫結到你的路由。</target>
+      </trans-unit>
+      <trans-unit id="InboxSidebar.SelectionChanged">
+        <source>Raised when `SelectedKey` changes, whether a folder or label was chosen or the key was set in code or through a binding. Choosing the folder that is already open raises `ItemInvoked` only.</source>
+        <target>`SelectedKey` 改變時觸發，無論是選取了資料夾或標籤，還是在程式碼中或透過繫結設定了鍵。選取已經開啟的資料夾只會觸發 `ItemInvoked`。</target>
       </trans-unit>
       <trans-unit id="InboxSidebar.StorageTotal">
         <source>Storage available, in gigabytes; 0 hides the meter.</source>
@@ -24840,6 +24880,10 @@
         <source>The tallest the selected photo is drawn (default from the theme, 520).</source>
         <target>選取的照片最高顯示多高（預設來自主題，520）。</target>
       </trans-unit>
+      <trans-unit id="PhotoGrid.SelectionChanged">
+        <source>Raised when `SelectedIndex` changes, whether a photo was opened or closed or the index was set in code or through a binding.</source>
+        <target>`SelectedIndex` 改變時觸發，無論是開啟或關閉了某張照片，還是在程式碼中或透過繫結設定了索引。</target>
+      </trans-unit>
       <trans-unit id="PhotoGrid.Spacing">
         <source>Space between photos, both ways (default from the theme, 6).</source>
         <target>照片之間橫向和縱向的間距（預設來自主題，6）。</target>
@@ -25819,6 +25863,10 @@
       <trans-unit id="ProductGallery.SelectedIndex">
         <source>The index of the picture on the stage; -1 when there are none. Two-way.</source>
         <target>展示區目前圖片的序號；沒有圖片時為 -1。雙向繫結。</target>
+      </trans-unit>
+      <trans-unit id="ProductGallery.SelectionChanged">
+        <source>Raised when `SelectedIndex` changes, whether a picture was chosen (a thumbnail, a swipe, the arrow keys) or the index was set in code or through a binding.</source>
+        <target>`SelectedIndex` 改變時觸發，無論是選取了某張圖片（縮圖、滑動、方向鍵），還是在程式碼中或透過繫結設定了索引。</target>
       </trans-unit>
       <trans-unit id="ProductGallery.Stretch">
         <source>How a picture fills the stage (default Uniform: the whole product, on the stage's muted ground).</source>
@@ -27204,6 +27252,14 @@
         <source>A disabled card cannot be selected and is skipped by the arrow keys.</source>
         <target>停用的卡片不能被選取，方向鍵會略過它。</target>
       </trans-unit>
+      <trans-unit id="RadioCardOption.IsEnabled">
+        <source>Whether the card can be chosen. A disabled card is dimmed and skipped by the arrow keys.</source>
+        <target>卡片是否可以被選取。被停用的卡片會變淡，方向鍵會略過它。</target>
+      </trans-unit>
+      <trans-unit id="RadioCardOption.IsVisible">
+        <source>Whether the card is shown. A hidden card takes no room and is skipped by the arrow keys; it stays in the control's items, so when it is the selected one the selection is kept and only the indicator is not drawn.</source>
+        <target>卡片是否顯示。被隱藏的卡片不佔空間，方向鍵會略過它；它仍保留在控制項的項目中，因此當它是選取項時，選取狀態會保留，只是不繪製指示器。</target>
+      </trans-unit>
       <trans-unit id="RadioCardOption.Label">
         <source>Card title (text or any content); falls back to `Value`.</source>
         <target>卡片標題（文字或任意內容）；未設定時使用 `Value`。</target>
@@ -27255,6 +27311,14 @@
       <trans-unit id="RadioOption.IsDisabled">
         <source>A disabled option cannot be selected and is skipped by the arrow keys.</source>
         <target>停用的選項不能被選取，方向鍵會略過它。</target>
+      </trans-unit>
+      <trans-unit id="RadioOption.IsEnabled">
+        <source>Whether the option can be chosen. A disabled option is dimmed and skipped by the arrow keys.</source>
+        <target>選項是否可以被選取。被停用的選項會變淡，方向鍵會略過它。</target>
+      </trans-unit>
+      <trans-unit id="RadioOption.IsVisible">
+        <source>Whether the option is shown. A hidden option takes no room and is skipped by the arrow keys; it stays in the control's items, so when it is the selected one the selection is kept and only the indicator is not drawn.</source>
+        <target>選項是否顯示。被隱藏的選項不佔空間，方向鍵會略過它；它仍保留在控制項的項目中，因此當它是選取項時，選取狀態會保留，只是不繪製指示器。</target>
       </trans-unit>
       <trans-unit id="RadioOption.Label">
         <source>Row title; falls back to `Value`.</source>
@@ -30436,6 +30500,14 @@
         <source>A disabled segment cannot be selected and is skipped by the arrow keys.</source>
         <target>停用的分段不能被選取，方向鍵會略過它。</target>
       </trans-unit>
+      <trans-unit id="SegmentedOption.IsEnabled">
+        <source>Whether the segment can be chosen. A disabled segment is dimmed and skipped by the arrow keys.</source>
+        <target>分段是否可以被選取。被停用的分段會變淡，方向鍵會略過它。</target>
+      </trans-unit>
+      <trans-unit id="SegmentedOption.IsVisible">
+        <source>Whether the segment is shown. A hidden segment takes no room and is skipped by the arrow keys; it stays in the control's items, so when it is the selected one the selection is kept and only the indicator is not drawn.</source>
+        <target>分段是否顯示。被隱藏的分段不佔空間，方向鍵會略過它；它仍保留在控制項的項目中，因此當它是選取項時，選取狀態會保留，只是不繪製指示器。</target>
+      </trans-unit>
       <trans-unit id="SegmentedOption.Label">
         <source>Segment text; falls back to `Value`. Keep it short: segments never wrap or shrink.</source>
         <target>分段文字；未設定時使用 `Value`。請保持簡短：分段從不換行或收縮。</target>
@@ -31684,6 +31756,10 @@
         <source>Shows the filter box under the header (it becomes a search button on the rail).</source>
         <target>在頭部下方顯示篩選框（在窄欄上變為搜尋按鈕）。</target>
       </trans-unit>
+      <trans-unit id="Sidebar.IsVisibleMember">
+        <source>The property path of an item's visibility (a bool; false hides the page, see `IsVisible`). Resolved with reflection, so trimmed and NativeAOT apps use `IsVisibleMemberBinding` instead, which wins when both are set.</source>
+        <target>項目可見性的屬性路徑（bool；false 會隱藏該頁面，參見 `IsVisible`）。透過反射解析，因此修剪與 NativeAOT 應用程式請改用 `IsVisibleMemberBinding`，兩者都設定時以它為準。</target>
+      </trans-unit>
       <trans-unit id="Sidebar.ItemInvoked">
         <source>Raised when a page is chosen (click, Enter or Space, or a page in a rail menu), also when it already was the selected page.</source>
         <target>選擇頁面時觸發（點擊、Enter 或 Space 鍵，或在窄欄選單中選擇頁面），即使該頁面已是目前選取的頁面也會觸發。</target>
@@ -31732,6 +31808,10 @@
         <source>The `Key` of the selected page (two-way), kept in step with `SelectedItem`; bind it to your route.</source>
         <target>被選取頁面的 `Key`（雙向），與 `SelectedItem` 保持同步；可綁定到路由。</target>
       </trans-unit>
+      <trans-unit id="Sidebar.SelectionChanged">
+        <source>Raised when `SelectedItem` changes, whether a page was chosen, `SelectedItem` or `SelectedKey` was set in code or through a binding, or the selection was cleared. Choosing the page that is already selected raises `ItemInvoked` only.</source>
+        <target>`SelectedItem` 改變時觸發，無論是選取了頁面、在程式碼中或透過繫結設定了 `SelectedItem` 或 `SelectedKey`，還是選取被清除。選取已經選取的頁面只會觸發 `ItemInvoked`。</target>
+      </trans-unit>
       <trans-unit id="Sidebar.TrailingTemplate">
         <source>Builds the content at the end of each bound row. The control gets the item's data (the object in `ItemsSource`) as its `DataContext`, so a template can bind to your own fields, e.g. show an add button only while `CanAdd` is true. A `TrailingIcon` that is already set wins.</source>
         <target>產生每個繫結列末尾的內容。該控制項以項目的資料（`ItemsSource` 中的物件）作為 `DataContext`，因此範本可以繫結到你自己的欄位，例如僅當 `CanAdd` 為 true 時顯示新增按鈕。項目上已設定的 `TrailingIcon` 優先。</target>
@@ -31776,6 +31856,10 @@
         <source>Marks the page as having something new: a small accent dot at the end of the row, a stronger label, and a dot on the icon on the rail.</source>
         <target>把頁面標記為有新內容：列尾顯示一個小的強調色圓點，名稱更醒目，在窄欄上圖示上會出現一個圓點。</target>
       </trans-unit>
+      <trans-unit id="SidebarItem.IsVisible">
+        <source>Whether the page is shown. A hidden page takes no room, is skipped by the arrow keys, typing and the filter, and a hidden parent hides its pages with it. It stays in the collection: when it is the selected page, `SelectedItem` and `SelectedKey` keep it and only the selection block is not drawn.</source>
+        <target>頁面是否顯示。被隱藏的頁面不佔空間，方向鍵、輸入跳轉與篩選都會略過它，被隱藏的父層級會連同其頁面一起隱藏。它仍保留在集合中：當它是選取的頁面時，`SelectedItem` 與 `SelectedKey` 仍保留它，只是不繪製選取區塊。</target>
+      </trans-unit>
       <trans-unit id="SidebarItem.Key">
         <source>A stable id for the page (a route or view name); `SelectedKey` selects by it.</source>
         <target>頁面的穩定識別碼（路由或檢視名稱）；`SelectedKey` 透過它進行選取。</target>
@@ -31807,6 +31891,10 @@
       <trans-unit id="SidebarSection.IsExpanded">
         <source>Whether the pages of a collapsible section are shown (two-way). Ignored when the section is not collapsible.</source>
         <target>可收合群組的頁面是否顯示（雙向）。群組不可收合時會被忽略。</target>
+      </trans-unit>
+      <trans-unit id="SidebarSection.IsVisible">
+        <source>Whether the section (its heading and its pages) is shown. A hidden section takes no room and its pages leave the arrow-key order and the filter; its pages stay in `Items`, so a selected page of it stays selected.</source>
+        <target>群組（其標題與頁面）是否顯示。被隱藏的群組不佔空間，其頁面也會離開方向鍵順序與篩選；頁面仍保留在 `Items` 中，因此其中被選取的頁面仍保持選取。</target>
       </trans-unit>
       <trans-unit id="SignIn">
         <source>A sign in card that morphs from an email address to a six digit code to the signed in account, with a passkey button and single sign-on buttons (Arc's free sign-in block, the "Email code" variant of Login). Each step slides in from the side it is heading to while the card's height follows on a spring; the account's avatar grows from the code step into the signed in state, where a ring draws around it and a check pops in.</source>
@@ -32611,6 +32699,14 @@
       <trans-unit id="SiteHeaderItem.Href">
         <source>Identifies `Href`.</source>
         <target>識別 `Href`。</target>
+      </trans-unit>
+      <trans-unit id="SiteHeaderItem.IsEnabled">
+        <source>Whether the item can be chosen. A disabled item is dimmed, opens no panel and is skipped by the arrow keys.</source>
+        <target>項目是否可以被選取。被停用的項目會變淡，不會開啟面板，方向鍵也會略過它。</target>
+      </trans-unit>
+      <trans-unit id="SiteHeaderItem.IsVisible">
+        <source>Whether the item is shown, in the bar and in the menu sheet. A hidden item takes no room and is skipped by the arrow keys; it stays in the items, so `Current` may still name it.</source>
+        <target>項目是否顯示，包括導覽列與選單面板中。被隱藏的項目不佔空間，方向鍵會略過它；它仍保留在項目中，因此 `Current` 仍可以指向它。</target>
       </trans-unit>
       <trans-unit id="SiteHeaderItem.Label">
         <source>Identifies `Label`.</source>
@@ -34443,6 +34539,14 @@
       <trans-unit id="StepperStep.Id">
         <source>Stable key, so each step keeps its own motion when the list changes.</source>
         <target>穩定的鍵，使清單變化時每個步驟保留自己的動畫。</target>
+      </trans-unit>
+      <trans-unit id="StepperStep.IsEnabled">
+        <source>Whether a completed step can be chosen to go back to it. A disabled step is not clickable and `Select` ignores it.</source>
+        <target>已完成的步驟是否可以被選取以返回到它。被停用的步驟不可點選，`Select` 會忽略它。</target>
+      </trans-unit>
+      <trans-unit id="StepperStep.IsVisible">
+        <source>Whether the step is shown. A hidden step is as if it were not in the list (a step that does not apply to this flow): `CurrentIndex` counts the visible steps only. It stays in the steps, so showing it again brings it back.</source>
+        <target>步驟是否顯示。被隱藏的步驟就像不在清單中一樣（例如不適用於目前流程的步驟）：`CurrentIndex` 只計算可見的步驟。它仍保留在步驟中，因此再次顯示它就會恢復。</target>
       </trans-unit>
       <trans-unit id="StepperStep.Label">
         <source>Step name, shown beside its marker.</source>
@@ -36672,6 +36776,14 @@
         <source>A disabled option cannot be pressed and is skipped by the arrow keys.</source>
         <target>停用的選項無法按下，方向鍵會跳過它。</target>
       </trans-unit>
+      <trans-unit id="ToggleGroupOption.IsEnabled">
+        <source>Whether the option can be chosen. A disabled option is dimmed and skipped by the arrow keys.</source>
+        <target>選項是否可以被選取。被停用的選項會變淡，方向鍵會略過它。</target>
+      </trans-unit>
+      <trans-unit id="ToggleGroupOption.IsVisible">
+        <source>Whether the option is shown. A hidden option takes no room and is skipped by the arrow keys; it stays in the control's items, so when it is the selected one the selection is kept and only the indicator is not drawn.</source>
+        <target>選項是否顯示。被隱藏的選項不佔空間，方向鍵會略過它；它仍保留在控制項的項目中，因此當它是選取項時，選取狀態會保留，只是不繪製指示器。</target>
+      </trans-unit>
       <trans-unit id="ToggleGroupOption.Label">
         <source>The accessible name, required when the option shows only an icon. It is also the tooltip unless `Title` is set; with no icon or content it is the visible text.</source>
         <target>無障礙名稱，選項只顯示圖示時必須提供。除非設定了 `Title`，它也是工具提示；沒有圖示和內容時，它就是可見文字。</target>
@@ -37192,6 +37304,10 @@
         <source>Raised when someone chooses an entry or a group member (by pointer, keyboard or assistive technology).</source>
         <target>使用者選取一個項目或群組成員時引發（透過指標、鍵盤或輔助技術）。</target>
       </trans-unit>
+      <trans-unit id="ToolDock.ItemInvoked">
+        <source>Raised when someone chooses an entry or a group member (by pointer, keyboard or assistive technology), also when it already was the selected one.</source>
+        <target>有人選取某個項目或群組成員時觸發（透過指標、鍵盤或輔助技術），即使它已經是選取項。</target>
+      </trans-unit>
       <trans-unit id="ToolDock.Label">
         <source>The accessible name of the dock (a toolbar), "Tools" by default.</source>
         <target>工具列（一個 toolbar）的無障礙名稱，預設為 "Tools"。</target>
@@ -37203,6 +37319,10 @@
       <trans-unit id="ToolDock.SelectedValue">
         <source>The `Value` of the chosen entry or group member; null chooses nothing.</source>
         <target>選取的項目或群組成員的 `Value`；為 null 時不選取任何項目。</target>
+      </trans-unit>
+      <trans-unit id="ToolDock.SelectionChanged">
+        <source>Raised when `SelectedValue` changes, whether an entry was chosen or the value was set in code or through a binding. Choosing the selected entry again raises `ItemInvoked` only.</source>
+        <target>`SelectedValue` 改變時觸發，無論是選取了某個項目，還是在程式碼中或透過繫結設定了值。再次選取已選取的項目只會觸發 `ItemInvoked`。</target>
       </trans-unit>
       <trans-unit id="ToolDockItem">
         <source>One entry of a `ToolDock`: a tool or mode with a glyph, a name, an optional key hint and an optional badge. With members in `Items` the entry is a group: its slot shows the member it holds (the selected one, else the one chosen last, else the first) and choosing it opens a tray of the members above the dock.</source>

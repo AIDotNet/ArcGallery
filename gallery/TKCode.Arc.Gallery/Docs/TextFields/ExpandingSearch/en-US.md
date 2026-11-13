@@ -131,14 +131,14 @@ mouse button. Either way the choice runs in the same order:
 
 1. The field folds back into the icon and the query is cleared.
 2. Focus returns to the trigger button.
-3. `ItemSelected` is raised with the chosen item in `e.Item`. The event bubbles, so a handler higher in the tree also
+3. `ItemInvoked` is raised with the chosen item in `e.Item`. The event bubbles, so a handler higher in the tree also
    sees it.
 4. `SelectCommand` runs with the chosen item as its parameter, if the command can execute.
 
 Use `SelectCommand` in an MVVM app, and the event when the code-behind needs to act on the item directly.
 
 ```csharp
-header.ItemSelected += (_, e) => Open(e.Item.Id);
+header.ItemInvoked += (_, e) => Open(e.Item.Id);
 ```
 
 ```xml

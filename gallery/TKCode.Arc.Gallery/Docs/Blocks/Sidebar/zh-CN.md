@@ -1,7 +1,7 @@
 ---
 title: 侧边栏
 summary: 工作区导航，包含分组、嵌套页面、数量和滑动的选中标记；可收起为图标窄栏。
-source-hash: b923fa300830
+source-hash: 7a7987ef0bbd
 ---
 
 <Demo name="Preview" />
@@ -111,11 +111,13 @@ source-hash: b923fa300830
 
 `IsEnabled="False"` 会让页面变暗，方向键会跳过它；被禁用的父级也无法展开。每个项目还可以带有 `Tag` 和 `Command`（以及 `CommandParameter`）。
 
+`IsVisible="False"` 会隐藏页面：它不占空间，方向键、首字母跳转、筛选和窄栏菜单都会跳过它，被隐藏的父级会连同其子页面一起隐藏。页面仍保留在 `Items` 中，设回 `True` 就回到原来的位置。在 `SidebarSection` 上设置它会隐藏标题和该分组的所有页面；页面全部被隐藏的分组会自行消失。如果被隐藏的是当前选中的页面，`SelectedItem` 和 `SelectedKey` 仍保留它，只是不再绘制选中块。
+
 ### 数量、未读点、操作行与图标
 
 `Badge` 会在行尾显示一个简短的数量，例如未读消息的“12”；`Badge` 为 `null` 时不显示任何内容。`IsUnread="True"` 则在行尾显示一个小的强调色圆点，让标签更醒目，并在该行的无障碍名称中加上“未读”。数字有意义时用数量，只需要表示“有新内容”时用圆点。在窄栏上，两者都会变成图标上的圆点。
 
-`Icon` 接受 24 × 24 的 Lucide 图形（例如 `ArcIcons` 中的字形），也可以是任何能放入 16 px 图标槽的控件。用一个小的 `Ellipse` 就能做出彩色圆点图标，并与其他行的图标对齐。作为图标的控件只能放在一行中，因此请为每个项目各创建一个。`TrailingIcon` 会在标签之后紧跟一个图标，颜色与标签的弱化色相同；适合用作提示，例如“More”行的箭头。
+`Icon` 接受 24 × 24 的 Lucide 图形（例如 `ArcIcons` 中的字形），也可以是任何能放入 16 px 图标槽的控件。`ArcIcons` 只包含 Arc 自己的组件用到的字形；其他 Lucide 图标请把 `TKCode.Arc.Icons.Lucide` 中的 `lucide:LucideIcon` 放进 `Icon`（参见安装指南）。用一个小的 `Ellipse` 就能做出彩色圆点图标，并与其他行的图标对齐。作为图标的控件只能放在一行中，因此请为每个项目各创建一个。`TrailingIcon` 会在标签之后紧跟一个图标，颜色与标签的弱化色相同；适合用作提示，例如“More”行的箭头。
 
 `IsAction="True"` 会把一行变成操作：颜色柔和，永远不会被选中。选择它会触发 `ItemInvoked` 并执行其命令，但 `SelectedItem` 保持不变。适用于“New project”或“More”。
 
@@ -148,10 +150,13 @@ source-hash: b923fa300830
 
 `ItemInvoked` 是一个路由事件，每次选择页面或操作时都会触发：无论是点击、按 Enter 或 Space，还是窄栏上的菜单。即使该页面已经被选中，它也会触发，而绑定到 `SelectedKey` 无法告诉你这一点。对于每次选择都必须发生的导航（例如把页面滚回顶部），请使用它。事件之后，该项自己的 `Command` 会执行，然后以该项为参数执行 `SelectCommand`，两者都只在可以执行时才执行。
 
+`SelectionChanged` 是一个路由事件，只要 `SelectedItem` 改变就会触发：选择了某个页面、在代码中或通过绑定设置了 `SelectedKey` 或 `SelectedItem`，或选择被清除。它的 `SidebarSelectionChangedEventArgs` 带有 `OldItem`、`NewItem`、`OldKey` 和 `NewKey`。选择已经选中的页面只会触发 `ItemInvoked`，不会触发 `SelectionChanged`。
+
 <Demo name="DataBinding" />
 
 ```csharp
 sidebar.ItemInvoked += (_, e) => router.Navigate(e.Item.Key!);
+sidebar.SelectionChanged += (_, e) => ShowPage(e.NewKey);
 ```
 
 ### 绑定到视图模型
@@ -189,7 +194,7 @@ public partial class WorkspaceShellViewModel : ObservableObject
 ```
 
 - `SelectedKey` 与 `IsCollapsed` 是双向的，因此应用中其他地方的路由变化（页面中的链接、后退按钮）会选中对应的行，而窄栏按钮的状态会写回视图模型。
-- 把导航的副作用放在 `SelectCommand` 或 `ItemInvoked` 中执行，不要放在 `SelectedKey` 的处理程序中。路由由代码设置时选中项也会改变，而这并不总是用户的选择。
+- 用 `SelectionChanged` 响应选中项的变化，无论它来自哪里；路由由代码设置时它也会触发，而这并不总是用户的选择。导航的副作用放在 `SelectCommand` 或 `ItemInvoked` 中执行，它们只在选择页面时触发。
 - 窗口变窄时，根据你自己的窗口宽度检查来设置 `IsNavigationCollapsed`；侧边栏不会替你监视窗口。
 - 当数据驱动菜单时，请在代码中构建分组，并保留对数量会变化的项目的引用：
 
@@ -234,7 +239,7 @@ public class MenuNode
 </arc:Sidebar>
 ```
 
-- `LabelMemberBinding`、`KeyMemberBinding`、`IconMemberBinding`、`BadgeMemberBinding`、`IsEnabledMemberBinding` 和 `ChildrenMemberBinding` 用编译绑定读取字段，裁剪和 NativeAOT 下都安全。使用编译绑定时，为每个绑定指定项的类型：`{Binding Title, DataType={x:Type local:MenuNode}}`，示例即是如此。字符串形式的 `*Member` 路径（`LabelMember="Title"` 等）仍然可用，但走反射，只适合不裁剪的应用；两者都设置时以 `*MemberBinding` 为准。行会跟随对象上的 `INotifyPropertyChanged`，以及 `ItemsSource` 和子级集合上的 `INotifyCollectionChanged`，列表变化时保留各行的展开状态。
+- `LabelMemberBinding`、`KeyMemberBinding`、`IconMemberBinding`、`BadgeMemberBinding`、`IsEnabledMemberBinding`、`IsVisibleMemberBinding` 和 `ChildrenMemberBinding` 用编译绑定读取字段，裁剪和 NativeAOT 下都安全。使用编译绑定时，为每个绑定指定项的类型：`{Binding Title, DataType={x:Type local:MenuNode}}`，示例即是如此。字符串形式的 `*Member` 路径（`LabelMember="Title"` 等）仍然可用，但走反射，只适合不裁剪的应用；两者都设置时以 `*MemberBinding` 为准。行会跟随对象上的 `INotifyPropertyChanged`，以及 `ItemsSource` 和子级集合上的 `INotifyCollectionChanged`，列表变化时保留各行的展开状态。
 - 你的对象保存在 `SidebarItem.Tag` 中，因此 `SelectedItem.Tag`（或 `ItemInvoked` 的 `Item.Tag`）就是所选页面的数据。
 - 想在子类上放自己的字段？把 `SidebarItem` 的子类放进 `ItemsSource`，它们会被原样使用：不需要 `*MemberBinding`，`TrailingTemplate` 仍以该项作为 `DataContext`。
 - 项上已设置的 `TrailingIcon` 优先于 `TrailingTemplate`。
@@ -290,7 +295,7 @@ public class MenuNode
 让模型只包含导航所需的内容：`Key` 在整个侧边栏中必须唯一（`SelectedKey` 会找到第一个匹配的页面，而父级的键永远不会被匹配）、简短的 `Label`、一个图标以及可选的数量。层级超过一层的页面应放在 `TreeView` 中。
 
 - **合并且增量。** 对 `Sections` 和各项目集合的修改会被合并处理：各行会在当前批次之后统一更新一次，因此一次添加多个页面只需一次更新。只有发生变化的部分会被处理：新页面获得新的行，被移除的页面失去它的行，仍然存在的页面的行保留其控件、焦点和选中状态。
-- **属性变化开销很小。** 修改 `Badge`、`IsUnread`、`IsAction`、`Icon` 或 `TrailingIcon` 只会更新该行；修改 `Label` 或 `IsEnabled` 还会刷新筛选和被禁用的页面。
+- **属性变化开销很小。** 修改 `Badge`、`IsUnread`、`IsAction`、`Icon` 或 `TrailingIcon` 只会更新该行；修改 `Label`、`IsEnabled` 或 `IsVisible` 还会刷新筛选以及被禁用和被隐藏的页面。
 - **收起的父级不参与布局。** 已经收起并静止的父级或可收起分组会完全退出布局和渲染，因此有许多收起父级的树，布局和绘制都很轻。
 - **不在屏幕上时不持有任何东西。** 侧边栏不在屏幕上时，它不持有任何行，也不订阅你的项，因此共享的或静态的项不会让它一直存活；回到屏幕上时会重新构建各行。
 - **宽度弹簧。** 在 `Push` 模式下，收起过程的每一帧都会让页面重新布局；在 `Overlay` 模式下，页面只布局一次，只有窗格的排列会变化（见“侧边栏旁边的页面”）。
@@ -299,7 +304,7 @@ public class MenuNode
 
 ### 实时数据
 
-侧边栏会跟随其数据变化：修改项目上的 `Badge`、`IsUnread`、`Label`、`Icon` 或 `IsEnabled`，或增删、移动项目和分组，只有相关的行会变化。新增页面会让所在分组以与展开相同的弹簧增高。
+侧边栏会跟随其数据变化：修改项目上的 `Badge`、`IsUnread`、`Label`、`Icon`、`IsEnabled` 或 `IsVisible`，或增删、移动项目和分组，只有相关的行会变化。新增页面会让所在分组以与展开相同的弹簧增高。
 
 <Demo name="LiveUpdates" />
 
@@ -438,7 +443,7 @@ pinned.Items.RemoveAt(0);
 
 **为什么选择父级不会打开页面？** 父级永远不会被选中，选择它只会展开或收起其页面。请为父级添加一个作为其落地视图的子页面，并把 `SelectedKey` 绑定到该子项的键。
 
-**如何隐藏页面而不是禁用它？** 从其父级或分组的 `Items` 中移除该项目。行会原地更新，重新添加时页面会再次出现。`IsEnabled="False"` 会让页面保持可见但变暗，并移出方向键的顺序。
+**如何隐藏页面而不是禁用它？** 把该项目（或其分组）的 `IsVisible` 设为 `False`。页面会离开布局、方向键顺序、筛选和窄栏菜单，设回 `True` 时回到原来的位置；可以把它绑定到视图模型上的标志，数据绑定的页面则用 `IsVisibleMemberBinding`。从 `Items` 中移除也可以。`IsEnabled="False"` 会让页面保持可见但变暗，并移出方向键的顺序。
 
 **当 `SelectedKey` 指向一个不存在的页面时会怎样？** 不会选中任何东西，键保留其值。之后添加该键对应的页面时，侧边栏会选中它。这使得启动时设置的路由可以在导航数据加载完成之前就生效。
 

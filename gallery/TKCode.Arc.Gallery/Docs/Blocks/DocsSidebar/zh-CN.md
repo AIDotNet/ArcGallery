@@ -1,7 +1,7 @@
 ---
 title: 文档侧边栏
 summary: 文档站点的侧边栏：版本切换、边输入边筛选页面的搜索框、可展开的分组与页面，当前页面会被标出并滚动到可见处。
-source-hash: 57ef5deb9eb8
+source-hash: f222041ac459
 ---
 
 <Demo name="Preview" />
@@ -31,9 +31,13 @@ docs.PageInvoked += (_, e) => router.Open(e.Page.Key);
 docs.VersionChanged += (_, e) => LoadPages(e.NewVersion);
 ```
 
+`PageInvoked` 在每次选择时触发，选择已是当前的页面也会触发。如果只想在当前页面真正改变时响应（无论是点击、路由设置 `CurrentKey` 还是绑定），请处理 `SelectionChanged`：它的 `OldKey`、`NewKey` 和 `NewPage` 描述这次变化。
+
 页面和分组也可以直接写在 XAML 中。没有 `Sections` 时，侧边栏显示一个虚构的示例站点。`GetAdjacentPage(-1)` 和 `GetAdjacentPage(1)` 按阅读顺序给出上一页和下一页，可用于文章底部的链接。
 
 <Demo name="OwnPages" />
+
+`DocsSidebarPage` 或 `DocsSidebarSection` 上的 `IsVisible="False"` 会让它离开列表、搜索和 `GetAdjacentPage`；页面上的 `IsEnabled="False"` 会让它变暗，无法再被选择，方向键也不会到达它。两者都会跟随之后的变化；被隐藏的页面如果是当前页面，它仍然是 `CurrentKey`，因此视图模型可以按角色或套餐显示菜单的某些部分，而不必重建分组。
 
 ## API 参考
 

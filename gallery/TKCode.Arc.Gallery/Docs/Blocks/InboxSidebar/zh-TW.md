@@ -1,7 +1,7 @@
 ---
 title: 收件匣側邊欄
 summary: 郵件應用程式的側邊欄：寫信按鈕、帶未讀數的資料夾、彩色標籤和儲存空間條，可收起為圖示列。
-source-hash: a757b7f2b722
+source-hash: 5aac984a4df3
 ---
 
 <Demo name="Preview" />
@@ -39,6 +39,8 @@ mail.ItemInvoked += (_, e) => ShowFolder(e.Key);
 `IsCollapsed` 切換到圖示列，面板按鈕的作用相同。`ResizeMode="Push"` 讓頁面隨寬度彈簧移動，預設的 `Overlay` 讓側邊欄從頁面上方滑過。
 
 <Demo name="Rail" />
+
+`InboxSidebarFolder` 或 `InboxSidebarLabel` 上的 `IsVisible="False"` 會隱藏那一列，`IsEnabled="False"` 會讓它變淡且無法被選取。兩者都會跟隨之後的變化。`SelectionChanged` 會回報 `SelectedKey` 的每一次變化，帶有舊鍵與新鍵以及目前選取的資料夾或標籤；`ItemInvoked` 仍然回報每一次選取，包括已經開啟的資料夾。
 
 ## API 參考
 

@@ -1,6 +1,6 @@
 ---
 title: 安裝
-source-hash: 69267876d719
+source-hash: 69d425c2db80
 ---
 
 # 安裝
@@ -149,7 +149,7 @@ var save = new ArcButton { Content = "儲存變更" };
 
 ### 圖示
 
-Arc 自有的圖示字形（`{x:Static arc:ArcIcons.Check}` 以及另外 186 個）涵蓋了元件使用的所有圖示。若需要其他 Lucide 圖示，請加入 `TKCode.Arc.Icons.Lucide` 並使用它的命名空間：
+`ArcIcons` 是一個精選集，而不是整個 Lucide 庫：它包含 Arc 自己的元件用到的字形（`{x:Static arc:ArcIcons.Check}` 以及另外約兩百個）。不在其中的字形（例如 `ClipboardList`）在 `ArcIcons` 上找不到。若需要其他 Lucide 圖示，請加入 `TKCode.Arc.Icons.Lucide` 並使用它的命名空間：
 
 ```xml
 <UserControl xmlns="https://github.com/avaloniaui"

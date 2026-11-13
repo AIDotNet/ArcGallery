@@ -1,7 +1,7 @@
 ---
 title: 分段控件
 summary: 在一组相关的视图之间切换。
-source-hash: ed8c51009f4d
+source-hash: ab6f7c5111cd
 ---
 
 <Demo name="ViewSwitcher" />
@@ -88,7 +88,7 @@ var sections = new SegmentedControl
             <TextBlock Text="3" />
         </arc:SegmentedOption.Accessory>
     </arc:SegmentedOption>
-    <arc:SegmentedOption Value="archived" Label="已归档" IsDisabled="True" />
+    <arc:SegmentedOption Value="archived" Label="已归档" IsEnabled="False" />
 </arc:SegmentedControl>
 ```
 

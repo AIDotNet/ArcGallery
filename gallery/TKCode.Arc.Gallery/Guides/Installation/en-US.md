@@ -166,8 +166,9 @@ var save = new ArcButton { Content = "Save changes" };
 
 ### Icons
 
-Arc's own glyphs (`{x:Static arc:ArcIcons.Check}` and 186 more) cover every icon the components use. For any other
-Lucide icon, add `TKCode.Arc.Icons.Lucide` and use its namespace:
+`ArcIcons` is a curated set, not the whole Lucide library: it holds the glyphs Arc's own components use
+(`{x:Static arc:ArcIcons.Check}` and about two hundred more). A glyph that is not in it, such as `ClipboardList`, is not
+found on `ArcIcons`. For any other Lucide icon, add `TKCode.Arc.Icons.Lucide` and use its namespace:
 
 ```xml
 <UserControl xmlns="https://github.com/avaloniaui"

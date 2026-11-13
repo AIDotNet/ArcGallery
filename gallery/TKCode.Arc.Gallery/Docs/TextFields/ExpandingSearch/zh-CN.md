@@ -1,7 +1,7 @@
 ---
 title: 展开式搜索
 summary: 图标展开为搜索框，并在下方显示结果。
-source-hash: ed76aa077075
+source-hash: da131d8598a8
 ---
 
 <Demo name="HeaderSearch" />
@@ -91,13 +91,13 @@ header.SuggestionsLabel = "最近";
 
 1. 字段收回为图标，查询内容被清空。
 2. 焦点返回触发按钮。
-3. 以选中项作为 `e.Item` 触发 `ItemSelected`。该事件会冒泡，因此树中更上层的处理程序也能收到。
+3. 以选中项作为 `e.Item` 触发 `ItemInvoked`。该事件会冒泡，因此树中更上层的处理程序也能收到。
 4. 若该命令可以执行，则以选中项作为参数执行 `SelectCommand`。
 
 在 MVVM 应用中使用 `SelectCommand`；当代码后置需要直接处理该项时，使用事件。
 
 ```csharp
-header.ItemSelected += (_, e) => Open(e.Item.Id);
+header.ItemInvoked += (_, e) => Open(e.Item.Id);
 ```
 
 ```xml

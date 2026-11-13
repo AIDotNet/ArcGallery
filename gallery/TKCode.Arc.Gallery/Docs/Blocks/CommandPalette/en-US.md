@@ -63,7 +63,7 @@ window, or click a button that points at it. Add `CommandPaletteItem` children o
 ```
 
 ```csharp
-Commands.ItemSelected += (_, e) => Run(e.Item.Id);
+Commands.ItemInvoked += (_, e) => Run(e.Item.Id);
 ```
 
 The preview above shows the popup the way an app sees it, kept inside its stage (`IsModal="False"`): it is open when
@@ -162,13 +162,15 @@ and tightens its padding, and at 340 pixels or less the rows also tighten their 
 the palette's own width: the 400 pixel palette above keeps its caps in a normal window, and so does a popup 440 pixels
 wide.
 
+`IsVisible="False"` on a `CommandPaletteItem` takes the command out of the list, the search and the arrow-key order without removing it from the items, so a command can appear only while it applies (a "Cancel subscription" command only for an active plan). `IsEnabled="False"` keeps it listed but dimmed and not selectable. Both follow later changes while the palette is open.
+
 ### Running a command
 
 Enter runs the highlighted command. After typing, with nothing highlighted, Enter runs the top match. A click runs the
 command under the pointer. Both clear the query and then, in this order:
 
 1. The dialog starts to close, unless `CloseOnSelect` is off, and the focus returns to the page.
-2. `ItemSelected` is raised. It bubbles, so a page can listen.
+2. `ItemInvoked` is raised. It bubbles, so a page can listen.
 3. `SelectCommand` runs with the chosen item.
 4. The item's own `Command` runs with its `CommandParameter`.
 
@@ -176,10 +178,10 @@ The next time the dialog opens, the field is empty. An inline palette does not c
 field and runs steps 2 to 4.
 
 ```csharp
-dialog.ItemSelected += (_, e) => Navigate(e.Item.Id);
+dialog.ItemInvoked += (_, e) => Navigate(e.Item.Id);
 ```
 
-Use `ItemSelected` in code-behind when the navigation is simple, and `SelectCommand` in an MVVM app so the view model
+Use `ItemInvoked` in code-behind when the navigation is simple, and `SelectCommand` in an MVVM app so the view model
 decides what each command does. Use the item's `Command` when one command belongs to one item, such as a command that
 opens a specific dialog. Use `Tag` to carry an application object with an item, so the handler does not parse `Id`.
 Because the dialog closes before the handlers run, a command that opens a `Dialog` finds the focus already back on the
@@ -363,7 +365,7 @@ Under the reduced transparency setting the blur is off and the scrim stays.
   its ring again.
 - While the dialog is modal, the focus stays inside it: Tab goes from the field to the clear button (when there is a
   query) and the "Esc" key cap, then back to the field.
-- Choosing a command closes the dialog before `ItemSelected` and the commands run, so a command that opens another
+- Choosing a command closes the dialog before `ItemInvoked` and the commands run, so a command that opens another
   dialog finds the focus already back on the page.
 - With `IsModal` off, the page stays interactive and the focus is free. A press anywhere outside the palette closes it.
 - Opening while a text box has the focus works, because the dialog handles the gesture before the text box does. The
@@ -389,7 +391,7 @@ Palette.CloseRequested += (_, e) => Hide(e.Reason);
 `CloseRequested` is raised by Escape in an empty field and by the "Esc" key cap, and its `Reason` is
 `CommandPaletteCloseReason.Escape` or `CommandPaletteCloseReason.CloseButton`. Escape with a query clears it and is
 handled. In an empty field Escape is left unhandled, so an overlay around the palette can also close on it, as the
-dialog does. Whatever hides the palette is yours: close it there, and after `ItemSelected`.
+dialog does. Whatever hides the palette is yours: close it there, and after `ItemInvoked`.
 
 Cmd+K on macOS, or Ctrl+K elsewhere, moves the focus to the field of an inline palette, from anywhere in the window; it
 does not toggle. The palette stands back while another modal that does not contain it is on top, and while another
@@ -542,7 +544,7 @@ picture was taken; in the console it opens with the key.
 - Keep one palette dialog per window. A second dialog needs its own `OpenGesture`, and an inline palette next to it needs
   `IsShortcutEnabled="False"`, or the key has two claimants and only one of them answers.
 - Offer a button that opens the dialog next to the key. People who do not know Cmd+K then still find the palette.
-- Handle a chosen command in `ItemSelected` or `SelectCommand` and expect the dialog to be closing already. A command
+- Handle a chosen command in `ItemInvoked` or `SelectCommand` and expect the dialog to be closing already. A command
   that opens a `Dialog` then needs no focus handling of its own.
 
 **Avoid**

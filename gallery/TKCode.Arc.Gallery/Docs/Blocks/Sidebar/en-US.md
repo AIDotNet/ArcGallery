@@ -168,6 +168,12 @@ shown.
 `IsEnabled="False"` dims a page and the arrow keys skip it. A disabled parent cannot be opened either. Each item can
 also carry a `Tag` and a `Command` with a `CommandParameter`.
 
+`IsVisible="False"` hides a page: it takes no room, and the arrow keys, type-ahead, the filter and the rail menu skip
+it; a hidden parent hides its pages with it. The page stays in `Items`, so setting `IsVisible` back to `True` brings it
+up where it was. Set it on a `SidebarSection` to hide the heading and all of its pages; a section whose pages are all
+hidden disappears by itself. If the hidden page is the selected one, `SelectedItem` and `SelectedKey` keep it and only
+the selection block is not drawn.
+
 ### Counts, unread dots, actions and icons
 
 `Badge` puts a short count at the end of a row, such as "12" for unread messages; a `null` badge shows nothing.
@@ -175,7 +181,9 @@ also carry a `Tag` and a `Command` with a `CommandParameter`.
 accessible name. Use a count when the number matters and the dot when "something is new" is enough. On the rail both
 become a dot on the icon.
 
-`Icon` takes a 24 by 24 Lucide geometry, such as an `ArcIcons` glyph, or any control that fits the 16 px icon slot. A
+`Icon` takes a 24 by 24 Lucide geometry, such as an `ArcIcons` glyph, or any control that fits the 16 px icon slot.
+`ArcIcons` holds only the glyphs Arc's own components use; for any other Lucide icon, put a `lucide:LucideIcon` (from
+`TKCode.Arc.Icons.Lucide`, see the Installation guide) in `Icon`. A
 small `Ellipse` makes a colored dot icon that lines up with the glyphs of the other rows. A control icon can sit in one
 row only, so create one per item. `TrailingIcon` puts an icon right after the label, in the label's muted color; it
 suits a hint such as the chevron of a "More" row.
@@ -224,10 +232,16 @@ from a menu on the rail. It fires even when the page was already selected, which
 you. Use it for navigation that must happen on each choice, such as scrolling a page back to the top. After the event
 the item's own `Command` runs, then `SelectCommand` with the item as its parameter, each only when it can execute.
 
+`SelectionChanged` is a routed event that fires whenever `SelectedItem` changes: a page was chosen, `SelectedKey` or
+`SelectedItem` was set in code or from a binding, or the selection was cleared. Its `SidebarSelectionChangedEventArgs`
+carry `OldItem`, `NewItem`, `OldKey` and `NewKey`. Choosing the page that is already selected raises `ItemInvoked` but
+not `SelectionChanged`.
+
 <Demo name="DataBinding" />
 
 ```csharp
 sidebar.ItemInvoked += (_, e) => router.Navigate(e.Item.Key!);
+sidebar.SelectionChanged += (_, e) => ShowPage(e.NewKey);
 ```
 
 ### Binding to a view model
@@ -267,8 +281,9 @@ public partial class WorkspaceShellViewModel : ObservableObject
 
 - `SelectedKey` and `IsCollapsed` are two-way, so a route change from elsewhere in the app (a link in a page, a
   back button) selects the matching row, and the rail button writes back to the view model.
-- Run navigation side effects in `SelectCommand` or `ItemInvoked`, not in a handler on `SelectedKey`. The selection
-  also changes when the route is set from code, and that is not always a choice a person made.
+- React to the selection wherever it came from with `SelectionChanged`; it also fires when the route is set from code,
+  which is not always a choice a person made. Run navigation side effects in `SelectCommand` or `ItemInvoked`, which
+  fire only when a page is chosen.
 - Set `IsNavigationCollapsed` from your own window width check when the window narrows; the sidebar does not watch the
   window for you.
 - When data drives the menu, build the sections in code and keep a reference to the item whose count changes:
@@ -317,7 +332,7 @@ public class MenuNode
 </arc:Sidebar>
 ```
 
-- `LabelMemberBinding`, `KeyMemberBinding`, `IconMemberBinding`, `BadgeMemberBinding`, `IsEnabledMemberBinding` and
+- `LabelMemberBinding`, `KeyMemberBinding`, `IconMemberBinding`, `BadgeMemberBinding`, `IsEnabledMemberBinding`, `IsVisibleMemberBinding` and
   `ChildrenMemberBinding` read the fields with compiled bindings, so they stay trimming and NativeAOT safe. Under
   compiled bindings, give each one the item type: `{Binding Title, DataType={x:Type local:MenuNode}}`, as the demo does. The string
   `*Member` paths (`LabelMember="Title"`, ...) still work but use reflection: use them only in apps that are not trimmed;
@@ -405,7 +420,7 @@ than one level belong in a `TreeView`.
   touched: new pages get new rows, removed pages lose theirs, and the rows of pages that stay keep their controls, their
   focus and their selection.
 - **Cheap property changes.** A change to `Badge`, `IsUnread`, `IsAction`, `Icon` or `TrailingIcon` updates that row
-  only; a change to `Label` or `IsEnabled` also refreshes the filter and the disabled pages.
+  only; a change to `Label`, `IsEnabled` or `IsVisible` also refreshes the filter and the disabled and hidden pages.
 - **Closed parents stay out of layout.** A parent or a collapsible section that has closed and settled leaves layout
   and rendering altogether, so a tree with many closed parents is cheap to lay out and draw.
 - **Off screen, nothing is held.** While the sidebar is not on screen it holds no rows and no subscriptions to your items,
@@ -418,7 +433,7 @@ The rows are real controls, so the sidebar suits a few dozen pages; a larger cat
 
 ### Live data
 
-The sidebar follows its data: change `Badge`, `IsUnread`, `Label`, `Icon` or `IsEnabled` on an item, or add, move and
+The sidebar follows its data: change `Badge`, `IsUnread`, `Label`, `Icon`, `IsEnabled` or `IsVisible` on an item, or add, move and
 remove items and sections, and only the rows concerned change. A new page makes its section grow on the same spring as
 opening it.
 
@@ -577,9 +592,11 @@ is safe and changing the key is not.
 **Why does choosing a parent not open a page?** A parent is never selected. Choosing it opens or closes its pages.
 Give the parent a child page for its landing view, and bind `SelectedKey` to that child's key.
 
-**How do I hide a page instead of disabling it?** Remove the item from its parent's or section's `Items`. The rows
-update in place, and the page reappears when you add it back. `IsEnabled="False"` keeps the page visible, dimmed, and
-out of the arrow key order.
+**How do I hide a page instead of disabling it?** Set `IsVisible="False"` on the item (or on its section). The page
+leaves the layout, the arrow keys, the filter and the rail menu, and returns where it was when you set it back to
+`True`; bind it to a flag on your view model, or use `IsVisibleMemberBinding` for data-bound pages. Removing the item
+from its parent's or section's `Items` works too. `IsEnabled="False"` keeps the page visible, dimmed, and out of the
+arrow key order.
 
 **What happens when `SelectedKey` names a page that does not exist?** Nothing is selected, and the key keeps its value.
 When a page with that key is added later, the sidebar selects it. This lets a route set at startup work before the

@@ -1,7 +1,7 @@
 ---
 title: 單選群組
 summary: 從可見的一組選項中選取一項。
-source-hash: 9abd7f8198ab
+source-hash: 28fd18020daf
 ---
 
 <Demo name="Plans" />
@@ -13,7 +13,7 @@ source-hash: 9abd7f8198ab
 - **帳單或升級頁面中的方案選擇**：工作區擁有者在愛好版、專業版和團隊版之間選擇。每一列都附有該方案包含內容的說明，而這正是決策所依據的資訊。
 - **結帳時的配送或出貨選項**：標準配送、加急或自取，每項都以配送時段作為說明。所選選項會隨訂單一併送出。
 - **分析主控台中的匯出格式或報表範圍**：CSV、Parquet 或 JSON，或「本月」與「年初至今」。每一列都說明檔案包含什麼，讓使用者不必猜測。
-- **邀請表單中的存取或角色選擇**：檢視者、編輯者或管理員，每個角色附有其權限的說明。對於使用者自己的方案不包含的角色，使用 `IsDisabled`。
+- **邀請表單中的存取或角色選擇**：檢視者、編輯者或管理員，每個角色附有其權限的說明。對於使用者自己的方案不包含的角色，使用 `IsEnabled="False"`。
 - **開發者工具中的環境或地區選擇**：為表單一次選定部署目標，每個選項都必須保持可見，以便審閱。
 
 ## 何時不用
@@ -167,7 +167,7 @@ public partial class UpgradeViewModel : ObservableObject
 
 ### 停用選項
 
-`IsDisabled` 讓選項保持可見但無法使用。方向鍵會略過停用的選項，指標、空白鍵和 Enter 都無法選取該列。
+`IsEnabled="False"` 讓選項保持可見但無法使用。方向鍵會略過停用的選項，指標、空白鍵和 Enter 都無法選取該列。
 
 <Demo name="InlineOptions" />
 
@@ -224,7 +224,7 @@ group.SelectionChanged += (_, _) =>
         <arc:RadioOption Value="enterprise"
                          Label="Enterprise"
                          Description="Contact sales. Available on annual contracts."
-                         IsDisabled="True" />
+                         IsEnabled="False" />
     </arc:RadioGroup>
     <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
         <arc:Button Content="Cancel" Variant="Secondary" />
@@ -254,7 +254,7 @@ group.SelectionChanged += (_, _) =>
 - 把使用者最可能選擇的選項放在最前面，或放在帳號目前已選取的選項上，讓決策從目前狀態開始。
 - 當僅靠標籤無法說明差異時，為每個選項提供說明。沒有說明的列讀起來較快，因此只在說明承載資訊時才加上。
 - 設定與已儲存狀態相符的 `SelectedValue`。空的選取不會顯示標記，在一個期望得到答案的表單上，這看起來像一個未回答的問題。
-- 對存在但無法套用的選項使用 `IsDisabled`，並在其說明中寫出原因。
+- 對存在但無法套用的選項使用 `IsEnabled="False"`，並在其說明中寫出原因。
 
 **避免**
 

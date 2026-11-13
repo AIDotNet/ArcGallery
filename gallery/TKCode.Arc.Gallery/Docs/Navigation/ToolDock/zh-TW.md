@@ -1,7 +1,7 @@
 ---
 title: Tool dock
 summary: 為編輯器（例如畫布）的工具與模式準備的浮動工具列：正在使用的工具襯著一塊著色底，停留時顯示它的名稱與快速鍵，同一工具的幾個變體共用一個槽位，展開成一個托盤。
-source-hash: 3fcb75c58ca3
+source-hash: 97f7a4f6b8ec
 ---
 
 <Demo name="Preview" />
@@ -37,7 +37,7 @@ source-hash: 3fcb75c58ca3
 </UserControl>
 ```
 
-`ToolDock` 位於 Special 套件：在 `UseArcControls()` 旁邊用 `UseArcSpecial()` 註冊。每個項目是一個 `ToolDockItem`，帶有 `Value`、`Label`、24 × 24 的 `Glyph`，也可以加上 `Shortcut` 與 `Badge`。`SelectedValue`（雙向）是選取項目的 `Value`；`ItemChosen` 回報透過指標、鍵盤或輔助技術做出的每一次選擇。快速鍵提示只是顯示出來：請在頁面上處理按鍵並設定 `SelectedValue`，就像上面的預覽那樣。項目也可以來自 `ItemsSource`，以 `ItemContainerTheme` 繫結容器的屬性。
+`ToolDock` 位於 Special 套件：在 `UseArcControls()` 旁邊用 `UseArcSpecial()` 註冊。每個項目是一個 `ToolDockItem`，帶有 `Value`、`Label`、24 × 24 的 `Glyph`，也可以加上 `Shortcut` 與 `Badge`。`SelectedValue`（雙向）是選取項目的 `Value`；`ItemInvoked` 回報透過指標、鍵盤或輔助技術做出的每一次選擇（包括再次選取已選取的項目），`SelectionChanged` 只在 `SelectedValue` 真的改變時引發。快速鍵提示只是顯示出來：請在頁面上處理按鍵並設定 `SelectedValue`，就像上面的預覽那樣。項目也可以來自 `ItemsSource`，以 `ItemContainerTheme` 繫結容器的屬性。
 
 每個槽位 40 px，工具列的寬度就是所有槽位加起來的寬度，不會為了放下而擠壓任何東西。工具列上方要預留空位，因為托盤與浮動標籤都出現在那裡。
 

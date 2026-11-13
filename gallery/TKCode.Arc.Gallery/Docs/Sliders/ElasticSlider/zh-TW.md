@@ -1,7 +1,7 @@
 ---
 title: 彈性滑桿
 summary: 滑桿越過兩端時如橡皮筋般拉伸，附帶搖擺的數值標籤，以及滑桿會卡入的檔位。
-source-hash: a9eeac1f0470
+source-hash: 42d6e6b3ad59
 ---
 
 <Demo name="RubberBand" />
@@ -261,7 +261,7 @@ Volume.ValueCommitted += async (_, e) => await ViewModel.SaveVolumeAsync(e.Value
 
 **為什麼我按鍵時滑桿沒有落在刻度上？** 按鍵以 `SmallChange` 為步長移動，從不貼齊到刻度。只有當某一步恰好落在刻度的數值上時，鍵盤才能到達該刻度。對於 0、25、50、75 與 100 的刻度，請設定 `SmallChange="25"`，或使用能將刻度間距均分的 `SmallChange`。
 
-**如何隱藏讀數並讓數值不礙事？** 設定 `IsValueVisible="False"` 即可隱藏標籤旁的讀數。拖曳滑桿或以按鍵變更時數值標籤仍會出現，因此調整過程中數字始終可用，使用者停止操作後則隱藏。
+**如何隱藏讀數並讓數值不礙事？** 設定 `IsValueVisible="False"` 即可隱藏標籤旁的讀數。拖曳滑桿或以按鍵變更時數值標籤仍會出現，因此調整過程中數字始終可用，使用者停止操作後則隱藏。同時沒有 `Label` 時，標題列及其下方的間距不再參與配置，滑桿只有控制列那麼高，可以在工具列或表格儲存格中垂直置中。
 
 **一個彈性滑桿能選取範圍嗎？** 不能。`ElasticSlider` 只有一個 `Value`，沒有 `IsRange`。應使用設定了 `IsRange="True"` 的 `Slider`，並讀取 `LowerValue` 與 `UpperValue`。
 

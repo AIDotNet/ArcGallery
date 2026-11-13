@@ -1,7 +1,7 @@
 ---
 title: 側邊欄
 summary: 工作區導覽，包含群組、巢狀頁面、數量與滑動的選取標記；可收合為圖示窄欄。
-source-hash: b923fa300830
+source-hash: 7a7987ef0bbd
 ---
 
 <Demo name="Preview" />
@@ -111,11 +111,13 @@ source-hash: b923fa300830
 
 `IsEnabled="False"` 會讓頁面變淡，方向鍵會略過它；被停用的父層級也無法展開。每個項目還可以帶有 `Tag` 與 `Command`（以及 `CommandParameter`）。
 
+`IsVisible="False"` 會隱藏頁面：它不佔空間，方向鍵、首字母跳轉、篩選與窄欄選單都會略過它，被隱藏的父層級會連同其子頁面一起隱藏。頁面仍保留在 `Items` 中，設回 `True` 就回到原來的位置。在 `SidebarSection` 上設定它會隱藏標題與該群組的所有頁面；頁面全部被隱藏的群組會自行消失。若被隱藏的是目前選取的頁面，`SelectedItem` 與 `SelectedKey` 仍保留它，只是不再繪製選取區塊。
+
 ### 數量、未讀點、動作列與圖示
 
 `Badge` 會在列尾顯示一個簡短的數量，例如未讀訊息的「12」；`Badge` 為 `null` 時不顯示任何內容。`IsUnread="True"` 則在列尾顯示一個小的強調色圓點，讓標籤更醒目，並在該列的無障礙名稱中加上「未讀」。數字有意義時用數量，只需要表示「有新內容」時用圓點。在窄欄上，兩者都會變成圖示上的圓點。
 
-`Icon` 接受 24 × 24 的 Lucide 圖形（例如 `ArcIcons` 中的字形），也可以是任何能放入 16 px 圖示槽的控制項。用一個小的 `Ellipse` 就能做出彩色圓點圖示，並與其他列的圖示對齊。作為圖示的控制項只能放在一列中，因此請為每個項目各建立一個。`TrailingIcon` 會在標籤之後緊接一個圖示，顏色與標籤的淡化色相同；適合用作提示，例如「More」列的箭頭。
+`Icon` 接受 24 × 24 的 Lucide 圖形（例如 `ArcIcons` 中的字形），也可以是任何能放入 16 px 圖示槽的控制項。`ArcIcons` 只包含 Arc 自己的元件用到的字形；其他 Lucide 圖示請把 `TKCode.Arc.Icons.Lucide` 中的 `lucide:LucideIcon` 放進 `Icon`（參見安裝指南）。用一個小的 `Ellipse` 就能做出彩色圓點圖示，並與其他列的圖示對齊。作為圖示的控制項只能放在一列中，因此請為每個項目各建立一個。`TrailingIcon` 會在標籤之後緊接一個圖示，顏色與標籤的淡化色相同；適合用作提示，例如「More」列的箭頭。
 
 `IsAction="True"` 會把一列變成動作：顏色柔和，永遠不會被選取。選取它會引發 `ItemInvoked` 並執行其命令，但 `SelectedItem` 保持不變。適用於「New project」或「More」。
 
@@ -148,10 +150,13 @@ source-hash: b923fa300830
 
 `ItemInvoked` 是一個路由事件，每次選取頁面或動作時都會引發：無論是點選、按 Enter 或 Space，還是窄欄上的選單。即使該頁面已經被選取，它也會引發，而繫結到 `SelectedKey` 無法告訴你這一點。對於每次選擇都必須發生的導覽（例如把頁面捲回頂端），請使用它。事件之後，該項自己的 `Command` 會執行，然後以該項為參數執行 `SelectCommand`，兩者都只在可以執行時才執行。
 
+`SelectionChanged` 是一個路由事件，只要 `SelectedItem` 改變就會引發：選取了某個頁面、在程式碼中或透過繫結設定了 `SelectedKey` 或 `SelectedItem`，或選取被清除。它的 `SidebarSelectionChangedEventArgs` 帶有 `OldItem`、`NewItem`、`OldKey` 與 `NewKey`。選取已經選取的頁面只會引發 `ItemInvoked`，不會引發 `SelectionChanged`。
+
 <Demo name="DataBinding" />
 
 ```csharp
 sidebar.ItemInvoked += (_, e) => router.Navigate(e.Item.Key!);
+sidebar.SelectionChanged += (_, e) => ShowPage(e.NewKey);
 ```
 
 ### 繫結到檢視模型
@@ -189,7 +194,7 @@ public partial class WorkspaceShellViewModel : ObservableObject
 ```
 
 - `SelectedKey` 與 `IsCollapsed` 是雙向的，因此應用程式其他地方的路由變動（頁面中的連結、返回按鈕）會選取對應的列，而窄欄按鈕的狀態會寫回檢視模型。
-- 把導覽的副作用放在 `SelectCommand` 或 `ItemInvoked` 中執行，不要放在 `SelectedKey` 的處理常式中。路由由程式碼設定時選取項也會改變，而這並不總是使用者的選擇。
+- 用 `SelectionChanged` 回應選取項的變化，無論它來自哪裡；路由由程式碼設定時它也會引發，而這並不總是使用者的選擇。導覽的副作用放在 `SelectCommand` 或 `ItemInvoked` 中執行，它們只在選取頁面時引發。
 - 視窗變窄時，依你自己的視窗寬度檢查來設定 `IsNavigationCollapsed`；側邊欄不會替你監看視窗。
 - 當資料驅動選單時，請在程式碼中建構群組，並保留對數量會變動的項目的參照：
 
@@ -234,7 +239,7 @@ public class MenuNode
 </arc:Sidebar>
 ```
 
-- `LabelMemberBinding`、`KeyMemberBinding`、`IconMemberBinding`、`BadgeMemberBinding`、`IsEnabledMemberBinding` 與 `ChildrenMemberBinding` 以編譯繫結讀取欄位，在修剪與 NativeAOT 下都安全。使用編譯繫結時，為每個繫結指定項目的型別：`{Binding Title, DataType={x:Type local:MenuNode}}`，範例即是如此。字串形式的 `*Member` 路徑（`LabelMember="Title"` 等）仍可使用，但透過反射，只適合不修剪的應用程式；兩者都設定時以 `*MemberBinding` 為準。列會跟隨物件上的 `INotifyPropertyChanged`，以及 `ItemsSource` 與子層集合上的 `INotifyCollectionChanged`，清單變動時保留各列的展開狀態。
+- `LabelMemberBinding`、`KeyMemberBinding`、`IconMemberBinding`、`BadgeMemberBinding`、`IsEnabledMemberBinding`、`IsVisibleMemberBinding` 與 `ChildrenMemberBinding` 以編譯繫結讀取欄位，在修剪與 NativeAOT 下都安全。使用編譯繫結時，為每個繫結指定項目的型別：`{Binding Title, DataType={x:Type local:MenuNode}}`，範例即是如此。字串形式的 `*Member` 路徑（`LabelMember="Title"` 等）仍可使用，但透過反射，只適合不修剪的應用程式；兩者都設定時以 `*MemberBinding` 為準。列會跟隨物件上的 `INotifyPropertyChanged`，以及 `ItemsSource` 與子層集合上的 `INotifyCollectionChanged`，清單變動時保留各列的展開狀態。
 - 你的物件保存在 `SidebarItem.Tag` 中，因此 `SelectedItem.Tag`（或 `ItemInvoked` 的 `Item.Tag`）就是所選頁面的資料。
 - 想在子類別上放自己的欄位？把 `SidebarItem` 的子類別放進 `ItemsSource`，它們會被原樣使用：不需要 `*MemberBinding`，`TrailingTemplate` 仍以該項作為 `DataContext`。
 - 項目上已設定的 `TrailingIcon` 優先於 `TrailingTemplate`。
@@ -290,7 +295,7 @@ public class MenuNode
 讓模型只包含導覽所需的內容：`Key` 在整個側邊欄中必須唯一（`SelectedKey` 會找到第一個相符的頁面，而父層級的鍵永遠不會被比對）、簡短的 `Label`、一個圖示以及可選的數量。層級超過一層的頁面應放在 `TreeView` 中。
 
 - **合併且增量。** 對 `Sections` 與各項目集合的變更會被合併處理：各列會在目前批次之後統一更新一次，因此一次加入多個頁面只需一次更新。只有發生變化的部分會被處理：新頁面取得新的列，被移除的頁面失去它的列，仍然存在的頁面的列保留其控制項、焦點與選取狀態。
-- **屬性變更的成本很低。** 變更 `Badge`、`IsUnread`、`IsAction`、`Icon` 或 `TrailingIcon` 只會更新該列；變更 `Label` 或 `IsEnabled` 還會重新整理篩選與停用的頁面。
+- **屬性變更的成本很低。** 變更 `Badge`、`IsUnread`、`IsAction`、`Icon` 或 `TrailingIcon` 只會更新該列；變更 `Label`、`IsEnabled` 或 `IsVisible` 還會重新整理篩選與停用、隱藏的頁面。
 - **收合的父層級不參與配置。** 已經收合並靜止的父層級或可收合群組會完全退出配置與轉譯，因此有許多收合父層級的樹，配置與轉譯都很輕。
 - **不在畫面上時不持有任何東西。** 側邊欄不在畫面上時，它不持有任何列，也不訂閱你的項目，因此共用的或靜態的項目不會讓它一直存活；回到畫面上時會重新建構各列。
 - **寬度彈簧。** 在 `Push` 模式下，收合過程的每一個影格都會讓頁面重新配置；在 `Overlay` 模式下，頁面只配置一次，只有窗格的排列會變化（見「側邊欄旁邊的頁面」）。
@@ -299,7 +304,7 @@ public class MenuNode
 
 ### 即時資料
 
-側邊欄會跟隨其資料變化：變更項目上的 `Badge`、`IsUnread`、`Label`、`Icon` 或 `IsEnabled`，或增減、移動項目與群組，只有相關的列會變化。新增頁面會讓所在群組以與展開相同的彈簧增高。
+側邊欄會跟隨其資料變化：變更項目上的 `Badge`、`IsUnread`、`Label`、`Icon`、`IsEnabled` 或 `IsVisible`，或增減、移動項目與群組，只有相關的列會變化。新增頁面會讓所在群組以與展開相同的彈簧增高。
 
 <Demo name="LiveUpdates" />
 
@@ -438,7 +443,7 @@ pinned.Items.RemoveAt(0);
 
 **為什麼選取父層級不會開啟頁面？** 父層級永遠不會被選取，選取它只會展開或收合其頁面。請為父層級加入一個作為其著陸檢視的子頁面，並將 `SelectedKey` 繫結到該子項目的鍵。
 
-**如何隱藏頁面而不是停用它？** 從其父層級或群組的 `Items` 中移除該項目。列會原地更新，重新加入時頁面會再次出現。`IsEnabled="False"` 會讓頁面保持可見但變淡，並移出方向鍵的順序。
+**如何隱藏頁面而不是停用它？** 把該項目（或其群組）的 `IsVisible` 設為 `False`。頁面會離開版面配置、方向鍵順序、篩選與窄欄選單，設回 `True` 時回到原來的位置；可以把它繫結到檢視模型上的旗標，資料繫結的頁面則用 `IsVisibleMemberBinding`。從 `Items` 中移除也可以。`IsEnabled="False"` 會讓頁面保持可見但變淡，並移出方向鍵的順序。
 
 **當 `SelectedKey` 指向不存在的頁面時會怎樣？** 不會選取任何東西，鍵保留其值。之後加入該鍵對應的頁面時，側邊欄會選取它。這使得啟動時設定的路由可以在導覽資料載入完成之前就生效。
 

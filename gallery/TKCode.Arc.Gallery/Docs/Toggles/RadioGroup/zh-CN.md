@@ -1,7 +1,7 @@
 ---
 title: 单选组
 summary: 从可见的一组选项中选择一项。
-source-hash: 9abd7f8198ab
+source-hash: 28fd18020daf
 ---
 
 <Demo name="Plans" />
@@ -13,7 +13,7 @@ source-hash: 9abd7f8198ab
 - **账单或升级页面中的套餐选择**：工作区所有者在爱好版、专业版和团队版之间选择。每一行都附有该套餐包含内容的描述，而这正是决策所依据的信息。
 - **结账时的配送或履约选项**：标准配送、加急或自提，每项都以配送时段作为描述。所选选项会随订单一起提交。
 - **分析控制台中的导出格式或报表范围**：CSV、Parquet 或 JSON，或“本月”与“年初至今”。每一行都说明文件包含什么，让人不必猜测。
-- **邀请表单中的访问或角色选择**：查看者、编辑者或管理员，每个角色附有其权限的描述。对于使用者自己的方案不包含的角色，使用 `IsDisabled`。
+- **邀请表单中的访问或角色选择**：查看者、编辑者或管理员，每个角色附有其权限的描述。对于使用者自己的方案不包含的角色，使用 `IsEnabled="False"`。
 - **开发者工具中的环境或地区选择**：为表单一次性选择部署目标，每个选项都必须保持可见，便于审阅。
 
 ## 何时不用
@@ -167,7 +167,7 @@ public partial class UpgradeViewModel : ObservableObject
 
 ### 禁用选项
 
-`IsDisabled` 让选项保持可见但不可用。方向键会跳过被禁用的选项，指针、空格键和 Enter 都无法选中该行。
+`IsEnabled="False"` 让选项保持可见但不可用。方向键会跳过被禁用的选项，指针、空格键和 Enter 都无法选中该行。
 
 <Demo name="InlineOptions" />
 
@@ -224,7 +224,7 @@ group.SelectionChanged += (_, _) =>
         <arc:RadioOption Value="enterprise"
                          Label="Enterprise"
                          Description="Contact sales. Available on annual contracts."
-                         IsDisabled="True" />
+                         IsEnabled="False" />
     </arc:RadioGroup>
     <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
         <arc:Button Content="Cancel" Variant="Secondary" />
@@ -254,7 +254,7 @@ group.SelectionChanged += (_, _) =>
 - 把人最可能选择的选项放在最前面，或放在账号当前已选中的选项上，让决策从当前状态开始。
 - 当仅靠标签无法说明差异时，为每个选项提供描述。没有描述的行读起来更快，因此只在描述承载信息时才添加。
 - 设置与已保存状态相符的 `SelectedValue`。空选择不显示标记，在一个期望得到答案的表单上，这看起来像一个未回答的问题。
-- 对存在但无法应用的选项使用 `IsDisabled`，并在其描述中说明原因。
+- 对存在但无法应用的选项使用 `IsEnabled="False"`，并在其描述中说明原因。
 
 **避免**
 

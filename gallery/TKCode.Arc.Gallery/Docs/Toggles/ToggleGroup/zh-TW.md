@@ -1,7 +1,7 @@
 ---
 title: 切換按鈕組
 summary: 一排切換按鈕，用於單選或多個相互獨立的選項。
-source-hash: bbe990e3c809
+source-hash: 70350af69d92
 ---
 
 <Demo name="TextStyle" />
@@ -68,7 +68,7 @@ source-hash: bbe990e3c809
 
 ### 停用選項
 
-選項上的 `IsDisabled` 讓它不再回應鍵盤和指標，但仍保留在列中的位置。組上的 `IsEnabled="False"` 停用所有選項並讓組變淡。
+選項上的 `IsEnabled="False"` 讓它不再回應鍵盤和指標，但仍保留在列中的位置。組上的 `IsEnabled="False"` 停用所有選項並讓組變淡。
 
 <Demo name="Disabled" />
 

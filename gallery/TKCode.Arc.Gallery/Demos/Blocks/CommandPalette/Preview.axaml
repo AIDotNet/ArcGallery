@@ -26,7 +26,7 @@
                                   IsModal="False"
                                   PanelWidth="480"
                                   PlaceholderText="Search board commands"
-                                  ItemSelected="OnItemSelected">
+                                  ItemInvoked="OnItemSelected">
             <arc:CommandPaletteItem Id="add-task" Group="Tasks" Label="Add a task" Description="Put a new task on the board" Icon="{x:Static arc:ArcIcons.Plus}" Shortcut="N" />
             <arc:CommandPaletteItem Id="assign" Group="Tasks" Label="Assign to me" Description="Take ownership of the selected task" Icon="{x:Static arc:ArcIcons.User}" Shortcut="A" />
             <arc:CommandPaletteItem Id="due" Group="Tasks" Label="Set a due date" Description="Pick a deadline from the calendar" Icon="{x:Static arc:ArcIcons.CalendarDays}" />

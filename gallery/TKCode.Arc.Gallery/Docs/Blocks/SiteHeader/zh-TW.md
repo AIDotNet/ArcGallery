@@ -1,7 +1,7 @@
 ---
 title: Site header
 summary: 捲動時會變為實心的網站頂端列，附有滑動的目前連結指示、大型選單面板與行動版選單面板。
-source-hash: cfe6c235860b
+source-hash: e05d18ac9a3a
 ---
 
 <Demo name="Preview" />
@@ -52,6 +52,8 @@ source-hash: cfe6c235860b
 `Items` 是 `AvaloniaList<SiteHeaderItem>`；設定 `ItemsSource` 時以它為準，並在它引發集合變更時被監看。在 `Mega` 變體中，帶有 `Links` 的項目會開啟面板；在其他變體中，它就是一般連結。`Value` 是項目的穩定名稱：`Current` 與 `SiteHeaderNavigateEventArgs.Section` 都使用它。`SiteHeader.CreateExampleItems()` 會回傳 Arc 的項目，可作為起點。功能卡片的 `Image` 可以是任何 `IImage`；它會以 16:10 顯示並裁切以填滿，`ImageDescription` 則是它所呈現的內容。沒有圖片時，功能卡片只顯示文字。
 
 <Demo name="Simple" />
+
+`SiteHeaderItem` 上的 `IsVisible="False"` 會讓它同時離開導覽列與選單面板，`IsEnabled="False"` 會讓它變淡、不開啟面板，並移出方向鍵順序。兩者都會跟隨之後的變化，因此同一個頁首可以同時服務已登入與未登入的使用者。`Current` 仍然可以指向被隱藏的項目。
 
 ### 選擇目的地
 

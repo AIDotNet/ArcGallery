@@ -34,11 +34,17 @@ docs.PageInvoked += (_, e) => router.Open(e.Page.Key);
 docs.VersionChanged += (_, e) => LoadPages(e.NewVersion);
 ```
 
+`PageInvoked` fires for every choice, also for the page that is already current. To react only when the current page really
+changes, however it changed (a click, your router setting `CurrentKey`, a binding), handle `SelectionChanged`: its
+`OldKey`, `NewKey` and `NewPage` describe the change.
+
 Pages and sections can also be written in XAML. Without `Sections` the sidebar shows an invented example site.
 `GetAdjacentPage(-1)` and `GetAdjacentPage(1)` give the previous and next page in reading order for the links at the
 bottom of an article.
 
 <Demo name="OwnPages" />
+
+`IsVisible="False"` on a `DocsSidebarPage` or a `DocsSidebarSection` takes it out of the list, the search and `GetAdjacentPage`; `IsEnabled="False"` on a page dims it, and the page can no longer be chosen or reached with the arrow keys. Both follow later changes, and a hidden page that is the current one stays `CurrentKey`, so a view model can show parts of the menu by role or plan without rebuilding the sections.
 
 ## API reference
 

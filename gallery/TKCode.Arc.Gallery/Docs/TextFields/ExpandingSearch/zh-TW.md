@@ -1,7 +1,7 @@
 ---
 title: 展開式搜尋
 summary: 圖示展開為搜尋欄位，並在下方顯示結果。
-source-hash: ed76aa077075
+source-hash: da131d8598a8
 ---
 
 <Demo name="HeaderSearch" />
@@ -91,13 +91,13 @@ header.SuggestionsLabel = "最近";
 
 1. 欄位收合為圖示，查詢內容被清除。
 2. 焦點回到觸發按鈕。
-3. 以被選取的項目作為 `e.Item` 觸發 `ItemSelected`。該事件會冒泡，因此樹狀結構中較上層的處理常式也能收到。
+3. 以被選取的項目作為 `e.Item` 觸發 `ItemInvoked`。該事件會冒泡，因此樹狀結構中較上層的處理常式也能收到。
 4. 若該命令可以執行，則以被選取的項目作為參數執行 `SelectCommand`。
 
 在 MVVM 應用程式中使用 `SelectCommand`；當程式碼後置需要直接處理該項目時，則使用事件。
 
 ```csharp
-header.ItemSelected += (_, e) => Open(e.Item.Id);
+header.ItemInvoked += (_, e) => Open(e.Item.Id);
 ```
 
 ```xml

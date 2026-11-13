@@ -46,6 +46,8 @@ springs, the default `Overlay` lets the sidebar slide over it.
 
 <Demo name="Rail" />
 
+`IsVisible="False"` on an `InboxSidebarFolder` or an `InboxSidebarLabel` hides that row, and `IsEnabled="False"` dims it and keeps it from being chosen. Both follow later changes. `SelectionChanged` reports every change of `SelectedKey` with the old and the new key and the folder or label that is selected now; `ItemInvoked` still reports each choice, also of the folder that is already open.
+
 ## API reference
 
 <!-- api: InboxSidebar -->

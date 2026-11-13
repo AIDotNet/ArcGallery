@@ -28,7 +28,7 @@ either it is an empty palette, and a question gets no answer. `ModelName` is nul
 
 ```csharp
 palette.ItemsSource = commands;
-palette.ItemSelected += (_, e) => Navigate(e.Item.Id);
+palette.ItemInvoked += (_, e) => Navigate(e.Item.Id);
 palette.Responder = async context =>
 {
     var reply = await api.AskAsync(context.Question, context.CancellationToken);
@@ -52,7 +52,7 @@ palette.Responder = async context =>
 Each item has a label, an optional `Group` that sections the results, a 16px `Icon`, quiet `Meta` text, a `Shortcut`
 shown as key caps and extra `Keywords`. Items marked `IsSuggested` are listed while the query is empty. The search is a
 synchronous word match: every word of the query has to start a word of the label, group, meta or keywords, so it suits a
-few hundred rows; filter on your server beyond that. Choosing a row raises `ItemSelected` and runs the item's `Command`.
+few hundred rows; filter on your server beyond that. Choosing a row raises `ItemInvoked` and runs the item's `Command`.
 
 ### Asking
 

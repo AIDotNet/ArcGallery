@@ -1,7 +1,7 @@
 ---
 title: 选择工具栏
 summary: 选中列表或表格中的项目时从底部升起的浮动栏：显示数量、全选、批量操作和清除选择。
-source-hash: ad3c171efa01
+source-hash: b1fb17e74c95
 ---
 
 <Demo name="Preview" />
@@ -33,6 +33,8 @@ toolbar.ActionInvoked += (_, e) => Run(e.Action.Key, e.SelectedCount);
 清除按钮和 Esc 会把 `SelectedCount` 设为 0 并引发 `Cleared`，在那里取消行的选择。每个操作也可以带一个 `Command`，它会收到选中的数量。没有 `Actions` 时，栏上提供 Archive、Move、Share 和 Delete。
 
 <Demo name="CustomActions" />
+
+操作栏在屏幕上时会跟随每个操作自己的 `IsEnabled` 和 `IsVisible`：当选中项里有无法归档的内容时禁用“归档”，或对无权分享的人隐藏“分享”。被隐藏的操作不占操作栏的空间。
 
 ## API 参考
 

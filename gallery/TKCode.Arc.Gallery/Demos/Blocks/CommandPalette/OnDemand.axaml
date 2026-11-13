@@ -24,7 +24,7 @@
         <arc:CommandPaletteDialog x:Name="Palette"
                                   PlaceholderText="Search commands"
                                   BackdropBlur="4"
-                                  ItemSelected="OnItemSelected">
+                                  ItemInvoked="OnItemSelected">
             <arc:CommandPaletteItem Id="new-doc" Label="New document" Group="Create" Icon="{x:Static arc:ArcIcons.FilePlus}" Shortcut="N" />
             <arc:CommandPaletteItem Id="new-project" Label="New project" Group="Create" Icon="{x:Static arc:ArcIcons.Folder}" />
             <arc:CommandPaletteItem Id="invite" Label="Invite teammate" Description="Send an email invite" Group="Create" Icon="{x:Static arc:ArcIcons.Users}" />

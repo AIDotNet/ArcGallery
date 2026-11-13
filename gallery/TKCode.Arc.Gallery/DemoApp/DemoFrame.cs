@@ -293,7 +293,7 @@ public sealed class DemoFrame : Grid, IDemoHost
             ItemsSource = items
         };
         search.Suggestions = items.Where(item => item.Id is "project:northwind" or "view:developers/keys" or "view:settings/preferences").ToList();
-        search.ItemSelected += (_, e) =>
+        search.ItemInvoked += (_, e) =>
         {
             if (e.Item.Tag is DemoIntent intent)
             {

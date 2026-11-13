@@ -1,7 +1,7 @@
 ---
 title: AI command
 summary: 带 AI 模式的 Cmd+K 命令面板：搜索页面与操作，或按 Tab 提问，回答就地流式呈现，附带编号来源，以及可直接在列表中执行的后续步骤。
-source-hash: f02dad32efab
+source-hash: 2275d7e30f0a
 ---
 
 <Demo name="Preview" />
@@ -27,7 +27,7 @@ source-hash: f02dad32efab
 
 ```csharp
 palette.ItemsSource = commands;
-palette.ItemSelected += (_, e) => Navigate(e.Item.Id);
+palette.ItemInvoked += (_, e) => Navigate(e.Item.Id);
 palette.Responder = async context =>
 {
     var reply = await api.AskAsync(context.Question, context.CancellationToken);
@@ -50,7 +50,7 @@ palette.Responder = async context =>
 
 每个条目有一个标签、一个用于给结果分区的可选 `Group`、一个 16px 的 `Icon`、低调的 `Meta` 文字、以键帽显示的 `Shortcut`，
 以及额外的 `Keywords`。标记为 `IsSuggested` 的条目会在查询为空时列出。搜索是同步的按词匹配：查询中的每个词都必须是标签、
-分组、附注或关键词中某个词的开头，因此适合几百行的规模；超出时请在服务器端过滤。选择一行会引发 `ItemSelected`，并执行该条目的 `Command`。
+分组、附注或关键词中某个词的开头，因此适合几百行的规模；超出时请在服务器端过滤。选择一行会引发 `ItemInvoked`，并执行该条目的 `Command`。
 
 ### 提问
 
