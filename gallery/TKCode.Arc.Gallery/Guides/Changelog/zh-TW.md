@@ -1,6 +1,6 @@
 ---
 title: 更新日誌
-source-hash: 63a6ffabffd5
+source-hash: 047ea1f5c14f
 ---
 
 # 更新日誌
@@ -8,6 +8,61 @@ source-hash: 63a6ffabffd5
 TKCode.Arc 的所有重要變更，最新的在前。版本遵循[語意化版本](https://semver.org/)。從 1.0.0 起，破壞性 API 變更只在新的主版本中出現；更早的 `-preview` 版本在各發行版本之間可能變更 API。同一份清單也保存在儲存庫的 `CHANGELOG.md` 中。
 
 每次發行附帶的 NuGet 套件：`TKCode.Arc`、`TKCode.Arc.Core`、`TKCode.Arc.Foundation`（0.3.2 起）、`TKCode.Arc.Fonts` 、`TKCode.Arc.Icons.Lucide`、`TKCode.Arc.Blocks`、`TKCode.Arc.AdvancedCharts` 、`TKCode.Arc.Special`、`TKCode.Arc.Workflow`、`TKCode.Arc.Dock`（0.4.0-preview.2 起）、`TKCode.Arc.Themes.Pixel`、`TKCode.Arc.Themes.Corners`、`TKCode.Arc.Mobile`、`TKCode.Arc.Terminal`、`TKCode.Arc.Audio`、`TKCode.Arc.Audio.Native`、`TKCode.Arc.Audio.Browser`、`TKCode.Arc.Templates`（0.4.0-preview.6 起）、`TKCode.Arc.Pdf`、`TKCode.Arc.Pdf.Native` 和 `TKCode.Arc.Pdf.Browser`（1.0.0 起），`TKCode.Arc.Video`、`TKCode.Arc.Video.Native` 和 `TKCode.Arc.Video.Browser`（1.1.0-preview.1 起）。
+
+## 1.1.0（2026-11-13）
+
+這是 1.0.0 之後的第一個功能版本。內容整合了 `1.1.0-preview.1` 到 `1.1.0-preview.7` 出貨的所有項目
+（`1.1.0-preview.5` 已準備但未發布，其變更首次隨 preview.6 出貨）：各套件的新控制項（`TreeSelect`、`Form`、`RadialMenu`、`OnScreenKeyboard`、`WindRoseChart`、Special 的玻璃效果、Dock、相片與資料群組、59 個區塊）、
+影片套件上架 NuGet、應用程式對 `PageHeader`、`Dialog`、`Drawer`、`Slider`、
+`Popover` 與設定區塊的回饋、項目類別與選取事件的統一慣例，以及大量修復。**相較 1.0.0 沒有破壞性變更**（已對 1.0.0 出貨且具 `net10.0` 版本的九個套件做 API 比對，包括 `TKCode.Arc`、`.Core`、`.Foundation`、`.Blocks`、`.AdvancedCharts`、`.Special`、`.Workflow`、`.Dock` 與 `.Mobile`，未發現任何破壞性變更），而且沒有移除任何成員（少數改名的成員保留為 `[Obsolete]` 別名，見「棄用」）。安裝時不需加上 `--prerelease`。各預覽版的完整說明，包含所有細節與議題連結，列在下方。
+
+### 從 1.0.0 升級
+
+- **套件**：它們相依 Avalonia 12.1.5 或之後任何 12.x 版本（`[12.1.5, 13.0.0)`），因此應用程式可以在 12 系列內更新 Avalonia，不必等待 Arc 新版本。所有套件仍以同一個版本發布，請保持版本一致。`TKCode.Arc.Video`、`.Video.Native` 與 `.Video.Browser` 是 NuGet 上的新套件（共 23 個套件）。
+- **外觀與行為變更**：頭像的狀態點會依頭像尺寸縮放（先前一律是 10 px 的中型圓點）；`InlineEdit` 多行欄位的按鈕保留 38 px，而非 66 px；繫結值的驗證錯誤現在會讓 `Checkbox`、`TimePicker` 與 `TagInput` 顯示為無效；`Gauge` 的數字會隨小圓環縮放；`ArcWindow` 在 Windows 上會繪製頂部框線；`TilePanel.IsAutoFill` 也會從側邊與下方填補空隙；`ChatThread` 的氣泡會跟隨主題的圓角樣式；在減少動態效果下，載入動畫會保持靜止並以不透明度呼吸，而不再凍結。在 Arc Mobile 中，頁面內的 `Sheet` 或 `ActionSheet` 會保留頁面的底部內距，除非設定 `SafeAreaBottom`（設為 `0` 即可恢復舊的版面）。
+- **`Sidebar`** 在變窄或變寬時會再次收合：請改設定 `ExpandedWidth`，而非 `Width`。在 NativeAOT 或裁剪環境下，請改用新的 `*MemberBinding` 屬性來對應其 `ItemsSource`。
+- **搬移**：`AvatarUpload` 從 `TKCode.Arc.Special` 搬到 `TKCode.Arc`（命名空間與 API 相同；`UseArcControls()` 現在會註冊它，`UseArcSpecial()` 則不再註冊）。
+- **已棄用的成員**仍可正常使用；建議在方便時改用新名稱（見「棄用」）。
+
+### 新增
+
+- **`TKCode.Arc`，輸入與選取**：`TreeSelect`（單選或多選節點、三態勾選、搜尋、數千個節點）；`Rating`；`ToggleGroup` 與 `SlotText`；`RangeHistogramSlider`、`RulerSlider`，以及每個滑桿上的 `ThumbDiameter` / `TrackThickness`；`Combobox`、`MultiSelect`、`TreeSelect` 與 `Cascader` 上的 `Size`；`Form` 與 `FormItem`，為 Arc 欄位的值屬性提供資料驗證（`Checkbox`、`Switch`、`NumberField`、`DatePicker`、`Select`、`Slider` 等多個欄位）；`OnScreenKeyboard`（QWERTY、數字與 PIN 鍵盤，也可使用自訂版面）；公開的項目容器 `RadioGroupItem`、`RadioCard` 與 `ToggleGroupItem`。
+- **`TKCode.Arc`，版面與回饋**：`Sticky`（類似 CSS 的 `position: sticky`）；`BackToTop`；`RadialMenu`；`OnboardingChecklist`；`SplitBar`、`MetricTicker` 與 `PresenceStack`；`Popover` 的滑鼠懸停觸發（`TriggerMode`、`OpenDelay`、`CloseDelay`、`HasShadow`）；`ButtonVariant.Text`；`Drawer` 的全螢幕、自訂標題列、拖曳把手與尺寸；`Dialog.ShowHeader`；`Tooltip.ShowOnDisabled`；`WindowCaptionButtons`；`WaterfallPanel.ItemSizing` 與 `TilePanel.IsAutoSpan`（同一範本的項目會自行排版）；`InlineEdit.ReserveActionSpace` 與 `Labels`；`EmptyState.Size`；更多 `AvatarStatus` 值（`Busy`、`Away`、`Connecting`）與 `AvatarSize.LargePlus`；`CodeBlock`、Markdown 程式碼區塊與富文本編輯器中的差異上色；`AvatarUpload` 會依檔案開頭的位元組檢查檔案，並儲存為 PNG 或 JPEG。
+- **`TKCode.Arc.Core`**：`ArcMotion.MaxFrameRate` 可限制即時迴圈重繪的頻率；內容寬度權杖（`ContentMaxWidthSM` 到 `XL`）與媒體權杖（`MediaSizeSM` 到 `XL`）；`ArcBusyPulse` 減少動態效果脈動。
+- **`TKCode.Arc.Blocks`**：59 個新區塊，涵蓋 AI（`AgentRun`、`ResearchRun`、`AgentTasks`、`McpServers`、`KnowledgeBase`、`EvalSuite` 等）、支援與內容、商務與財務、分析與專案、行銷區段（`HeroSection`、`FaqSection`、`ContactSection`、`StatsBand`、`BlogGrid`、`ComparisonTable`、`ChangelogFeed`、`LogoMarquee`），以及應用程式外殼、驗證與設定（`DocsSidebar`、`InboxSidebar`、`SelectionToolbar`、`TwoFactorSetup`、`ImportWizard`）。`Sidebar` 新增 `ExpandedWidth`、`SelectionChanged` 與項目可見性；`PageHeader` 新增 `IsHeaderOnly`、`Size` 與 `IsTitleBar`；`CommandPalette` 可列出應用程式提供的結果（`IsFilteringEnabled`）；`SettingsPage.SelectedValue`、`SettingsSection.BadgeTone`、`SettingsRow.Details` 與 `Leading`。
+- **`TKCode.Arc.Special`**：新的群組，設計上獨立於控制項名稱：玻璃（`GlassCard`、`GlassMenu`、`GlassSegmented`、`GlassTabBar`）、Dock 與分頁（`MorphNav`、`LiquidTabBar`、`OrbitMenu`、`ActionMorph`、`ShareSheet`、`ToolDock`）、相片（`ProductGallery`、`LightboxGallery`、`PhotoGrid`、`CoverFlow`）、資料與小工具（`BookingPill`、`ActivityRings`、`TimeDial`、`DateReel`、`KeycapKeyboard`）、輸入與發布（`EmojiPicker`、`ConfirmPopover`、`UndoToast`、`MegaMenuMorph`、`TocProgress`、`ShareAccess`）、說明型元件 `DnsResolution`、`ModelTraining` 與 `BranchGraph`，以及趣味與游標類（`SandText`、`TypewriterTerminal`、`PrizeWheel`、`MagnifyDock`、`ImageTrail`）。
+- **`TKCode.Arc.AdvancedCharts`**：`WindRoseChart`。
+- **`TKCode.Arc.Mobile`**：`ListCell`、`ListItem.Leading`、`Picker`、`RadioCards`、`ActionSheetItem.IsChecked`、`Page.InheritedSafeArea`。
+- **NuGet 上的影片套件**：`TKCode.Arc.Video`、`.Video.Native` 與 `.Video.Browser`（`VideoPlayer` 與 `VideoSurface` 分別建立在 Media Foundation、AVFoundation 或 GStreamer 上，WebAssembly 則使用瀏覽器的影片元素）。
+- **圖庫**（現在是獨立的儲存庫，[AIDotNet/ArcGallery](https://github.com/AIDotNet/ArcGallery)）：每個新元件都有英文、簡體中文與繁體中文的文件與示範。
+
+### 變更
+
+- **項目類別與選取事件遵循同一慣例**（[#117](https://github.com/AIDotNet/TKCode.Arc/issues/117)、[#114](https://github.com/AIDotNet/TKCode.Arc/issues/114)）：`Sidebar`、`DocsSidebar`、`InboxSidebar`、`SiteHeader`、`Stepper`、`SegmentedControl`、`ToggleGroup`、`RadioGroup`、`RadioCards`、`BillingToggle`、`CommandPalette` 與 `SelectionToolbar` 的項目類別都有 `IsEnabled` 與 `IsVisible`；每個具選取狀態的控制項都有 `SelectionChanged`，而「使用者選擇了它」則使用 `ItemInvoked`。已發布的成員從現在起不會在一步之內移除或改名；它們會保留為 `[Obsolete]`，並且只會在新的主版本中、且經過兩個穩定版後才刪除。
+- **效能**：`GhostMascot`、`CubeMascot`、`AiMascot`、`LiquidTabBar`、`AiSpark` 與 `RadarChart` 每個影格的配置量大幅減少，外觀不變。
+- **圖庫已搬到獨立的儲存庫**；套件本身沒有變動。
+
+### 修復
+
+- **在 NativeAOT 下**，`Sidebar` 不再產生裁剪警告（新增 `LabelMemberBinding`、`KeyMemberBinding`、`IconMemberBinding`、`BadgeMemberBinding`、`IsEnabledMemberBinding`、`ChildrenMemberBinding`）。
+- **版面**：`Combobox` 的高度再次與其觸發器一致；沒有標籤與讀數的 `Slider` 與 `ElasticSlider` 不再保留空白的標題列；`TextFilterBox` 與 `NumberFilterBox` 不再重疊；頭像狀態點與 `InlineEdit` 多行保留區使用文件中記載的尺寸；`Gauge` 的數字留在小圓環內；`Table` 在窄的手機版面或未經版面計算就更換來源後不再拋出例外；來自 `ItemsSource` 的 `SettingsGroup` 列不再有多餘的細線；使用 `ListItem` 範本的 `ListGroup` 不再把列包裝兩次。
+- **彈出視窗與覆蓋層**：`Dialog`、`Drawer`、`BottomSheet` 與 `Tooltip` 在圓角下方不再出現深色方角；`MegaMenuMorph` 在指標停留於觸發器上時不再反覆開關；模態視窗的內容在邏輯樹中只出現一次；`OrbitMenu` 只開啟一次。
+- **動效**：載入動畫與旋轉指示器在減少動態效果下不再凍結。
+- **繫結**：使用自訂 `SelectedValueBinding` 的 `ToggleGroup` 會回報繫結的值。
+- **Windows**：`ArcWindow` 會繪製頂部邊緣；圖庫應用程式在 21H2 之前的 Windows 10 版本上可再次啟動。
+
+### 棄用
+
+沒有任何東西被移除。以下每一項都會繼續運作、標示為 `[Obsolete]`，並至少保留兩個穩定版；只能在新的主版本中刪除。
+
+- **`SegmentedOption`、`ToggleGroupOption`、`RadioOption` 與 `RadioCardOption` 上的 `IsDisabled` 與 `IsDisabledProperty`**：請改用 `IsEnabled`，兩者互為相反（`IsDisabled="True"` 改為 `IsEnabled="False"`）。兩者的值會保持同步。
+- **`CommandPalette`、`CommandPaletteDialog`、`ExpandingSearch` 與 `AiCommandPalette` 上的 `ItemSelected` 與 `ItemSelectedEvent`**：請改用 `ItemInvoked`；兩者都會引發，因此舊名稱的處理常式仍會被呼叫。
+- **`ToolDock.ItemChosen` 與 `ItemChosenEvent`**（於 preview.5 新增，從未出現在穩定版中）：請改用 `ItemInvoked`。
+
+### 已知限制
+
+- `TKCode.Arc.Mobile` 目前以桌面的手機外框預覽，尚未在 Android 或 iOS 實機上驗證。
+- `PdfViewer`：沒有內嵌中文、日文或韓文字型的文件會依賴電腦上的字型；不支援觸控拖曳選取；純文字網址只有在使用 PDFium 時才會成為連結；Liberation 字型不包含在瀏覽器套件中。
 
 ## 1.1.0-preview.7（2026-11-13）
 
