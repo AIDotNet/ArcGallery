@@ -42,11 +42,22 @@ Put the action sheet in the page's `Overlay` slot and open it with `IsOpen`. Its
 void OnAction(object? sender, ActionSheetActionEventArgs e) => Log((string)e.Action.Content!);
 ```
 
-`Title` and `Message` are optional and sit above the first row. `CancelText` is the label of the Cancel row (`"Cancel"`); set it to null to hide the row. Cancel closes the sheet without raising `ActionInvoked`. An action sheet is a `Sheet`: it closes on a scrim tap, a pull down or Escape (set `IsDismissible="False"` to stop that), and `SafeAreaBottom` keeps the Cancel row clear of the home indicator (see `MobileSheet`).
+`Title` and `Message` are optional and sit above the first row. `CancelText` is the label of the Cancel row (`"Cancel"`); set it to null to hide the row. Cancel closes the sheet without raising `ActionInvoked`. An action sheet is a `Sheet`: it closes on a scrim tap, a pull down or Escape (set `IsDismissible="False"` to stop that), and in a page it keeps the page's bottom safe area free by itself, so the Cancel row clears the home indicator; `SafeAreaBottom` overrides it (see `MobileSheet`).
+
+### Checked rows
+
+`IsChecked` marks a row as the current choice of a list of options: a check mark shows at the row's end and the label stays centered beside it. Choosing a row does not set it; the code that owns the list does, the way `MobilePicker` checks its selected item.
+
+```xml
+<arcm:ActionSheet Title="Sort by">
+    <arcm:ActionSheetItem Content="Name" IsChecked="True" />
+    <arcm:ActionSheetItem Content="Date modified" />
+</arcm:ActionSheet>
+```
 
 ### Tokens
 
-`ActionSheetToken` holds `PanelPadding` (the space around the two cards), `CancelMargin` (the gap above the Cancel card) and `HeaderPadding`; `ActionSheetItemToken` holds `RowHeight` (56) and `ContentPadding`. Colors, radii and type come from the ArcDesign tokens: actions use the accent color, destructive ones the danger color.
+`ActionSheetToken` holds `PanelPadding` (the space around the two cards), `CancelMargin` (the gap above the Cancel card) and `HeaderPadding`; `ActionSheetItemToken` holds `RowHeight` (56), `ContentPadding`, `CheckExtent` (20, the check mark) and `CheckedContentMargin` (28 at the sides of a checked row's label). Colors, radii and type come from the ArcDesign tokens: actions use the accent color, destructive ones the danger color.
 
 ## API reference
 
@@ -54,7 +65,7 @@ void OnAction(object? sender, ActionSheetActionEventArgs e) => Log((string)e.Act
 
 ## Accessibility
 
-Rows are buttons, at least 56 px high, so they are easy to hit and reachable with Tab and Enter or Space. Escape closes a dismissible action sheet and opening moves the focus to the panel. A destructive row is colored but also named by its label, so do not rely on color alone: say "Delete photo", not "Delete". Tapping the scrim is a shortcut; the Cancel row is the visible way out.
+Rows are buttons, at least 56 px high, so they are easy to hit and reachable with Tab and Enter or Space. Escape closes a dismissible action sheet and opening moves the focus to the panel. A destructive row is colored but also named by its label, so do not rely on color alone: say "Delete photo", not "Delete". A checked row is marked by a check mark, not by color. Tapping the scrim is a shortcut; the Cancel row is the visible way out.
 
 ## Motion
 

@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.WindRoseChartMeteorologicalDemo">
+    <StackPanel Spacing="8">
+        <arc:WindRoseChart x:Name="Chart" Label="Harbour station, hourly wind in 2025" Size="340" />
+        <TextBlock x:Name="Caption"
+                   HorizontalAlignment="Center"
+                   TextWrapping="Wrap"
+                   TextAlignment="Center"
+                   FontSize="{arc:ArcDesignTokenResource TypeXS}"
+                   Foreground="{arc:ArcDesignTokenResource TextMuted}" />
+    </StackPanel>
+</UserControl>

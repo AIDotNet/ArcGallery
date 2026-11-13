@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.WindRoseChartCustomBinsDemo">
+    <arc:WindRoseChart Label="Sailing club, summer weekend afternoons"
+                       SectorCount="8"
+                       Unit="kn"
+                       Calm="6"
+                       RadialMaximum="30"
+                       RadialStep="10"
+                       Size="300">
+        <arc:WindRoseChart.Bins>
+            <arc:WindRoseBin Minimum="1" Label="Light (1–6 kn)" Color="#7FC8B8" />
+            <arc:WindRoseBin Minimum="7" Label="Moderate (7–16 kn)" Color="#2A9D8F" />
+            <arc:WindRoseBin Minimum="17" Label="Strong (17–27 kn)" Color="#1D5C7A" />
+            <arc:WindRoseBin Minimum="28" Label="Gale (28+ kn)" Color="#E9A23B" />
+        </arc:WindRoseChart.Bins>
+        <arc:WindRoseRow Direction="N" Values="4 3 1 0" />
+        <arc:WindRoseRow Direction="NE" Values="6 5 1 0" />
+        <arc:WindRoseRow Direction="E" Values="3 2 0 0" />
+        <arc:WindRoseRow Direction="SE" Values="2 1 0 0" />
+        <arc:WindRoseRow Direction="S" Values="5 6 2 0" />
+        <arc:WindRoseRow Direction="SW" Values="9 14 7 1" />
+        <arc:WindRoseRow Direction="W" Values="7 9 4 1" />
+        <arc:WindRoseRow Direction="NW" Values="4 4 2 0" />
+    </arc:WindRoseChart>
+</UserControl>

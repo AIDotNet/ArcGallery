@@ -1,7 +1,7 @@
 ---
 title: 单选卡片
 summary: 可选择的选项卡片，带有滑动的选中光环、价格与描述插槽，并具有单选按钮的键盘行为。
-source-hash: 2a7f8a98a796
+source-hash: edd6f00c5663
 ---
 
 <Demo name="Grid" />
@@ -68,7 +68,7 @@ public partial class PlanViewModel : ObservableObject
         new RadioCardOption("team", "团队版", "为小型团队提供共享工作区与角色。", "$32"),
         new RadioCardOption("enterprise", "企业版", "单一登录、审计日志与专属联系人。", "定制")
         {
-            IsDisabled = true,
+            IsEnabled = false,
             DisabledReason = "请联系销售以开通企业版。"
         }
     };
@@ -94,7 +94,7 @@ public partial class PlanViewModel : ObservableObject
 ```
 
 - `SelectedValue` 是双向的：人做出的选择会把 id 写入 `PlanId`，代码中设置的值会选中对应的卡片。与任何卡片都不匹配的值会使选择保持为空。
-- 当可用性取决于账号时，请在视图模型中对选项设置 `IsDisabled`，而不是在 XAML 中设置。这样卡片无需额外绑定即可显示原因。
+- 当可用性取决于账号时，请在视图模型中对选项设置 `IsEnabled="False"`，而不是在 XAML 中设置。这样卡片无需额外绑定即可显示原因。
 - 编译绑定需要在视图上设置 `x:DataType`（这里的示例为简洁起见省略了它）。
 
 ### 在代码中设置选项
@@ -156,7 +156,7 @@ plans.SelectionChanged += (_, _) => Console.WriteLine(plans.SelectedValue);
 
 ### 不可用的选项
 
-在选项上设置 `IsDisabled`，可使其保持可见但不可用。设置 `DisabledReason` 说明原因。选项被禁用时，该原因会取代描述。方向键会跳过被禁用的选项。
+在选项上设置 `IsEnabled="False"`，可使其保持可见但不可用。设置 `DisabledReason` 说明原因。选项被禁用时，该原因会取代描述。方向键会跳过被禁用的选项。
 
 ```xml
 <arc:RadioCards SelectedValue="pro">
@@ -165,7 +165,7 @@ plans.SelectionChanged += (_, _) => Console.WriteLine(plans.SelectedValue);
                          Label="企业版"
                          Description="单一登录、审计日志与专属联系人。"
                          Meta="定制"
-                         IsDisabled="True"
+                         IsEnabled="False"
                          DisabledReason="请联系销售以开通企业版。" />
 </arc:RadioCards>
 ```
@@ -216,7 +216,7 @@ plans.SelectionChanged += (_, _) => Console.WriteLine(plans.SelectedValue);
                              Description="SSO, audit logs and a dedicated contact."
                              Meta="Custom"
                              Icon="{x:Static arc:ArcIcons.Shield}"
-                             IsDisabled="True"
+                             IsEnabled="False"
                              DisabledReason="Talk to sales to enable Enterprise." />
     </arc:RadioCards>
     <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
@@ -264,7 +264,7 @@ plans.SelectionChanged += (_, _) => Console.WriteLine(plans.SelectedValue);
 
 **为什么光环是滑动的，而不是直接跳过去？** 光环是一个形状，它以弹簧效果在被选卡片的位置之间滑动，视线能跟随变化。当布局尺寸变化时，光环会立即移动到新位置。
 
-**如何显示一张既禁用又被选中的卡片？** 在同一个选项上同时设置 `IsDisabled` 和 `SelectedValue`。此时卡片会用其原因替代描述，光环也保持在该卡片上。通常更好的做法是在禁用某个选项之前，先在视图模型中修改选择。
+**如何显示一张既禁用又被选中的卡片？** 在同一个选项上同时设置 `IsEnabled="False"` 和 `SelectedValue`。此时卡片会用其原因替代描述，光环也保持在该卡片上。通常更好的做法是在禁用某个选项之前，先在视图模型中修改选择。
 
 **卡片能容纳控件吗，例如自定义图标或徽章？** `Icon` 接受 `Geometry` 或任意内容，`Meta` 接受任意对象，因此徽章可以作为元信息内容。内容应保持简短，因为卡片的高度与其所在行共享。
 

@@ -1,7 +1,7 @@
 ---
 title: 單選卡片
 summary: 可選取的選項卡片，帶有滑動的選取光環、價格與說明插槽，並具有單選按鈕的鍵盤行為。
-source-hash: 2a7f8a98a796
+source-hash: edd6f00c5663
 ---
 
 <Demo name="Grid" />
@@ -68,7 +68,7 @@ public partial class PlanViewModel : ObservableObject
         new RadioCardOption("team", "團隊版", "為小型團隊提供共享工作區與角色。", "$32"),
         new RadioCardOption("enterprise", "企業版", "單一登入、稽核紀錄與專屬聯絡人。", "客製化")
         {
-            IsDisabled = true,
+            IsEnabled = false,
             DisabledReason = "請洽業務以開通企業版。"
         }
     };
@@ -94,7 +94,7 @@ public partial class PlanViewModel : ObservableObject
 ```
 
 - `SelectedValue` 是雙向的：使用者做出的選擇會把 id 寫入 `PlanId`，程式碼中設定的值會選取對應的卡片。與任何卡片都不相符的值會讓選取保持為空。
-- 當可用性取決於帳號時，請在檢視模型中對選項設定 `IsDisabled`，而不是在 XAML 中設定。這樣卡片無需額外繫結即可顯示原因。
+- 當可用性取決於帳號時，請在檢視模型中對選項設定 `IsEnabled="False"`，而不是在 XAML 中設定。這樣卡片無需額外繫結即可顯示原因。
 - 編譯繫結需要在檢視上設定 `x:DataType`（這裡的範例為求簡潔而省略了它）。
 
 ### 在程式碼中設定選項
@@ -156,7 +156,7 @@ plans.SelectionChanged += (_, _) => Console.WriteLine(plans.SelectedValue);
 
 ### 無法使用的選項
 
-在選項上設定 `IsDisabled`，可讓它保持可見但無法使用。設定 `DisabledReason` 說明原因。選項停用時，該原因會取代說明。方向鍵會略過停用的選項。
+在選項上設定 `IsEnabled="False"`，可讓它保持可見但無法使用。設定 `DisabledReason` 說明原因。選項停用時，該原因會取代說明。方向鍵會略過停用的選項。
 
 ```xml
 <arc:RadioCards SelectedValue="pro">
@@ -165,7 +165,7 @@ plans.SelectionChanged += (_, _) => Console.WriteLine(plans.SelectedValue);
                          Label="企業版"
                          Description="單一登入、稽核紀錄與專屬聯絡窗口。"
                          Meta="客製化"
-                         IsDisabled="True"
+                         IsEnabled="False"
                          DisabledReason="請洽業務以開通企業版。" />
 </arc:RadioCards>
 ```
@@ -216,7 +216,7 @@ plans.SelectionChanged += (_, _) => Console.WriteLine(plans.SelectedValue);
                              Description="SSO, audit logs and a dedicated contact."
                              Meta="Custom"
                              Icon="{x:Static arc:ArcIcons.Shield}"
-                             IsDisabled="True"
+                             IsEnabled="False"
                              DisabledReason="Talk to sales to enable Enterprise." />
     </arc:RadioCards>
     <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
@@ -264,7 +264,7 @@ plans.SelectionChanged += (_, _) => Console.WriteLine(plans.SelectedValue);
 
 **為什麼光環是滑動的，而不是直接跳過去？** 光環是一個形狀，它以彈簧效果在被選取卡片的位置之間滑動，視線能跟隨變化。當版面尺寸變化時，光環會立即移到新位置。
 
-**如何顯示一張既停用又被選取的卡片？** 在同一個選項上同時設定 `IsDisabled` 和 `SelectedValue`。此時卡片會用其原因取代說明，光環也保持在該卡片上。通常更好的做法是在停用某個選項之前，先在檢視模型中修改選擇。
+**如何顯示一張既停用又被選取的卡片？** 在同一個選項上同時設定 `IsEnabled="False"` 和 `SelectedValue`。此時卡片會用其原因取代說明，光環也保持在該卡片上。通常更好的做法是在停用某個選項之前，先在檢視模型中修改選擇。
 
 **卡片能容納控制項嗎，例如自訂圖示或徽章？** `Icon` 接受 `Geometry` 或任意內容，`Meta` 接受任意物件，因此徽章可以作為中繼資訊內容。內容應保持簡短，因為卡片的高度與其所在列共用。
 

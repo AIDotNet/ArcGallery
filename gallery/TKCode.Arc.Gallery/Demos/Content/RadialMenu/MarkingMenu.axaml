@@ -1,0 +1,45 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.RadialMenuMarkingMenuDemo">
+    <StackPanel MaxWidth="640" Spacing="12">
+        <Border x:Name="Board"
+                Height="300"
+                CornerRadius="18"
+                BorderThickness="1"
+                ClipToBounds="True"
+                Background="{arc:ArcDesignTokenResource SurfaceMuted}"
+                BorderBrush="{arc:ArcDesignTokenResource Border}">
+            <arc:RadialMenu.Menu>
+                <arc:RadialMenu x:Name="Edits" Label="Edit">
+                    <arc:RadialMenuItem Header="Copy" Icon="{x:Static arc:ArcIcons.Copy}" />
+                    <arc:RadialMenuItem Header="Redo" Icon="{x:Static arc:ArcIcons.Redo2}" />
+                    <arc:RadialMenuItem Header="Paste" Icon="{x:Static arc:ArcIcons.ClipboardPaste}" />
+                    <arc:RadialMenuItem Header="Undo" Icon="{x:Static arc:ArcIcons.Undo2}" />
+                </arc:RadialMenu>
+            </arc:RadialMenu.Menu>
+            <Panel>
+                <TextBlock Text="Hold the right button, flick toward a command and let go: up copies, right redoes, down pastes, left undoes"
+                           FontSize="14"
+                           Margin="32"
+                           TextWrapping="Wrap"
+                           TextAlignment="Center"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+                <Canvas x:Name="Surface" IsHitTestVisible="False">
+                    <Polyline x:Name="Trail"
+                              StrokeThickness="3"
+                              StrokeLineCap="Round"
+                              StrokeJoin="Round"
+                              Stroke="{arc:ArcDesignTokenResource Accent}" />
+                </Canvas>
+            </Panel>
+        </Border>
+        <TextBlock x:Name="Status"
+                   Text="No command yet."
+                   FontSize="14"
+                   HorizontalAlignment="Center"
+                   Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+    </StackPanel>
+</UserControl>

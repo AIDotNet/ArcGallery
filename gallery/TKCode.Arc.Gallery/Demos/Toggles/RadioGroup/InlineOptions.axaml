@@ -8,6 +8,6 @@
                     SelectedValue="comfortable">
         <arc:RadioOption Value="comfortable" Label="Comfortable" />
         <arc:RadioOption Value="compact" Label="Compact" />
-        <arc:RadioOption Value="spacious" Label="Spacious" IsDisabled="True" />
+        <arc:RadioOption Value="spacious" Label="Spacious" IsEnabled="False" />
     </arc:RadioGroup>
 </UserControl>

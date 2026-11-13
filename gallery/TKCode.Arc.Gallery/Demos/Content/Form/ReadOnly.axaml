@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             xmlns:demo="clr-namespace:TKCode.Arc.Gallery.Demos"
+             x:Class="TKCode.Arc.Gallery.Demos.FormReadOnlyDemo"
+             x:DataType="demo:FormProfileModel">
+    <StackPanel Width="360" HorizontalAlignment="Center" Spacing="20">
+        <StackPanel Spacing="8">
+            <arc:Switch x:Name="ReadOnlySwitch" Content="Read-only" />
+            <arc:Switch x:Name="ValidationSwitch" Content="Validation" IsChecked="True" />
+        </StackPanel>
+        <arc:Form x:Name="Profile"
+                  ErrorTrigger="Change"
+                  IsReadOnly="{Binding #ReadOnlySwitch.IsChecked}"
+                  IsValidationEnabled="{Binding #ValidationSwitch.IsChecked}">
+            <StackPanel Spacing="16">
+                <arc:FormItem Label="Name" IsRequired="True">
+                    <arc:Input Text="{Binding Name}" />
+                </arc:FormItem>
+                <arc:FormItem Label="Email" IsRequired="True">
+                    <arc:Input Text="{Binding Email}" />
+                </arc:FormItem>
+            </StackPanel>
+        </arc:Form>
+    </StackPanel>
+</UserControl>

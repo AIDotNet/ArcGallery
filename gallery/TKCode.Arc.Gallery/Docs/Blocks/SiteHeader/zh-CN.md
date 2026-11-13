@@ -1,7 +1,7 @@
 ---
 title: Site header
 summary: 粘性网站页眉，滚动时变为实心，带有滑动的当前链接标记、Mega 菜单面板和移动端菜单抽屉。
-source-hash: cfe6c235860b
+source-hash: e05d18ac9a3a
 ---
 
 <Demo name="Preview" />
@@ -52,6 +52,8 @@ source-hash: cfe6c235860b
 `Items` 是一个 `AvaloniaList<SiteHeaderItem>`；设置了 `ItemsSource` 时它优先生效，并且会监听其集合变化通知。带有 `Links` 的条目在 `Mega` 变体中会打开一个面板，在其他变体中则是普通链接。`Value` 是条目的稳定名称：`Current` 和 `SiteHeaderNavigateEventArgs.Section` 都使用它。`SiteHeader.CreateExampleItems()` 返回 Arc 的示例条目，可作为起点。功能卡片的 `Image` 可以是任意 `IImage`；它以 16:10 显示并裁剪以填满卡片，`ImageDescription` 描述它所显示的内容。没有图片时，卡片只显示文字。
 
 <Demo name="Simple" />
+
+`SiteHeaderItem` 上的 `IsVisible="False"` 会让它同时离开导航栏和菜单面板，`IsEnabled="False"` 会让它变暗、不打开面板，并移出方向键顺序。两者都会跟随之后的变化，因此同一个页眉可以同时服务已登录和未登录的用户。`Current` 仍然可以指向被隐藏的项目。
 
 ### 选择目的地
 

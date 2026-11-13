@@ -1,0 +1,40 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             xmlns:demo="clr-namespace:TKCode.Arc.Gallery.Demos"
+             x:Class="TKCode.Arc.Gallery.Demos.FormErrorPlacementDemo"
+             x:DataType="demo:FormProfileModel">
+    <StackPanel MaxWidth="460" HorizontalAlignment="Center" Spacing="20">
+        <arc:SegmentedControl x:Name="Placement"
+                              HorizontalAlignment="Center"
+                              AutomationProperties.Name="Error placement"
+                              SelectedValue="Tooltip">
+            <arc:SegmentedOption Value="Inline" Label="Inline" />
+            <arc:SegmentedOption Value="Tooltip" Label="Tooltip" />
+            <arc:SegmentedOption Value="None" Label="None" />
+        </arc:SegmentedControl>
+        <!-- A dense form: small fields, labels on the left, errors in a tooltip under the field. -->
+        <arc:Form x:Name="Dense"
+                  ErrorPlacement="Tooltip"
+                  LabelPlacement="Left"
+                  ValidateCommand="{Binding ValidateCommand}">
+            <StackPanel Spacing="8">
+                <arc:FormItem Label="Name" IsRequired="True" Size="Small">
+                    <arc:Input Text="{Binding Name}" Size="Small" />
+                </arc:FormItem>
+                <arc:FormItem Label="Email" IsRequired="True" Size="Small">
+                    <arc:Input Text="{Binding Email}" Size="Small" />
+                </arc:FormItem>
+                <arc:FormItem Label="Company" IsRequired="True" Size="Small">
+                    <arc:Input Text="{Binding Company}" Size="Small" />
+                </arc:FormItem>
+                <arc:FormItem Label="Phone" Size="Small">
+                    <arc:Input Text="{Binding Phone}" Size="Small" />
+                </arc:FormItem>
+                <arc:FormItem Size="Small">
+                    <arc:Button arc:Form.Action="Submit" Content="Check" Size="Small" HorizontalAlignment="Left" />
+                </arc:FormItem>
+            </StackPanel>
+        </arc:Form>
+    </StackPanel>
+</UserControl>

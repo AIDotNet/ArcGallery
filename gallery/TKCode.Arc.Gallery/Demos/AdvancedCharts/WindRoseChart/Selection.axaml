@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.WindRoseChartSelectionDemo">
+    <StackPanel Spacing="12">
+        <arc:WindRoseChart x:Name="Chart"
+                           Label="Harbour station, hourly wind in 2025"
+                           SectorCount="8"
+                           IsSelectionEnabled="True"
+                           Size="280" />
+        <TextBlock x:Name="Details"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center"
+                   TextWrapping="Wrap"
+                   Text="Choose a direction to see where its wind comes from." />
+    </StackPanel>
+</UserControl>

@@ -1,7 +1,7 @@
 ---
 title: 移動端底部面板
 summary: 從頁面底部升起、帶遮罩的面板，可停在多個高度，點遮罩、下拉把手或快速下滑即可關閉。
-source-hash: 383c6bff81cb
+source-hash: e6fcf8df6cc5
 ---
 
 <Demo name="Basic" />
@@ -64,16 +64,21 @@ nearby.DetentChanged += (_, e) => Log($"{e.Index}: {e.Fraction}");
 
 ### 底部安全區
 
-面板不會讀取平台資訊。用 `SafeAreaBottom`（單位 px 的數字）給內容下方留出空間，例如繫結到頁面的安全區：
+頁面裡的面板會自己在內容下方留出頁面底部的安全區：頁面把它的 `SafeArea` 作為可繼承的附加屬性 `Page.InheritedSafeArea` 傳給其中的控制項，面板讀取它的底邊。`EffectiveSafeAreaBottom` 是面板實際留出的空間。在頁面已經內縮的頁首、內容和頁尾裡，繼承的值為零，所以請把面板放進 `Page.Overlay`。
+
+要使用自己的高度，就設定 `SafeAreaBottom`（單位 px 的數字、樣式或繫結）；明確設定的值優先，`0` 也一樣：
 
 ```xml
-<arcm:Page x:Name="Screen">
+<arcm:Page>
     <arcm:Page.Overlay>
-        <arcm:Sheet SafeAreaBottom="{Binding SafeArea.Bottom, ElementName=Screen}" Title="分享">
+        <!-- 自動留出頁面底部的安全區。 -->
+        <arcm:Sheet Title="分享">
             ...
         </arcm:Sheet>
     </arcm:Page.Overlay>
 </arcm:Page>
+
+<arcm:Sheet SafeAreaBottom="0" Title="滿版" />
 ```
 
 ### Token
@@ -97,7 +102,7 @@ Esc 會關閉可關閉的面板。請給面板設定 `Title`：它是把手區�
 - `Sheet` 沒有寬度斷點：面板在任何尺寸下都與頁面等寬，從底緣升起。
 - 高度最多為 `MaxHeightFraction`（預設 0.9）乘以 `Sheet` 的高度，`Sheet` 充滿其父層。超出的內容在面板內垂直捲動；水平捲動已關閉，因此內容必須適應寬度。
 - `Title` 保持一行，過長時以省略號結尾。面板內有表單時，要在其中保留一個可見的關閉操作，因為點按遮罩只是捷徑。
-- 把手（抓取點與標題）可以用任何指標拖曳；內容只能以觸控拖動面板。用 `SafeAreaBottom` 傳入底部安全區，讓內容避開主畫面指示條。
+- 把手（抓取點與標題）可以用任何指標拖曳；內容只能以觸控拖動面板。在頁面裡，面板會自己留出頁面底部的安全區，讓內容避開主畫面指示條；`SafeAreaBottom` 可以覆寫它。
 
 ## 相關元件
 

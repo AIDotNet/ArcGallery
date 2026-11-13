@@ -1,0 +1,12 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.WindRoseChartLiveUpdateDemo">
+    <StackPanel Spacing="16">
+        <arc:ArcShrinkRow HorizontalAlignment="Center" Spacing="12">
+            <TextBlock x:Name="Month" VerticalAlignment="Center" FontWeight="Medium" />
+            <arc:Button x:Name="Toggle" Content="Pause" Variant="Secondary" Size="Small" />
+        </arc:ArcShrinkRow>
+        <arc:WindRoseChart x:Name="Chart" Label="Harbour station, month by month" SectorCount="16" />
+    </StackPanel>
+</UserControl>

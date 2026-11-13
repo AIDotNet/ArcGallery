@@ -1,7 +1,7 @@
 ---
 title: 文件側邊欄
 summary: 文件網站的側邊欄：版本切換、邊輸入邊篩選頁面的搜尋框、可展開的分組與頁面，目前頁面會被標出並捲動到可見處。
-source-hash: 57ef5deb9eb8
+source-hash: f222041ac459
 ---
 
 <Demo name="Preview" />
@@ -31,9 +31,13 @@ docs.PageInvoked += (_, e) => router.Open(e.Page.Key);
 docs.VersionChanged += (_, e) => LoadPages(e.NewVersion);
 ```
 
+`PageInvoked` 在每次選擇時觸發，選擇已是目前頁面的項目也會觸發。如果只想在目前頁面真正改變時回應（無論是點擊、路由設定 `CurrentKey` 還是繫結），請處理 `SelectionChanged`：它的 `OldKey`、`NewKey` 和 `NewPage` 描述這次變化。
+
 頁面和分組也可以直接寫在 XAML 中。沒有 `Sections` 時，側邊欄顯示一個虛構的範例網站。`GetAdjacentPage(-1)` 和 `GetAdjacentPage(1)` 依閱讀順序給出上一頁和下一頁，可用於文章底部的連結。
 
 <Demo name="OwnPages" />
+
+`DocsSidebarPage` 或 `DocsSidebarSection` 上的 `IsVisible="False"` 會讓它離開清單、搜尋與 `GetAdjacentPage`；頁面上的 `IsEnabled="False"` 會讓它變淡，無法再被選取，方向鍵也不會到達它。兩者都會跟隨之後的變化；被隱藏的頁面若是目前頁面，它仍然是 `CurrentKey`，因此檢視模型可以依角色或方案顯示選單的某些部分，而不必重建群組。
 
 ## API 參考
 

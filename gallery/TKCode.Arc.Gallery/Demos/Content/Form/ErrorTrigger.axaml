@@ -1,0 +1,35 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             xmlns:demo="clr-namespace:TKCode.Arc.Gallery.Demos"
+             x:Class="TKCode.Arc.Gallery.Demos.FormErrorTriggerDemo">
+    <WrapPanel HorizontalAlignment="Center" ItemSpacing="32" LineSpacing="24">
+        <arc:Form x:Name="ChangeForm" ErrorTrigger="Change" Width="220" x:DataType="demo:FormProfileModel"
+                  ValidateCommand="{Binding ValidateCommand}">
+            <StackPanel Spacing="12">
+                <arc:FormItem Label="Change" Description="Shows errors as you type.">
+                    <arc:Input Text="{Binding Email}" Placeholder="you@example.com" />
+                </arc:FormItem>
+                <arc:Button arc:Form.Action="Submit" Content="Submit" Variant="Secondary" HorizontalAlignment="Left" />
+            </StackPanel>
+        </arc:Form>
+        <arc:Form x:Name="BlurForm" ErrorTrigger="Blur" Width="220" x:DataType="demo:FormProfileModel"
+                  ValidateCommand="{Binding ValidateCommand}">
+            <StackPanel Spacing="12">
+                <arc:FormItem Label="Blur (default)" Description="Shows errors once you leave the field.">
+                    <arc:Input Text="{Binding Email}" Placeholder="you@example.com" />
+                </arc:FormItem>
+                <arc:Button arc:Form.Action="Submit" Content="Submit" Variant="Secondary" HorizontalAlignment="Left" />
+            </StackPanel>
+        </arc:Form>
+        <arc:Form x:Name="SubmitForm" ErrorTrigger="Submit" Width="220" x:DataType="demo:FormProfileModel"
+                  ValidateCommand="{Binding ValidateCommand}">
+            <StackPanel Spacing="12">
+                <arc:FormItem Label="Submit" Description="Shows errors when you submit.">
+                    <arc:Input Text="{Binding Email}" Placeholder="you@example.com" />
+                </arc:FormItem>
+                <arc:Button arc:Form.Action="Submit" Content="Submit" Variant="Secondary" HorizontalAlignment="Left" />
+            </StackPanel>
+        </arc:Form>
+    </WrapPanel>
+</UserControl>

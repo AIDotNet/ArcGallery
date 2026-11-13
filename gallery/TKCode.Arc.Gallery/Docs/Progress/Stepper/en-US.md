@@ -250,6 +250,8 @@ Only completed steps can be chosen. The current step and the upcoming steps are 
 completed step shrinks its marker slightly until the press ends; the step is chosen only when the pointer is released
 over it.
 
+A step that does not apply to this flow (no billing step on the free plan) can stay in the list and be hidden with `IsVisible="False"`. A hidden step is as if it were not there: `CurrentIndex` counts the visible steps only, so change it together with the step you hide. In a navigable stepper, `IsEnabled="False"` on a completed step makes it not clickable, and `Select` ignores it.
+
 ### Example: billing setup for a new workspace
 
 A SaaS admin console walks an owner through four steps: name the workspace, invite the team, add billing and review.

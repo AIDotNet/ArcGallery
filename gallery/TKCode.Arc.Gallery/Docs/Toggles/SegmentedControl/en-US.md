@@ -116,7 +116,7 @@ the label differ, for example when the value is an enum or an ID and the label i
             <TextBlock Text="3" />
         </arc:SegmentedOption.Accessory>
     </arc:SegmentedOption>
-    <arc:SegmentedOption Value="archived" Label="Archived" IsDisabled="True" />
+    <arc:SegmentedOption Value="archived" Label="Archived" IsEnabled="False" />
 </arc:SegmentedControl>
 ```
 

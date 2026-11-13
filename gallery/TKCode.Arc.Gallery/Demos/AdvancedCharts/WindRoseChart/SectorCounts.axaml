@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.WindRoseChartSectorCountsDemo">
+    <StackPanel Spacing="16">
+        <arc:SegmentedControl x:Name="Picker"
+                              AutomationProperties.Name="Number of directions"
+                              HorizontalAlignment="Center"
+                              SelectedValue="16">
+            <arc:SegmentedOption Value="8" Label="8 sectors" />
+            <arc:SegmentedOption Value="16" Label="16 sectors" />
+            <arc:SegmentedOption Value="32" Label="32 sectors" />
+        </arc:SegmentedControl>
+        <arc:WindRoseChart x:Name="Chart" Label="Harbour station, hourly wind in 2025" />
+    </StackPanel>
+</UserControl>

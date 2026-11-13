@@ -1,0 +1,48 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             xmlns:arcm="https://github.com/AIDotNet/TKCode.Arc.Mobile"
+             x:Class="TKCode.Arc.Gallery.Demos.MobileListGroupCellsDemo">
+    <arcm:Page IsScrollable="True">
+        <arcm:Page.Header>
+            <arcm:Navbar Title="Invite" />
+        </arcm:Page.Header>
+        <StackPanel>
+            <arcm:ListGroup Header="Invite code" Footer="The cells hold content; only the last row responds to a tap.">
+                <arcm:ListCell HorizontalContentAlignment="Center">
+                    <StackPanel Spacing="10" HorizontalAlignment="Center">
+                        <Border Width="{arc:ArcDesignTokenResource MediaSizeMD}"
+                                Height="{arc:ArcDesignTokenResource MediaSizeMD}"
+                                CornerRadius="{arc:ArcDesignTokenResource RadiusStep12}"
+                                BorderThickness="{arc:ArcDesignTokenResource EdgeThickness}"
+                                BorderBrush="{arc:ArcDesignTokenResource Border}"
+                                Background="{arc:ArcDesignTokenResource SurfaceMuted}">
+                            <arc:ArcGlyph Data="{x:Static arc:ArcIcons.Smartphone}" Size="40"
+                                          Foreground="{arc:ArcDesignTokenResource TextMuted}"
+                                          HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <TextBlock Text="ARC-4821" HorizontalAlignment="Center" FontWeight="Medium" />
+                    </StackPanel>
+                </arcm:ListCell>
+                <arcm:ListCell>
+                    <StackPanel Spacing="10">
+                        <TextBlock Text="Friends who join with your code get a month of Pro."
+                                   TextWrapping="Wrap"
+                                   Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+                        <arcm:Button Content="Copy code" HorizontalAlignment="Left" />
+                    </StackPanel>
+                </arcm:ListCell>
+                <arcm:ListItem Icon="{x:Static arc:ArcIcons.Mail}" Content="Invite by email" ShowChevron="True" />
+            </arcm:ListGroup>
+            <arcm:ListGroup Header="Badge shape">
+                <arcm:ListCell>
+                    <arcm:RadioCards Columns="3" ShowIndicator="False" SelectedIndex="0">
+                        <arcm:RadioCardOption Value="circle" Label="Circle" Icon="{x:Static arc:ArcIcons.Circle}" />
+                        <arcm:RadioCardOption Value="square" Label="Square" Icon="{x:Static arc:ArcIcons.Square}" />
+                        <arcm:RadioCardOption Value="star" Label="Star" Icon="{x:Static arc:ArcIcons.Star}" />
+                    </arcm:RadioCards>
+                </arcm:ListCell>
+            </arcm:ListGroup>
+        </StackPanel>
+    </arcm:Page>
+</UserControl>

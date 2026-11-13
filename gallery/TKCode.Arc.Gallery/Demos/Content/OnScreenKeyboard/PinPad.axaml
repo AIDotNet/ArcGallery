@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.OnScreenKeyboardPinPadDemo">
+    <UserControl.Styles>
+        <Style Selector="Ellipse.dot">
+            <Setter Property="Width" Value="14" />
+            <Setter Property="Height" Value="14" />
+            <Setter Property="StrokeThickness" Value="1.5" />
+            <Setter Property="Stroke" Value="{arc:ArcDesignTokenResource Foreground}" />
+        </Style>
+        <Style Selector="Ellipse.dot.filled">
+            <Setter Property="Fill" Value="{arc:ArcDesignTokenResource Foreground}" />
+        </Style>
+    </UserControl.Styles>
+    <StackPanel Width="260" HorizontalAlignment="Center" Spacing="16">
+        <TextBlock x:Name="Prompt"
+                   Text="Enter your 4-digit PIN"
+                   HorizontalAlignment="Center"
+                   FontSize="14"
+                   Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+        <StackPanel x:Name="Dots" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="14">
+            <Ellipse Classes="dot" />
+            <Ellipse Classes="dot" />
+            <Ellipse Classes="dot" />
+            <Ellipse Classes="dot" />
+        </StackPanel>
+        <arc:OnScreenKeyboard x:Name="Keypad" Preset="Digits" Height="276" />
+        <TextBlock Text="Hint: 2468"
+                   HorizontalAlignment="Center"
+                   FontSize="12"
+                   Foreground="{arc:ArcDesignTokenResource TextMuted}" />
+    </StackPanel>
+</UserControl>

@@ -61,5 +61,9 @@ public static class MobileCatalog
             "A 44 by 44 icon-only button with plain, tinted, filled and floating variants and a spring press state."),
         new("MobileSegmented", "Mobile segmented control", "mobile-segmented",
             "A short row of segments that share the width, one selected, for switching between views of the same content."),
+        new("MobilePicker", "Mobile picker", "mobile-picker",
+            "A list row that shows the current value at its end and opens an action sheet of choices with the current one checked."),
+        new("MobileRadioCards", "Mobile radio cards", "mobile-radio-cards",
+            "A grid of selectable cards for a choice that reads better as pictures or short descriptions, with a press state and no hover state."),
     ];
 }

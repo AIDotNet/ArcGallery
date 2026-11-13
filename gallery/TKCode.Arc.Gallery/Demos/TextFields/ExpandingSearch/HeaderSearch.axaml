@@ -18,7 +18,7 @@
                            Foreground="{arc:ArcDesignTokenResource Foreground}" />
                 <arc:ExpandingSearch x:Name="Header"
                                      Label="Search projects and docs"
-                                     ItemSelected="OnItemSelected" />
+                                     ItemInvoked="OnItemSelected" />
             </DockPanel>
         </Border>
         <TextBlock x:Name="Chosen"

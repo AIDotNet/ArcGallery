@@ -1,7 +1,7 @@
 ---
 title: 分段控制項
 summary: 在一組相關的檢視之間切換。
-source-hash: ed8c51009f4d
+source-hash: ab6f7c5111cd
 ---
 
 <Demo name="ViewSwitcher" />
@@ -88,7 +88,7 @@ var sections = new SegmentedControl
             <TextBlock Text="3" />
         </arc:SegmentedOption.Accessory>
     </arc:SegmentedOption>
-    <arc:SegmentedOption Value="archived" Label="已封存" IsDisabled="True" />
+    <arc:SegmentedOption Value="archived" Label="已封存" IsEnabled="False" />
 </arc:SegmentedControl>
 ```
 

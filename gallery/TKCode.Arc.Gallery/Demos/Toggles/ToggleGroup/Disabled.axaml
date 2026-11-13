@@ -6,7 +6,7 @@
         <arc:ToggleGroup Label="Filters" Mode="Multiple" SelectedValues="open,mine" HorizontalAlignment="Center">
             <arc:ToggleGroupOption Value="open" Label="Open" />
             <arc:ToggleGroupOption Value="mine" Label="Mine" />
-            <arc:ToggleGroupOption Value="archived" Label="Archived" IsDisabled="True" />
+            <arc:ToggleGroupOption Value="archived" Label="Archived" IsEnabled="False" />
             <arc:ToggleGroupOption Value="draft" Label="Draft" />
         </arc:ToggleGroup>
         <arc:ToggleGroup Label="Locked" IsEnabled="False" SelectedValue="left" HorizontalAlignment="Center">

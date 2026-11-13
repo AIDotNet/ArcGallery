@@ -1,0 +1,62 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             xmlns:local="using:TKCode.Arc.Gallery.Demos"
+             x:Class="TKCode.Arc.Gallery.Demos.RadialMenuMvvmDemo"
+             x:DataType="local:RadialMenuMvvmViewModel"
+             x:CompileBindings="True">
+    <StackPanel MaxWidth="640" Spacing="12">
+        <Border Height="280"
+                CornerRadius="18"
+                BorderThickness="1"
+                Background="{arc:ArcDesignTokenResource SurfaceMuted}"
+                BorderBrush="{arc:ArcDesignTokenResource Border}">
+            <arc:RadialMenu.Menu>
+                <arc:RadialMenu Label="Tools"
+                                ItemsSource="{Binding Tools}"
+                                ItemInvokedCommand="{Binding RememberCommand}">
+                    <arc:RadialMenu.Styles>
+                        <!-- Each generated item's DataContext is its tool, so a style maps the tool's members. -->
+                        <Style Selector="arc|RadialMenuItem" x:DataType="local:RadialMenuToolItem">
+                            <Setter Property="Header" Value="{Binding Name}" />
+                            <Setter Property="Icon" Value="{Binding Icon}" />
+                            <Setter Property="Command" Value="{Binding Command}" />
+                        </Style>
+                    </arc:RadialMenu.Styles>
+                </arc:RadialMenu>
+            </arc:RadialMenu.Menu>
+            <StackPanel Spacing="6"
+                        Margin="24"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <TextBlock Text="{Binding CurrentTool}"
+                           FontSize="16"
+                           FontWeight="{arc:ArcDesignTokenResource WeightMedium}"
+                           HorizontalAlignment="Center"
+                           Foreground="{arc:ArcDesignTokenResource Foreground}" />
+                <TextBlock Text="Right-click or press and hold to change tools"
+                           FontSize="14"
+                           TextWrapping="Wrap"
+                           TextAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+            </StackPanel>
+        </Border>
+        <WrapPanel HorizontalAlignment="Center" ItemSpacing="8" LineSpacing="8">
+            <arc:Button Content="Add a tool"
+                        Variant="Secondary"
+                        Size="Small"
+                        Command="{Binding AddToolCommand}" />
+            <arc:Button Content="Remove a tool"
+                        Variant="Ghost"
+                        Size="Small"
+                        Command="{Binding RemoveToolCommand}" />
+            <arc:Switch Content="Lock the canvas" IsChecked="{Binding IsLocked}" />
+        </WrapPanel>
+        <TextBlock Text="{Binding Recent}"
+                   FontSize="14"
+                   TextWrapping="Wrap"
+                   HorizontalAlignment="Center"
+                   Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+    </StackPanel>
+</UserControl>

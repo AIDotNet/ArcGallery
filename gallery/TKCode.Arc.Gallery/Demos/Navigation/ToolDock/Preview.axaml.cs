@@ -27,7 +27,7 @@ public partial class ToolDockPreviewDemo : UserControl
         Dots.Background = DotBrush();
         ActualThemeVariantChanged += (_, _) => Dots.Background = DotBrush();
         BuildSheet();
-        Dock.ItemChosen += (_, _) => Board.Focus(NavigationMethod.Pointer);
+        Dock.ItemInvoked += (_, _) => Board.Focus(NavigationMethod.Pointer);
         Dock.PropertyChanged += (_, e) =>
         {
             if (e.Property == ToolDock.SelectedValueProperty)

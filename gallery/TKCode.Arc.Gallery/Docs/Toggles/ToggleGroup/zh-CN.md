@@ -1,7 +1,7 @@
 ---
 title: 切换按钮组
 summary: 一排切换按钮，用于单选或多个相互独立的选项。
-source-hash: bbe990e3c809
+source-hash: 70350af69d92
 ---
 
 <Demo name="TextStyle" />
@@ -68,7 +68,7 @@ source-hash: bbe990e3c809
 
 ### 禁用选项
 
-选项上的 `IsDisabled` 让它不再响应键盘和指针，但仍保留在行中的位置。组上的 `IsEnabled="False"` 禁用所有选项并让组变淡。
+选项上的 `IsEnabled="False"` 让它不再响应键盘和指针，但仍保留在行中的位置。组上的 `IsEnabled="False"` 禁用所有选项并让组变淡。
 
 <Demo name="Disabled" />
 

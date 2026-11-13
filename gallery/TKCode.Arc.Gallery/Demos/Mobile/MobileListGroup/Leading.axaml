@@ -1,0 +1,56 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             xmlns:arcm="https://github.com/AIDotNet/TKCode.Arc.Mobile"
+             x:Class="TKCode.Arc.Gallery.Demos.MobileListGroupLeadingDemo">
+    <UserControl.Styles>
+        <Style Selector="Border.avatar">
+            <Setter Property="CornerRadius" Value="{arc:ArcDesignTokenResource RadiusPill}" />
+            <Setter Property="Background" Value="{arc:ArcDesignTokenResource AccentSubtle}" />
+        </Style>
+        <Style Selector="Border.avatar > TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="Foreground" Value="{arc:ArcDesignTokenResource AccentStrong}" />
+        </Style>
+    </UserControl.Styles>
+    <arcm:Page IsScrollable="True">
+        <arcm:Page.Header>
+            <arcm:Navbar Title="Account" />
+        </arcm:Page.Header>
+        <StackPanel>
+            <arcm:ListGroup>
+                <arcm:ListItem Content="Ada Lovelace" Subtitle="Account, devices and sign-in" ShowChevron="True">
+                    <arcm:ListItem.Leading>
+                        <Border Classes="avatar"
+                                Width="{arcm:ListItemTokenResource AvatarSizeXL}"
+                                Height="{arcm:ListItemTokenResource AvatarSizeXL}">
+                            <TextBlock Text="AL" FontSize="{arc:ArcDesignTokenResource TypeXL}" />
+                        </Border>
+                    </arcm:ListItem.Leading>
+                </arcm:ListItem>
+            </arcm:ListGroup>
+            <arcm:ListGroup Header="Family">
+                <arcm:ListItem Content="Grace Hopper" Subtitle="Organizer" ShowChevron="True">
+                    <arcm:ListItem.Leading>
+                        <Border Classes="avatar"
+                                Width="{arcm:ListItemTokenResource AvatarSizeMD}"
+                                Height="{arcm:ListItemTokenResource AvatarSizeMD}">
+                            <TextBlock Text="GH" />
+                        </Border>
+                    </arcm:ListItem.Leading>
+                </arcm:ListItem>
+                <arcm:ListItem Content="Alan Turing" Subtitle="Invited" ShowChevron="True">
+                    <arcm:ListItem.Leading>
+                        <Border Classes="avatar"
+                                Width="{arcm:ListItemTokenResource AvatarSizeMD}"
+                                Height="{arcm:ListItemTokenResource AvatarSizeMD}">
+                            <TextBlock Text="AT" />
+                        </Border>
+                    </arcm:ListItem.Leading>
+                </arcm:ListItem>
+            </arcm:ListGroup>
+        </StackPanel>
+    </arcm:Page>
+</UserControl>

@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             xmlns:demo="clr-namespace:TKCode.Arc.Gallery.Demos"
+             x:Class="TKCode.Arc.Gallery.Demos.FormAsyncCheckDemo"
+             x:DataType="demo:FormSignUpModel">
+    <arc:Form x:Name="Check" ErrorTrigger="Change" Width="340" HorizontalAlignment="Center">
+        <StackPanel Spacing="12">
+            <arc:FormItem Label="User name"
+                          Description="admin, arc, design and support are taken."
+                          IsValidating="{Binding IsCheckingUserName}">
+                <arc:Input Text="{Binding UserName}" Placeholder="Pick a user name" />
+            </arc:FormItem>
+            <TextBlock x:Name="State" FontSize="12" Opacity="0.7" />
+        </StackPanel>
+    </arc:Form>
+</UserControl>

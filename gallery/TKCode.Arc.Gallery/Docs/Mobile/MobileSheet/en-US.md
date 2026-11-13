@@ -63,16 +63,21 @@ A pull follows the finger one to one and stretches like a rubber band past the t
 
 ### Bottom safe area
 
-The sheet does not read the platform. Give it the space under the content with `SafeAreaBottom` (a number in px), for example bound to the page's safe area:
+A sheet in a page keeps the bottom of the page's safe area free under its content by itself: the page passes its `SafeArea` down to the controls in it as the inherited attached property `Page.InheritedSafeArea`, and the sheet reads its bottom. `EffectiveSafeAreaBottom` is the space the sheet keeps. Inside the page's header, content and footer, which the page already insets, the inherited value is zero, so put sheets in `Page.Overlay`.
+
+Set `SafeAreaBottom` (a number in px, a style or a binding) to use your own height instead; an explicit value wins, `0` included:
 
 ```xml
-<arcm:Page x:Name="Screen">
+<arcm:Page>
     <arcm:Page.Overlay>
-        <arcm:Sheet SafeAreaBottom="{Binding SafeArea.Bottom, ElementName=Screen}" Title="Share">
+        <!-- Keeps the page's bottom safe area by itself. -->
+        <arcm:Sheet Title="Share">
             ...
         </arcm:Sheet>
     </arcm:Page.Overlay>
 </arcm:Page>
+
+<arcm:Sheet SafeAreaBottom="0" Title="Full bleed" />
 ```
 
 ### Tokens
@@ -98,8 +103,9 @@ The panel's position is a code-driven motion value: a drag writes it on every mo
   Taller content scrolls vertically inside the panel. Horizontal scrolling is off, so content has to fit the width.
 - The `Title` stays on one line and ends in an ellipsis when it is too long. When the sheet holds a form, keep a visible
   close action inside it, since tapping the scrim is only a shortcut.
-- The handle (the grabber and the title) drags with any pointer; the content drags the sheet by touch only. Pass the
-  bottom safe area through `SafeAreaBottom` so the content clears the home indicator.
+- The handle (the grabber and the title) drags with any pointer; the content drags the sheet by touch only. In a page
+  the sheet keeps the page's bottom safe area free by itself, so the content clears the home indicator;
+  `SafeAreaBottom` overrides it.
 
 ## Related
 

@@ -67,6 +67,8 @@ Arc's items as a starting point. The feature card's `Image` is any `IImage`; it 
 
 <Demo name="Simple" />
 
+`IsVisible="False"` on a `SiteHeaderItem` takes it out of the bar and the menu sheet, and `IsEnabled="False"` dims it, opens no panel and keeps it out of the arrow-key order. Both follow later changes, so one header can serve signed-in and signed-out people. `Current` may still name a hidden item.
+
 ### Choosing a destination
 
 Every destination (an item, a panel link, the feature card, the brand, an action) raises the bubbling `Navigate` event

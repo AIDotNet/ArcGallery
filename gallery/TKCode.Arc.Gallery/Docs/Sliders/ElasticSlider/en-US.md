@@ -339,7 +339,8 @@ is reachable with the keyboard only when a step lands on its value. For marks at
 
 **How do I hide the readout and keep the value out of the way?** Set `IsValueVisible="False"` to hide the readout beside the
 label. The tag still appears while the thumb is dragged or changed by keys, so the number stays available during an
-adjustment and is hidden once the person stops.
+adjustment and is hidden once the person stops. With no `Label` either, the header row and the gap below it leave the layout, so the slider is only as tall as its
+control row and centres vertically in a toolbar or a table cell.
 
 **Can one elastic slider select a range?** No. `ElasticSlider` has one `Value` and no `IsRange`. Use `Slider` with
 `IsRange="True"` and read `LowerValue` and `UpperValue`.

@@ -19,7 +19,7 @@ and its selection is one value the form can read or save.
 - **Export format or report scope in an analytics console**: CSV, Parquet or JSON, or "This month" against "Year to
   date". Each row explains what the file contains, so the person does not guess.
 - **Access or role choice in an invitation form**: Viewer, Editor or Admin, with a description of the permissions
-  that come with each role. Use `IsDisabled` on a role the person's own plan does not include.
+  that come with each role. Use `IsEnabled="False"` on a role the person's own plan does not include.
 - **Environment or region selection in a developer tool**: a deployment target chosen once for a form, where every
   option must stay visible for review.
 
@@ -205,7 +205,7 @@ without it `SelectedValue` is the item itself.
 
 ### Disabled options
 
-`IsDisabled` keeps an option visible but unavailable. Arrow keys skip disabled options, and the row cannot be selected
+`IsEnabled="False"` keeps an option visible but unavailable. Arrow keys skip disabled options, and the row cannot be selected
 by the pointer or by Space and Enter.
 
 <Demo name="InlineOptions" />
@@ -272,7 +272,7 @@ what it does.
         <arc:RadioOption Value="enterprise"
                          Label="Enterprise"
                          Description="Contact sales. Available on annual contracts."
-                         IsDisabled="True" />
+                         IsEnabled="False" />
     </arc:RadioGroup>
     <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
         <arc:Button Content="Cancel" Variant="Secondary" />
@@ -308,7 +308,7 @@ what it does.
   faster to read, so add one only when it carries information.
 - Set a `SelectedValue` that matches the saved state. An empty selection shows no mark, which reads as an unanswered
   question on a form that expects an answer.
-- Use `IsDisabled` for an option that exists but cannot apply, and say why in its description.
+- Use `IsEnabled="False"` for an option that exists but cannot apply, and say why in its description.
 
 **Avoid**
 

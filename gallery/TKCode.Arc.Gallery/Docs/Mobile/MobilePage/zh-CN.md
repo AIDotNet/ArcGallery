@@ -1,7 +1,7 @@
 ---
 title: 移动端页面
 summary: 手机屏幕：页头、内容和页脚，排布在设备的安全区之内。
-source-hash: c96983137100
+source-hash: caaf649a398f
 ---
 
 <Demo name="Basic" />
@@ -45,6 +45,8 @@ source-hash: c96983137100
 ### 安全区
 
 `SafeArea` 是页面在每条边上保留的空间。`UsePlatformSafeArea` 打开时（默认），页面跟随顶层窗口 insets 管理器的安全区边距，没有该管理器（例如桌面）时为零。关闭 `UsePlatformSafeArea` 并自行设置 `SafeArea` 即可覆盖。背景铺满整个页面，所以它延伸到状态栏之下，而页头和内容留在安全区之内。
+
+页面还会把它的安全区作为可继承的附加属性 `Page.InheritedSafeArea` 传给其中的控件（用 `Page.GetInheritedSafeArea` 读取）。在覆盖整个页面的 `Overlay` 里，它就是页面的 `SafeArea`，所以 `Sheet`、`ActionSheet` 或 `Picker` 的面板会自己避开主屏指示条；在页面已经内缩的页头、内容和页脚里，它为零。
 
 手机框为示例做了这件事：它根据模拟的设备设置 `SafeArea`，并关闭 `UsePlatformSafeArea`。用手机上方的切换器可以看到类似 iPhone 的刘海和主屏指示条、手势条、小屏手机和平板，用键盘开关可以看到页面排布在键盘之上。
 

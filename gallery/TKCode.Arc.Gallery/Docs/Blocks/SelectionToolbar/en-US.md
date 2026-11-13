@@ -38,6 +38,8 @@ Delete.
 
 <Demo name="CustomActions" />
 
+An action follows its own `IsEnabled` and `IsVisible` while the bar is on screen: disable Archive when the selection holds something that cannot be archived, or hide Share for people who may not share. A hidden action takes no room on the bar.
+
 ## API reference
 
 <!-- api: SelectionToolbar -->

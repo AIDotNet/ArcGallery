@@ -14,7 +14,7 @@ public partial class AiCommandPaletteWiredDemo : UserControl
         InitializeComponent();
         Palette.SuggestedQuestions = ["Why did the last deploy fail?", "What is using the most bandwidth?"];
         Palette.Responder = RespondAsync;
-        Palette.ItemSelected += (_, e) => Log.Text = "Opened " + e.Item.Label + " (" + e.Item.Id + ").";
+        Palette.ItemInvoked += (_, e) => Log.Text = "Opened " + e.Item.Label + " (" + e.Item.Id + ").";
         Palette.ActionCompleted += (_, e) => Log.Text = "Action finished: " + e.Result + ".";
         Palette.SourceSelected += (_, e) => Log.Text = "Source chosen: " + e.Item.Title + ".";
     }

@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             xmlns:arcm="https://github.com/AIDotNet/TKCode.Arc.Mobile"
+             x:Class="TKCode.Arc.Gallery.Demos.MobilePickerBasicDemo">
+    <arcm:Page IsScrollable="True">
+        <arcm:Page.Header>
+            <arcm:Navbar Title="Settings" />
+        </arcm:Page.Header>
+        <StackPanel>
+            <arcm:ListGroup Header="General" Footer="Tap a row to choose from an action sheet; the current choice is checked.">
+                <arcm:Picker Icon="{x:Static arc:ArcIcons.Languages}" Content="Language" SelectedIndex="0">
+                    <arcm:Picker.Items>
+                        <x:String>English</x:String>
+                        <x:String>Deutsch</x:String>
+                        <x:String>Français</x:String>
+                        <x:String>日本語</x:String>
+                    </arcm:Picker.Items>
+                </arcm:Picker>
+                <arcm:Picker Icon="{x:Static arc:ArcIcons.Type}" Content="Text size" SheetMessage="Applies to every screen">
+                    <arcm:Picker.Items>
+                        <x:String>Small</x:String>
+                        <x:String>Medium</x:String>
+                        <x:String>Large</x:String>
+                    </arcm:Picker.Items>
+                </arcm:Picker>
+                <arcm:Picker Icon="{x:Static arc:ArcIcons.Moon}" Content="Appearance" SelectedIndex="2" IsEnabled="False">
+                    <arcm:Picker.Items>
+                        <x:String>Light</x:String>
+                        <x:String>Dark</x:String>
+                        <x:String>System</x:String>
+                    </arcm:Picker.Items>
+                </arcm:Picker>
+            </arcm:ListGroup>
+        </StackPanel>
+    </arcm:Page>
+</UserControl>

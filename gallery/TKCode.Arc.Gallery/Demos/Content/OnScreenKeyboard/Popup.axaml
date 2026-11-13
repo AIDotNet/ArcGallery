@@ -1,0 +1,9 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.OnScreenKeyboardPopupDemo">
+    <StackPanel Width="280" Spacing="12" Margin="0,0,0,240">
+        <arc:Input Label="Table" Placeholder="12" arc:OnScreenKeyboard.Popup="Digits" />
+        <arc:Input Label="Guest name" Placeholder="Grace Hopper" arc:OnScreenKeyboard.Popup="Qwerty" />
+    </StackPanel>
+</UserControl>

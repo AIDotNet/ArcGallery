@@ -43,8 +43,9 @@ the same material; whatever is picked there becomes the slot's icon.
 
 `ToolDock` is in the Special package: register it with `UseArcSpecial()` next to `UseArcControls()`. Each entry is a
 `ToolDockItem` with a `Value`, a `Label`, a 24 × 24 `Glyph` and, if you like, a `Shortcut` and a `Badge`.
-`SelectedValue` (two-way) is the `Value` of the chosen entry; `ItemChosen` reports every choice made by pointer,
-keyboard or assistive technology. The key hint is only shown: handle the keys on the page and set `SelectedValue`, as
+`SelectedValue` (two-way) is the `Value` of the chosen entry; `ItemInvoked` reports every choice made by pointer,
+keyboard or assistive technology (also of the entry that is already selected), and `SelectionChanged` fires only when
+`SelectedValue` really changes. The key hint is only shown: handle the keys on the page and set `SelectedValue`, as
 the preview above does. Entries can also come from `ItemsSource`, with an `ItemContainerTheme` that binds the
 containers' properties.
 

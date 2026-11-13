@@ -94,7 +94,7 @@ public partial class PlanViewModel : ObservableObject
         new RadioCardOption("team", "Team", "Shared workspaces and roles for small teams.", "$32"),
         new RadioCardOption("enterprise", "Enterprise", "SSO, audit logs and a dedicated contact.", "Custom")
         {
-            IsDisabled = true,
+            IsEnabled = false,
             DisabledReason = "Talk to sales to enable Enterprise."
         }
     };
@@ -121,7 +121,7 @@ public partial class PlanViewModel : ObservableObject
 
 - `SelectedValue` is two-way: a choice made by the person writes the id to `PlanId`, and a value set in code selects the
   matching card. A value that matches no card leaves nothing selected.
-- Set `IsDisabled` on the option in the view model, not in the XAML, when availability depends on the account. The card
+- Set `IsEnabled="False"` on the option in the view model, not in the XAML, when availability depends on the account. The card
   then shows the reason without a separate binding.
 - Compiled bindings need `x:DataType` on the view (the examples here leave it out for brevity).
 
@@ -195,7 +195,7 @@ columns of 180 plus the gap), so a narrow dialog still shows every card at full 
 
 ### Unavailable options
 
-Set `IsDisabled` on an option to keep it visible but unavailable. Set `DisabledReason` to say why. The reason
+Set `IsEnabled="False"` on an option to keep it visible but unavailable. Set `DisabledReason` to say why. The reason
 replaces the description while the option is disabled. Arrow keys skip disabled options.
 
 ```xml
@@ -205,7 +205,7 @@ replaces the description while the option is disabled. Arrow keys skip disabled 
                          Label="Enterprise"
                          Description="SSO, audit logs and a dedicated contact."
                          Meta="Custom"
-                         IsDisabled="True"
+                         IsEnabled="False"
                          DisabledReason="Talk to sales to enable Enterprise." />
 </arc:RadioCards>
 ```
@@ -259,7 +259,7 @@ card, so the prices line up across the row.
                              Description="SSO, audit logs and a dedicated contact."
                              Meta="Custom"
                              Icon="{x:Static arc:ArcIcons.Shield}"
-                             IsDisabled="True"
+                             IsEnabled="False"
                              DisabledReason="Talk to sales to enable Enterprise." />
     </arc:RadioCards>
     <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
@@ -319,7 +319,7 @@ last available card. The keyboard map is in Accessibility.
 **Why does the ring glide instead of jumping?** The ring is one shape that glides between the selected card's position
 on a spring, so the eye follows the change. When the layout changes size, the ring moves to the new position at once.
 
-**How do I show a card that is disabled but still selected?** Set `IsDisabled` and `SelectedValue` on the same option.
+**How do I show a card that is disabled but still selected?** Set `IsEnabled="False"` and `SelectedValue` on the same option.
 The card then shows its reason in place of the description, and the ring stays on it. Usually it is better to change the
 selection in the view model before disabling an option.
 

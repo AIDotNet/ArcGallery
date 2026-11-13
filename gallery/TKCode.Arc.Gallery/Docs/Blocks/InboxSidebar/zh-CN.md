@@ -1,7 +1,7 @@
 ---
 title: 收件箱侧边栏
 summary: 邮件应用的侧边栏：写邮件按钮、带未读数的文件夹、彩色标签和存储空间条，可收起为图标栏。
-source-hash: a757b7f2b722
+source-hash: 5aac984a4df3
 ---
 
 <Demo name="Preview" />
@@ -39,6 +39,8 @@ mail.ItemInvoked += (_, e) => ShowFolder(e.Key);
 `IsCollapsed` 切换到图标栏，面板按钮的作用相同。`ResizeMode="Push"` 让页面随宽度弹簧移动，默认的 `Overlay` 让侧边栏从页面上方滑过。
 
 <Demo name="Rail" />
+
+`InboxSidebarFolder` 或 `InboxSidebarLabel` 上的 `IsVisible="False"` 会隐藏那一行，`IsEnabled="False"` 会让它变暗且无法被选择。两者都会跟随之后的变化。`SelectionChanged` 会报告 `SelectedKey` 的每一次变化，带有旧键和新键以及当前选中的文件夹或标签；`ItemInvoked` 仍然报告每一次选择，包括已经打开的文件夹。
 
 ## API 参考
 

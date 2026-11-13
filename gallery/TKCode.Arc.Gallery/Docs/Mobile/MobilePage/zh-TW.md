@@ -1,7 +1,7 @@
 ---
 title: 移動端頁面
 summary: 手機螢幕：頁首、內容和頁尾，排佈在裝置的安全區之內。
-source-hash: c96983137100
+source-hash: caaf649a398f
 ---
 
 <Demo name="Basic" />
@@ -45,6 +45,8 @@ source-hash: c96983137100
 ### 安全區
 
 `SafeArea` 是頁面在每條邊上保留的空間。`UsePlatformSafeArea` 開啟時（預設），頁面跟隨頂層視窗 insets 管理員的安全區邊距，沒有該管理員（例如桌面）時為零。關閉 `UsePlatformSafeArea` 並自行設定 `SafeArea` 即可覆寫。背景鋪滿整個頁面，所以它延伸到狀態列之下，而頁首和內容留在安全區之內。
+
+頁面還會把它的安全區作為可繼承的附加屬性 `Page.InheritedSafeArea` 傳給其中的控制項（用 `Page.GetInheritedSafeArea` 讀取）。在覆蓋整個頁面的 `Overlay` 裡，它就是頁面的 `SafeArea`，所以 `Sheet`、`ActionSheet` 或 `Picker` 的面板會自己避開主畫面指示條；在頁面已經內縮的頁首、內容和頁尾裡，它為零。
 
 手機框為範例做了這件事：它依模擬的裝置設定 `SafeArea`，並關閉 `UsePlatformSafeArea`。用手機上方的切換器可以看到類似 iPhone 的瀏海和主畫面指示條、手勢列、小螢幕手機和平板，用鍵盤開關可以看到頁面排布在鍵盤之上。
 

@@ -1,7 +1,7 @@
 ---
 title: 弹性滑块
 summary: 滑块越过两端时如橡皮筋般拉伸，附带摇摆的数值标签，以及滑块会卡入的档位。
-source-hash: a9eeac1f0470
+source-hash: 42d6e6b3ad59
 ---
 
 <Demo name="RubberBand" />
@@ -261,7 +261,7 @@ Volume.ValueCommitted += async (_, e) => await ViewModel.SaveVolumeAsync(e.Value
 
 **为什么我按键时滑块没有落在刻度上？** 按键以 `SmallChange` 为步长移动，从不吸附到刻度。只有当某一步恰好落在刻度的数值上时，键盘才能到达该刻度。对于 0、25、50、75 与 100 的刻度，请设置 `SmallChange="25"`，或使用能将刻度间距均匀整除的 `SmallChange`。
 
-**如何隐藏读数并让数值不碍事？** 设置 `IsValueVisible="False"` 即可隐藏标签旁的读数。拖动滑块或通过按键修改时数值标签仍会出现，因此调整过程中数字始终可用，用户停止操作后则隐藏。
+**如何隐藏读数并让数值不碍事？** 设置 `IsValueVisible="False"` 即可隐藏标签旁的读数。拖动滑块或通过按键修改时数值标签仍会出现，因此调整过程中数字始终可用，用户停止操作后则隐藏。同时没有 `Label` 时，标题行及其下方的间距不再参与布局，滑动条只有控件行那么高，可以在工具栏或表格单元格中垂直居中。
 
 **一个弹性滑块能选择范围吗？** 不能。`ElasticSlider` 只有一个 `Value`，没有 `IsRange`。应使用设置了 `IsRange="True"` 的 `Slider`，并读取 `LowerValue` 与 `UpperValue`。
 

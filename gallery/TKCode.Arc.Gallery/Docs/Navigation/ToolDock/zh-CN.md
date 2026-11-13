@@ -1,7 +1,7 @@
 ---
 title: Tool dock
 summary: 为编辑器（例如画布）的工具和模式准备的浮动工具栏：正在使用的工具衬着一块着色底，悬停时显示它的名称和快捷键，同一工具的几个变体共用一个槽位，展开成一个托盘。
-source-hash: 3fcb75c58ca3
+source-hash: 97f7a4f6b8ec
 ---
 
 <Demo name="Preview" />
@@ -37,7 +37,7 @@ source-hash: 3fcb75c58ca3
 </UserControl>
 ```
 
-`ToolDock` 在 Special 包里：在 `UseArcControls()` 旁边用 `UseArcSpecial()` 注册。每一项是一个 `ToolDockItem`，带 `Value`、`Label`、24 × 24 的 `Glyph`，还可以加 `Shortcut` 和 `Badge`。`SelectedValue`（双向）是选中项的 `Value`；`ItemChosen` 报告通过指针、键盘或辅助技术做出的每一次选择。快捷键提示只是显示出来：请在页面上处理按键并设置 `SelectedValue`，就像上面的预览那样。项也可以来自 `ItemsSource`，用 `ItemContainerTheme` 绑定容器的属性。
+`ToolDock` 在 Special 包里：在 `UseArcControls()` 旁边用 `UseArcSpecial()` 注册。每一项是一个 `ToolDockItem`，带 `Value`、`Label`、24 × 24 的 `Glyph`，还可以加 `Shortcut` 和 `Badge`。`SelectedValue`（双向）是选中项的 `Value`；`ItemInvoked` 报告通过指针、键盘或辅助技术做出的每一次选择（包括再次选择已选中的项），`SelectionChanged` 只在 `SelectedValue` 真的改变时触发。快捷键提示只是显示出来：请在页面上处理按键并设置 `SelectedValue`，就像上面的预览那样。项也可以来自 `ItemsSource`，用 `ItemContainerTheme` 绑定容器的属性。
 
 每个槽位 40 px，工具栏的宽度就是所有槽位加起来的宽度，不会为了放下而挤压任何东西。工具栏上方要留出空位，因为托盘和浮动标签都出现在那里。
 

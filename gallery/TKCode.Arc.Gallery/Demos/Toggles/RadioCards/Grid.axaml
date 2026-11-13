@@ -23,7 +23,7 @@
                              Description="SSO, audit logs and a dedicated contact."
                              Meta="Custom"
                              Icon="{x:Static arc:ArcIcons.Shield}"
-                             IsDisabled="True"
+                             IsEnabled="False"
                              DisabledReason="Talk to sales to enable Enterprise." />
     </arc:RadioCards>
 </UserControl>

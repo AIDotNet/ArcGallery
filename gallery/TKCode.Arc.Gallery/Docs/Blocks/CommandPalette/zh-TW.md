@@ -1,7 +1,7 @@
 ---
 title: 指令面板
 summary: 完整的鍵盤操作面板，支援搜尋、分組結果與快速鍵。
-source-hash: 22506c87b931
+source-hash: 51a5c197030b
 ---
 
 <Demo name="Preview" />
@@ -48,7 +48,7 @@ source-hash: 22506c87b931
 ```
 
 ```csharp
-Commands.ItemSelected += (_, e) => Run(e.Item.Id);
+Commands.ItemInvoked += (_, e) => Run(e.Item.Id);
 ```
 
 上方的預覽呈現的是應用程式中彈出層的樣貌，不過它被限制在示範舞台內（`IsModal="False"`）：頁面載入時它就是開啟的，按 Esc 關閉，點按按鈕或按 Cmd+K 可以再次開啟。在視窗中，對話方塊會以淡淡的遮罩蓋住整個視窗，「開啟手勢」一節的示範即是如此。
@@ -108,22 +108,24 @@ Commands.ItemSelected += (_, e) => Run(e.Item.Id);
 
 窄視窗會得到較緊湊的面板。視窗寬度為 480 像素或更小時，面板會隱藏快速鍵鍵帽並收緊內距；寬度為 340 像素或更小時，各列的左右邊距也會收緊。這條規則依循視窗，而不是面板本身的寬度：在一般視窗中，上方 400 像素寬的面板仍會顯示鍵帽，440 像素寬的彈出層也一樣。
 
+`CommandPaletteItem` 上的 `IsVisible="False"` 會讓命令離開清單、搜尋與方向鍵順序，但不會把它從項目中移除，因此命令可以只在適用時出現（例如「取消訂閱」命令只在有有效方案時出現）。`IsEnabled="False"` 會讓它保持列出但變淡且無法選取。命令面板開啟時，兩者都會跟隨之後的變化。
+
 ### 執行指令
 
 按 Enter 執行醒目提示的指令。輸入後若沒有醒目提示的項目，按 Enter 會執行排在最前面的符合項。點按會執行指標下方的指令。兩種方式都會先清除查詢，然後依序進行：
 
 1. 對話方塊開始關閉（除非關閉了 `CloseOnSelect`），焦點回到頁面。
-2. 引發 `ItemSelected`。它會向上冒泡，因此頁面可以監聽。
+2. 引發 `ItemInvoked`。它會向上冒泡，因此頁面可以監聽。
 3. 以所選項目為參數執行 `SelectCommand`。
 4. 以該項目的 `CommandParameter` 為參數執行該項目自身的 `Command`。
 
 下次開啟對話方塊時，搜尋欄位是空的。內嵌的面板不會關閉，所以它讓焦點留在搜尋欄位中，並執行第 2 到 4 步。
 
 ```csharp
-dialog.ItemSelected += (_, e) => Navigate(e.Item.Id);
+dialog.ItemInvoked += (_, e) => Navigate(e.Item.Id);
 ```
 
-導覽很單純時，在程式碼後置中使用 `ItemSelected`；在 MVVM 應用程式中，使用 `SelectCommand`，讓檢視模型決定每個指令做什麼。當一個指令只屬於一個項目時，例如開啟特定對話方塊的指令，使用該項目自身的 `Command`。用 `Tag` 在項目上攜帶應用程式物件，這樣處理常式就無需解析 `Id`。由於對話方塊在處理常式執行之前就已關閉，開啟 `Dialog` 的指令會發現焦點已經回到頁面，而那個 `Dialog` 關閉時也會把焦點還到那裡。
+導覽很單純時，在程式碼後置中使用 `ItemInvoked`；在 MVVM 應用程式中，使用 `SelectCommand`，讓檢視模型決定每個指令做什麼。當一個指令只屬於一個項目時，例如開啟特定對話方塊的指令，使用該項目自身的 `Command`。用 `Tag` 在項目上攜帶應用程式物件，這樣處理常式就無需解析 `Id`。由於對話方塊在處理常式執行之前就已關閉，開啟 `Dialog` 的指令會發現焦點已經回到頁面，而那個 `Dialog` 關閉時也會把焦點還到那裡。
 
 ### 繫結到檢視模型
 
@@ -267,7 +269,7 @@ dialog.OpenGesture = new KeyGesture(Key.P, KeyModifiers.Control | KeyModifiers.S
 - 開啟時，焦點移到搜尋欄位，並記住它原本的位置。關閉時焦點會回到那裡，無論對話方塊是透過按鍵、點按還是指令關閉，只要那個元素仍在畫面上，且沒有其他元素搶走焦點。
 - 當對話方塊以 Esc 關閉，或該元素在對話方塊開啟時顯示著焦點框，歸還的焦點會再次顯示焦點框。
 - 對話方塊為模態時，焦點停留在其中：Tab 從搜尋欄位移到清除按鈕（有查詢時）與 "Esc" 鍵帽，然後回到搜尋欄位。
-- 選擇指令時，對話方塊在 `ItemSelected` 與各個指令執行之前就已關閉，因此開啟另一個對話方塊的指令會發現焦點已經回到頁面。
+- 選擇指令時，對話方塊在 `ItemInvoked` 與各個指令執行之前就已關閉，因此開啟另一個對話方塊的指令會發現焦點已經回到頁面。
 - `IsModal` 為 false 時，頁面維持可互動，焦點不受限制。在面板之外的任何位置按下都會關閉它。
 - 文字方塊擁有焦點時也可以開啟，因為對話方塊先於文字方塊處理手勢。關閉時，文字方塊會重新取得焦點。
 
@@ -286,7 +288,7 @@ dialog.OpenGesture = new KeyGesture(Key.P, KeyModifiers.Control | KeyModifiers.S
 Palette.CloseRequested += (_, e) => Hide(e.Reason);
 ```
 
-在空白的搜尋欄位中按 Escape 或點按 "Esc" 鍵帽都會引發 `CloseRequested`，它的 `Reason` 是 `CommandPaletteCloseReason.Escape` 或 `CommandPaletteCloseReason.CloseButton`。有查詢時按 Escape 會清除查詢，並被處理。在空白的搜尋欄位中，Escape 不會被標記為已處理，因此包住面板的覆蓋層也可以在 Escape 時關閉，對話方塊就是這樣做的。讓面板隱藏的方式由你決定：在這裡關閉它，並在 `ItemSelected` 之後同樣關閉。
+在空白的搜尋欄位中按 Escape 或點按 "Esc" 鍵帽都會引發 `CloseRequested`，它的 `Reason` 是 `CommandPaletteCloseReason.Escape` 或 `CommandPaletteCloseReason.CloseButton`。有查詢時按 Escape 會清除查詢，並被處理。在空白的搜尋欄位中，Escape 不會被標記為已處理，因此包住面板的覆蓋層也可以在 Escape 時關閉，對話方塊就是這樣做的。讓面板隱藏的方式由你決定：在這裡關閉它，並在 `ItemInvoked` 之後同樣關閉。
 
 在 macOS 上為 Cmd+K，其他平台為 Ctrl+K，可從視窗中的任何位置把焦點移到內嵌面板的搜尋欄位；它不會切換。當另一個不包含它的模態層位於最上層時，以及另一個面板擁有焦點時，面板會退讓。當一個頁面顯示多個面板時，請在除其中一個之外的所有面板上將 `IsShortcutEnabled` 設為 false。`ShortcutHint` 修改鍵帽的文字，空字串則隱藏它；`IsShortcutEnabled` 為 false 時鍵帽仍然可見，因此也要把它隱藏。
 
@@ -413,7 +415,7 @@ Palette.CloseRequested += (_, e) => Hide(e.Reason);
 - 用 `IsEnabled="False"` 停用指令，並搭配說明原因的 `Description`。隱藏的指令什麼也教不了使用者；帶有原因的停用指令則告訴使用者他們需要什麼。
 - 每個視窗只保留一個指令面板對話方塊。第二個對話方塊需要自己的 `OpenGesture`，與它並存的內嵌面板需要設定 `IsShortcutEnabled="False"`，否則這個按鍵會有兩個爭用者，卻只有一個會回應。
 - 在按鍵之外，再提供一個開啟對話方塊的按鈕。這樣不知道 Cmd+K 的使用者也能找到指令面板。
-- 在 `ItemSelected` 或 `SelectCommand` 中處理所選指令，並預期對話方塊此時已在關閉。開啟 `Dialog` 的指令就無需自己處理焦點。
+- 在 `ItemInvoked` 或 `SelectCommand` 中處理所選指令，並預期對話方塊此時已在關閉。開啟 `Dialog` 的指令就無需自己處理焦點。
 
 **避免**
 

@@ -327,7 +327,7 @@ public class CommandPaletteTests
         var selectedByCommand = new List<object?>();
         var palette = new CommandPalette { ItemsSource = items, SelectCommand = new RecordingCommand(selectedByCommand) };
         var chosen = new List<CommandPaletteItem>();
-        palette.ItemSelected += (_, e) =>
+        palette.ItemInvoked += (_, e) =>
         {
             chosen.Add(e.Item);
             // The field is already reset when the event is raised.
@@ -371,7 +371,7 @@ public class CommandPaletteTests
         items[2].IsEnabled = false;
         var palette = new CommandPalette { ItemsSource = items };
         var chosen = new List<CommandPaletteItem>();
-        palette.ItemSelected += (_, e) => chosen.Add(e.Item);
+        palette.ItemInvoked += (_, e) => chosen.Add(e.Item);
         var window = Show(palette);
         try
         {
@@ -526,7 +526,7 @@ public class CommandPaletteTests
     {
         var palette = new CommandPalette { ItemsSource = Sample() };
         var chosen = new List<CommandPaletteItem>();
-        palette.ItemSelected += (_, e) => chosen.Add(e.Item);
+        palette.ItemInvoked += (_, e) => chosen.Add(e.Item);
         var window = Show(palette);
         try
         {
@@ -724,7 +724,7 @@ public class CommandPaletteTests
         var items = Many(300);
         var chosen = new List<string>();
         var palette = new CommandPalette { ItemsSource = items };
-        palette.ItemSelected += (_, e) => chosen.Add(e.Item.Id);
+        palette.ItemInvoked += (_, e) => chosen.Add(e.Item.Id);
         var window = Show(palette);
         try
         {
@@ -1062,6 +1062,32 @@ public class CommandPaletteTests
             palette.IsFilteringEnabled = true;
             Dispatcher.UIThread.RunJobs();
             palette.VisibleItems.ShouldBeEmpty();
+        }
+        finally
+        {
+            window.Close();
+        }
+    }
+
+    [AvaloniaFact]
+    public void The_Obsolete_ItemSelected_Is_Raised_Together_With_ItemInvoked()
+    {
+        var palette = new CommandPalette { ItemsSource = Sample() };
+        var invoked = new List<string?>();
+        var selected = new List<string?>();
+        palette.ItemInvoked += (_, e) => invoked.Add(e.Item.Id);
+#pragma warning disable CS0618 // the former name must keep working until a major version removes it
+        palette.ItemSelected += (_, e) => selected.Add(e.Item.Id);
+#pragma warning restore CS0618
+        var window = Show(palette);
+        try
+        {
+            palette.FocusInput();
+            Dispatcher.UIThread.RunJobs();
+            Press(window, PhysicalKey.ArrowDown);
+            Press(window, PhysicalKey.Enter);
+            invoked.Count.ShouldBe(1);
+            selected.ShouldBe(invoked);
         }
         finally
         {
@@ -1453,7 +1479,7 @@ public class CommandPaletteDialogTests
         try
         {
             var raised = new List<string>();
-            dialog.ItemSelected += (_, e) => raised.Add($"{e.Item.Id}:{dialog.IsOpen}");
+            dialog.ItemInvoked += (_, e) => raised.Add($"{e.Item.Id}:{dialog.IsOpen}");
             dialog.IsOpen = true;
             Dispatcher.UIThread.RunJobs();
             Type(window, "invite");
@@ -1484,7 +1510,7 @@ public class CommandPaletteDialogTests
         try
         {
             CommandPaletteItem? seen = null;
-            ((Panel)dialog.GetVisualParent()!).AddHandler(CommandPaletteDialog.ItemSelectedEvent, (object? _, CommandPaletteItemSelectedEventArgs e) => seen = e.Item);
+            ((Panel)dialog.GetVisualParent()!).AddHandler(CommandPaletteDialog.ItemInvokedEvent, (object? _, CommandPaletteItemSelectedEventArgs e) => seen = e.Item);
             dialog.IsOpen = true;
             Dispatcher.UIThread.RunJobs();
             Press(window, PhysicalKey.ArrowDown);

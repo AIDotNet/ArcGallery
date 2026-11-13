@@ -1,0 +1,41 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             xmlns:local="using:TKCode.Arc.Gallery.Demos"
+             x:Class="TKCode.Arc.Gallery.Demos.RadialMenuCustomTemplateDemo">
+    <StackPanel MaxWidth="640" Spacing="12">
+        <Border Height="260"
+                CornerRadius="18"
+                BorderThickness="1"
+                Background="{arc:ArcDesignTokenResource SurfaceMuted}"
+                BorderBrush="{arc:ArcDesignTokenResource Border}">
+            <StackPanel Spacing="12" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <arc:Button x:Name="ColorButton"
+                            Variant="Secondary"
+                            HorizontalAlignment="Center"
+                            AutomationProperties.Name="Highlight color">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Ellipse x:Name="Chip" Width="14" Height="14" Fill="#2E9BEA" VerticalAlignment="Center" />
+                        <TextBlock x:Name="ColorName" Text="Sky" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <arc:RadialMenu.Menu>
+                        <arc:RadialMenu x:Name="Swatches"
+                                        Label="Highlight color"
+                                        Trigger="Click"
+                                        IsItemLabelVisible="False">
+                            <arc:RadialMenu.ItemTemplate>
+                                <DataTemplate x:DataType="local:RadialMenuSwatch">
+                                    <Ellipse Width="26" Height="26" Fill="{Binding Brush}" />
+                                </DataTemplate>
+                            </arc:RadialMenu.ItemTemplate>
+                        </arc:RadialMenu>
+                    </arc:RadialMenu.Menu>
+                </arc:Button>
+                <TextBlock Text="Pick a highlight color"
+                           FontSize="14"
+                           HorizontalAlignment="Center"
+                           Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</UserControl>

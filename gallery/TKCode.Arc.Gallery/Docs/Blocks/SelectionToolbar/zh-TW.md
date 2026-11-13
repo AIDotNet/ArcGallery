@@ -1,7 +1,7 @@
 ---
 title: 選取工具列
 summary: 選取清單或表格中的項目時從底部升起的浮動列：顯示數量、全選、批次操作和清除選取。
-source-hash: ad3c171efa01
+source-hash: b1fb17e74c95
 ---
 
 <Demo name="Preview" />
@@ -33,6 +33,8 @@ toolbar.ActionInvoked += (_, e) => Run(e.Action.Key, e.SelectedCount);
 清除按鈕和 Esc 會把 `SelectedCount` 設為 0 並引發 `Cleared`，在那裡取消列的選取。每個操作也可以帶一個 `Command`，它會收到選取的數量。沒有 `Actions` 時，列上提供 Archive、Move、Share 和 Delete。
 
 <Demo name="CustomActions" />
+
+操作列在畫面上時會跟隨每個動作自己的 `IsEnabled` 與 `IsVisible`：當選取項目中有無法封存的內容時停用「封存」，或對無權分享的人隱藏「分享」。被隱藏的動作不佔操作列的空間。
 
 ## API 參考
 
