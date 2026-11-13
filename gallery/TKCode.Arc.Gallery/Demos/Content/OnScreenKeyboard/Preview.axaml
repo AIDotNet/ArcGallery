@@ -1,0 +1,12 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.OnScreenKeyboardPreviewDemo">
+    <StackPanel MaxWidth="600" Spacing="16">
+        <Grid ColumnDefinitions="*,12,*">
+            <arc:Input x:Name="NameField" Label="Name" Placeholder="Ada Lovelace" />
+            <arc:Input Grid.Column="2" Label="Email" Placeholder="ada@example.com" />
+        </Grid>
+        <arc:OnScreenKeyboard x:Name="Keyboard" />
+    </StackPanel>
+</UserControl>

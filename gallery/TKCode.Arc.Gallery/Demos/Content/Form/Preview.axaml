@@ -1,0 +1,45 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             xmlns:demo="clr-namespace:TKCode.Arc.Gallery.Demos"
+             x:Class="TKCode.Arc.Gallery.Demos.FormPreviewDemo"
+             x:DataType="demo:FormSignUpModel">
+    <!-- A fixed height so the submit button sits below the fold: a failed submit scrolls back up to the first error. -->
+    <ScrollViewer Height="440" MaxWidth="420" HorizontalAlignment="Center">
+        <arc:Form x:Name="SignUp"
+                  Padding="4,4,16,8"
+                  AutomationProperties.Name="Create an account"
+                  ValidateCommand="{Binding ValidateCommand}"
+                  SubmitCommand="{Binding CreateAccountCommand}"
+                  ResetCommand="{Binding ResetCommand}">
+            <StackPanel Spacing="20">
+                <arc:FormItem Label="User name"
+                              IsRequired="True"
+                              Description="Lowercase letters, digits and dots. Try admin to see a name that is taken."
+                              IsValidating="{Binding IsCheckingUserName}">
+                    <arc:Input Text="{Binding UserName}" Placeholder="ada.lovelace" />
+                </arc:FormItem>
+                <arc:FormItem Label="Email" IsRequired="True">
+                    <arc:Input Text="{Binding Email}" Placeholder="you@example.com" />
+                </arc:FormItem>
+                <arc:FormItem Label="Password" IsRequired="True" Description="At least 8 characters.">
+                    <arc:PasswordField Text="{Binding Password}" />
+                </arc:FormItem>
+                <arc:FormItem Label="Confirm password" IsRequired="True">
+                    <arc:PasswordField Text="{Binding ConfirmPassword}" />
+                </arc:FormItem>
+                <arc:FormItem Label="Terms" IsRequired="True" IsLabelVisible="False">
+                    <arc:Checkbox IsChecked="{Binding AcceptTerms}" Content="I accept the terms of service" />
+                </arc:FormItem>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <arc:Button arc:Form.Action="Submit" IsDefault="True" Content="Create account" />
+                    <arc:Button arc:Form.Action="Reset" Variant="Secondary" Content="Reset" />
+                </StackPanel>
+                <TextBlock Text="{Binding Status}"
+                           FontSize="13"
+                           Foreground="{arc:ArcDesignTokenResource Success}"
+                           IsVisible="{Binding Status, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+            </StackPanel>
+        </arc:Form>
+    </ScrollViewer>
+</UserControl>

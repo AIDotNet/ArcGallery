@@ -1,0 +1,44 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             xmlns:arcm="https://github.com/AIDotNet/TKCode.Arc.Mobile"
+             x:Class="TKCode.Arc.Gallery.Demos.MobileRadioCardsSwatchesDemo">
+    <arcm:Page IsScrollable="True">
+        <arcm:Page.Header>
+            <arcm:Navbar Title="Badge" />
+        </arcm:Page.Header>
+        <StackPanel Margin="16" Spacing="20">
+            <StackPanel Spacing="8">
+                <TextBlock Text="Shape" FontWeight="Medium" Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+                <arcm:RadioCards Columns="3" ShowIndicator="False" SelectedIndex="0">
+                    <arcm:RadioCardOption Value="circle" Label="Circle" Icon="{x:Static arc:ArcIcons.Circle}" />
+                    <arcm:RadioCardOption Value="square" Label="Square" Icon="{x:Static arc:ArcIcons.Square}" />
+                    <arcm:RadioCardOption Value="star" Label="Star" Icon="{x:Static arc:ArcIcons.Star}" />
+                </arcm:RadioCards>
+            </StackPanel>
+            <StackPanel Spacing="8">
+                <TextBlock Text="Color" FontWeight="Medium" Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+                <arcm:RadioCards Name="Colors" Columns="3" ShowIndicator="False" SelectedIndex="1">
+                    <arcm:RadioCardOption Value="violet" Label="Violet">
+                        <arcm:RadioCardOption.Icon>
+                            <Ellipse Width="28" Height="28" Fill="#6E56CF" />
+                        </arcm:RadioCardOption.Icon>
+                    </arcm:RadioCardOption>
+                    <arcm:RadioCardOption Value="blue" Label="Blue">
+                        <arcm:RadioCardOption.Icon>
+                            <Ellipse Width="28" Height="28" Fill="#0090FF" />
+                        </arcm:RadioCardOption.Icon>
+                    </arcm:RadioCardOption>
+                    <arcm:RadioCardOption Value="green" Label="Green">
+                        <arcm:RadioCardOption.Icon>
+                            <Ellipse Width="28" Height="28" Fill="#30A46C" />
+                        </arcm:RadioCardOption.Icon>
+                    </arcm:RadioCardOption>
+                </arcm:RadioCards>
+                <TextBlock Text="{Binding #Colors.SelectedValue, StringFormat='SelectedValue: {0}'}"
+                           FontSize="13"
+                           Foreground="{arc:ArcDesignTokenResource TextMuted}" />
+            </StackPanel>
+        </StackPanel>
+    </arcm:Page>
+</UserControl>

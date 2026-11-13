@@ -45,6 +45,8 @@ Register the controls with `UseArcMobile()` next to `UseArcCore()` or `UseArcCon
 
 `SafeArea` is the space the page keeps free on each edge. While `UsePlatformSafeArea` is on (the default), the page follows the safe area padding of the top level's insets manager and uses zero where there is none, such as on desktop. Turn `UsePlatformSafeArea` off and set `SafeArea` yourself to override it. The background fills the whole page, so it runs under the status bar while the header and content stay inside the safe area.
 
+The page also passes its safe area down to the controls in it as the inherited attached property `Page.InheritedSafeArea` (read it with `Page.GetInheritedSafeArea`). In `Overlay`, which covers the whole page, it is the page's `SafeArea`, so a `Sheet`, an `ActionSheet` or the sheet of a `Picker` keeps clear of the home indicator by itself; in the header, the content and the footer, which the page already insets, it is zero.
+
 The phone frame does this for the demos: it sets `SafeArea` from the simulated device and turns `UsePlatformSafeArea` off. Use the switcher above the phone to see an iPhone-like notch and home indicator, a gesture bar, a small phone and a tablet, and the keyboard toggle to see the page lay out above the keyboard.
 
 ### Content only

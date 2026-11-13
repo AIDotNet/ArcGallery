@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             xmlns:arcm="https://github.com/AIDotNet/TKCode.Arc.Mobile"
+             x:Class="TKCode.Arc.Gallery.Demos.MobileRadioCardsBasicDemo">
+    <arcm:Page IsScrollable="True">
+        <arcm:Page.Header>
+            <arcm:Navbar Title="Plan" />
+        </arcm:Page.Header>
+        <StackPanel Margin="16" Spacing="12">
+            <arcm:RadioCards Name="Plans" SelectedIndex="1">
+                <arcm:RadioCardOption Value="free" Label="Free" Description="3 projects and 1 GB of storage." Icon="{x:Static arc:ArcIcons.Zap}" />
+                <arcm:RadioCardOption Value="pro" Label="Pro" Description="Unlimited projects and priority support." Icon="{x:Static arc:ArcIcons.Star}" />
+                <arcm:RadioCardOption Value="team" Label="Team" Description="Shared spaces for up to 20 people." Icon="{x:Static arc:ArcIcons.User}" />
+                <arcm:RadioCardOption Value="enterprise" Label="Enterprise" Description="Talk to sales first." Icon="{x:Static arc:ArcIcons.Shield}" IsEnabled="False" />
+            </arcm:RadioCards>
+            <TextBlock Text="{Binding #Plans.SelectedValue, StringFormat='SelectedValue: {0}'}"
+                       FontSize="13"
+                       Foreground="{arc:ArcDesignTokenResource TextMuted}" />
+        </StackPanel>
+    </arcm:Page>
+</UserControl>

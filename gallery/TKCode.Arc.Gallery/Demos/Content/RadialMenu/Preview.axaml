@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.RadialMenuPreviewDemo">
+    <StackPanel MaxWidth="640" Spacing="12">
+        <Border Height="300"
+                CornerRadius="18"
+                BorderThickness="1"
+                Background="{arc:ArcDesignTokenResource SurfaceMuted}"
+                BorderBrush="{arc:ArcDesignTokenResource Border}">
+            <arc:RadialMenu.Menu>
+                <arc:RadialMenu x:Name="Tools" Label="Canvas tools">
+                    <arc:RadialMenuItem Header="Select" Icon="{x:Static arc:ArcIcons.Move}" />
+                    <arc:RadialMenuItem Header="Pen" Icon="{x:Static arc:ArcIcons.Pencil}" />
+                    <arc:RadialMenuItem Header="Text" Icon="{x:Static arc:ArcIcons.Type}" />
+                    <arc:RadialMenuItem Header="Shape" Icon="{x:Static arc:ArcIcons.Square}" />
+                    <arc:RadialMenuItem Header="Image" Icon="{x:Static arc:ArcIcons.Image}" />
+                    <arc:RadialMenuItem Header="Comment" Icon="{x:Static arc:ArcIcons.MessageSquare}" />
+                    <arc:RadialMenuItem Header="Duplicate" Icon="{x:Static arc:ArcIcons.Copy}" />
+                    <arc:RadialMenuItem Header="Delete" Icon="{x:Static arc:ArcIcons.Trash2}" />
+                </arc:RadialMenu>
+            </arc:RadialMenu.Menu>
+            <TextBlock Text="Right-click or press and hold anywhere on the board"
+                       FontSize="14"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"
+                       Margin="24"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+        </Border>
+        <TextBlock x:Name="Status"
+                   Text="No tool chosen yet."
+                   FontSize="14"
+                   TextWrapping="Wrap"
+                   HorizontalAlignment="Center"
+                   Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+    </StackPanel>
+</UserControl>

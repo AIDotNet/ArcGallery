@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.OnScreenKeyboardNumberPadDemo">
+    <WrapPanel HorizontalAlignment="Center" ItemSpacing="24" LineSpacing="16">
+        <StackPanel Width="220" Spacing="12">
+            <arc:Input Label="Quantity" Text="12" Description="Cases to pick from aisle 4" />
+            <arc:Input Label="Weight (kg)" Placeholder="0.0" />
+        </StackPanel>
+        <arc:OnScreenKeyboard Preset="Numeric"
+                              Culture="en-US"
+                              Width="280"
+                              Height="260"
+                              VerticalAlignment="Top" />
+    </WrapPanel>
+</UserControl>

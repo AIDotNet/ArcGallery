@@ -1,0 +1,45 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.OnScreenKeyboardCustomLayoutDemo">
+    <StackPanel Width="320" HorizontalAlignment="Center" Spacing="16">
+        <arc:Input x:Name="Color" Label="Color (hex)" Placeholder="FF8800" MaxLength="6" />
+        <arc:OnScreenKeyboard Target="{Binding #Color}">
+            <arc:OnScreenKeyboard.Layout>
+                <arc:OnScreenKeyboardLayout Name="Hex">
+                    <arc:OnScreenKeyboardPage Name="hex">
+                        <arc:OnScreenKeyboardRow>
+                            <arc:OnScreenKeyboardKey Text="7" />
+                            <arc:OnScreenKeyboardKey Text="8" />
+                            <arc:OnScreenKeyboardKey Text="9" />
+                            <arc:OnScreenKeyboardKey Text="F" />
+                        </arc:OnScreenKeyboardRow>
+                        <arc:OnScreenKeyboardRow>
+                            <arc:OnScreenKeyboardKey Text="4" />
+                            <arc:OnScreenKeyboardKey Text="5" />
+                            <arc:OnScreenKeyboardKey Text="6" />
+                            <arc:OnScreenKeyboardKey Text="E" />
+                        </arc:OnScreenKeyboardRow>
+                        <arc:OnScreenKeyboardRow>
+                            <arc:OnScreenKeyboardKey Text="1" />
+                            <arc:OnScreenKeyboardKey Text="2" />
+                            <arc:OnScreenKeyboardKey Text="3" />
+                            <arc:OnScreenKeyboardKey Text="D" />
+                        </arc:OnScreenKeyboardRow>
+                        <arc:OnScreenKeyboardRow>
+                            <arc:OnScreenKeyboardKey Text="0" />
+                            <arc:OnScreenKeyboardKey Text="A" />
+                            <arc:OnScreenKeyboardKey Text="B" />
+                            <arc:OnScreenKeyboardKey Text="C" />
+                        </arc:OnScreenKeyboardRow>
+                        <arc:OnScreenKeyboardRow>
+                            <arc:OnScreenKeyboardKey Kind="Left" />
+                            <arc:OnScreenKeyboardKey Kind="Right" />
+                            <arc:OnScreenKeyboardKey Kind="Backspace" Width="2" />
+                        </arc:OnScreenKeyboardRow>
+                    </arc:OnScreenKeyboardPage>
+                </arc:OnScreenKeyboardLayout>
+            </arc:OnScreenKeyboard.Layout>
+        </arc:OnScreenKeyboard>
+    </StackPanel>
+</UserControl>

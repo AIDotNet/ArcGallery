@@ -1,7 +1,7 @@
 ---
 title: 移动端操作面板
 summary: 从底部升起的操作列表，可有一个破坏性操作行和单独的取消行，选择一行、点遮罩或下拉即可关闭。
-source-hash: 7fe3b34afc41
+source-hash: 44cb1b1680b0
 ---
 
 <Demo name="Basic" />
@@ -43,11 +43,22 @@ source-hash: 7fe3b34afc41
 void OnAction(object? sender, ActionSheetActionEventArgs e) => Log((string)e.Action.Content!);
 ```
 
-`Title` 和 `Message` 是可选的，位于第一行上方。`CancelText` 是取消行的文字（`"Cancel"`）；设为 null 会隐藏该行。取消会关闭面板，但不触发 `ActionInvoked`。操作面板就是一个 `Sheet`：点遮罩、下拉或按 Esc 都能关闭它（设置 `IsDismissible="False"` 可禁止），`SafeAreaBottom` 让取消行避开 Home 指示条（见 `MobileSheet`）。
+`Title` 和 `Message` 是可选的，位于第一行上方。`CancelText` 是取消行的文字（`"Cancel"`）；设为 null 会隐藏该行。取消会关闭面板，但不触发 `ActionInvoked`。操作面板就是一个 `Sheet`：点遮罩、下拉或按 Esc 都能关闭它（设置 `IsDismissible="False"` 可禁止）；在页面里它会自己留出页面底部的安全区，让取消行避开 Home 指示条，`SafeAreaBottom` 可以覆盖它（见 `MobileSheet`）。
+
+### 勾选的行
+
+`IsChecked` 把一行标为一组选项中的当前选择：行尾显示对勾，文字仍然居中。选择某一行不会设置它，由管理这组选项的代码设置，就像 `MobilePicker` 勾选它的选中项那样。
+
+```xml
+<arcm:ActionSheet Title="排序方式">
+    <arcm:ActionSheetItem Content="名称" IsChecked="True" />
+    <arcm:ActionSheetItem Content="修改日期" />
+</arcm:ActionSheet>
+```
 
 ### Token
 
-`ActionSheetToken` 保存 `PanelPadding`（两张卡片周围的空间）、`CancelMargin`（取消卡片上方的间隔）和 `HeaderPadding`；`ActionSheetItemToken` 保存 `RowHeight`（56）和 `ContentPadding`。颜色、圆角和字体来自 ArcDesign token：操作用强调色，破坏性操作用危险色。
+`ActionSheetToken` 保存 `PanelPadding`（两张卡片周围的空间）、`CancelMargin`（取消卡片上方的间隔）和 `HeaderPadding`；`ActionSheetItemToken` 保存 `RowHeight`（56）、`ContentPadding`、`CheckExtent`（20，对勾）和 `CheckedContentMargin`（勾选行文字两侧各 28）。颜色、圆角和字体来自 ArcDesign token：操作用强调色，破坏性操作用危险色。
 
 ## API 参考
 
@@ -55,7 +66,7 @@ void OnAction(object? sender, ActionSheetActionEventArgs e) => Log((string)e.Act
 
 ## 无障碍
 
-每一行都是按钮，高度至少 56 px，容易点中，也可以用 Tab 和 Enter 或空格操作。Esc 会关闭可关闭的操作面板，打开时焦点会移到面板上。破坏性的行有颜色，但也靠文字说明，所以不要只依赖颜色：写“删除照片”，而不是“删除”。点遮罩只是捷径，取消行才是看得见的退路。
+每一行都是按钮，高度至少 56 px，容易点中，也可以用 Tab 和 Enter 或空格操作。Esc 会关闭可关闭的操作面板，打开时焦点会移到面板上。破坏性的行有颜色，但也靠文字说明，所以不要只依赖颜色：写“删除照片”，而不是“删除”。勾选的行用对勾标示，而不是靠颜色。点遮罩只是捷径，取消行才是看得见的退路。
 
 ## 动效
 

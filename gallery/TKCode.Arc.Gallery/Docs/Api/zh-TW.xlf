@@ -8556,6 +8556,10 @@
         <source>Label of the Done button that closes the panel (default "Done").</source>
         <target>關閉面板的完成按鈕的標籤（預設為「完成」）。</target>
       </trans-unit>
+      <trans-unit id="ColorPicker.EffectiveErrorMessage">
+        <source>The error actually shown: `ErrorMessage`, else the validation message of the `Color` binding.</source>
+        <target>實際顯示的錯誤：`ErrorMessage`；否則為 `Color` 繫結的驗證訊息。</target>
+      </trans-unit>
       <trans-unit id="ColorPicker.ErrorMessage">
         <source>Error copy under the swatch.</source>
         <target>色票下方的錯誤提示文字。</target>
@@ -11308,6 +11312,10 @@
         <source>Helper copy under the trigger.</source>
         <target>觸發器下方的輔助文字。</target>
       </trans-unit>
+      <trans-unit id="DateRangePicker.EffectiveErrorMessage">
+        <source>The error actually shown: `ErrorMessage`, else the validation message of the `SelectedRange` binding.</source>
+        <target>實際顯示的錯誤：`ErrorMessage`；否則為 `SelectedRange` 繫結的驗證訊息。</target>
+      </trans-unit>
       <trans-unit id="DateRangePicker.ErrorMessage">
         <source>Error copy under the trigger.</source>
         <target>觸發器下方的錯誤提示。</target>
@@ -14048,6 +14056,34 @@
         <source>Arguments of `FeedbackSubmitted`.</source>
         <target>`FeedbackSubmitted` 的引數。</target>
       </trans-unit>
+      <trans-unit id="Field.Description">
+        <source>Helper copy under the editor.</source>
+        <target>編輯器下方的輔助文字。</target>
+      </trans-unit>
+      <trans-unit id="Field.ErrorMessage">
+        <source>Error copy under the editor; non-empty makes the field invalid.</source>
+        <target>編輯器下方的錯誤文字；非空時欄位無效。</target>
+      </trans-unit>
+      <trans-unit id="Field.IsInvalid">
+        <source>Invalid state. Always true while `ErrorMessage` is not empty.</source>
+        <target>無效狀態。只要 `ErrorMessage` 不為空，它就一律為 true。</target>
+      </trans-unit>
+      <trans-unit id="Field.IsLabelVisible">
+        <source>When false the label is hidden visually but still names the content (Arc's `hideLabel`).</source>
+        <target>為 false 時標籤在視覺上隱藏，但仍為內容命名（即 Arc 的 `hideLabel`）。</target>
+      </trans-unit>
+      <trans-unit id="Field.Label">
+        <source>The visible label (Arc: required). Also the accessible name of the content.</source>
+        <target>可見標籤（Arc 中為必填）；同時是內容的無障礙名稱。</target>
+      </trans-unit>
+      <trans-unit id="Field.MessageSwap">
+        <source>How the message rows move between texts: changed words (default) or the whole line (PasswordStrength).</source>
+        <target>訊息行在不同文字之間的切換方式：僅變動的字詞（預設）或整行（PasswordStrength）。</target>
+      </trans-unit>
+      <trans-unit id="Field.Size">
+        <source>Field size; Small uses the 12px label of compact fields.</source>
+        <target>欄位尺寸；Small 使用緊湊欄位的 12px 標籤。</target>
+      </trans-unit>
       <trans-unit id="FieldTextBox.Description">
         <source>Helper copy under the frame (rewrites changed words in place; counts roll).</source>
         <target>外框下方的輔助文字（原地改寫變化的詞，數字滾動）。</target>
@@ -14435,6 +14471,154 @@
       <trans-unit id="FluidTabItem.IsSelected">
         <source>Whether this tab is the selected one.</source>
         <target>該標籤是否為選取的標籤。</target>
+      </trans-unit>
+      <trans-unit id="Form">
+        <source>A light form scope: it lays out nothing itself (put a panel inside), but every `FormItem` in it joins it, so it knows whether any of them has an error, shows them all when the form is submitted, waits for running asynchronous checks, then scrolls to and focuses the first invalid item, or runs `SubmitCommand`. The rules stay in the view model (`INotifyDataErrorInfo`, reported through the bindings' data validation); the form never reads the view model, and talks to it only through `ValidateCommand`, `SubmitCommand`, `ResetCommand` and the optional `ErrorSource`.</source>
+        <target>輕量的表單範圍：它本身不做任何版面配置（請在其中放置面板），但其中每個 `FormItem` 都會加入它，由此得知其中是否有任何項目出錯、提交時顯示全部錯誤、等待進行中的非同步驗證，然後捲動並聚焦到第一個無效項目，或執行 `SubmitCommand`。規則保留在檢視模型中（`INotifyDataErrorInfo`，透過繫結的資料驗證回報）；表單從不讀取檢視模型，只透過 `ValidateCommand`、`SubmitCommand`、`ResetCommand` 以及選用的 `ErrorSource` 與之互動。</target>
+      </trans-unit>
+      <trans-unit id="Form.Action">
+        <source>Set on a button: clicking it submits (`SubmitAsync`) or resets (`ResetFields`) the nearest form. Do not also give that button a Command. Not inherited.</source>
+        <target>設在按鈕上：點擊後提交（`SubmitAsync`）或重設（`ResetFields`）最近的表單。不要同時為該按鈕設定 Command。不會繼承。</target>
+      </trans-unit>
+      <trans-unit id="Form.ErrorCount">
+        <source>Number of items with an error (items, not errors).</source>
+        <target>出現錯誤的項目數（按項目計，而非錯誤數）。</target>
+      </trans-unit>
+      <trans-unit id="Form.ErrorPlacement">
+        <source>Where items show their error: Inline (default), Tooltip or None. Inherited.</source>
+        <target>項目顯示錯誤的位置：Inline（預設）、Tooltip 或 None。可繼承。</target>
+      </trans-unit>
+      <trans-unit id="Form.ErrorSource">
+        <source>Optional: the view model's `INotifyDataErrorInfo`. Its `HasErrors` joins `HasErrors`, so fields that are not mounted still block a submit, and its entity-level errors (`GetErrors(null)`) are in `FormErrors`.</source>
+        <target>選用：檢視模型的 `INotifyDataErrorInfo`。它的 `HasErrors` 會併入表單的 `HasErrors`，因此未掛載的欄位仍會阻擋提交；其實體層級錯誤（`GetErrors(null)`）位於 `FormErrors` 中。</target>
+      </trans-unit>
+      <trans-unit id="Form.ErrorTrigger">
+        <source>When items show their errors: Change, Blur (default) or Submit. It does not run any rule. Inherited.</source>
+        <target>項目何時顯示錯誤：Change、Blur（預設）或 Submit。它不會執行任何規則。可繼承。</target>
+      </trans-unit>
+      <trans-unit id="Form.FieldsReset">
+        <source>`ResetFields` has finished.</source>
+        <target>`ResetFields` 已完成。</target>
+      </trans-unit>
+      <trans-unit id="Form.FormErrors">
+        <source>The entity-level errors of `ErrorSource`, for the app to show (for example in an Alert).</source>
+        <target>`ErrorSource` 的實體層級錯誤，供應用程式顯示（例如在 Alert 中）。</target>
+      </trans-unit>
+      <trans-unit id="Form.HasErrors">
+        <source>Whether any item that takes part in validation has an error (shown or not), or `ErrorSource` has errors.</source>
+        <target>是否有參與驗證的項目存在錯誤（無論是否顯示），或 `ErrorSource` 存在錯誤。</target>
+      </trans-unit>
+      <trans-unit id="Form.IsReadOnly">
+        <source>Makes the form, a section or an item read-only. Arc text fields become read-only and items inside skip validation and hide their required mark. Controls without a read-only mode (checkboxes, switches, selects, pickers, sliders) stay editable. Inherited.</source>
+        <target>使表單、區段或項目變為唯讀。Arc 文字欄位會變為唯讀，其中的項目略過驗證並隱藏必填標記。沒有唯讀模式的控制項（核取方塊、開關、下拉選取、選擇器、滑桿）仍可編輯。可繼承。</target>
+      </trans-unit>
+      <trans-unit id="Form.IsSubmitAttempted">
+        <source>Whether the form was submitted or validated since the last `ClearValidation` or `ResetFields`.</source>
+        <target>自上次 `ClearValidation` 或 `ResetFields` 以來，表單是否已被提交或驗證。</target>
+      </trans-unit>
+      <trans-unit id="Form.IsValidating">
+        <source>Whether any item is checking its value asynchronously (`IsValidating`).</source>
+        <target>是否有項目正在非同步檢查其值（`IsValidating`）。</target>
+      </trans-unit>
+      <trans-unit id="Form.IsValidationEnabled">
+        <source>False turns validation off: items show no error and are not counted, and a submit is not blocked.</source>
+        <target>為 false 時關閉驗證：項目不顯示錯誤、不計數，提交也不會被阻擋。</target>
+      </trans-unit>
+      <trans-unit id="Form.LabelPlacement">
+        <source>Where items put their label: Top (default) or Left. Inherited; set it on the form, a section or an item.</source>
+        <target>項目標籤的位置：Top（預設）或 Left。可繼承；可在表單、區段或項目上設定。</target>
+      </trans-unit>
+      <trans-unit id="Form.LabelWidth">
+        <source>Width of the label column when labels are on the left. NaN (default) sizes it to the widest label of the shared size scope, up to 240 px. Inherited.</source>
+        <target>標籤在左側時標籤欄的寬度。NaN（預設）時依共用尺寸範圍內最寬的標籤自動調整，最大 240 px。可繼承。</target>
+      </trans-unit>
+      <trans-unit id="Form.RequiredIndicator">
+        <source>How items mark required entries: Asterisk (default), Optional or None. Inherited.</source>
+        <target>項目如何標記必填項：Asterisk（星號，預設）、Optional（選填）或 None。可繼承。</target>
+      </trans-unit>
+      <trans-unit id="Form.ResetCommand">
+        <source>Run by `ResetFields` so the view model restores the values and clears its errors.</source>
+        <target>由 `ResetFields` 執行，使檢視模型還原值並清除其錯誤。</target>
+      </trans-unit>
+      <trans-unit id="Form.SubmitCommand">
+        <source>Run with `SubmitCommandParameter` when a submit finds no error.</source>
+        <target>提交時未發現錯誤則以 `SubmitCommandParameter` 執行。</target>
+      </trans-unit>
+      <trans-unit id="Form.SubmitCommandParameter">
+        <source>Parameter passed to `SubmitCommand`.</source>
+        <target>傳給 `SubmitCommand` 的參數。</target>
+      </trans-unit>
+      <trans-unit id="Form.SubmitFailed">
+        <source>A submit found errors. The arguments list the invalid items in document order; set `SuppressFocus` to move focus yourself.</source>
+        <target>提交時發現錯誤。參數依文件順序列出無效項目；設定 `SuppressFocus` 可自行移動焦點。</target>
+      </trans-unit>
+      <trans-unit id="Form.Submitted">
+        <source>A submit found no error; raised before `SubmitCommand` runs.</source>
+        <target>提交時未發現錯誤；在 `SubmitCommand` 執行之前觸發。</target>
+      </trans-unit>
+      <trans-unit id="Form.ValidateCommand">
+        <source>Run by `Validate` and by a submit so the view model checks every rule (for example `ValidateAllProperties()`), including fields nobody has touched yet.</source>
+        <target>由 `Validate` 和提交執行，使檢視模型檢查每條規則（例如 `ValidateAllProperties()`），包括尚未被觸碰的欄位。</target>
+      </trans-unit>
+      <trans-unit id="FormAction">
+        <source>What a button does to its nearest `Form` when clicked (`ActionProperty`).</source>
+        <target>按鈕被點擊時對最近的 `Form` 執行的操作（`ActionProperty`）。</target>
+      </trans-unit>
+      <trans-unit id="FormErrorPlacement">
+        <source>Where a `FormItem` shows its error (`ErrorPlacementProperty`).</source>
+        <target>`FormItem` 顯示錯誤的位置（`ErrorPlacementProperty`）。</target>
+      </trans-unit>
+      <trans-unit id="FormErrorTrigger">
+        <source>When a `FormItem` starts to show the errors it has collected (`ErrorTriggerProperty`).</source>
+        <target>`FormItem` 何時開始顯示其收集到的錯誤（`ErrorTriggerProperty`）。</target>
+      </trans-unit>
+      <trans-unit id="FormItem">
+        <source>One labelled entry of a `Form`: the label (with a required or optional mark), the editor, a description and the error. It collects the data-validation errors the bindings of its editors report (Avalonia `DataValidationErrors`, so the rules stay in the view model, for example `INotifyDataErrorInfo`) and shows the first one when `ErrorTriggerProperty` says so. It joins the nearest `Form` when it enters the logical tree and leaves it when removed, so items in an `ItemsControl` template need no registration.</source>
+        <target>`Form` 中一個帶標籤的條目：標籤（帶必填或選填標記）、編輯器、說明和錯誤。它收集其編輯器的繫結回報的資料驗證錯誤（Avalonia 的 `DataValidationErrors`，因此規則仍保留在檢視模型中，例如 `INotifyDataErrorInfo`），並在 `ErrorTriggerProperty` 指定時顯示第一個錯誤。進入邏輯樹時加入最近的 `Form`，移除時退出，因此 `ItemsControl` 範本中的項目無需註冊。</target>
+      </trans-unit>
+      <trans-unit id="FormItem.EffectiveErrorMessage">
+        <source>The error text currently shown, or null while none is shown.</source>
+        <target>目前顯示的錯誤文字；未顯示任何錯誤時為 null。</target>
+      </trans-unit>
+      <trans-unit id="FormItem.Errors">
+        <source>Every binding error collected from the editors in the item, in document order, shown or not.</source>
+        <target>從項目中編輯器收集到的全部繫結錯誤，依文件順序排列，無論是否顯示。</target>
+      </trans-unit>
+      <trans-unit id="FormItem.ErrorTemplate">
+        <source>Template of the error, inline and in the tooltip. Its data is the first error object (usually the string the view model reported); without a template the error is its text.</source>
+        <target>錯誤的範本，用於行內和提示框中。其資料為第一個錯誤物件（通常是檢視模型回報的字串）；沒有範本時，錯誤即其文字。</target>
+      </trans-unit>
+      <trans-unit id="FormItem.HasErrors">
+        <source>Whether the item takes part in validation and has an error (collected or explicit), shown or not.</source>
+        <target>項目是否參與驗證且存在錯誤（收集到的或明確設定的），無論是否顯示。</target>
+      </trans-unit>
+      <trans-unit id="FormItem.IsRequired">
+        <source>Marks the item as required: an asterisk after the label (see `RequiredIndicatorProperty`) and `IsRequiredForForm` on the editor. It adds no rule; the view model decides what is valid.</source>
+        <target>將項目標記為必填：標籤後顯示星號（參見 `RequiredIndicatorProperty`），並在編輯器上設定 `IsRequiredForForm`。它不新增任何規則；是否有效由檢視模型決定。</target>
+      </trans-unit>
+      <trans-unit id="FormItem.IsValidating">
+        <source>True while the view model checks the value asynchronously (bind it to the view model's flag): the item shows "Checking…" instead of its binding errors, and a submit waits until it is false again.</source>
+        <target>檢視模型非同步檢查值期間為 true（繫結到檢視模型的旗標）：項目顯示「檢查中…」而非繫結錯誤，提交會等待其再次變為 false。</target>
+      </trans-unit>
+      <trans-unit id="FormItem.IsValidationEnabled">
+        <source>False takes the item out of validation: it shows no error, is not counted and does not block a submit. Combined with `IsValidationEnabled`.</source>
+        <target>為 false 時項目退出驗證：不顯示錯誤、不計數，也不阻擋提交。與 `IsValidationEnabled` 共同生效。</target>
+      </trans-unit>
+      <trans-unit id="FormItem.Target">
+        <source>The editor the label names and focuses. Null uses the content when it can be focused, otherwise its first focusable, enabled descendant.</source>
+        <target>標籤所指向並聚焦的編輯器。為 null 時，若內容可取得焦點則使用內容，否則使用其第一個可取得焦點且已啟用的子元素。</target>
+      </trans-unit>
+      <trans-unit id="FormLabelPlacement">
+        <source>Where a `FormItem` puts its label (`LabelPlacementProperty`).</source>
+        <target>`FormItem` 標籤的位置（`LabelPlacementProperty`）。</target>
+      </trans-unit>
+      <trans-unit id="FormRequiredIndicator">
+        <source>How a `FormItem` marks whether it is required (`RequiredIndicatorProperty`).</source>
+        <target>`FormItem` 標記是否必填的方式（`RequiredIndicatorProperty`）。</target>
+      </trans-unit>
+      <trans-unit id="FormSubmitFailedEventArgs">
+        <source>Arguments of `SubmitFailed`: what blocked the submit and whether the form should move focus.</source>
+        <target>`SubmitFailed` 的參數：阻擋提交的原因，以及表單是否應移動焦點。</target>
       </trans-unit>
       <trans-unit id="FunnelChart">
         <source>A tapered conversion funnel with the drop-off at each step. Every step is a column with its name, count, retention and drop-off; the band's thickness follows the count. `View` shows the total, a gapped split by segment, or one segment rescaled to the full band, and the band morphs between them on a spring. Dots stream through the band and leave at each step with that step's real drop-off. Below 420 pixels of width the funnel runs top to bottom.</source>
@@ -21624,9 +21808,13 @@
         <source>How prominent the button is: plain, tinted, filled or a floating action button.</source>
         <target>按鈕的顯著程度：樸素、淺色、實心或懸浮操作按鈕。</target>
       </trans-unit>
+      <trans-unit id="MobileListCell">
+        <source>A row of a `ListGroup` that does not respond to a press: it holds any content, such as a paragraph of text, a QR code, a custom button or a `RadioCards` grid. It has the frame of a `ListItem` (the same smallest height, side padding and separator, hidden on the last row of the group) but no press shade and no hover state, and it is not focusable itself (its content can be). `ListGroup` uses it as the row as it is, written inline or as the root of the item template.</source>
+        <target>`ListGroup` 中不回應按壓的一列：可容納任意內容，例如一段文字、QR 碼、自訂按鈕或 `RadioCards` 網格。它具有 `ListItem` 的外框（相同的最小高度、左右內距和分隔線，分組最後一列隱藏分隔線），但沒有按壓陰影和懸停狀態，本身也不可取得焦點（其內容可以）。`ListGroup` 將其原樣用作列，可以內嵌書寫，也可以作為項目範本的根。</target>
+      </trans-unit>
       <trans-unit id="MobileListGroup">
-        <source>A card of `ListItem` rows with an optional `Header` above it and `Footer` under it, the way settings screens group their rows. Put it in a scrolling `Page`. Each data item becomes a `ListItem` row. When the item template's root is itself a `ListItem`, that row is the container (it is not wrapped in a second row), so its `Title`, `Subtitle`, `Command` and so on can be bound in the template. A template that returns plain content is shown inside a row; style that row with a `ListItem` selector in `ListGroup.Styles`.</source>
-        <target>一張由 `ListItem` 列組成的卡片，上方可有 `Header`，下方可有 `Footer`，就像設定頁替列分組的方式。把它放進可捲動的 `Page`。每個資料項目都會成為一列 `ListItem`。如果項目範本的根本身就是 `ListItem`，這一列就直接作為容器（不會再套一層），因此可以在範本中繫結它的 `Title`、`Subtitle`、`Command` 等屬性。範本傳回一般內容時，內容會顯示在一列之中；請在 `ListGroup.Styles` 中用 `ListItem` 選取器設定這一列的樣式。</target>
+        <source>A card of `ListItem` and `ListCell` rows with an optional `Header` above it and `Footer` under it, the way settings screens group their rows. Put it in a scrolling `Page`. A `ListItem` (or a `Picker`) or a `ListCell` written in the group is the row as it is. Any other item becomes a `ListItem` row. When the item template's root is itself a `ListItem` or a `ListCell`, that row is the container (it is not wrapped in a second row), so its `Title`, `Subtitle`, `Command` and so on can be bound in the template. A template that returns plain content is shown inside a row; style that row with a `ListItem` selector in `ListGroup.Styles`.</source>
+        <target>一張由 `ListItem` 和 `ListCell` 列組成的卡片，上方可有 `Header`，下方可有 `Footer`，就像設定頁替列分組的方式。把它放進可捲動的 `Page`。直接寫在組裡的 `ListItem`（或 `Picker`）或 `ListCell` 就是這一列本身，其他資料項目都會成為一列 `ListItem`。如果項目範本的根本身就是 `ListItem` 或 `ListCell`，這一列就直接作為容器（不會再套一層），因此可以在範本中繫結它的 `Title`、`Subtitle`、`Command` 等屬性。範本傳回一般內容時，內容會顯示在一列之中；請在 `ListGroup.Styles` 中用 `ListItem` 選取器設定這一列的樣式。</target>
       </trans-unit>
       <trans-unit id="MobileListGroup.Footer">
         <source>A note under the card, for example what the settings in it do.</source>
@@ -21637,12 +21825,16 @@
         <target>卡片上方的簡短標籤。</target>
       </trans-unit>
       <trans-unit id="MobileListItem">
-        <source>One row of a `ListGroup`: an optional `Icon`, the title (the content), an optional `Subtitle`, optional `Trailing` content and an optional chevron. It is a button: give it a `Command` or handle `Click` and a finger on it shades the row. It has no hover state.</source>
-        <target>`ListGroup` 的一列：可有 `Icon`、標題（內容）、`Subtitle`、`Trailing` 內容和箭頭。它是一個按鈕：給它 `Command` 或處理 `Click`，手指按在上面時列會變暗。它沒有懸停狀態。</target>
+        <source>One row of a `ListGroup`: an optional `Icon` or `Leading` content, the title (the content), an optional `Subtitle`, optional `Trailing` content and an optional chevron. It is a button: give it a `Command` or handle `Click` and a finger on it shades the row. It has no hover state. For a row that does not respond to a press (text, a QR code, a custom button), use `ListCell`.</source>
+        <target>`ListGroup` 的一列：可有 `Icon` 或 `Leading` 內容、標題（內容）、`Subtitle`、`Trailing` 內容和箭頭。它是一個按鈕：給它 `Command` 或處理 `Click`，手指按在上面時列會變暗。它沒有懸停狀態。不回應按壓的列（文字、QR 碼、自帶的按鈕）請用 `ListCell`。</target>
       </trans-unit>
       <trans-unit id="MobileListItem.Icon">
         <source>The glyph geometry shown before the title, for example a Lucide icon.</source>
         <target>標題前顯示的圖示幾何，例如 Lucide 圖示。</target>
+      </trans-unit>
+      <trans-unit id="MobileListItem.Leading">
+        <source>Any content before the title, for example an avatar. It takes the first column, the one `Icon` uses, and replaces the icon when both are set; the title and `Subtitle` stay together beside it. It keeps its own size (the avatar sizes are the `AvatarSize*` tokens of `ListItemToken`).</source>
+        <target>標題前的任意內容，例如頭像。它佔用第一欄（`Icon` 所用的那一欄），同時設定兩者時取代圖示；標題和 `Subtitle` 一起位於其旁。它保持自身尺寸（頭像尺寸為 `ListItemToken` 的 `AvatarSize*` 權杖）。</target>
       </trans-unit>
       <trans-unit id="MobileListItem.ShowChevron">
         <source>Whether a chevron at the end of the row shows that it opens another screen.</source>
@@ -21736,6 +21928,10 @@
         <source>The slot above the content, usually a `Navbar`.</source>
         <target>內容上方的槽，通常是 `Navbar`。</target>
       </trans-unit>
+      <trans-unit id="MobilePage.InheritedSafeArea">
+        <source>The safe area that a control still has to keep clear of, read with `GetInheritedSafeArea` (it is inherited). A page sets it to its `SafeArea`, so an overlay in `Overlay` (a `Sheet`, an `ActionSheet`, the sheet of a `Picker`) keeps clear of the home indicator by itself. It is zero inside the header, the content and the footer, which the page already insets.</source>
+        <target>控制項仍需避開的安全區域，透過 `GetInheritedSafeArea` 讀取（可繼承）。頁面將其設為自身的 `SafeArea`，因此 `Overlay` 中的浮層（`Sheet`、`ActionSheet`、`Picker` 的面板）會自行避開主畫面指示條。在頁首、內容和頁尾內部，此值為零，因為頁面已對它們做了內縮。</target>
+      </trans-unit>
       <trans-unit id="MobilePage.IsScrollable">
         <source>Whether the content scrolls vertically inside the page. Off, the content gets the page's height as it is. On, a `Navbar` in `Header` that has a large title collapses it as the content scrolls.</source>
         <target>內容是否在頁面內縱向捲動。關閉時，內容直接得到頁面的高度。開啟時，`Header` 裡帶大標題的 `Navbar` 會隨內容捲動而摺疊。</target>
@@ -21759,6 +21955,58 @@
       <trans-unit id="MobilePage.UsePlatformSafeArea">
         <source>Whether `SafeArea` follows the platform's safe area padding.</source>
         <target>`SafeArea` 是否跟隨平台的安全區邊距。</target>
+      </trans-unit>
+      <trans-unit id="MobilePicker">
+        <source>A list row for choosing one value from a short list: the row shows its title and, at its end, the current value (or `PlaceholderText`); a tap opens an `ActionSheet` of the choices with the current one checked, and choosing a row selects it. The choices come from `ItemsSource` (or `Items`); `SelectedItem` and `SelectedIndex` (both two-way) follow each other, and `SelectionChanged` reports every change of the selection. A picker is a `ListItem`: put it in a `ListGroup` and give it a title (the content), an `Icon` or `Leading` content and a `Subtitle` as on any row; `Trailing` is not shown, because the value is. It opens its sheet over the `Page` it is in, the way a sheet in `Overlay` covers the page, so nothing has to be added to the page. Enter and Space open it from the keyboard.</source>
+        <target>用於從短清單中選擇一個值的清單列：該列顯示其標題，並在末尾顯示目前的值（或 `PlaceholderText`）；點擊會開啟一個 `ActionSheet` 列出各個選項，並勾選目前項，選擇某一列即選取它。選項來自 `ItemsSource`（或 `Items`）；`SelectedItem` 與 `SelectedIndex`（皆為雙向）彼此同步，`SelectionChanged` 回報選取的每次變化。選擇器是一個 `ListItem`：將其放入 `ListGroup` 並設定標題（內容）、`Icon` 或 `Leading` 內容以及 `Subtitle`，與任何列一樣；不顯示 `Trailing`，因為值已在那裡顯示。它在所在的 `Page` 上開啟面板，與 `Overlay` 中的面板覆蓋頁面的方式相同，因此無需在頁面上新增任何內容。按 Enter 或空白鍵可從鍵盤開啟。</target>
+      </trans-unit>
+      <trans-unit id="MobilePicker.CancelText">
+        <source>The label of the sheet's Cancel row: "Cancel". Null or empty hides the row.</source>
+        <target>面板中取消列的標籤，即「取消」。為 null 或空時隱藏該列。</target>
+      </trans-unit>
+      <trans-unit id="MobilePicker.DisplayMemberBinding">
+        <source>A binding that reads the text of a choice (for the value at the row's end and the rows of the sheet), for example `{Binding Name}`. Without it, and without `ItemTemplate`, a choice shows its `ToString()`.</source>
+        <target>讀取選項文字的繫結（用於列末的值和面板中的各列），例如 `{Binding Name}`。若未設定此項且未設定 `ItemTemplate`，則選項顯示其 `ToString()`。</target>
+      </trans-unit>
+      <trans-unit id="MobilePicker.IsOpen">
+        <source>Whether the sheet of choices is open. A picker that is disabled or has no choices does not open.</source>
+        <target>選項面板是否開啟。已停用或沒有選項的選擇器不會開啟。</target>
+      </trans-unit>
+      <trans-unit id="MobilePicker.ItemInvoked">
+        <source>Raised when the person chooses a row of the sheet, even the one that is already selected.</source>
+        <target>使用者在面板中選擇某一列時觸發，即使該列已被選取。</target>
+      </trans-unit>
+      <trans-unit id="MobilePicker.ItemsSource">
+        <source>The choices. While it is null, `Items` are the choices.</source>
+        <target>選項。為 null 時，`Items` 即為選項。</target>
+      </trans-unit>
+      <trans-unit id="MobilePicker.ItemTemplate">
+        <source>A template that builds the value at the row's end and each row of the sheet; it wins over `DisplayMemberBinding`.</source>
+        <target>建立列尾數值以及面板中每一列的範本；它優先於 `DisplayMemberBinding`。</target>
+      </trans-unit>
+      <trans-unit id="MobilePicker.PlaceholderText">
+        <source>The text at the row's end while nothing is selected: "Not set".</source>
+        <target>未選取任何項目時，列尾顯示的文字："Not set"。</target>
+      </trans-unit>
+      <trans-unit id="MobilePicker.SelectedIndex">
+        <source>The index of the selected choice, or -1. An index set before the choices arrive waits for them.</source>
+        <target>選取項目的索引，或 -1。在選項到達之前設定的索引會等待它們。</target>
+      </trans-unit>
+      <trans-unit id="MobilePicker.SelectedItem">
+        <source>The selected choice, or null. An item that is not one of the choices is still shown (its `SelectedIndex` is -1).</source>
+        <target>選取的選項，或 null。不屬於任何選項的項目仍會顯示（其 `SelectedIndex` 為 -1）。</target>
+      </trans-unit>
+      <trans-unit id="MobilePicker.SelectionChanged">
+        <source>Raised whenever the selection changes: a row chosen in the sheet, `SelectedItem` or `SelectedIndex` set in code or through a binding, or the selection cleared. Choosing the row that is already selected raises `ItemInvoked` only.</source>
+        <target>選取變化時觸發：在面板中選擇一列、透過繫結或程式碼設定 `SelectedItem` 或 `SelectedIndex`、或清除選取時。選取已選中的列只會觸發 `ItemInvoked`。</target>
+      </trans-unit>
+      <trans-unit id="MobilePicker.SheetMessage">
+        <source>A second, smaller line under the sheet's title.</source>
+        <target>面板標題下方第二行較小的文字。</target>
+      </trans-unit>
+      <trans-unit id="MobilePicker.SheetTitle">
+        <source>The title of the sheet. Null uses the row's title when it is text.</source>
+        <target>面板的標題。為 null 時，若列的標題是文字則使用它。</target>
       </trans-unit>
       <trans-unit id="MobilePullToRefresh">
         <source>Pull to refresh: wraps scrollable content. Pulling down while the content is at its top drags the content along with rubber-band resistance and shows an arrow that turns over as the pull nears `PullThreshold`. Releasing past it raises `RefreshRequested` and runs `Command`; the content rests below the indicator, which spins, until `IsRefreshing` is false again (set it, or take a deferral from the event data). Releasing early springs the content back. A pull that starts while the inner scroll viewer is scrolled, or that goes sideways or up, is left to the content. The content's position is a `MotionValue`, not a ControlTheme transition: a pull writes it on every move, and a release hands the finger's velocity to the spring, which a new pull can catch mid-flight. Under reduced motion the content does not stretch with the finger; the refresh still runs and the content jumps.</source>
@@ -21787,6 +22035,62 @@
       <trans-unit id="MobileRadio">
         <source>Mobile radio: a 22px circle with an accent dot that springs in when the item is chosen, and the label (the content) beside it, in a row at least 44 high so the whole row is the touch target. Items that share a `GroupName` are mutually exclusive: choosing one clears the others. The arrow keys move the choice to the previous or next enabled item of the same group among the siblings. A finger on it dims it; there is no hover state.</source>
         <target>移動端單選：22px 的圓，選取時強調色圓點以彈簧彈入，標籤（內容）在旁邊，整列至少 44 高，所以整列都是觸控目標。`GroupName` 相同的項互斥：選取一項會清除其他項。方向鍵把選擇移到同組、同層的上一個或下一個可用項。手指按在上面時會變暗；沒有懸停狀態。</target>
+      </trans-unit>
+      <trans-unit id="MobileRadioCard">
+        <source>One card of a mobile `RadioCards`: an optional `Icon`, the label (the content), an optional `Description` and a radio indicator. The group creates a card for each item; for a `RadioCardOption` the card takes its label, icon, description, enabled and visible state from the option. A finger on it shades it (and, with full motion, presses it in slightly); lifting the finger on it chooses it. It has no hover state.</source>
+        <target>行動版 `RadioCards` 的一張卡片：可選的 `Icon`、標籤（內容）、可選的 `Description` 以及單選指示器。群組為每個項目建立一張卡片；對於 `RadioCardOption`，卡片從選項取得標籤、圖示、描述以及啟用和可見狀態。手指按在卡片上會使其變暗（開啟完整動效時還會輕微下壓）；手指在卡片上抬起即選取它。它沒有懸停狀態。</target>
+      </trans-unit>
+      <trans-unit id="MobileRadioCard.Description">
+        <source>One or two short lines under the label; also the card's accessible help text.</source>
+        <target>標籤下方一到兩行簡短文字；同時也是卡片的無障礙說明文字。</target>
+      </trans-unit>
+      <trans-unit id="MobileRadioCard.Icon">
+        <source>Shown above the label: a `Geometry` is drawn as a 22px stroke glyph in the card's foreground; any other content (a color swatch, a shape) is shown as it is.</source>
+        <target>顯示在標籤上方：`Geometry` 會以 22px 描邊圖示繪製，使用卡片的前景色；其他內容（色塊、形狀）則按原樣顯示。</target>
+      </trans-unit>
+      <trans-unit id="MobileRadioCard.IsSelected">
+        <source>Whether the card is the group's selected card. The group sets it.</source>
+        <target>卡片是否為群組中選取的卡片。由群組設定。</target>
+      </trans-unit>
+      <trans-unit id="MobileRadioCardOption">
+        <source>One option of a mobile `RadioCards`: a label with an optional description and icon. Write options inline in the group or bind a list of them to `ItemsSource`; the cards follow later changes of their properties.</source>
+        <target>行動版 `RadioCards` 的一個選項：一個標籤，可選描述和圖示。可以在群組中內嵌撰寫選項，也可以將其清單繫結到 `ItemsSource`；卡片會跟隨其屬性的後續變化。</target>
+      </trans-unit>
+      <trans-unit id="MobileRadioCardOption.Description">
+        <source>One or two short lines under the label.</source>
+        <target>標籤下方一到兩行簡短文字。</target>
+      </trans-unit>
+      <trans-unit id="MobileRadioCardOption.Icon">
+        <source>Shown above the label: a `Geometry` (for example a Lucide icon from `ArcIcons`) is drawn as a 22px stroke glyph; any other content (a color swatch, a shape) is shown as it is.</source>
+        <target>顯示在標籤上方：`Geometry`（例如來自 `ArcIcons` 的 Lucide 圖示）會以 22px 描邊圖示繪製；其他內容（色塊、形狀）則按原樣顯示。</target>
+      </trans-unit>
+      <trans-unit id="MobileRadioCardOption.IsEnabled">
+        <source>Whether the card can be chosen. A disabled card is dimmed and skipped by the arrow keys.</source>
+        <target>卡片能否被選取。停用的卡片會變暗，並被方向鍵跳過。</target>
+      </trans-unit>
+      <trans-unit id="MobileRadioCardOption.IsVisible">
+        <source>Whether the card is shown. A hidden card takes no room and is skipped by the arrow keys; it stays in the group's items, so when it is the selected one the selection is kept and only the selection ring is not drawn.</source>
+        <target>卡片是否顯示。隱藏的卡片不佔空間，並被方向鍵跳過；它仍保留在群組的項目中，因此當它是選取項時選取會被保留，只是不繪製選取環。</target>
+      </trans-unit>
+      <trans-unit id="MobileRadioCardOption.Label">
+        <source>The card's title (text or any content); falls back to `Value`.</source>
+        <target>卡片的標題（文字或任意內容）；為空時回退為 `Value`。</target>
+      </trans-unit>
+      <trans-unit id="MobileRadioCardOption.Value">
+        <source>The value the group reports as its `SelectedValue` while this option is selected.</source>
+        <target>此選項被選取時，群組以 `SelectedValue` 回報的值。</target>
+      </trans-unit>
+      <trans-unit id="MobileRadioCards">
+        <source>Mobile radio cards: a grid of selectable cards for a choice that reads better as pictures or short descriptions than as a list (a shape, a color, a plan). One card is selected; a ring glides to it on a spring and its radio dot springs in. It has a press state and no hover state, so it suits touch. The cards come from inline `RadioCardOption`s or from `ItemsSource`; `SelectedValue` (two-way) is the selected option's `Value`, and `SelectionChanged` reports every change of the selection. Keyboard: the group is one tab stop; the arrow keys move through the grid and select, skipping disabled and hidden cards; Home and End jump to the first and last card; Enter and Space choose the focused card.</source>
+        <target>行動版單選卡片：一組可選的卡片網格，適用於以圖片或簡短描述（如形狀、顏色、方案）呈現比清單更易讀的選擇。一張卡片被選取；選取環以彈簧動畫滑動到它上面，其單選圓點也以彈簧彈入。它有按下狀態但沒有懸停狀態，因此適合觸控。卡片來自內嵌的 `RadioCardOption` 或 `ItemsSource`；`SelectedValue`（雙向）是選取選項的 `Value`，`SelectionChanged` 回報選取的每次變化。鍵盤：整個群組是一個 Tab 焦點停駐點；方向鍵在網格中移動並選取，跳過停用和隱藏的卡片；Home 和 End 跳到第一張和最後一張卡片；Enter 和 Space 選取有焦點的卡片。</target>
+      </trans-unit>
+      <trans-unit id="MobileRadioCards.Columns">
+        <source>How many equal-width columns the cards share: 2. Cards in one row are as tall as the tallest of them.</source>
+        <target>卡片平分的欄數：2。同一列中的卡片高度與其中最高者相同。</target>
+      </trans-unit>
+      <trans-unit id="MobileRadioCards.ShowIndicator">
+        <source>Whether each card shows a radio indicator (default true). Turn it off for compact visual choices (color swatches, shapes in four columns): the gliding ring alone then marks the selected card.</source>
+        <target>每張卡片是否顯示單選指示器（預設為 true）。對於緊湊的視覺選擇（色塊、四欄形狀）請關閉它：此時只靠滑動的選取環標記選取的卡片。</target>
       </trans-unit>
       <trans-unit id="MobileSearchbar">
         <source>Mobile search bar: a `TextField` with a search glyph before the text and a pill shape. Enter raises `Submitted`, and the soft keyboard offers a Search key.</source>
@@ -21820,6 +22124,10 @@
         <source>The resting heights as fractions of the sheet's height, for example "0.4, 0.9". Null or empty: the panel sizes to its content. One value is a fixed height.</source>
         <target>停靠高度，按面板所在區域高度的比例計，例如「0.4, 0.9」。為 null 或空時，面板高度隨內容而定。只有一個值時是固定高度。</target>
       </trans-unit>
+      <trans-unit id="MobileSheet.EffectiveSafeAreaBottom">
+        <source>The space the sheet keeps free under its content: `SafeAreaBottom` when it is set, otherwise the bottom of the safe area of the page the sheet is in (`InheritedSafeAreaProperty`), 0 outside a page.</source>
+        <target>面板在其內容下方保留的空間：已設定 `SafeAreaBottom` 時使用它，否則使用面板所在頁面的安全區域底部（`InheritedSafeAreaProperty`），不在頁面中則為 0。</target>
+      </trans-unit>
       <trans-unit id="MobileSheet.InitialDetentIndex">
         <source>Index into the sorted detents the sheet opens at (default 0, the lowest).</source>
         <target>面板開啟時所在的停靠高度，是已排序停靠高度中的索引（預設 0，最低的一個）。</target>
@@ -21837,8 +22145,8 @@
         <target>面板最高的高度，按面板所在區域高度的比例計：0.9。</target>
       </trans-unit>
       <trans-unit id="MobileSheet.SafeAreaBottom">
-        <source>The height of the bottom safe area (the home indicator) in px, kept free under the content. The sheet does not read the platform: bind it to the page, for example `SafeAreaBottom="{Binding SafeArea.Bottom, ElementName=Page}"`.</source>
-        <target>底部安全區（Home 指示條）的高度，單位 px，保留在內容下方。面板不會讀取平台資訊：請把它繫結到頁面，例如 `SafeAreaBottom="{Binding SafeArea.Bottom, ElementName=Page}"`。</target>
+        <source>The height of the bottom safe area (the home indicator) in px, kept free under the content. Leave it unset and a sheet in a `Page` keeps the bottom of the page's safe area free by itself (see `EffectiveSafeAreaBottom`); set it (a value, a style or a binding) to use your own height instead, 0 for none.</source>
+        <target>底部安全區（Home 指示條）的高度，單位 px，保留在內容下方。不設定時，`Page` 裡的面板會自己留出頁面安全區的底部（見 `EffectiveSafeAreaBottom`）；設定它（值、樣式或繫結）則改用你自己的高度，0 表示不留。</target>
       </trans-unit>
       <trans-unit id="MobileSheet.Title">
         <source>The title shown in the handle area, under the grabber.</source>
@@ -23983,6 +24291,126 @@
       <trans-unit id="OnboardingSurvey.QuestionChanged">
         <source>Raised after the question changes (also when the thank-you opens), with the old and the new index.</source>
         <target>問題改變後引發（開啟感謝頁時也會引發），帶有舊索引和新索引。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard">
+        <source>An on-screen keyboard for touch screens without a physical keyboard (kiosks, touch panels, industrial HMIs). It shows a built-in layout (`Preset`: QWERTY, a number pad or a PIN pad) or your own `Layout`, and types into the text input that has focus in the same window (Arc `Input`, `Textarea`, `NumberField`, an Avalonia `TextBox`...) or into `Target`. Text goes through Avalonia's text input event, so the text box inserts it at the caret and replaces a selection; Backspace, Enter, Tab and the arrows are sent as key presses. Keys never take focus. `ItemInvoked` is raised for every key and can be handled to take a key over.</source>
+        <target>供沒有實體鍵盤之觸控螢幕使用的螢幕鍵盤（自助機台、觸控面板、工業 HMI）。它顯示內建版面（`Preset`：QWERTY、數字鍵盤或 PIN 鍵盤）或你自己的 `Layout`，並將文字輸入到同一視窗中取得焦點的文字輸入控制項（Arc `Input`、`Textarea`、`NumberField`、Avalonia `TextBox`……）或 `Target` 中。文字透過 Avalonia 的文字輸入事件傳遞，因此文字方塊在游標處插入並取代選取內容；Backspace、Enter、Tab 和方向鍵則作為按鍵發送。按鍵從不取得焦點。每次按鍵都會觸發 `ItemInvoked`，可透過處理它來接管該按鍵。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.CapsLockOnText">
+        <source>Announced to screen readers when a double tap on Shift locks capitals.</source>
+        <target>雙擊 Shift 鎖定大寫時，向螢幕閱讀器朗讀的文字。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.Culture">
+        <source>The culture used to put letters in upper case and for the number pads' decimal separator and minus sign; null uses the current culture.</source>
+        <target>用於將字母轉為大寫，以及數字鍵盤的小數分隔符與負號的文化特性；為 null 時使用目前的文化特性。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.CurrentPage">
+        <source>The name of the page shown (letters, symbols...); null, or a name the layout does not have, shows its first page. Page keys change it.</source>
+        <target>顯示的頁面名稱（字母、符號……）；為 null 或版面中不存在的名稱時，顯示其第一頁。頁面鍵會改變它。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.HideRequested">
+        <source>Raised when a `Hide` key is pressed. A keyboard opened by `OnScreenKeyboard.Popup` closes; a docked keyboard leaves hiding to you.</source>
+        <target>按下 `Hide` 鍵時觸發。由 `OnScreenKeyboard.Popup` 開啟的鍵盤會關閉；停靠的鍵盤則由你自行處理隱藏。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.ItemInvoked">
+        <source>Raised for every key press, and for every repeat of a held key, before the keyboard acts on it. Set `Handled` to true to take the key over: the keyboard then types nothing and leaves Shift and the page as they are.</source>
+        <target>每次按鍵以及按住某鍵的每次重複時觸發，且在鍵盤處理之前。將 `Handled` 設為 true 可接管該按鍵：此後鍵盤不輸入任何內容，並保持 Shift 與頁面狀態不變。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.Layout">
+        <source>Your own layout (pages of rows of keys); when set it replaces `Preset`. The keyboard follows changes made to it.</source>
+        <target>你自己的版面（由按鍵列組成的頁面）；設定後取代 `Preset`。對它的變更會被鍵盤跟隨。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.Popup">
+        <source>Set on a text input (or any element that holds one): while it has focus, a keyboard of this kind opens under it and types into it. It closes when focus leaves, after Enter in a single-line text box, and on a `Hide` key; tapping the field opens it again. `None` (default) opens nothing unless `PopupLayout` is set.</source>
+        <target>設定在文字輸入（或包含文字輸入的任何元素）上：該元素取得焦點時，此類鍵盤會在其下方開啟並向其輸入。焦點離開時、單行文字方塊中按下 Enter 後，以及按下 `Hide` 鍵時關閉；點選該欄位會再次開啟。`None`（預設）在未設定 `PopupLayout` 時不開啟任何鍵盤。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.PopupLayout">
+        <source>Set on a text input: the layout of the keyboard that opens under it while it has focus (it overrides `Popup`).</source>
+        <target>設定在文字輸入上：該文字輸入取得焦點時在其下方開啟的鍵盤版面（覆寫 `Popup`）。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.Preset">
+        <source>The built-in layout shown when `Layout` is null: QWERTY (default), a number pad (with or without a minus key) or a PIN pad.</source>
+        <target>`Layout` 為 null 時顯示的內建版面：QWERTY（預設）、數字鍵盤（含或不含減號鍵）或 PIN 鍵盤。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.RepeatDelay">
+        <source>How long a repeating key (Backspace, the arrows) is held before it starts to repeat.</source>
+        <target>按住會重複的鍵（Backspace、方向鍵）在開始重複前需要按住的時間。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.RepeatInterval">
+        <source>The time between two repeats of a held key.</source>
+        <target>按住某鍵時兩次重複之間的時間間隔。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.ShiftOffText">
+        <source>Announced to screen readers when the Shift key turns Shift or caps lock off.</source>
+        <target>Shift 鍵使 Shift 或大寫鎖定關閉時，向螢幕閱讀器朗讀的文字。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.ShiftOnText">
+        <source>Announced to screen readers when Shift turns on for one key.</source>
+        <target>Shift 為下一個按鍵開啟時，向螢幕閱讀器朗讀的文字。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.ShiftState">
+        <source>Shift: `Off`, `On` for the next key, or `Locked` (caps lock). The Shift key changes it: one tap turns it on, a double tap locks it.</source>
+        <target>Shift 狀態：`Off`、為下一個按鍵開啟的 `On`，或 `Locked`（大寫鎖定）。Shift 鍵會改變它：點選一下開啟，雙擊鎖定。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.Target">
+        <source>The element that receives the text and key presses; null sends them to the element that has focus in the keyboard's window.</source>
+        <target>接收文字和按鍵的元素；為 null 時，將它們發送給鍵盤所在視窗中取得焦點的元素。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.TimeProvider">
+        <source>The clock of key repeat and of the Shift double tap. Tests pass a clock they move by hand.</source>
+        <target>按鍵重複與 Shift 雙擊所用的時鐘。測試時傳入手動推進的時鐘。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey">
+        <source>One key of an `OnScreenKeyboardLayout`: what it does (`Kind`), what it types (`Text`, `ShiftText`), how it looks (`Label`, `Glyph`, `Width`) and how screen readers name it. Its properties can be bound; the keyboard follows changes.</source>
+        <target>`OnScreenKeyboardLayout` 中的一個按鍵：它做什麼（`Kind`）、輸入什麼（`Text`、`ShiftText`）、外觀如何（`Label`、`Glyph`、`Width`）以及螢幕閱讀器如何稱呼它。它的屬性可以繫結；鍵盤會跟隨變化。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.AutomationName">
+        <source>The name screen readers use; null uses the label or the kind's name ("Backspace", "Shift", "Enter"...).</source>
+        <target>螢幕閱讀器使用的名稱；為 null 時使用標籤或按鍵類型的名稱（"Backspace"、"Shift"、"Enter"……）。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.Glyph">
+        <source>A 24×24 stroked glyph (Lucide path data) drawn instead of the label; null uses the kind's own glyph (Backspace, Enter, Shift, arrows...).</source>
+        <target>以 24×24 描邊字形（Lucide 路徑資料）取代標籤繪製；為 null 時使用該按鍵類型自帶的字形（Backspace、Enter、Shift、方向鍵……）。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.IsEnabled">
+        <source>Whether the key can be pressed. A disabled key is dimmed and does nothing.</source>
+        <target>按鍵能否被按下。停用的按鍵會變暗且不起任何作用。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.IsRepeatable">
+        <source>Whether holding the key repeats it; null repeats Backspace and the arrow keys only.</source>
+        <target>按住該鍵是否重複它；為 null 時只重複 Backspace 和方向鍵。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.IsVisible">
+        <source>Whether the key is shown. A hidden key takes no room; the rest of its row closes up.</source>
+        <target>按鍵是否顯示。隱藏的按鍵不佔空間，同一列的其餘按鍵會填補其空位。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.KeyCode">
+        <source>The key a `Key` key sends as a key press (for example `Escape`, `Delete` or `Home`).</source>
+        <target>`Key` 類按鍵發送的按鍵（例如 `Escape`、`Delete` 或 `Home`）。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.Kind">
+        <source>What the key does: type `Text`, a special key (Backspace, Enter, arrows...), Shift, switch page, and so on.</source>
+        <target>按鍵的作用：輸入類型 `Text`、特殊鍵（Backspace、Enter、方向鍵……）、Shift、切換頁面等。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.Label">
+        <source>The text shown on the key; null shows what the key types (upper case while shifted), or nothing for keys drawn with a glyph.</source>
+        <target>按鍵上顯示的文字；為 null 時顯示該按鍵輸入的內容（按下 Shift 時為大寫），以字形繪製的按鍵則不顯示文字。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.ShiftText">
+        <source>The text typed while Shift or Caps lock is on; null types `Text` in upper case (in the keyboard's culture).</source>
+        <target>Shift 或大寫鎖定開啟時輸入的文字；為 null 時以大寫形式輸入 `Text`（使用鍵盤的文化特性）。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.TargetPage">
+        <source>The `Name` a `Page` key switches to.</source>
+        <target>`Page` 鍵切換到的 `Name`。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.Text">
+        <source>The text a `Text` key types (one character or more). For a `Custom` key it identifies the key in `ItemInvoked`.</source>
+        <target>`Text` 鍵輸入的文字（一個或多個字元）。對於 `Custom` 鍵，它在 `ItemInvoked` 中識別該鍵。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.Width">
+        <source>The key's width relative to a standard key (1). A row's keys share the keyboard's width by these units.</source>
+        <target>按鍵相對於標準鍵（1）的寬度。同一列的按鍵依這些單位均分鍵盤的寬度。</target>
       </trans-unit>
       <trans-unit id="OrbitLogo">
         <source>One integration shown by `OrbitLogos`: a mark on a ring, plus the text its detail card shows.</source>
@@ -27211,6 +27639,122 @@
       <trans-unit id="RadarValue">
         <source>A value of a `RadarSeries` on one axis.</source>
         <target>`RadarSeries` 在一條軸上的數值。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenu">
+        <source>A pie menu: commands laid out around a centre point in a full circle or a sector. It opens at the pointer (right press, press and hold, a click, the ContextMenu key or code), and an item is chosen with a click, with the keyboard, or with a marking gesture: hold the button, move toward an item and release (the direction chooses, even beyond the ring; releasing back in the centre cancels). Near the edge of the window the ring shifts so it is never cut off. Attach it to any control with `arc:RadialMenu.Menu`, or open it from code with `Open` / `OpenAt` or through `IsOpen` and `PlacementTarget`. Items are declared as `RadialMenuItem` children or generated from `ItemsSource`; `ItemInvoked`, each item's `Command` and `ItemInvokedCommand` report the choice. A menu placed directly in a layout shows its ring in place, as a static dial.</source>
+        <target>圓餅選單：沿完整圓環或扇形環繞中心點排列的命令。它在指標處開啟（按下滑鼠右鍵、按住、點選、ContextMenu 鍵或程式碼），項目可透過點選、鍵盤，或透過標記手勢選擇：按住按鈕，朝某項移動並放開（方向決定選擇，即使超出圓環也有效；放回中心則取消）。靠近視窗邊緣時圓環會偏移，使其不會被裁切。使用 `arc:RadialMenu.Menu` 將其附加到任意控制項，或透過 `Open` / `OpenAt` 從程式碼開啟，或透過 `IsOpen` 和 `PlacementTarget` 開啟。項目可宣告為 `RadialMenuItem` 子元素，或由 `ItemsSource` 產生；`ItemInvoked`、每個項目的 `Command` 與 `ItemInvokedCommand` 都會回報選擇。直接放在版面中的選單會就地顯示其圓環，作為靜態轉盤。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenu.CenterContent">
+        <source>What the centre shows while no item is highlighted, such as the menu's title or an icon.</source>
+        <target>沒有高亮任何項目時中心顯示的內容，例如選單的標題或圖示。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenu.Closed">
+        <source>Raised when the menu has closed, after its exit motion.</source>
+        <target>選單關閉（退場動效結束後）時觸發。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenu.InnerRadius">
+        <source>Radius of the centre, where the highlighted item's label shows; it is also the gesture's dead zone (default 44, from the theme).</source>
+        <target>中心的半徑，高亮項目的標籤顯示在此處；它也是手勢的死區（預設 44，來自主題）。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenu.IsCenterLabelVisible">
+        <source>Whether the centre shows the highlighted item's text (default true).</source>
+        <target>中心是否顯示高亮項目的文字（預設 true）。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenu.IsItemLabelVisible">
+        <source>Whether sectors show their text under the icon (default true). Turn it off for an icon ring whose labels show only in the centre.</source>
+        <target>扇形是否在圖示下方顯示文字（預設 true）。對於只在中心顯示標籤的圖示環，請關閉它。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenu.IsOpen">
+        <source>Whether the menu is open (two-way). Setting it opens the menu on `PlacementTarget` (or the control it is attached to), placed as `Placement` says.</source>
+        <target>選單是否開啟（雙向）。設定它會以 `PlacementTarget`（或附加的控制項）為目標開啟選單，並依 `Placement` 的說明放置。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenu.ItemInvoked">
+        <source>Raised when the user chooses an item (click, release of a gesture, Enter or Space), before the item's command and `ItemInvokedCommand` run and the menu closes.</source>
+        <target>使用者選取某項時觸發（點擊、手勢放開、Enter 或空白鍵），早於該項目的命令和 `ItemInvokedCommand` 執行以及選單關閉。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenu.ItemInvokedCommand">
+        <source>Runs after any item is chosen, with the item (the data item, or the declared `RadialMenuItem`) as the parameter.</source>
+        <target>任一項目被選取後執行，參數為該項目（資料項目，或宣告的 `RadialMenuItem`）。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenu.Label">
+        <source>The menu's accessible name (default "Radial menu").</source>
+        <target>選單的無障礙名稱（預設 "Radial menu"）。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenu.Menu">
+        <source>Attaches a radial menu to any control: it opens with the gestures in the menu's `Trigger` (right press and press-and-hold by default) and with the ContextMenu key or Shift+F10. The menu takes the control as its logical parent, so its bindings see the control's DataContext. Attach a menu to one control at a time.</source>
+        <target>將環形選單附加到任意控制項：可透過選單 `Trigger` 中的手勢開啟（預設為右鍵按下與按住），也可透過 ContextMenu 鍵或 Shift+F10 開啟。選單以該控制項作為邏輯父級，因此其繫結可以存取控制項的 DataContext。每個控制項一次只附加一個選單。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenu.Opened">
+        <source>Raised when the menu opens.</source>
+        <target>選單開啟時觸發。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenu.OuterRadius">
+        <source>Radius of the sectors' outer edge (default 124, from the theme).</source>
+        <target>扇形外緣的半徑（預設 124，來自主題）。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenu.Placement">
+        <source>Where `IsOpen`, `Open` and the click trigger centre the menu: the target's centre (the default) or the pointer's last position over it. Right press and hold always open at the pointer, the keyboard always at the target's centre.</source>
+        <target>`IsOpen`、`Open` 與點擊觸發器將選單置中於何處：目標的中心（預設），或指標在其上最後的位置。右鍵按下並按住一律在指標處開啟，鍵盤一律在目標中心開啟。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenu.PlacementTarget">
+        <source>The control `IsOpen` and `Open` open the menu on (default: the control the menu is attached to).</source>
+        <target>`IsOpen` 與 `Open` 開啟選單所依據的控制項（預設：附加選單的控制項）。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenu.SectorGap">
+        <source>The gap between neighbouring sectors, in pixels (the same width all along; default 4, from the theme).</source>
+        <target>相鄰扇形之間的間距，以像素計（沿整個圓周寬度相同；預設 4，來自主題）。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenu.SelectedItem">
+        <source>The highlighted item (two-way): the item under the pointer or at the keyboard position, as the data item or the declared `RadialMenuItem`. Setting it highlights that item; after a choice it holds the chosen item.</source>
+        <target>高亮項目（雙向）：指標下或鍵盤位置上的項目，以資料項目或宣告的 `RadialMenuItem` 表示。設定它會高亮該項目；選取之後它保存被選取的項目。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenu.SelectionChanged">
+        <source>Raised when `SelectedItem` (the highlighted item) changes, from the pointer, the keyboard or code.</source>
+        <target>`SelectedItem`（高亮項目）變更時觸發，可能來自指標、鍵盤或程式碼。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenu.StartAngle">
+        <source>Where the items start, in degrees clockwise from 12 o'clock. In a full circle the first item is centred on this direction (four items sit at north, east, south and west); in a sector the first item's leading edge sits on it.</source>
+        <target>各項目的起始位置，以度為單位，從 12 點方向順時針計算。在整圓中第一個項目置中於該方向（四個項目分別位於北、東、南、西）；在扇形中第一個項目的前緣位於該方向上。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenu.SweepAngle">
+        <source>The arc the items share, in degrees: 360 (the default) is a full circle, less is a sector. Values are limited to (0, 360].</source>
+        <target>各項目共用的弧度，以度為單位：360（預設）為整圓，小於 360 則為扇形。取值範圍為 (0, 360]。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenu.TextSelector">
+        <source>The text of a data item: the sector's default label, the centre label and the name read by screen readers.</source>
+        <target>資料項目的文字：扇形的預設標籤、中心標籤以及螢幕閱讀器朗讀的名稱。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenu.Trigger">
+        <source>Which gestures open the menu on the control it is attached to (default: right press and press-and-hold). The ContextMenu key and Shift+F10 always do.</source>
+        <target>哪些手勢在附加了此選單的控制項上開啟選單（預設：右鍵按下與按住）。ContextMenu 鍵和 Shift+F10 一律可以開啟。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenuItem">
+        <source>One command of a `RadialMenu`: a sector of the ring with an icon and a label. Declare items inline (`&lt;arc:RadialMenuItem Header="Copy" Icon="{x:Static arc:ArcIcons.Copy}" Command="{Binding CopyCommand}" /&gt;`), or let the menu generate one per `ItemsSource` item (its `DataContext` is the item, so styles can bind `Header`, `Icon` and `Command`). The sector draws itself and the menu does all hit-testing by angle and radius, so the item does not take pointer input of its own.</source>
+        <target>`RadialMenu` 的一個命令：環上帶有圖示與標籤的一個扇形。可以內嵌宣告項目（`&lt;arc:RadialMenuItem Header="Copy" Icon="{x:Static arc:ArcIcons.Copy}" Command="{Binding CopyCommand}" /&gt;`），也可以讓選單為每個 `ItemsSource` 項目產生一個（其 `DataContext` 為該項目，因此樣式可以繫結 `Header`、`Icon` 和 `Command`）。扇形自行繪製，選單透過角度與半徑完成所有命中測試，因此項目本身不接收指標輸入。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenuItem.Command">
+        <source>Command run when the item is chosen; the item is disabled while the command cannot execute.</source>
+        <target>選取該項目時執行的命令；命令無法執行時該項目會被停用。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenuItem.CommandParameter">
+        <source>Parameter passed to `Command`.</source>
+        <target>傳遞給 `Command` 的參數。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenuItem.Header">
+        <source>The label: text, or any content (with `HeaderTemplate`). Text is also the centre label and the name read by screen readers.</source>
+        <target>標籤：文字，或任意內容（搭配 `HeaderTemplate`）。文字同時作為中心標籤和螢幕閱讀器朗讀的名稱。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenuItem.HeaderTemplate">
+        <source>Template that builds the sector's content from `Header` (the menu's `ItemTemplate` for generated items).</source>
+        <target>依 `Header` 建立扇形內容的範本（對於產生的項目，使用選單的 `ItemTemplate`）。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenuItem.Icon">
+        <source>The icon above the label: a 24×24 Lucide stroke `Geometry` (drawn at 20px), or any control.</source>
+        <target>標籤上方的圖示：24×24 的 Lucide 描邊 `Geometry`（以 20px 繪製），或任意控制項。</target>
+      </trans-unit>
+      <trans-unit id="RadialMenuItem.IsHighlighted">
+        <source>Whether this is the menu's highlighted item (under the pointer or at the keyboard position).</source>
+        <target>是否為選單的高亮項目（位於指標下或鍵盤位置上）。</target>
       </trans-unit>
       <trans-unit id="RadioCard">
         <source>One card of `RadioCards`: indicator, label (the card's content) with an optional icon, description and meta. The group creates a card for each option. For a `RadioCardOption` the card takes its label, icon, description, meta, disabled state and reason from the option; for any other item the label is the group's `ItemTemplate`, and a style on `arc|RadioCard` (or the group's `ItemContainerTheme`) can bind these properties, `IsEnabled` and `AutomationProperties.Name` to the item.</source>
@@ -35172,6 +35716,10 @@
         <source>Announced when the draft repeats a tag; `{0}` is the existing tag.</source>
         <target>草稿與既有標籤重複時播報；`{0}` 為既有的標籤。</target>
       </trans-unit>
+      <trans-unit id="TagInput.EffectiveErrorMessage">
+        <source>The error actually shown: `ErrorMessage`, else the validation message of the `Value` binding.</source>
+        <target>實際顯示的錯誤：`ErrorMessage`，否則為 `Value` 繫結的驗證訊息。</target>
+      </trans-unit>
       <trans-unit id="TagInput.ErrorMessage">
         <source>Error copy under the field; non-empty makes the field invalid.</source>
         <target>欄位下方的錯誤提示；非空時欄位為無效狀態。</target>
@@ -36351,6 +36899,10 @@
       <trans-unit id="TimePicker.Description">
         <source>Helper copy under the trigger.</source>
         <target>觸發器下方的輔助文字。</target>
+      </trans-unit>
+      <trans-unit id="TimePicker.EffectiveErrorMessage">
+        <source>The error actually shown: `ErrorMessage`, else the validation message of the `SelectedTime` binding.</source>
+        <target>實際顯示的錯誤：`ErrorMessage`，否則為 `SelectedTime` 繫結的驗證訊息。</target>
       </trans-unit>
       <trans-unit id="TimePicker.ErrorMessage">
         <source>Error copy under the trigger; non-empty makes the field invalid.</source>
@@ -40899,6 +41451,114 @@
       <trans-unit id="WindowCaptionButtons.ShowMinimizeButton">
         <source>Shows the minimize button. True by default.</source>
         <target>顯示最小化按鈕。預設為 True。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseBin">
+        <source>One speed bin of a `WindRoseChart`: a band of each petal, from its minimum up to the next bin's minimum.</source>
+        <target>`WindRoseChart` 的一個風速分級：每個花瓣上的一段，從其最小值到下一分級的最小值。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseBinning">
+        <source>Sorts raw wind observations into the sectors and speed bins of a `WindRoseChart`. Sector `i` covers `[i·w − w/2, i·w + w/2)` degrees with `w = 360 / sectorCount`, so sector 0 is centred on north and 360° is north again. An observation slower than the calm threshold is calm; the others go to the last bin whose minimum is not above their speed (speeds under the first minimum go to the first bin).</source>
+        <target>將原始風向觀測資料歸入 `WindRoseChart` 的扇區與風速分級。扇區 `i` 涵蓋角度 `[i·w − w/2, i·w + w/2)`，其中 `w = 360 / sectorCount`，因此扇區 0 置中於北方，360° 又是北方。速度低於靜風閾值的觀測為靜風；其餘觀測歸入最後一個最小值不高於其速度的分級（速度低於第一個最小值的歸入第一個分級）。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseChart">
+        <source>A wind rose: how often the wind blows from each direction and how hard. Each direction sector is a petal stacked by wind-speed bin from the calm circle outward, on a radial axis of percent (or counts) with the calm share in the centre. New data springs every band to its new length; hovering or the arrow keys read a sector, and a legend entry highlights one speed bin in every petal.</source>
+        <target>風玫瑰圖：風從各方向吹來的頻率與風力大小。每個方向扇區是一個花瓣，依風速分級從靜風圓向外堆疊，徑向軸以百分比（或計數）為單位，靜風比例位於中心。新資料會使各段平滑過渡到新的長度；懸停或方向鍵可讀取某個扇區，圖例項目則會在每個花瓣中高亮一個風速分級。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseChart.ActiveIndex">
+        <source>The sector being read (two-way), or -1. A number outside the sectors shows no reading.</source>
+        <target>正在讀取的扇區（雙向），或 -1。超出扇區範圍的數字不顯示讀數。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseChart.Bins">
+        <source>The speed bins, inner to outer by ascending `Minimum`. Add bins in XAML or bind any list; empty uses `DefaultBinMinimums`.</source>
+        <target>風速分級，依 `Minimum` 升冪由內到外排列。可在 XAML 中新增，或繫結任意清單；為空時使用 `DefaultBinMinimums`。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseChart.Calm">
+        <source>Calm amount, in the same unit as the values (a count, or a percent when the data are percentages); shown in the centre.</source>
+        <target>靜風量，單位與數值相同（計數，或資料為百分比時的百分比）；顯示在中心。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseChart.DirectionLabels">
+        <source>Labels per sector from sector 0; missing or empty entries use the default (compass points in the current language for 4, 8, 16 and 32 sectors, degrees otherwise).</source>
+        <target>從扇區 0 開始每個扇區的標籤；缺少或為空的項目使用預設值（扇區數為 4、8、16 或 32 時使用目前語言的羅盤方位，其他情況為度數）。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseChart.EmptyLabel">
+        <source>Message shown when there is no amount and no calm.</source>
+        <target>既無數量也無靜風時顯示的訊息。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseChart.IsLegendVisible">
+        <source>Shows the legend of speed bins under the rose (default true).</source>
+        <target>在玫瑰圖下方顯示風速分級圖例（預設 true）。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseChart.IsSelectionEnabled">
+        <source>Whether a click, a tap or Enter selects the sector (default false). A sector chosen always raises `ItemInvoked`.</source>
+        <target>點擊、觸控或 Enter 是否選取扇區（預設 false）。扇區被選取時一律會觸發 `ItemInvoked`。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseChart.ItemInvoked">
+        <source>Raised when the user chooses a sector (click, tap, Enter or Space), even one that is already selected.</source>
+        <target>使用者選取扇區時觸發（點擊、觸控、Enter 或空白鍵），即使該扇區已被選取。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseChart.ItemsSource">
+        <source>Data items: `WindRoseRow`, `WindRoseRecord`, or any objects read through the member bindings. Null uses `Items`; an observable collection is followed.</source>
+        <target>資料項目：`WindRoseRow`、`WindRoseRecord`，或透過成員繫結讀取的任意物件。為 null 時使用 `Items`；可觀察集合會被追蹤。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseChart.Label">
+        <source>What the chart shows, such as "Harbour station, 2025"; names it for assistive technology.</source>
+        <target>圖表顯示的內容，例如 "Harbour station, 2025"；為輔助技術命名。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseChart.RadialAxis">
+        <source>Whether a petal's length is its percent of all observations, calm included (default), or the amount as given.</source>
+        <target>花瓣的長度是其占全部觀測（包括靜風）的百分比（預設），還是給定的數量。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseChart.RadialMaximum">
+        <source>The value at the outer ring; NaN (default) picks the first ring value at or above the longest petal.</source>
+        <target>外環處的值；NaN（預設）時選擇第一個不小於最長花瓣的環值。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseChart.RadialStep">
+        <source>The distance between rings; NaN (default) picks 1, 2, 2.5 or 5 × 10ⁿ for at most five rings.</source>
+        <target>環之間的距離；NaN（預設）時選擇 1、2、2.5 或 5 × 10ⁿ，使環數不超過五個。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseChart.SectorCount">
+        <source>Number of direction sectors (default 16): 8, 16 and 32 get compass labels, any count from 4 to 72 works.</source>
+        <target>方向扇區的數量（預設 16）：8、16 和 32 使用羅盤標籤，4 到 72 之間的任意數量均可。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseChart.SelectedIndex">
+        <source>The selected sector (two-way), or -1; it is drawn with an outline.</source>
+        <target>選取的扇區（雙向），或 -1；以外框線繪製。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseChart.SelectionChanged">
+        <source>Raised when `SelectedIndex` changes, whether a sector was chosen or the index was set in code or through a binding.</source>
+        <target>`SelectedIndex` 變更時觸發，無論是選取了扇區，還是透過程式碼或繫結設定了索引。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseChart.Size">
+        <source>Largest diameter of the rose in pixels (default 320); it shrinks to fit the space.</source>
+        <target>玫瑰圖的最大直徑，單位為像素（預設 320）；會縮小以適應空間。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseChart.StartAngle">
+        <source>Screen angle, in degrees clockwise from the top, where sector 0 (north) is centred (default 0).</source>
+        <target>螢幕角度，以度為單位，從頂部順時針計算，扇區 0（北）置中於此（預設 0）。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseChart.SweepDirection">
+        <source>Which way the sectors run on screen from sector 0 (default clockwise, as on a compass).</source>
+        <target>從扇區 0 開始，扇區在螢幕上的排列方向（預設順時針，與羅盤一致）。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseChart.Unit">
+        <source>Speed unit in the default bin labels (default "m/s").</source>
+        <target>預設分級標籤中的風速單位（預設 "m/s"）。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseChart.ValueFormatter">
+        <source>Formats displayed values (a percent from 0 to 100, or an amount) in the rings, tooltip, centre and readings.</source>
+        <target>格式化顯示的值（0 到 100 的百分比，或數量），用於環、提示、中心與讀數。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseRecord">
+        <source>One amount of a `WindRoseChart`: a direction, a speed bin and how much (the long form of the data).</source>
+        <target>`WindRoseChart` 的一個數量：一個方向、一個風速分級及其數量（資料的長格式）。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseRow">
+        <source>One direction of a `WindRoseChart` with an amount per speed bin (the wide form of the data). Several rows for the same sector add up.</source>
+        <target>`WindRoseChart` 的一個方向，每個風速分級一個數量（資料的寬格式）。同一扇區的多筆會累加。</target>
+      </trans-unit>
+      <trans-unit id="WindRoseSector">
+        <source>A direction sector of a `WindRoseChart` as drawn: what the tooltip, the reading and the events report.</source>
+        <target>`WindRoseChart` 的一個方向扇區（依繪製後的樣子）：提示、讀數與事件所回報的內容。</target>
       </trans-unit>
       <trans-unit id="WorkflowCanvas">
         <source>Shows a `WorkflowGraph` on a dotted canvas (visual rules from Arc's free hero-section block, HeroRelay): one card per step, edges between them, and a run played out step by step. Set the steps' states as your run goes; when a step finishes, the data draws along its edges in the accent before the next step shows as running, and the edges of a branch the run did not take turn dashed. Steps without a position are arranged in ranks; by default the whole workflow shows at actual size and shrinks like a screenshot when it does not fit. Pan with a drag or the wheel, zoom with Ctrl / ⌘ + wheel, a pinch or the keyboard, and move between steps with the arrow keys.</source>

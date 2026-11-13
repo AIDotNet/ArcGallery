@@ -103,6 +103,7 @@ public static partial class GalleryCatalog
         ("2026-11-09", ["FaqSection"]),
         ("2026-11-09", ["HeroSection"]),
         ("2026-11-13", ["ImportWizard"]),
+        ("2026-11-13", ["MobilePicker", "MobileRadioCards"]),
     }.SelectMany(g => g.Classes.Select(c => (c, g.Date))).ToDictionary(e => e.c, e => e.Date);
 
     private static string? AddedOnOf(string className) => s_addedOn.GetValueOrDefault(className);
@@ -136,6 +137,9 @@ public static partial class GalleryCatalog
             new("RaceBarChart", "Race bar chart", "race-bar-chart", 0,
                 "A ranking that changes over time: bars slide past each other as their values climb, and a timeline plays, pauses or scrubs the periods.",
                 IsArc: false, AddedOn: "2026-11-08"),
+            new("WindRoseChart", "Wind rose chart", "wind-rose-chart", 0,
+                "Show how often the wind blows from each direction and how hard: petals stacked by speed on a percent or count axis, with the calm share in the centre.",
+                IsArc: false, AddedOn: "2026-11-13"),
         ], IsArc: false),
         new("Workflow", "Workflow", "工作流",
         [
@@ -220,6 +224,15 @@ public static partial class GalleryCatalog
             new("FluidTabControl", "Fluid tab control", "fluid-tab-control", 0,
                 "Tabs beside one scroll area that holds every tab's content in order. Picking a tab scrolls to its section, and scrolling selects the tab of the section in view.",
                 IsArc: false, AddedOn: "2026-11-07"),
+            new("Form", "Form", "form", 0,
+                "A light form scope: labelled items with required marks and help text that show the view model's validation errors when you choose, and a submit that scrolls to the first invalid field.",
+                IsArc: false, AddedOn: "2026-11-13"),
+            new("RadialMenu", "Radial menu", "radial-menu", 0,
+                "Commands in a ring around the pointer: right-click or hold to open it, then click an item, or hold, flick toward it and let go.",
+                IsArc: false, AddedOn: "2026-11-13"),
+            new("OnScreenKeyboard", "On-screen keyboard", "on-screen-keyboard", 0,
+                "A touch keyboard for kiosks and panels without a physical one: QWERTY, a number pad, a PIN pad or a layout of your own, typing into the focused field without taking its focus.",
+                IsArc: false, AddedOn: "2026-11-13"),
         ], IsArc: false),
     ];
 

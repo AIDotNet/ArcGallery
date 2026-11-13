@@ -1,7 +1,7 @@
 ---
 title: 移動端操作面板
 summary: 從底部升起的操作清單，可有一個破壞性操作列和單獨的取消列，選擇一列、點遮罩或下拉即可關閉。
-source-hash: 7fe3b34afc41
+source-hash: 44cb1b1680b0
 ---
 
 <Demo name="Basic" />
@@ -43,11 +43,22 @@ source-hash: 7fe3b34afc41
 void OnAction(object? sender, ActionSheetActionEventArgs e) => Log((string)e.Action.Content!);
 ```
 
-`Title` 和 `Message` 是可選的，位於第一列上方。`CancelText` 是取消列的文字（`"Cancel"`）；設為 null 會隱藏該列。取消會關閉面板，但不觸發 `ActionInvoked`。操作面板就是一個 `Sheet`：點遮罩、下拉或按 Esc 都能關閉它（設定 `IsDismissible="False"` 可禁止），`SafeAreaBottom` 讓取消列避開 Home 指示條（見 `MobileSheet`）。
+`Title` 和 `Message` 是可選的，位於第一列上方。`CancelText` 是取消列的文字（`"Cancel"`）；設為 null 會隱藏該列。取消會關閉面板，但不觸發 `ActionInvoked`。操作面板就是一個 `Sheet`：點遮罩、下拉或按 Esc 都能關閉它（設定 `IsDismissible="False"` 可禁止）；在頁面裡它會自己留出頁面底部的安全區，讓取消列避開 Home 指示條，`SafeAreaBottom` 可以覆寫它（見 `MobileSheet`）。
+
+### 勾選的列
+
+`IsChecked` 把一列標為一組選項中的目前選擇：列尾顯示勾號，文字仍然置中。選擇某一列不會設定它，由管理這組選項的程式碼設定，就像 `MobilePicker` 勾選它的選取項那樣。
+
+```xml
+<arcm:ActionSheet Title="排序方式">
+    <arcm:ActionSheetItem Content="名稱" IsChecked="True" />
+    <arcm:ActionSheetItem Content="修改日期" />
+</arcm:ActionSheet>
+```
 
 ### Token
 
-`ActionSheetToken` 保存 `PanelPadding`（兩張卡片周圍的空間）、`CancelMargin`（取消卡片上方的間隔）和 `HeaderPadding`；`ActionSheetItemToken` 保存 `RowHeight`（56）和 `ContentPadding`。顏色、圓角和字型來自 ArcDesign token：操作用強調色，破壞性操作用危險色。
+`ActionSheetToken` 保存 `PanelPadding`（兩張卡片周圍的空間）、`CancelMargin`（取消卡片上方的間隔）和 `HeaderPadding`；`ActionSheetItemToken` 保存 `RowHeight`（56）、`ContentPadding`、`CheckExtent`（20，勾號）和 `CheckedContentMargin`（勾選列文字兩側各 28）。顏色、圓角和字型來自 ArcDesign token：操作用強調色，破壞性操作用危險色。
 
 ## API 參考
 
@@ -55,7 +66,7 @@ void OnAction(object? sender, ActionSheetActionEventArgs e) => Log((string)e.Act
 
 ## 無障礙
 
-每一列都是按鈕，高度至少 56 px，容易點中，也可以用 Tab 和 Enter 或空白鍵操作。Esc 會關閉可關閉的操作面板，開啟時焦點會移到面板上。破壞性的列有顏色，但也靠文字說明，所以不要只依賴顏色：寫「刪除照片」，而不是「刪除」。點遮罩只是捷徑，取消列才是看得見的退路。
+每一列都是按鈕，高度至少 56 px，容易點中，也可以用 Tab 和 Enter 或空白鍵操作。Esc 會關閉可關閉的操作面板，開啟時焦點會移到面板上。破壞性的列有顏色，但也靠文字說明，所以不要只依賴顏色：寫「刪除照片」，而不是「刪除」。勾選的列以勾號標示，而不是靠顏色。點遮罩只是捷徑，取消列才是看得見的退路。
 
 ## 動效
 

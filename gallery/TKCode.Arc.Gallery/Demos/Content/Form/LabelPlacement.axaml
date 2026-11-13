@@ -1,0 +1,40 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             xmlns:demo="clr-namespace:TKCode.Arc.Gallery.Demos"
+             x:Class="TKCode.Arc.Gallery.Demos.FormLabelPlacementDemo"
+             x:DataType="demo:FormProfileModel">
+    <StackPanel MaxWidth="520" HorizontalAlignment="Center" Spacing="20">
+        <arc:SegmentedControl x:Name="Placement"
+                              HorizontalAlignment="Center"
+                              AutomationProperties.Name="Label placement"
+                              SelectedValue="Left">
+            <arc:SegmentedOption Value="Top" Label="Top" />
+            <arc:SegmentedOption Value="Left" Label="Left" />
+        </arc:SegmentedControl>
+        <arc:Form x:Name="Profile"
+                  LabelPlacement="Left"
+                  ValidateCommand="{Binding ValidateCommand}">
+            <StackPanel Spacing="16">
+                <arc:FormItem Label="Name" IsRequired="True">
+                    <arc:Input Text="{Binding Name}" />
+                </arc:FormItem>
+                <arc:FormItem Label="Work email" IsRequired="True" Description="We send the invoices here.">
+                    <arc:Input Text="{Binding Email}" Placeholder="you@company.com" />
+                </arc:FormItem>
+                <arc:FormItem Label="Company" IsRequired="True">
+                    <arc:Input Text="{Binding Company}" />
+                </arc:FormItem>
+                <arc:FormItem Label="Role in the company">
+                    <arc:Input Text="{Binding Role}" />
+                </arc:FormItem>
+                <arc:FormItem Label="Plan" IsRequired="True">
+                    <arc:Select x:Name="Plans" SelectedItem="{Binding Plan}" Placeholder="Choose a plan" />
+                </arc:FormItem>
+                <arc:FormItem>
+                    <arc:Button arc:Form.Action="Submit" Content="Save" HorizontalAlignment="Left" />
+                </arc:FormItem>
+            </StackPanel>
+        </arc:Form>
+    </StackPanel>
+</UserControl>

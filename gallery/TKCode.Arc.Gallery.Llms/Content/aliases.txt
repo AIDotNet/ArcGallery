@@ -92,6 +92,7 @@ FunnelChart: conversion funnel, sales funnel, drop-off chart, pipeline chart
 RadarChart: spider chart, web chart, star plot, skill radar, capability chart
 RealtimeStream: live line chart, streaming chart, real-time chart, telemetry chart, scrolling time series
 RaceBarChart: bar chart race, racing bars, animated ranking, ranking over time, leaderboard animation
+WindRoseChart: wind rose, wind direction chart, rose diagram, polar stacked bar chart, wind speed distribution
 WorkflowCanvas: node editor, flow chart, pipeline diagram, DAG view
 DockLayout: docking panels, IDE layout, tool windows, docking manager
 Table: data table, list view with columns, grid view, sortable table
@@ -114,6 +115,7 @@ PropertyGrid: property inspector, settings inspector, object editor
 ArcWindow: custom title bar window, chromeless window
 WindowCaptionButtons: caption buttons, window controls, minimize maximize close buttons, title bar buttons
 FluidTabControl: scroll spy, scroll-linked tabs, anchor navigation, table of contents tabs, settings navigation
+OnScreenKeyboard: virtual keyboard, soft keyboard, touch keyboard, OSK, numeric keypad, number pad, PIN pad, kiosk keyboard
 AgentStatus: AI status, agent running indicator
 ToolCall: function call, tool invocation, tool use card
 AgentPlan: task plan, todo list for agent
@@ -136,6 +138,8 @@ MobileActionSheet: action sheet, bottom menu
 MobileTextField: mobile text input
 MobileSearchbar: mobile search bar
 MobileSegmented: mobile segmented control
+MobilePicker: picker row, select row, settings picker, option picker
+MobileRadioCards: mobile radio cards, card picker, selection grid, swatch picker
 MetricsDashboard: dashboard, analytics overview, KPI dashboard
 ModelPicker: model selector, LLM picker
 AiChat: chatbot, assistant chat, chat UI
