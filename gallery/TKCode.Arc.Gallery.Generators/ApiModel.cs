@@ -231,7 +231,7 @@ internal sealed class ApiType
         => chain.SelectMany(t => t.GetMembers(name)).OfType<IPropertySymbol>().FirstOrDefault(p => !p.IsStatic);
 
     /// <summary>The value type of a <c>StyledProperty&lt;T&gt;</c>, <c>AttachedProperty&lt;T&gt;</c> or <c>DirectProperty&lt;TOwner, T&gt;</c> field.</summary>
-    private static ITypeSymbol? PropertyValueType(ITypeSymbol fieldType, out bool isAttached, out bool isDirect)
+    internal static ITypeSymbol? PropertyValueType(ITypeSymbol fieldType, out bool isAttached, out bool isDirect)
     {
         isAttached = false;
         isDirect = false;
@@ -277,7 +277,7 @@ internal sealed class ApiType
             ? named.TypeArguments[0].ToDisplayString(s_typeFormat)
             : delegateType.ToDisplayString() == "System.EventHandler" ? "EventArgs" : delegateType.ToDisplayString(s_typeFormat);
 
-    private static bool IsHidden(ISymbol symbol)
+    internal static bool IsHidden(ISymbol symbol)
         => symbol.GetAttributes().Any(a => a.AttributeClass?.ToDisplayString() is "System.ObsoleteAttribute" ||
                                            a.AttributeClass?.ToDisplayString() == "System.ComponentModel.EditorBrowsableAttribute" &&
                                            a.ConstructorArguments.Length == 1 && a.ConstructorArguments[0].Value is 1);

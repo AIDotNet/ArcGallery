@@ -1,0 +1,8 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.ButtonPlaygroundDemo">
+    <StackPanel HorizontalAlignment="Center">
+        <arc:Button x:Name="Target" Content="Save changes" Variant="Primary" />
+    </StackPanel>
+</UserControl>
