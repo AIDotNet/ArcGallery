@@ -1,6 +1,6 @@
 ---
 title: 更新日誌
-source-hash: 047ea1f5c14f
+source-hash: 2342214d1736
 ---
 
 # 更新日誌
@@ -8,6 +8,54 @@ source-hash: 047ea1f5c14f
 TKCode.Arc 的所有重要變更，最新的在前。版本遵循[語意化版本](https://semver.org/)。從 1.0.0 起，破壞性 API 變更只在新的主版本中出現；更早的 `-preview` 版本在各發行版本之間可能變更 API。同一份清單也保存在儲存庫的 `CHANGELOG.md` 中。
 
 每次發行附帶的 NuGet 套件：`TKCode.Arc`、`TKCode.Arc.Core`、`TKCode.Arc.Foundation`（0.3.2 起）、`TKCode.Arc.Fonts` 、`TKCode.Arc.Icons.Lucide`、`TKCode.Arc.Blocks`、`TKCode.Arc.AdvancedCharts` 、`TKCode.Arc.Special`、`TKCode.Arc.Workflow`、`TKCode.Arc.Dock`（0.4.0-preview.2 起）、`TKCode.Arc.Themes.Pixel`、`TKCode.Arc.Themes.Corners`、`TKCode.Arc.Mobile`、`TKCode.Arc.Terminal`、`TKCode.Arc.Audio`、`TKCode.Arc.Audio.Native`、`TKCode.Arc.Audio.Browser`、`TKCode.Arc.Templates`（0.4.0-preview.6 起）、`TKCode.Arc.Pdf`、`TKCode.Arc.Pdf.Native` 和 `TKCode.Arc.Pdf.Browser`（1.0.0 起），`TKCode.Arc.Video`、`TKCode.Arc.Video.Native` 和 `TKCode.Arc.Video.Browser`（1.1.0-preview.1 起）。
+
+## 1.1.1-preview.1（2026-11-14）
+
+新增元件：`MonthCalendar`（`TKCode.Arc.Blocks`，Screens › Calendars），一個以月份為中心的日曆應用程式畫面；以及 `WindowRange` 和 `CursorTrailDraw`（`TKCode.Arc.Special`）。`KeycapKeyboard` 成為打字鍵盤，`PrizeWheel`、`BranchGraph`、`SandText`、`SplitBar` 和 `TocProgress` 依照各自的 Arc 設計重新打造（外觀與行為上的差異見「變更」）。區塊目錄遵循 uiarc.dev 的群組：新增 Agents 群組，整頁區塊移入新的 Screens 群組（`BlockCatalog.ScreenGroups`），因此依群組代碼篩選 `BlockCatalog.Blocks` 的程式碼可能需要改用新的代碼。`UserMenu` 會跟隨應用程式的語言（[#123](https://github.com/AIDotNet/TKCode.Arc/issues/123)），`ColorPicker` 的標題區會重新收合回其觸發器上。沒有任何內容被移除：不再適用的成員保留為 `[Obsolete]`（見「棄用」）。使用 `--version 1.1.1-preview.1`（或 `--prerelease`）安裝。
+
+### 新增
+
+- `ColorPicker`：`TriggerChipPart`、`TriggerNamePart` 和 `TriggerHexPart` 為觸發器的色塊、標籤和十六進位值命名（以 `[TemplatePart]` 宣告）；自訂範本需保留這些名稱，彈出視窗的標題區才能收合到它們上面。
+- `UserMenu.StatusLabel`、`ThemeLabel`、`SignOutLabel` 和 `SigningOutLabel`：以應用程式自己的文字取代 Status、Theme 和 Sign out 列的文字（以及登出期間顯示的文字）。`null`（預設值）使用在地化文字。
+- `KeycapKeyboard` 現在是一個打字鍵盤：依同一個按鍵單位縮放的造型鍵帽（底座、鍵帽與凹面）、強調色的 Return 鍵或空白鍵、按下的按鍵下方的光暈，以及鍵盤上方已輸入的文字。新成員：`Value`（雙向）和 `ValueChanged`、`Layout`（`KeycapLayout.Compact` 或 `Letters`）、`Rows` 以及新的 `KeycapRow` 項目類別（自訂按鍵列，例如巨集鍵盤）、`MaxLength`（280）、`Placeholder`、`ShowsText` 和 `Clear()`。每個按鍵都是一個 Tab 停駐點和一個無障礙按鈕；文字區域是一個唯讀文字方塊。
+- `PrizeWheel`（Special）：促銷轉盤的獎勵面板與手勢。新屬性 `IsPanelVisible`、`IsOddsVisible`、`IsSingleSpin`、`DriftSpeed`、`IsDriftPaused`、`AccentBrush`、`WinnerPicker`、`Title`、`Description`、`HintText`、`WeakHintText`、`SpinAgainText`、`ClaimedText`、`CopyText`、`CopiedText`、`CopyFailedText`、`OddsTitle`、`SpinningText`、`WonAnnouncement` 和 `CodeAnnouncement`；事件 `SelectionChanged`（`PrizeWheelSelectionChangedEventArgs`，在 `Result` 變更時引發）和 `CodeCopied`；虛擬類別 `:charging`、`:won` 和 `:claimed`。`PrizeWheelSegment` 新增 `Detail`、`Code` 和 `IsFeatured`。
+- `BranchGraph`：`SelectedStrategy`（`BranchGraphStrategy`：`Before`、`Merge`、`Rebase`、`Squash`）和 `SelectionChanged`（`BranchGraphSelectionChangedEventArgs`，帶有 `OldValue`、`NewValue`、`IsUserChange`）；`PullRequestTitle`、`PullRequestNumber`、`SourceBranch` 和 `TargetBranch`。`BranchGraphCommit`：`Hash`、`Body`、`AuthorAvatar`、`AuthorColor`、`Date`、`Additions`、`Deletions` 和 `Files`。`BranchGraphLabels`：各策略名稱、摘要、合併與壓縮合併的提交訊息，以及無障礙名稱。
+- `BlockCatalog.ScreenGroups`：Screens 群組（Dashboards、Projects、Calendars、People and customers、Inbox and support、Commerce），與 uiarc.dev 一樣列在 Blocks 群組之後。歸入這些群組的區塊，其 `Group` 設為某個畫面群組代碼（`Dashboards`、`ScreenProjects`、`Calendars`、`PeopleCustomers`、`InboxSupport`、`ScreenCommerce`）。
+- `BlockCatalog.Groups` 新增 `Agents` 群組。
+- `WindowRange`（TKCode.Arc.Special，圖庫：Components › Sliders）：疊在即時區域圖上的可移動視窗。拖曳其邊緣可調整大小，拖曳或輕撥可帶慣性平移，在圖表其他位置按下則讓它滑行到該處；起點、長度與終點讀數會捲動到新值，新的 `Data` 會讓圖表變形過渡，`IsLive` 會讓最新資料點上的圓點脈動。提供 `Start` / `End`、`SetRange`、`ValueChanged`、`ValueCommitted`、`MinSpan` / `MaxSpan`、`ValueFormatter`、`SpanFormatter`、`Ticks`（`WindowRangeTick`），以及三個鍵盤滑桿（起始邊緣、視窗、結束邊緣）。
+- **`SandText.DigRadius`、`IsDigEnabled`、`Palette`、`HeadingLevel` 和 `FontSizeRatio`**（`TKCode.Arc.Special`）：指標挖掘的範圍（14 px）、是否挖掘、沙粒顏色（預設：文字顏色，現在為強調色）、向輔助技術回報的標題層級（2），以及隨控制項寬度變化的字型大小。
+- `CursorTrailDraw`（Special › Cursor，`TKCode.Arc.Special`）：素描白板。筆跡會平滑地跟隨指標，寬度取自筆壓或速度，兩端漸細；雷射筆留下會自行淡出的軌跡；粗略畫出的圓形、橢圓、矩形、正方形、三角形、四邊形和直線會在提筆時以彈性動畫貼齊為工整的圖形，並附上一個小標籤，可保留手繪原樣。項目以白板單位（寬 1000）透過 `ItemsChanged` 回報，並可透過 `SetItems` 重新載入。新型別：`CursorTrailDrawInk`、`CursorTrailDrawItem`、`CursorTrailDrawTool`、`CursorTrailDrawShape`、`CursorTrailDrawChange`、`CursorTrailDrawItemsChangedEventArgs`。
+- `MonthCalendar`（TKCode.Arc.Blocks，Screens › Calendars）：以月份為中心的日曆應用程式畫面。月份格線將全天與跨日事件條以及定時事件標籤排入多條軌道，放不下時顯示「N more」；停駐的單日面板（寬度可在 300–460 之間調整，視窗寬度低於 1080 時改為 sheet）顯示忙碌時段、行程、可保留為專注時間的空檔、包含回覆、受邀者、備註、可複製連結與日曆選擇器的事件詳細資料，以及新增事件表單；事件標籤可拖曳到另一天，跨日拖曳可安排一段期間，移動與刪除可從提示訊息（toast）復原；側欄（寬度低於 900 時改為 sheet）包含 Calendar、Upcoming、Invitations、帶有 Only 與 All 的日曆切換、同事的月曆以及帳號選單（每週起始日、週末）；寬度小於 560 時，月份檢視會顯示負載指示條與當天的清單。資料型別 `MonthCalendarEvent`、`MonthCalendarSource`、`MonthCalendarPerson`、`MonthCalendarAttendee`、`MonthCalendarLabels`，列舉 `MonthCalendarRsvp`、`MonthCalendarTone`、`MonthCalendarView`，以及事件 `EventCreating`、`EventCreated`、`EventChanged`、`EventDeleted`、`RsvpChanged`、`EventInvoked`、`MonthChanged` 和 `SelectedDateChanged`。
+- `SplitBar`：`Description`、`Unit`、`TotalLabel`（「Total」）、`SplitBarSegment.IsHidden`（雙向）和 `HiddenChanged` 事件（`SplitBarHiddenChangedEventArgs`，帶有 `Segment` 和 `IsHidden`）；範本部件 `PART_Status`（`SplitBar.StatusPart`），一個禮貌型（polite）即時區域。
+- `TocProgress`：`ReadingOffset`（閱讀線位於檢視區頂端下方的像素數；選取的標題會捲動到這條線）、`ShowsTimeLeft`（true）和 `ReadingTime`（分鐘；未設定時依每分鐘 230 個字由文章字數估算），用於標題旁顯示的剩餘分鐘數，它會捲動到每個新值，讀完時以 Finished 和一個勾號結束。`TocProgressLabels` 新增 `TimeLeft` 和 `Finished`。
+
+### 變更
+
+- `KeycapKeyboard`：一般鍵盤現在會在鍵盤上方顯示文字區域，並輸入到 `Value` 中；`ShowsText="False"` 可將其隱藏。精簡鍵盤遵循 Arc 的 60% 配置（沒有方向鍵；除非設定了 `Platform`，否則最下排為 ctrl、opt 和 cmd，Windows 鍵盤則為 ctrl、win 和 alt）。除非設定了 `KeySize`，按鍵最大可放大到 54 px，鍵盤最寬為 760 px，鍵盤本身也不再是 Tab 停駐點（其按鍵與文字區域才是）。點選的 Ctrl、Alt 或 Command 鍵只有在有 `Bindings` 時才會維持按下；點選的 Shift 會鎖定到下一個字元。亮起的 `Shortcut` 以強調色繪製其按鍵；點選的按鍵在指標按下時輸入，`KeyInvoked` 仍在放開時引發。`KeycapKeyboard` 的佈景主題權杖 `KeySize`、`KeyGap`、`KeyDepth` 和 `PlatePadding` 仍然保留，但不再被讀取。
+- `PrizeWheel` 的外觀與動態效果與促銷轉盤一致（Arc Prize wheel，設計參考）：金屬輪緣與輪轂、放射狀標籤、抵著釘柱彎曲的膠囊形指針，以及轉盤旁的獎勵面板（標題、描述與提示，接著是包含獎品、獎品詳細資料與可複製兌換碼的獎勵卡片，以及中獎機率清單），寬度低於 736 px 時面板位於轉盤下方。面板預設顯示；將 `IsPanelVisible` 設為 `False` 可保留舊的僅轉盤外觀。使用者可以輕撥轉盤，或按住輪轂（或 Enter / 空白鍵）蓄力後放開來轉動它；點選盤面不再轉動轉盤，點選輪轂才會。手勢轉動由其速度驅動；`Duration` 和 `Turns` 現在只套用於從程式碼啟動的轉動（`Spin()`、`SpinTo()`）。轉盤在第一次轉動前會緩慢漂移（`DriftSpeed`、`IsDriftPaused`）。即時區域現在會播報「You won {prize}.」（`WonAnnouncement`），而不只是獎品名稱。未設定尺寸時，轉盤最大為 480 px，而非 360。`SizesByWeight` 維持其預設值（`True`）；將其設為 `False` 可得到等分的扇區。`PrizeWheel` 權杖值 `RimWidth` 和 `PointerLength` 現在以轉盤 400 單位的繪製框為準（16 和 29）。
+- `BranchGraph` 重新打造為合併策略預覽，與 Arc 的 Branch graph 一致（ADR 0047）：最新的提交位於頂端，44 px 的列帶有作者、雜湊與日期欄，以策略控制項（Before、Merge、Rebase、Squash）取代播放按鈕、說明文字與速度控制項，一行摘要，滑鼠懸停或鍵盤焦點時顯示的詳細資料卡片，以及首次載入時的掃描動畫。`Explainer` 成員對應到自動播放循環（Before → Rebase → Merge → Squash）：`AutoPlay` 啟動循環，`Pause()` 暫停循環，`StepForward()` 選取下一個策略，`Restart()` 重新繪製圖形，`Speed` 調整動畫速度，`AreControlsVisible` 顯示策略控制項；`IsLooping` 沒有作用（循環一律重複）。`StartsFinished` 略過掃描動畫與循環；`CommitDrawn` 和 `RevealedCount` 跟隨掃描動畫；`SelectedCommit` 是卡片被釘選的提交（它不再突顯祖先提交）。`Tag` 會以分支顏色的膠囊標籤顯示。`BranchGraphSamples.CreateCommits()` 會傳回一段新的虛構歷程（`feat/filters` 上的一個提取要求）。
+- 目錄群組遵循 uiarc.dev 的側欄（2026-11-14）。`BlockCatalog`：代理（Agent）區塊（`AgentRun`、`AgentTasks`、`AgentApprovals`、`AgentRoutines`、`AgentOrchestrator`、`McpServers`、`KnowledgeBase`、`EvalSuite`、`AgentBuilder`、`AgentGallery`）從 `Ai` 移到 `Agents`；`CallInsights` 和 `LeadScoring` 移到 `Ai`；`TwoFactorSetup` 移到 `Auth`；`OnboardingSurvey` 和 `SpendAlert` 移到 `Settings`；`WalletCard` 移到 `Commerce`；`ActivityFeed` 移到 `Support`；`FeedbackBoard` 和 `SmartScheduler` 移到 `Projects`；`ComparisonTable` 移到 `Features`；`TeamShowcase` 移到 `Content`；整頁區塊（`MetricsDashboard`、`MarketTerminal`、`KanbanBoard`、`ProjectBoard`、`GanttTimeline`、`WeekCalendar`、`TeamDirectory`、`InboxTriage`、`SupportConversation`、`HelpCenter`、`ProductListing`、`ProductDetail`、`InvoiceStudio`）移到 Screens 群組；同一群組內的區塊依 Arc 的順序排列。依群組代碼篩選 `BlockCatalog.Blocks` 的程式碼可能需要改用新的代碼。類別名稱、命名空間與套件皆維持不變。
+- 原始碼資料夾遵循群組：`TKCode.Arc.Blocks` 的畫面類區塊位於 `Screens/<Group>/` 下；在 `TKCode.Arc.Special` 中，`SandText`、`TypewriterTerminal` 和 `KeycapKeyboard` 位於 `Type/` 下，`Photos/` 改為 `Galleries/`，Dock 與分頁位於 `DocksTabs/` 下（包含 `MagnifyDock`），`EmojiPicker` 位於 `Pickers/` 下，`ConfirmPopover` 和 `ShareAccess` 位於 `Overlays/` 下，`UndoToast` 位於 `Messages/` 下，`MegaMenuMorph` 和 `TocProgress` 位於 `Navigation/` 下。沒有任何型別移到其他套件。
+- **`SandText` 現在是落沙標題**（`TKCode.Arc.Special`，ADR 0047）：沙粒從上方傾瀉進字母中，指標（滑鼠、手寫筆或拖曳的手指）會在其中挖掘，沙粒則堆積在文字下方；最後一次挖掘約 0.7 s 後字母會復原，灑落的沙子隨之消失；新的 `Text` 會讓舊字母塌成沙丘，同時新字詞傾瀉而入。控制項會填滿其寬度，高 1.55 em（先前依文字量測尺寸），使用強調色與 Medium 字重，不取得鍵盤焦點（它先前是 `Trigger="Click"` 的按鈕），並以標題的身分被朗讀。在減少動態效果下，字母始終保持成形，新文字會立即替換。`IsDissolved`、`Dissolve()`、`Gather()` 和 `Toggle()` 仍可正常運作：字母落下並消失，然後重新傾瀉回來。每當一次傾瀉讓字母恢復完整時（首次顯示、新文字、`Gather()` 或復原）都會引發 `Gathered`；最後一粒沙消失時引發 `Dissolved`。
+- `TocProgress` 遵循 Arc 的目錄進度：軌道現在是一條線，依標題層級分入各自的通道，層級之間以 S 形彎曲過渡，軌跡寬 1.5px，已讀部分為強調色，7px 的標記周圍留有小間隙；每個章節從其標題到下一個標題填滿這條線，閱讀位置透過臨界阻尼彈簧跟隨捲動。各列使用 13px 一般字重的文字（目前的列不再使用中等字重），會換行而不是以省略號結尾，滑鼠懸停時會讓後續的列變亮，並在鍵盤焦點框下顯示淡色填滿。現在每一列都是一個 Tab 停駐點。接近文章結尾時，閱讀線會緩緩下移到檢視區底部。標題區預設顯示剩餘分鐘數，而非百分比；`ShowsTimeLeft="False"` 可恢復百分比（`ShowsPercent`）。選取的標題在整個滑行過程中不再保持突顯：標記會依序經過中間的各個章節（每個章節都會引發 `ActiveChanged`），而文章無法捲動到閱讀線的標題會一直保持為目前項目，直到讀者捲動為止。在第一個標題之前，`ActiveIndex` 仍為 -1，但第一列會顯示為目前項目。
+- `SplitBar` 的外觀與動態效果與 Arc 的 Split bar 一致（設計參考，ADR 0047）：44 px 的長條，各部分帶有淡色調，每個部分末端有一條實色細條；容得下標籤的部分在內部顯示標籤，其他部分的標籤則放在帶有引導線的通道中；讀數會在總計與突顯的部分之間切換；另有一個由切換開關組成的圖例。突顯會加寬該部分（至少為長條的 4.5%，或足以容納其標籤），而不是將其抬起，並將其他部分調暗到一半。占比顯示一位小數；圖例項目顯示占比，或在 `ShowsPercent="False"` 時顯示數值（先前兩者都顯示），`IsSumVisible` 現在會顯示或隱藏該讀數。鍵盤：讓長條取得焦點不再突顯第一個部分，方向鍵會循環切換，Enter 或空白鍵會在 `SegmentInvoked` 之後關閉突顯的部分，除非處理常式將該事件標記為已處理。預設顏色為系列 1 到 4，接著是兩種中性色（先前是這四個系列顏色的較淺輪次）。`SplitBar` 權杖保留原有名稱並使用新值（`BarHeight` 44、`SegmentGap` 2、`DimOpacity` 0.5、`HighlightLift` 0、`DotSize` 12、`LegendItemGap` 4、`LegendLineGap` 2），並為新部分新增幾何、文字與填滿值。
+
+### 棄用
+
+沒有任何內容被移除。以下每一項都仍可使用，標記為 `[Obsolete]`，並至少保留兩個穩定版本。
+
+- **`SandText.Trigger`**：請改用 `IsDigEnabled`。`Trigger="None"` 會將 `IsDigEnabled` 設為 false，`Click` 和 `Hover` 會將其設為 true；兩種情況下指標都會挖掘。
+- **`SandText.Drift`、`Duration`、`Distance` 和 `MaxGrains`**：它們保留各自的值，但不再產生任何作用，因為沙子遵循固定的物理規則，每個 `GrainSize` 儲存格一粒沙。請以 `DigRadius` 設定指標的挖掘範圍，以 `GrainSize` 設定沙粒大小。列舉 `SandTextTrigger` 和 `SandTextDrift` 為這些成員而保留。
+- `BranchGraph.IsNewestFirst`（以及 `IsNewestFirstProperty`）：不再有作用，最新的提交一律位於頂端。請將其移除。
+- `BranchGraphLabels.Ready`、`Drawing`、`Paused`、`Done`、`Speed`、`ReadyCaption`、`FirstCaption`、`CommitCaption`、`BranchCaption`、`MergeCaption`、`TagCaption` 和 `DoneCaption`：圖形不再有狀態列、說明文字或速度控制項；它們保留各自的值，但不會顯示。圖形下方的文字請改用 `BeforeSummary`、`MergeSummary`、`RebaseSummary` 和 `SquashSummary`。
+
+### 修復
+
+- `ColorPicker`：空白標籤不再於觸發器或彈出視窗標題區中佔用一個空行，讓十六進位值在其色塊旁保持垂直置中。面板開啟期間變更的標籤也會更新其可見性。點選 Done 後收合時，變形的標題區現在會與實際觸發器的色塊尺寸及文字位置對齊，包括 Small 的 24px 色塊與只顯示十六進位值的那一行，而且不會改變完全展開時的面板配置。標籤行會在收合時隨十六進位值一起移動，因此十六進位值不再從標籤行中滑過。
+- `UserMenu` 會跟隨應用程式的語言（[#123](https://github.com/AIDotNet/TKCode.Arc/issues/123)）：Status、Theme 和 Sign out 列、「Signing out」、狀態與佈景主題選項的名稱，以及無障礙名稱先前一律是英文。現在它們來自新的 `UserMenuLangResourceKind` 目錄（en-US、zh-CN、zh-TW），並會在語言變更時隨之改變，即使選單正在開啟中也一樣。
+- Android 上的影片（`TKCode.Arc.Video.Native`）：平台拋出例外時，播放不再導致應用程式關閉。來自 `MediaPlayer` 或 `ImageReader` 的 Java 例外（列出音軌、建立畫面讀取器、`Start`、不支援的播放速率、解碼器產生了讀取器拒絕的格式的影像）先前會逸出 `MediaPlayer` 回呼或影格回呼並結束處理程序。現在載入、啟動以及畫面讀取器建立失敗會讓播放器進入 `VideoPlaybackState.Failed` 並引發 `Failed`；音量、循環播放、速率、跳轉、文字軌清單以及單一無法讀取的影格發生錯誤時會被略過（並留下追蹤記錄）。平面小於其步幅所宣告大小的影格會被捨棄，而不是拋出 `IndexOutOfRangeException`。
+- 圖表：寬度小於工具提示最小寬度的 `LineChart`（以及共用其工具提示的其他圖表）在版面配置時不再從 `Math.Clamp` 拋出 `ArgumentException`；工具提示會縮小以符合繪圖區。
+- 放在 `Card` 中的 `DonutChart` 和 `BarChart`：大型總計（`PART_CenterValue`）與數值（`PART_ValueText`）不再繼承卡片內文 1.4 × 14px 的行高（該行高會將它們裁切）；它們會保持字型本身的行高。
 
 ## 1.1.0（2026-11-13）
 
