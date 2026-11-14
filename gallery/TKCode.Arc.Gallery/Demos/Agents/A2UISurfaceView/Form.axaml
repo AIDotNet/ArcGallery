@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.A2UISurfaceViewFormDemo">
+    <!-- Inputs write to the surface's data model; the button's checks keep it disabled until the form is valid, and its
+         action is the message the agent would receive. -->
+    <Grid ColumnDefinitions="*,280" ColumnSpacing="20">
+        <arc:A2UISurfaceView x:Name="View" SurfaceId="contact_1" />
+        <StackPanel Grid.Column="1" Spacing="8">
+            <TextBlock Text="Data model" FontWeight="SemiBold" />
+            <SelectableTextBlock x:Name="Data" TextWrapping="Wrap" FontFamily="{arc:ArcDesignTokenResource MonoFontFamily}" FontSize="12"
+                                 Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+            <TextBlock Text="Sent to the agent" FontWeight="SemiBold" Margin="0,8,0,0" />
+            <SelectableTextBlock x:Name="Sent" TextWrapping="Wrap" FontFamily="{arc:ArcDesignTokenResource MonoFontFamily}" FontSize="12"
+                                 Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+        </StackPanel>
+    </Grid>
+</UserControl>
