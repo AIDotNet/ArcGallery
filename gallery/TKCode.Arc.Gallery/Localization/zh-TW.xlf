@@ -151,10 +151,10 @@
         <target state="translated">趣味</target>
       </segment>
     </unit>
-    <unit id="Category_Widgets">
+    <unit id="Category_Type">
       <segment>
-        <source>Widgets</source>
-        <target state="translated">小元件</target>
+        <source>Type</source>
+        <target state="translated">文字</target>
       </segment>
     </unit>
     <unit id="Category_Ai">
@@ -187,22 +187,10 @@
         <target state="translated">玻璃</target>
       </segment>
     </unit>
-    <unit id="Category_Photos">
+    <unit id="Category_Galleries">
       <segment>
-        <source>Photos</source>
-        <target state="translated">照片</target>
-      </segment>
-    </unit>
-    <unit id="Category_Publishing">
-      <segment>
-        <source>Publishing</source>
-        <target state="translated">內容發布</target>
-      </segment>
-    </unit>
-    <unit id="Category_Inputs">
-      <segment>
-        <source>Inputs</source>
-        <target state="translated">輸入</target>
+        <source>Galleries</source>
+        <target state="translated">圖庫</target>
       </segment>
     </unit>
     <unit id="Category_Cursor">
@@ -467,6 +455,30 @@
       <segment>
         <source>Mobile</source>
         <target state="translated">行動裝置</target>
+      </segment>
+    </unit>
+    <unit id="PlaygroundTitle">
+      <segment>
+        <source>Properties</source>
+        <target state="translated">屬性</target>
+      </segment>
+    </unit>
+    <unit id="PlaygroundReset">
+      <segment>
+        <source>Reset</source>
+        <target state="translated">重置</target>
+      </segment>
+    </unit>
+    <unit id="PlaygroundNotSet">
+      <segment>
+        <source>Not set</source>
+        <target state="translated">未設定</target>
+      </segment>
+    </unit>
+    <unit id="PlaygroundXaml">
+      <segment>
+        <source>XAML</source>
+        <target state="translated">XAML</target>
       </segment>
     </unit>
     <unit id="PreviewFullscreen">
@@ -737,6 +749,54 @@
       <segment>
         <source>Showpieces</source>
         <target state="translated">展示</target>
+      </segment>
+    </unit>
+    <unit id="Category_Screens">
+      <segment>
+        <source>Screens</source>
+        <target state="translated">頁面</target>
+      </segment>
+    </unit>
+    <unit id="BlockGroup_Agents">
+      <segment>
+        <source>Agents</source>
+        <target state="translated">智慧代理</target>
+      </segment>
+    </unit>
+    <unit id="BlockGroup_Dashboards">
+      <segment>
+        <source>Dashboards</source>
+        <target state="translated">儀表板</target>
+      </segment>
+    </unit>
+    <unit id="BlockGroup_ScreenProjects">
+      <segment>
+        <source>Projects</source>
+        <target state="translated">專案</target>
+      </segment>
+    </unit>
+    <unit id="BlockGroup_Calendars">
+      <segment>
+        <source>Calendars</source>
+        <target state="translated">行事曆</target>
+      </segment>
+    </unit>
+    <unit id="BlockGroup_PeopleCustomers">
+      <segment>
+        <source>People and customers</source>
+        <target state="translated">人員與客戶</target>
+      </segment>
+    </unit>
+    <unit id="BlockGroup_InboxSupport">
+      <segment>
+        <source>Inbox and support</source>
+        <target state="translated">收件匣與支援</target>
+      </segment>
+    </unit>
+    <unit id="BlockGroup_ScreenCommerce">
+      <segment>
+        <source>Commerce</source>
+        <target state="translated">電商</target>
       </segment>
     </unit>
     <unit id="Category_Docs">
@@ -1787,6 +1847,12 @@
       <segment>
         <source>Open source</source>
         <target state="translated">開源專案</target>
+      </segment>
+    </unit>
+    <unit id="NavA2UI">
+      <segment>
+        <source>A2UI</source>
+        <target state="translated">A2UI</target>
       </segment>
     </unit>
     <unit id="ProductAllComponents">

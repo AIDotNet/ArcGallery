@@ -19,6 +19,8 @@ internal static class Program
         GalleryLogos.Source = new AssetLogoSource();
         // The language chosen in the top bar is kept for the next start; until there is one, the system's language decides.
         GalleryLanguages.Store = new FileLanguageStore();
+        // The A2UI Chat app (top bar → A2UI) keeps its settings and conversations in the same folder as the standalone app.
+        GalleryA2UI.Storage = new TKCode.Arc.A2UI.Chat.FileChatStorage();
         // Media players make sound through miniaudio; without the native library for this platform they keep time silently.
         ArcAudioNative.Use();
         // Video players decode with the system player (AVFoundation, Media Foundation, GStreamer); without it they show a test picture.

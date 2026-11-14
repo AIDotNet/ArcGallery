@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.KeycapKeyboardPreviewDemo">
+    <!-- Tracking="Window" hears typing anywhere on the page (never in text fields); the switch swaps the board. -->
+    <StackPanel Spacing="16" MaxWidth="760">
+        <arc:KeycapKeyboard x:Name="Keys" Tracking="Window" Placeholder="Press any key to try it" />
+        <arc:SegmentedControl x:Name="LayoutPicker" HorizontalAlignment="Center" SelectedValue="Compact">
+            <arc:SegmentedOption Value="Compact" Label="Compact" />
+            <arc:SegmentedOption Value="Letters" Label="Letters" />
+        </arc:SegmentedControl>
+    </StackPanel>
+</UserControl>

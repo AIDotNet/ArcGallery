@@ -1,10 +1,10 @@
 ---
 title: 下拉选择
 summary: 从简短固定列表中选择一个值的下拉字段，带标签，菜单支持键盘操作。
-source-hash: 0589fbe662a4
+source-hash: 8c29e8999b95
 ---
 
-<Demo name="Field" />
+<Demo name="Playground" />
 
 ## 何时使用
 
@@ -165,6 +165,8 @@ var plans = new Select
 ### 占位文字与说明
 
 未选择任何项时显示 `Placeholder`，默认值为 “Select an option”。占位文字应告诉人们该选什么，例如“选择套餐”，并保持足够短以适应触发器。`Description` 是触发器下方的弱化提示，同时也是无障碍帮助文本。
+
+<Demo name="Field" />
 
 ```xml
 <arc:Select Label="套餐" Placeholder="选择套餐" Description="之后可以随时更改。" />

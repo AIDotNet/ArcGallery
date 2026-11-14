@@ -3,7 +3,7 @@ title: Select
 summary: The dropdown field for one value from a short, fixed list, with a label and a keyboard friendly menu.
 ---
 
-<Demo name="Field" />
+<Demo name="Playground" />
 
 ## When to use
 
@@ -200,6 +200,8 @@ whenever the form stores a code or an identifier rather than the object.
 `Placeholder` is shown while nothing is selected. Its default is "Select an option". Write a placeholder that tells
 the person what to choose, such as "Choose a plan", and keep it short enough for the trigger. `Description` is a muted
 hint under the trigger and is also the accessible help text.
+
+<Demo name="Field" />
 
 ```xml
 <arc:Select Label="Plan" Placeholder="Choose a plan" Description="You can change it later." />

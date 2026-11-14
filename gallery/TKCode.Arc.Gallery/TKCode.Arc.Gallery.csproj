@@ -18,6 +18,7 @@
         <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Pdf/TKCode.Arc.Pdf.csproj" />
         <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Themes.Corners/TKCode.Arc.Themes.Corners.csproj" />
         <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Themes.Pixel/TKCode.Arc.Themes.Pixel.csproj" />
+        <ProjectReference Include="../../a2ui/TKCode.Arc.A2UI.Chat/TKCode.Arc.A2UI.Chat.csproj" />
         <ProjectReference Include="../TKCode.Arc.Gallery.Shots/TKCode.Arc.Gallery.Shots.csproj" />
         <ProjectReference Include="../TKCode.Arc.Gallery.Content/TKCode.Arc.Gallery.Content.csproj" />
         <ProjectReference Include="../TKCode.Arc.Gallery.Generators/TKCode.Arc.Gallery.Generators.csproj"
@@ -53,6 +54,8 @@
     <ItemGroup>
         <AdditionalFiles Include="Docs/**/*.md" GalleryDocKind="Page" />
         <AdditionalFiles Include="Docs/Api/*.xlf" GalleryDocKind="ApiTranslation" />
+        <!-- The playground panel's property lists, next to the demos they belong to (design/engineering/gallery-playground.md). -->
+        <AdditionalFiles Include="Demos/**/*.knobs" />
         <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="GalleryDocKind" />
         <!-- Demos are found under, and shown relative to, this project's folder. -->
         <CompilerVisibleProperty Include="ProjectDir" />

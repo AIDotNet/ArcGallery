@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.SplitBarSignupsDemo">
+    <!-- Rest on a part to widen it, switch parts off in the legend, pick another period to reflow the bar. -->
+    <StackPanel Spacing="20" MaxWidth="720">
+        <arc:SegmentedControl x:Name="Period"
+                              HorizontalAlignment="Left"
+                              AutomationProperties.Name="Period"
+                              SelectedValue="week"
+                              SelectionChanged="OnPeriodChanged">
+            <arc:SegmentedOption Value="week" Label="Week" />
+            <arc:SegmentedOption Value="month" Label="Month" />
+            <arc:SegmentedOption Value="quarter" Label="Quarter" />
+        </arc:SegmentedControl>
+        <arc:SplitBar x:Name="Bar"
+                      Title="Signups by channel"
+                      Description="New accounts on the web app"
+                      Unit="signups">
+            <arc:SplitBarSegment Label="Newsletter" Value="19670" />
+            <arc:SplitBarSegment Label="Partners" Value="12100" />
+            <arc:SplitBarSegment Label="Search ads" Value="9350" />
+            <arc:SplitBarSegment Label="Events" Value="4720" />
+            <arc:SplitBarSegment Label="Podcasts" Value="1640" />
+            <arc:SplitBarSegment Label="Unknown" Value="720" />
+        </arc:SplitBar>
+    </StackPanel>
+</UserControl>

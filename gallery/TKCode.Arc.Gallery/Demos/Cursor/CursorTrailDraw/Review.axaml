@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.CursorTrailDrawReviewDemo">
+    <!-- A board that holds real work: no intro, two inks, and every change reported to the page. -->
+    <StackPanel Spacing="12" MaxWidth="904">
+        <arc:CursorTrailDraw x:Name="Board"
+                             Label="Onboarding screen review"
+                             PlaysIntro="False"
+                             Hint="Circle what needs another look."
+                             ItemsChanged="OnItemsChanged">
+            <arc:CursorTrailDraw.Inks>
+                <arc:CursorTrailDrawInk Id="ink" Label="Ink" />
+                <arc:CursorTrailDrawInk Id="accent" Label="Accent" />
+            </arc:CursorTrailDraw.Inks>
+        </arc:CursorTrailDraw>
+        <TextBlock x:Name="Log"
+                   Text="Nothing saved yet."
+                   TextWrapping="Wrap"
+                   FontSize="{arc:ArcDesignTokenResource TypeXS}"
+                   FontFamily="{arc:ArcDesignTokenResource MonoFontFamily}"
+                   Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+    </StackPanel>
+</UserControl>

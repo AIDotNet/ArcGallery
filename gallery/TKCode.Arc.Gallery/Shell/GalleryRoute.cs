@@ -22,7 +22,10 @@ public enum GalleryRouteKind
     ComponentsIndex,
 
     /// <summary>The desktop app's settings; the site has no such pages.</summary>
-    Settings
+    Settings,
+
+    /// <summary>The A2UI Chat app (its own layout, like the dashboard demo).</summary>
+    A2UI
 }
 
 /// <summary>
@@ -52,6 +55,9 @@ public sealed record GalleryRoute(GalleryRouteKind Kind, GalleryEntry? Entry = n
 
     /// <summary>The overview of the library.</summary>
     public static GalleryRoute ComponentsIndex { get; } = new(GalleryRouteKind.ComponentsIndex);
+
+    /// <summary>The A2UI Chat app.</summary>
+    public static GalleryRoute A2UI { get; } = new(GalleryRouteKind.A2UI);
 
     /// <summary>The desktop app's settings page <paramref name="page"/> (one of <see cref="GallerySettingsView.Pages"/>).</summary>
     public static GalleryRoute Settings(string page) => new(GalleryRouteKind.Settings, Page: page);
@@ -84,6 +90,7 @@ public sealed record GalleryRoute(GalleryRouteKind Kind, GalleryEntry? Entry = n
         GalleryRouteKind.StreamMark => "/streammark",
         GalleryRouteKind.Projects => "/projects",
         GalleryRouteKind.ComponentsIndex => "/components",
+        GalleryRouteKind.A2UI => "/a2ui",
         GalleryRouteKind.Settings => $"/settings/{Page}",
         GalleryRouteKind.Demo => Page is null ? "/demo" : $"/demo/{Page}",
         _ => Entry is null ? "/" : $"/{Kind.ToString().ToLowerInvariant()}/{Entry.Slug}"
@@ -96,6 +103,7 @@ public sealed record GalleryRoute(GalleryRouteKind Kind, GalleryEntry? Entry = n
         GalleryRouteKind.StreamMark => $"StreamMark · {Brand}",
         GalleryRouteKind.Projects => $"Open source · {Brand}",
         GalleryRouteKind.ComponentsIndex => $"Components · {Brand}",
+        GalleryRouteKind.A2UI => $"A2UI Chat · {Brand}",
         GalleryRouteKind.Settings => $"Settings · {Brand}",
         GalleryRouteKind.Demo => DemoPages.Find(Page) is { } page ? $"{page.Title} · Demo · {Brand}" : $"Demo · {Brand}",
         _ => Entry is null ? Brand : $"{Entry.Title} · {Brand}"
@@ -133,6 +141,10 @@ public sealed record GalleryRoute(GalleryRouteKind Kind, GalleryEntry? Entry = n
         {
             return ComponentsIndex;
         }
+        if (segments.Length == 1 && segments[0].Equals("a2ui", StringComparison.OrdinalIgnoreCase))
+        {
+            return A2UI;
+        }
         if (segments[0].Equals("settings", StringComparison.OrdinalIgnoreCase))
         {
             // The site has no settings, so the address means nothing there.
@@ -149,7 +161,7 @@ public sealed record GalleryRoute(GalleryRouteKind Kind, GalleryEntry? Entry = n
                 _ => null
             };
         }
-        if (segments.Length != 2 || !Enum.TryParse<GalleryRouteKind>(segments[0], ignoreCase: true, out var kind) || kind is GalleryRouteKind.Home or GalleryRouteKind.Friends or GalleryRouteKind.Demo or GalleryRouteKind.StreamMark or GalleryRouteKind.Projects or GalleryRouteKind.ComponentsIndex or GalleryRouteKind.Settings)
+        if (segments.Length != 2 || !Enum.TryParse<GalleryRouteKind>(segments[0], ignoreCase: true, out var kind) || kind is GalleryRouteKind.Home or GalleryRouteKind.Friends or GalleryRouteKind.Demo or GalleryRouteKind.StreamMark or GalleryRouteKind.Projects or GalleryRouteKind.ComponentsIndex or GalleryRouteKind.Settings or GalleryRouteKind.A2UI)
         {
             return null;
         }
@@ -163,7 +175,7 @@ public sealed record GalleryRoute(GalleryRouteKind Kind, GalleryEntry? Entry = n
         {
             index[(GalleryRouteKind.Docs, entry.Slug)] = entry;
         }
-        foreach (var entry in GalleryCatalog.Blocks.AllEntries)
+        foreach (var entry in GalleryCatalog.Blocks.AllEntries.Concat(GalleryCatalog.Screens.AllEntries))
         {
             index[(GalleryRouteKind.Blocks, entry.Slug)] = entry;
         }

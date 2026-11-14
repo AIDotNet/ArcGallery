@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk.WebAssembly">
+    <!-- The A2UI Chat site (a2ui.tkcode.si). Built in a container by a2ui/Dockerfile: like the gallery's WebAssembly host it needs
+         the wasm-tools workload (WasmBuildNative links Skia), so it is not in ArcGallery.slnx. -->
+    <PropertyGroup>
+        <TargetFramework>net11.0-browser</TargetFramework>
+        <RootNamespace>TKCode.Arc.A2UI.Chat.Browser</RootNamespace>
+        <AssemblyName>A2UIChat.Browser</AssemblyName>
+        <IsPackable>false</IsPackable>
+        <NoWarn>$(NoWarn);CS0436</NoWarn>
+        <OverrideHtmlAssetPlaceholders>true</OverrideHtmlAssetPlaceholders>
+        <WasmBuildNative>true</WasmBuildNative>
+        <PublishTrimmed Condition="'$(PublishTrimmed)' == '' And '$(_IsPublishing)' == 'true'">true</PublishTrimmed>
+        <!-- Browser storage uses JSImport. -->
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <!-- TKCode.Arc's code highlighting (TextMate) links Oniguruma statically. The Onigwrap package only has WebAssembly archives for
+             older Emscripten versions; use the gallery's build of it (gallery/TKCode.Arc.Gallery.Browser/native/onigwrap, made by
+             tools/onigwrap/build-wasm.sh), as the gallery's WebAssembly host does. -->
+        <OnigwrapWasmLibraryPath>$(MSBuildThisFileDirectory)../../gallery/TKCode.Arc.Gallery.Browser/native/onigwrap</OnigwrapWasmLibraryPath>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Avalonia.Browser" />
+        <PackageReference Include="Avalonia.Fonts.Inter" />
+        <ProjectReference Include="../TKCode.Arc.A2UI.Chat/TKCode.Arc.A2UI.Chat.csproj" />
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Fonts/TKCode.Arc.Fonts.csproj" />
+    </ItemGroup>
+    <!-- The same Skia and HarfBuzz builds as the gallery's WebAssembly host (see its project file for why). -->
+    <ItemGroup>
+        <PackageReference Include="SkiaSharp" VersionOverride="4.151.2" />
+        <PackageReference Include="SkiaSharp.NativeAssets.WebAssembly" VersionOverride="4.151.2" />
+        <PackageReference Include="HarfBuzzSharp" VersionOverride="14.2.1.200" />
+        <PackageReference Include="HarfBuzzSharp.NativeAssets.WebAssembly" VersionOverride="14.2.1.200" />
+    </ItemGroup>
+    <!-- The Chinese font (Noto Sans SC subset, SIL OFL 1.1) is the gallery's file, served here as fonts/: one copy to keep up to date
+         (tools/fonts/subset-noto-sans-sc.py covers a2ui/ as well). Fetched only when Chinese text is first drawn (CjkFont.cs). -->
+    <ItemGroup>
+        <Content Include="../../gallery/TKCode.Arc.Gallery.Browser/wwwroot/fonts/NotoSansSC-Subset.otf" Link="wwwroot/fonts/NotoSansSC-Subset.otf" />
+        <Content Include="../../gallery/TKCode.Arc.Gallery.Browser/wwwroot/fonts/OFL.txt" Link="wwwroot/fonts/OFL.txt" />
+        <!-- The Arc mark as the tab icon, also the gallery's. -->
+        <Content Include="../../gallery/TKCode.Arc.Gallery.Browser/wwwroot/favicon.png" Link="wwwroot/favicon.png" />
+        <Content Include="../../gallery/TKCode.Arc.Gallery.Browser/wwwroot/apple-touch-icon.png" Link="wwwroot/apple-touch-icon.png" />
+    </ItemGroup>
+    <ItemGroup>
+        <StaticWebAssetFingerprintPattern Include="JS" Pattern="*.js" Expression="#[.{fingerprint}]!" />
+    </ItemGroup>
+</Project>

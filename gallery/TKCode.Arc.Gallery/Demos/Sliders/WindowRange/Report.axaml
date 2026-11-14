@@ -1,0 +1,62 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.WindowRangeReportDemo">
+    <Border x:Name="Card"
+            MaxWidth="744"
+            Padding="18,20,18,18"
+            BorderThickness="1"
+            Background="{arc:ArcDesignTokenResource Surface}"
+            BorderBrush="{arc:ArcDesignTokenResource Border}"
+            CornerRadius="{arc:ArcDesignTokenResource RadiusStep24}">
+        <StackPanel Spacing="18">
+            <Grid x:Name="Head" ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                <StackPanel Spacing="2">
+                    <TextBlock Text="Sessions"
+                               FontSize="13"
+                               LineHeight="18.2"
+                               Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+                    <TextBlock x:Name="Total"
+                               FontSize="28"
+                               LineHeight="30.8"
+                               LetterSpacing="-0.84"
+                               FontWeight="Medium"
+                               FontFeatures="tnum"
+                               FontFamily="{arc:ArcDesignTokenResource DisplayFontFamily}"
+                               Foreground="{arc:ArcDesignTokenResource Foreground}" />
+                    <StackPanel Orientation="Horizontal" Spacing="4" Height="18.2">
+                        <arc:ArcGlyph x:Name="TrendIcon"
+                                      Size="16"
+                                      StrokeThickness="1.75"
+                                      VerticalAlignment="Center" />
+                        <TextBlock x:Name="Change"
+                                   FontSize="13"
+                                   FontWeight="Medium"
+                                   FontFeatures="tnum"
+                                   VerticalAlignment="Center" />
+                        <TextBlock x:Name="Compare"
+                                   FontSize="13"
+                                   TextTrimming="CharacterEllipsis"
+                                   VerticalAlignment="Center"
+                                   Foreground="{arc:ArcDesignTokenResource TextMuted}" />
+                    </StackPanel>
+                </StackPanel>
+                <arc:SegmentedControl x:Name="Presets"
+                                      Grid.Column="1"
+                                      VerticalAlignment="Top"
+                                      AutomationProperties.Name="Quick ranges"
+                                      SelectionChanged="OnPresetChanged">
+                    <arc:SegmentedOption Value="7" Label="7d" />
+                    <arc:SegmentedOption Value="30" Label="30d" />
+                    <arc:SegmentedOption Value="90" Label="90d" />
+                </arc:SegmentedControl>
+            </Grid>
+            <arc:WindowRange x:Name="Range"
+                             Label="Report range"
+                             MinSpan="6"
+                             ChartHeight="144"
+                             IsLive="True"
+                             ValueChanged="OnRangeChanged" />
+        </StackPanel>
+    </Border>
+</UserControl>

@@ -66,4 +66,28 @@ internal static class GalleryDocsDiagnostics
         "GDOC012", "Demo not shown",
         "The demo {0} is not shown by the en-US page of {1}; add '<Demo name=\"{2}\" />' to it or remove the file",
         Category, DiagnosticSeverity.Warning, isEnabledByDefault: true);
+    public static readonly DiagnosticDescriptor UnknownKnobProperty = new(
+        "GDOC030", "Unknown playground property",
+        "{0}: '{1}' is not a public Avalonia property of {2}",
+        Category, DiagnosticSeverity.Error, isEnabledByDefault: true);
+
+    public static readonly DiagnosticDescriptor UnsupportedKnobType = new(
+        "GDOC031", "Unsupported playground property",
+        "{0}: '{1}' cannot be edited by the panel: {2} (it edits bool, enum, int, double and string properties that can be set)",
+        Category, DiagnosticSeverity.Error, isEnabledByDefault: true);
+
+    public static readonly DiagnosticDescriptor InvalidKnob = new(
+        "GDOC032", "Invalid playground line",
+        "{0}, line {1}: {2}",
+        Category, DiagnosticSeverity.Error, isEnabledByDefault: true);
+
+    public static readonly DiagnosticDescriptor PlaygroundWithoutTarget = new(
+        "GDOC033", "Playground without a target",
+        "{0} needs the demo {1} (Demos/.../{1}.axaml) with an element named x:Name=\"Target\" for the panel to change",
+        Category, DiagnosticSeverity.Error, isEnabledByDefault: true);
+
+    public static readonly DiagnosticDescriptor HiddenKnobProperty = new(
+        "GDOC034", "Hidden playground property",
+        "{0}: '{1}' is obsolete or hidden from the editor, so the API table does not list it either",
+        Category, DiagnosticSeverity.Error, isEnabledByDefault: true);
 }

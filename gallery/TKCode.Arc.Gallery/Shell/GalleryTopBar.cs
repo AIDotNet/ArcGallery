@@ -44,10 +44,11 @@ public sealed class GalleryTopBar : Border
     private readonly Button _language;
     private readonly TextBlock _languageName;
     private readonly MenuSurface _languageMenu;
-    private readonly string[] _navValues = ["components", "projects", "docs"];
+    private readonly string[] _navValues = ["components", "projects", "docs", "a2ui"];
     private readonly GalleryShellLangResourceKind[] _navLabels =
     [
-        GalleryShellLangResourceKind.Components, GalleryShellLangResourceKind.NavProjects, GalleryShellLangResourceKind.Category_Docs
+        GalleryShellLangResourceKind.Components, GalleryShellLangResourceKind.NavProjects, GalleryShellLangResourceKind.Category_Docs,
+        GalleryShellLangResourceKind.NavA2UI
     ];
     private readonly List<(SiteHeaderLink Link, GalleryShellLangResourceKind Label, GalleryShellLangResourceKind Text, Func<GalleryRoute> Route)> _componentLinks = new();
     private readonly Button? _download;
@@ -113,6 +114,7 @@ public sealed class GalleryTopBar : Border
                     {
                         "docs" => shell.RouteFor(GalleryRouteKind.Docs),
                         "projects" => GalleryRoute.Projects,
+                        "a2ui" => GalleryRoute.A2UI,
                         _ => GalleryRoute.ComponentsIndex
                     });
                     break;
@@ -600,6 +602,7 @@ public sealed class GalleryTopBar : Border
             GalleryRouteKind.Components or GalleryRouteKind.Blocks or GalleryRouteKind.ComponentsIndex => "components",
             GalleryRouteKind.Docs => "docs",
             GalleryRouteKind.Projects or GalleryRouteKind.StreamMark => "projects",
+            GalleryRouteKind.A2UI => "a2ui",
             _ => null
         };
     }

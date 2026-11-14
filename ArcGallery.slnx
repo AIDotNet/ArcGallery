@@ -7,6 +7,11 @@
     <Project Path="gallery/TKCode.Arc.Gallery.Generators/TKCode.Arc.Gallery.Generators.csproj" />
     <Project Path="gallery/TKCode.Arc.Gallery.Llms/TKCode.Arc.Gallery.Llms.csproj" />
   </Folder>
+  <Folder Name="/a2ui/">
+    <Project Path="a2ui/TKCode.Arc.A2UI.Chat/TKCode.Arc.A2UI.Chat.csproj" />
+    <Project Path="a2ui/TKCode.Arc.A2UI.Chat.Desktop/TKCode.Arc.A2UI.Chat.Desktop.csproj" />
+    <Project Path="a2ui/tests/TKCode.Arc.A2UI.Chat.Tests/TKCode.Arc.A2UI.Chat.Tests.csproj" />
+  </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/TKCode.Arc.Gallery.Tests/TKCode.Arc.Gallery.Tests.csproj" />
   </Folder>

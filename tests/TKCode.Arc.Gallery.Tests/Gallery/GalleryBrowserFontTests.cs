@@ -36,10 +36,10 @@ public class GalleryBrowserFontTests
                               string.Join("\n", missing.Select(m => $"{(char)m.Key} U+{m.Key:X4} in {m.Value}")));
     }
 
-    /// <summary>The Markdown and XLIFF texts of the gallery and the libraries, and the catalogs that hold Chinese titles.</summary>
+    /// <summary>The Markdown and XLIFF texts of the gallery, A2UI Chat and the libraries, the catalogs that hold Chinese titles and A2UI Chat's interface strings.</summary>
     private static IEnumerable<string> TextFiles()
     {
-        foreach (var folder in new[] { Path.Combine(RepositoryPaths.Gallery, "gallery"), Path.Combine(RepositoryPaths.Arc, "src") })
+        foreach (var folder in new[] { Path.Combine(RepositoryPaths.Gallery, "gallery"), Path.Combine(RepositoryPaths.Gallery, "a2ui"), Path.Combine(RepositoryPaths.Arc, "src") })
         {
             foreach (var path in Directory.EnumerateFiles(folder, "*", SearchOption.AllDirectories))
             {
@@ -49,7 +49,8 @@ public class GalleryBrowserFontTests
                     continue;
                 }
                 if (path.EndsWith(".md", StringComparison.Ordinal) || path.EndsWith(".xlf", StringComparison.Ordinal) ||
-                    Path.GetFileName(path).Contains("Catalog", StringComparison.Ordinal) && path.EndsWith(".cs", StringComparison.Ordinal))
+                    (Path.GetFileName(path).Contains("Catalog", StringComparison.Ordinal) || path.EndsWith("Strings.cs", StringComparison.Ordinal))
+                    && path.EndsWith(".cs", StringComparison.Ordinal))
                 {
                     yield return path;
                 }
