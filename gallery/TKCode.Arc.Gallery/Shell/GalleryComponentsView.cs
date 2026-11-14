@@ -26,12 +26,13 @@ internal sealed class GalleryComponentsView : UserControl
         [
             new GalleryAtlas(shell, GalleryCatalog.AllCategories.ToList()),
             new GalleryAtlas(shell, GalleryCatalog.Blocks.Subcategories ?? []),
+            new GalleryAtlas(shell, GalleryCatalog.Screens.Subcategories ?? []),
             new GalleryAtlas(shell, GalleryCatalog.Special),
             new GalleryAtlas(shell, [GalleryCatalog.Mobile])
         ];
         GalleryShellLangResourceKind[] labels =
         [
-            GalleryShellLangResourceKind.Components, GalleryShellLangResourceKind.Category_Blocks,
+            GalleryShellLangResourceKind.Components, GalleryShellLangResourceKind.Category_Blocks, GalleryShellLangResourceKind.Category_Screens,
             GalleryShellLangResourceKind.ProductSpecial, GalleryShellLangResourceKind.ProductMobile
         ];
         _counts = new TextBlock[labels.Length];
@@ -65,7 +66,7 @@ internal sealed class GalleryComponentsView : UserControl
         var controls = new GalleryTwoPane { EndWidth = 320, StackBelow = 640, Spacing = 12 };
         controls.Children.Add(tabs);
         controls.Children.Add(_filter);
-        // A phone has room for the four names, not for their counts.
+        // A phone has room for the five names, not for their counts.
         controls.SizeChanged += (_, e) =>
         {
             var phone = e.NewSize.Width < GallerySite.PhoneWidth;
@@ -91,7 +92,7 @@ internal sealed class GalleryComponentsView : UserControl
         SyncCounts(string.Empty);
     }
 
-    /// <summary>The tabs: components, blocks, effects and mobile.</summary>
+    /// <summary>The tabs: components, blocks, screens, effects and mobile.</summary>
     public GallerySegmented Tabs { get; }
 
     /// <summary>The filter box.</summary>
@@ -103,7 +104,7 @@ internal sealed class GalleryComponentsView : UserControl
     /// <summary>The count shown on each tab, in tab order.</summary>
     internal IReadOnlyList<TextBlock> Counts => _counts;
 
-    /// <summary>Shows a tab: 0 components, 1 blocks, 2 effects, 3 mobile.</summary>
+    /// <summary>Shows a tab: 0 components, 1 blocks, 2 screens, 3 effects, 4 mobile.</summary>
     internal void Show(int index)
     {
         for (var i = 0; i < _atlases.Length; i++)

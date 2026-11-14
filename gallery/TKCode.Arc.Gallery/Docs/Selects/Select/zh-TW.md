@@ -1,10 +1,10 @@
 ---
 title: 下拉選擇
 summary: 從簡短固定清單中選擇一個值的下拉欄位，帶標籤，選單支援鍵盤操作。
-source-hash: 0589fbe662a4
+source-hash: 8c29e8999b95
 ---
 
-<Demo name="Field" />
+<Demo name="Playground" />
 
 ## 何時使用
 
@@ -165,6 +165,8 @@ var plans = new Select
 ### 預留位置文字與說明文字
 
 尚未選取任何項目時會顯示 `Placeholder`，預設值為 “Select an option”。預留位置文字應告訴使用者該選什麼，例如「選擇方案」，並保持足夠簡短以放進觸發器。`Description` 是觸發器下方的淡色提示，同時也是無障礙的說明文字。
+
+<Demo name="Field" />
 
 ```xml
 <arc:Select Label="方案" Placeholder="選擇方案" Description="之後可以隨時變更。" />

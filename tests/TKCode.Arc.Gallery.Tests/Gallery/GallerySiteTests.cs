@@ -293,6 +293,7 @@ public class GallerySiteTests
             all.ShouldBeGreaterThanOrEqualTo(TKCode.Arc.Gallery.Catalog.GalleryCatalog.Count);
             page.Counts[0].Text.ShouldBe(all.ToString(), "every tab shows its size");
             page.Counts[1].Text.ShouldBe(TKCode.Arc.Gallery.Catalog.GalleryCatalog.Blocks.AllEntries.Count().ToString());
+            page.Counts[2].Text.ShouldBe(TKCode.Arc.Gallery.Catalog.GalleryCatalog.Screens.AllEntries.Count().ToString());
             page.FilterBox.Text = "chart";
             Dispatcher.UIThread.RunJobs();
             page.Current.VisibleEntries.ShouldNotBeEmpty();
@@ -309,7 +310,7 @@ public class GallerySiteTests
             page.Current.VisibleEntries.Count().ShouldBe(all);
             page.Counts[0].Text.ShouldBe(all.ToString());
 
-            page.Show(3);
+            page.Show(4);
             Dispatcher.UIThread.RunJobs();
             page.Current.Build();
             page.Current.VisibleEntries.Count().ShouldBe(TKCode.Arc.Gallery.Catalog.GalleryCatalog.Mobile.Entries.Length);

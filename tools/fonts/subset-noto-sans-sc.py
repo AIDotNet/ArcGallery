@@ -30,7 +30,8 @@ SKIPPED = ("/obj/", "/bin/", "/GeneratedFiles/", "/node_modules/", "/.git/")
 
 def repository_characters():
     used = set()
-    for folder in (os.path.join(ROOT, "gallery"), os.path.join(ARC_ROOT, "src")):
+    # a2ui/ is the A2UI Chat app, whose WebAssembly host uses the same font.
+    for folder in (os.path.join(ROOT, "gallery"), os.path.join(ROOT, "a2ui"), os.path.join(ARC_ROOT, "src")):
         for folder_path, _, names in os.walk(folder):
             if any(part in folder_path + "/" for part in SKIPPED):
                 continue

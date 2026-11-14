@@ -1,10 +1,10 @@
 ---
 title: 開關
 summary: 用於立即生效設定的觸感式開關。
-source-hash: fbfcf6417ee7
+source-hash: ff288ce10303
 ---
 
-<Demo name="SettingsList" />
+<Demo name="Playground" />
 
 ## 何時使用
 
@@ -50,6 +50,8 @@ source-hash: fbfcf6417ee7
 ### 設定清單
 
 將開關堆疊起來，即形成一個設定清單。每個開關的標籤都說明設定的名稱，各列之間靠清單的間距分隔，而不是用線條。
+
+<Demo name="SettingsList" />
 
 ```xml
 <StackPanel Spacing="4">

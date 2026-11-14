@@ -1,0 +1,7 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.CursorTrailDrawPreviewDemo">
+    <!-- Draw a rough box, circle or line and it snaps clean; L picks the laser. The sketch plays once when it comes into view. -->
+    <arc:CursorTrailDraw Label="Release plan sketch" MaxWidth="904" />
+</UserControl>

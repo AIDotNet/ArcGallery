@@ -3,7 +3,7 @@ title: Button
 summary: The default button for one action, in primary, secondary, ghost and danger weights, three sizes and a loading state that keeps its width.
 ---
 
-<Demo name="Variants" />
+<Demo name="Playground" />
 
 ## When to use
 
@@ -75,13 +75,7 @@ important is this action compared with the one next to it?"
 | `Danger` | Surface with a border | Danger colour | A destructive action, where the colour warns before the press |
 | `Text` | None: no fill, border or padding | Secondary text, foreground on hover | The content alone, such as an icon or a short label inside a row |
 
-```xml
-<arc:Button Content="Save changes" Variant="Primary" />
-<arc:Button Content="Cancel" Variant="Secondary" />
-<arc:Button Content="Learn more" Variant="Ghost" />
-<arc:Button Content="Delete project" Variant="Danger" />
-<arc:Button Content="Edit" Variant="Text" />
-```
+<Demo name="Variants" />
 
 Each variant has its own states. `Primary` lowers its opacity on hover and press. `Secondary` and `Ghost` fill with the
 muted surface on hover and press. On a raised surface (a dialog, drawer, bottom sheet, popover or menu) `Ghost` uses a

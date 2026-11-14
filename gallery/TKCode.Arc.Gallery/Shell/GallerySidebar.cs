@@ -237,7 +237,7 @@ public sealed class GallerySidebar : Border
 
     private IEnumerable<bool> BuildSections()
     {
-        // The sections follow uiarc.dev's sidebar order: Docs, Components, Blocks.
+        // The sections follow uiarc.dev's sidebar order: Docs, Components, Blocks, Screens, Special components.
         foreach (var step in BuildSection(GalleryShellLangResourceKind.Category_Docs, ArcIcons.FileText, [GalleryCatalog.Docs], flatten: true))
         {
             yield return step;
@@ -248,6 +248,11 @@ public sealed class GallerySidebar : Border
             yield return step;
         }
         foreach (var step in BuildSection(GalleryShellLangResourceKind.Category_Blocks, ArcIcons.Box, GalleryCatalog.Blocks.Subcategories!, isBlockGroups: true))
+        {
+            yield return step;
+        }
+        // The Screens section: whole-page blocks, as on uiarc.dev.
+        foreach (var step in BuildSection(GalleryShellLangResourceKind.Category_Screens, ArcIcons.Monitor, GalleryCatalog.Screens.Subcategories!, isBlockGroups: true))
         {
             yield return step;
         }

@@ -1,10 +1,10 @@
 ---
 title: 滑桿
 summary: 在軌道上選取一個值或一個範圍，跟隨指標移動。
-source-hash: d79b02e3405f
+source-hash: 9148a365e371
 ---
 
-<Demo name="SingleValue" />
+<Demo name="Playground" />
 
 ## 何時使用
 
@@ -55,6 +55,8 @@ source-hash: d79b02e3405f
 ### 起始與結束內容
 
 `StartContent` 與 `EndContent` 分別位於軌道之前與之後，例如圖示或靜音按鈕。靜音按鈕適合用於音量控制項：使用者無需移動滑桿把手即可讓輸出靜音。內容應保持為單一字符或小圖示按鈕，因為軌道會占用其餘的寬度。
+
+<Demo name="SingleValue" />
 
 ```xml
 <arc:Slider Label="音量"

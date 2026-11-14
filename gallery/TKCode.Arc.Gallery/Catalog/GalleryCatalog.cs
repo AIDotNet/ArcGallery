@@ -104,6 +104,7 @@ public static partial class GalleryCatalog
         ("2026-11-09", ["HeroSection"]),
         ("2026-11-13", ["ImportWizard"]),
         ("2026-11-13", ["MobilePicker", "MobileRadioCards"]),
+        ("2026-11-14", ["MonthCalendar"]),
     }.SelectMany(g => g.Classes.Select(c => (c, g.Date))).ToDictionary(e => e.c, e => e.Date);
 
     private static string? AddedOnOf(string className) => s_addedOn.GetValueOrDefault(className);
@@ -167,6 +168,12 @@ public static partial class GalleryCatalog
             new("PdfViewer", "PDF viewer", "pdf-viewer", 0,
                 "View a PDF with thumbnails, a table of contents, search, text selection, links and password prompts, rendered by PDFium on desktop and pdf.js in a browser.",
                 IsArc: false, AddedOn: "2026-11-08"),
+        ], IsArc: false),
+        new("Agents", "Agents", "智能体",
+        [
+            new("A2UISurfaceView", "A2UI surface", "a2ui-surface", 0,
+                "Render A2UI messages from an AI agent with Arc controls: the agent describes forms, choices, lists and charts as JSON, the surface draws them, keeps what the user enters and sends the user's actions back.",
+                IsArc: false, AddedOn: "2026-11-14"),
         ], IsArc: false),
         new("Layout", "Layout", "布局",
         [
@@ -242,156 +249,6 @@ public static partial class GalleryCatalog
     /// </summary>
     public static readonly GalleryCategory[] Special =
     [
-        new("Loaders", "Loaders", "加载",
-        [
-            new("StretchRefresh", "Stretch refresh", "stretch-refresh", 0,
-                "A feed you pull down to refresh: the rows spread apart, a line stretches across the gap until it is time to let go, then runs while new items arrive.",
-                IsArc: false, AddedOn: "2026-11-07"),
-            new("MorphLoader", "Morph loader", "morph-loader", 0,
-                "A tiny loader whose four strokes morph between dots, bars, a ring and a square, then fold into a check or a cross when the work finishes.",
-                IsArc: false, AddedOn: "2026-11-07"),
-            new("SkeletonMorph", "Skeleton morph", "skeleton-morph", 0,
-                "Loading placeholders that stretch into the real content block by block, while the card eases to its new height.",
-                IsArc: false, AddedOn: "2026-11-07"),
-            new("BlackHole", "Black hole", "black-hole", 0,
-                "A delete transition that spirals the chosen items into a small singularity while the rest of the list bends around it, and spins them back out on undo.",
-                IsArc: false, AddedOn: "2026-11-07"),
-            new("ChargeSession", "Charge session", "charge-session", 0,
-                "A live charging card: energy flows from the charger along the cable into the battery, which fills toward a draggable limit while power, energy, time and cost update.",
-                IsArc: false, AddedOn: "2026-11-07"),
-        ], IsArc: false),
-        new("Playful", "Playful", "趣味",
-        [
-            new("StickerPeel", "Sticker peel", "sticker-peel", 0,
-                "Stickers on a surface that lift a corner on hover, fold back along a real crease when pulled, and stick down where you drop them.",
-                IsArc: false, AddedOn: "2026-10-29"),
-            new("PageCurl", "Page curl", "page-curl", 0,
-                "A small book that opens on its cover: tap or drag a page corner and it curls over along a fold that follows the pointer.",
-                IsArc: false, AddedOn: "2026-10-29"),
-            new("OrbitLogos", "Orbit logos", "orbit-logos", 0,
-                "An integrations orbit: your mark at the center, logos on two slowly turning rings, and a detail card that morphs out of the chosen logo.",
-                IsArc: false, AddedOn: "2026-10-29"),
-            new("TicketTear", "Ticket tear", "ticket-tear", 0,
-                "An event ticket with a stub you tear off: it rips along the perforation hole by hole, following your hand, then falls away.",
-                IsArc: false, AddedOn: "2026-11-08"),
-            new("SandText", "Sand text", "sand-text", 0,
-                "A line of text that crumbles into grains of sand and drifts off on the wind, then gathers back grain by grain into the same letters.",
-                IsArc: false, AddedOn: "2026-11-09"),
-            new("TypewriterTerminal", "Typewriter terminal", "typewriter-terminal", 0,
-                "A terminal window that plays a script: commands typed at a person's pace, output line by line, and a caret that blinks while it waits.",
-                IsArc: false, AddedOn: "2026-11-09"),
-            new("PrizeWheel", "Prize wheel", "prize-wheel", 0,
-                "A prize wheel with weighted slices: a spin draws the winner by its odds and slows to a stop on it while the pegs flick the pointer.",
-                IsArc: false, AddedOn: "2026-11-09"),
-        ], IsArc: false),
-        new("Data", "Data", "数据",
-        [
-            new("BookingPill", "Booking pill", "booking-pill", 0,
-                "A compact booking bar for place, dates and guests: each segment opens its own picker, and the pill widens around the open one while a raised chip glides under it.",
-                IsArc: false, AddedOn: "2026-11-09"),
-            new("ActivityRings", "Activity rings", "activity-rings", 0,
-                "Concentric rings for daily goals that fill on a spring, close at the goal and keep going round past it, with a legend whose numbers roll.",
-                IsArc: false, AddedOn: "2026-11-09"),
-            new("TimeDial", "Time dial", "time-dial", 0,
-                "A round dial for a time of day or a length of time: drag the handle around the face, and it snaps to steps and answers the arrow keys.",
-                IsArc: false, AddedOn: "2026-11-09"),
-            new("DateReel", "Date reel", "date-reel", 0,
-                "A date picker of turning wheels for day, month and year: flick a wheel and it coasts, then comes to rest on a row.",
-                IsArc: false, AddedOn: "2026-11-09"),
-        ], IsArc: false),
-        new("Widgets", "Widgets", "小组件",
-        [
-            new("KeycapKeyboard", "Keycap keyboard", "keycap-keyboard", 0,
-                "A keyboard of keycaps that lights up a shortcut, shows what keys do while modifiers are held, and presses keys as you type or click.",
-                IsArc: false, AddedOn: "2026-11-09"),
-        ], IsArc: false),
-        new("AudioVideo", "Audio and video", "音频与视频",
-        [
-            new("VoiceOrb", "Voice orb", "voice-orb", 0,
-                "A glowing voice-mode sphere that breathes at rest, ripples while it listens, swirls while it thinks and pulses as it speaks, with live captions and call controls.",
-                IsArc: false, AddedOn: "2026-11-07"),
-            new("NowPlaying", "Now playing", "now-playing", 0,
-                "A mini player bar that grows into a full player in one continuous morph, with a waveform scrubber and artwork that slides the way you skip.",
-                IsArc: false, AddedOn: "2026-11-07"),
-            new("VoiceRecorder", "Voice recorder", "voice-recorder", 0,
-                "A voice note composer: record into a live waveform, review and scrub the take, then send it into the thread as a voice bubble.",
-                IsArc: false, AddedOn: "2026-11-07"),
-        ], IsArc: false),
-        new("Surfaces", "Surfaces", "表面",
-        [
-            new("SheetStack", "Sheet stack", "sheet-stack", 0,
-                "Drill-down panels that rise over one another, keep the level below in view, drag away to close and turn into stacked dialogs on wide screens.",
-                IsArc: false, AddedOn: "2026-10-27"),
-            new("WalletStack", "Wallet stack", "wallet-stack", 0,
-                "A wallet of payment cards in real materials: fan the stack, flick through it and lift a card out to see its balance and recent activity.",
-                IsArc: false, AddedOn: "2026-10-27"),
-            new("ControlCenter", "Control center", "control-center", 0,
-                "A quick settings panel whose tiles grow into their details, with a focus-session dial and volume and text-size meters that stretch at their ends.",
-                IsArc: false, AddedOn: "2026-10-27"),
-            new("HoloCard", "Holo card", "holo-card", 0,
-                "A collectible card drawn in perspective that follows the pointer with a shifting rainbow sheen, then turns over to reveal a second side.",
-                IsArc: false, AddedOn: "2026-10-27"),
-            new("CardToArticle", "Card to article", "card-to-article", 0,
-                "Story cards that grow into full articles in one continuous morph and shrink back into their place when you pull them down.",
-                IsArc: false, AddedOn: "2026-10-27"),
-            new("LinkUnfurl", "Link unfurl", "link-unfurl", 0,
-                "A message composer that turns a pasted address into a link, shows it loading, then unrolls it into a preview card you can fold back or remove.",
-                IsArc: false, AddedOn: "2026-10-27"),
-        ], IsArc: false),
-        new("Glass", "Glass", "玻璃",
-        [
-            new("GlassCard", "Glass card", "glass-card", 0,
-                "A card of frosted glass that blurs what lies behind it, with a soft edge light and a sheen that follows the pointer or a tilt signal.",
-                IsArc: false, AddedOn: "2026-11-09"),
-            new("GlassMenu", "Glass menu", "glass-menu", 0,
-                "A menu on frosted glass whose highlight glides from row to row under the pointer, with a soft glow that follows it along the row.",
-                IsArc: false, AddedOn: "2026-11-09"),
-            new("GlassSegmented", "Glass segmented", "glass-segmented", 0,
-                "A segmented control on frosted glass with a selection lens that stretches as it glides between segments and can be dragged.",
-                IsArc: false, AddedOn: "2026-11-09"),
-            new("GlassTabBar", "Glass tab bar", "glass-tab-bar", 0,
-                "A floating bottom tab bar of frosted glass for app shells, with a selection lens that glides and stretches between tabs.",
-                IsArc: false, AddedOn: "2026-11-09"),
-        ], IsArc: false),
-        new("Photos", "Photos", "照片",
-        [
-            new("ProductGallery", "Product gallery", "product-gallery", 0,
-                "The pictures of a product page: a large picture with a strip of thumbnails, a zoom that follows the mouse over the picture, and a swipe on touch screens.",
-                IsArc: false, AddedOn: "2026-11-09"),
-            new("LightboxGallery", "Lightbox gallery", "lightbox-gallery", 0,
-                "A grid of photos that opens full screen: the tile grows into the lightbox, where arrows and swipes move between photos and the wheel or a pinch zooms in.",
-                IsArc: false, AddedOn: "2026-11-09"),
-            new("PhotoGrid", "Photo grid", "photo-grid", 0,
-                "Photos in justified rows of one height or in masonry columns, where a selected photo opens wide in place and every photo glides to its new spot on resize.",
-                IsArc: false, AddedOn: "2026-11-09"),
-            new("CoverFlow", "Cover flow", "cover-flow", 0,
-                "A row of album or book covers in perspective: the centred cover faces you, the rest turn toward it, and a flick coasts and snaps to a cover.",
-                IsArc: false, AddedOn: "2026-11-09"),
-        ], IsArc: false),
-        new("Publishing", "Publishing", "内容发布",
-        [
-            new("MegaMenuMorph", "Mega menu morph", "mega-menu-morph", 0,
-                "A site navigation bar whose one dropdown panel springs to each item's size and place as the pointer moves along the bar, with the content sliding in from the side it travelled to.",
-                IsArc: false, AddedOn: "2026-11-09"),
-            new("TocProgress", "Table of contents progress", "table-of-contents-progress", 0,
-                "A table of contents for a long article that highlights the section being read, fills a rail down the list as you scroll and jumps to any section; on narrow screens it folds into a progress button.",
-                IsArc: false, AddedOn: "2026-11-09"),
-            new("ShareAccess", "Share access", "share-access", 0,
-                "A document share dialog: invite people by email with a role, change or remove each person's access, choose who else can open the link and copy it.",
-                IsArc: false, AddedOn: "2026-11-09"),
-        ], IsArc: false),
-        new("Inputs", "Inputs", "输入",
-        [
-            new("EmojiPicker", "Emoji picker", "emoji-picker", 0,
-                "Find an emoji by name or browse every category: recently used first, a skin tone for people and hands, and a grid you can move through with the keyboard.",
-                IsArc: false, AddedOn: "2026-11-09"),
-            new("ConfirmPopover", "Confirm popover", "confirm-popover", 0,
-                "A small question next to the button that asked it, for actions such as delete: focus starts on Cancel, Escape backs out, and the work can run before it closes.",
-                IsArc: false, AddedOn: "2026-11-09"),
-            new("UndoToast", "Undo toast", "undo-toast", 0,
-                "A toast for an action that can be taken back, with a countdown ring and an Undo button; the countdown holds while the pointer or focus is on it.",
-                IsArc: false, AddedOn: "2026-11-09"),
-        ], IsArc: false),
         new("DocksTabs", "Docks and tabs", "程序坞与标签栏",
         [
             new("ShareSheet", "Share sheet", "share-sheet", 0,
@@ -416,20 +273,150 @@ public static partial class GalleryCatalog
                 "An app dock whose icons swell like a lens under the pointer, push their neighbours aside, show their names and bounce when launched.",
                 IsArc: false, AddedOn: "2026-11-09"),
         ], IsArc: false),
+        new("Glass", "Glass", "玻璃",
+        [
+            new("GlassMenu", "Glass menu", "glass-menu", 0,
+                "A menu on frosted glass whose highlight glides from row to row under the pointer, with a soft glow that follows it along the row.",
+                IsArc: false, AddedOn: "2026-11-09"),
+            new("GlassSegmented", "Glass segmented", "glass-segmented", 0,
+                "A segmented control on frosted glass with a selection lens that stretches as it glides between segments and can be dragged.",
+                IsArc: false, AddedOn: "2026-11-09"),
+            new("GlassCard", "Glass card", "glass-card", 0,
+                "A card of frosted glass that blurs what lies behind it, with a soft edge light and a sheen that follows the pointer or a tilt signal.",
+                IsArc: false, AddedOn: "2026-11-09"),
+            new("GlassTabBar", "Glass tab bar", "glass-tab-bar", 0,
+                "A floating bottom tab bar of frosted glass for app shells, with a selection lens that glides and stretches between tabs.",
+                IsArc: false, AddedOn: "2026-11-09"),
+        ], IsArc: false),
+        new("Surfaces", "Surfaces", "表面",
+        [
+            new("SheetStack", "Sheet stack", "sheet-stack", 0,
+                "Drill-down panels that rise over one another, keep the level below in view, drag away to close and turn into stacked dialogs on wide screens.",
+                IsArc: false, AddedOn: "2026-10-27"),
+            new("WalletStack", "Wallet stack", "wallet-stack", 0,
+                "A wallet of payment cards in real materials: fan the stack, flick through it and lift a card out to see its balance and recent activity.",
+                IsArc: false, AddedOn: "2026-10-27"),
+            new("ControlCenter", "Control center", "control-center", 0,
+                "A quick settings panel whose tiles grow into their details, with a focus-session dial and volume and text-size meters that stretch at their ends.",
+                IsArc: false, AddedOn: "2026-10-27"),
+            new("HoloCard", "Holo card", "holo-card", 0,
+                "A collectible card drawn in perspective that follows the pointer with a shifting rainbow sheen, then turns over to reveal a second side.",
+                IsArc: false, AddedOn: "2026-10-27"),
+            new("CardToArticle", "Card to article", "card-to-article", 0,
+                "Story cards that grow into full articles in one continuous morph and shrink back into their place when you pull them down.",
+                IsArc: false, AddedOn: "2026-10-27"),
+            new("LinkUnfurl", "Link unfurl", "link-unfurl", 0,
+                "A message composer that turns a pasted address into a link, shows it loading, then unrolls it into a preview card you can fold back or remove.",
+                IsArc: false, AddedOn: "2026-10-27"),
+        ], IsArc: false),
+        new("Galleries", "Galleries", "图库",
+        [
+            new("ProductGallery", "Product gallery", "product-gallery", 0,
+                "The pictures of a product page: a large picture with a strip of thumbnails, a zoom that follows the mouse over the picture, and a swipe on touch screens.",
+                IsArc: false, AddedOn: "2026-11-09"),
+            new("LightboxGallery", "Lightbox gallery", "lightbox-gallery", 0,
+                "A grid of photos that opens full screen: the tile grows into the lightbox, where arrows and swipes move between photos and the wheel or a pinch zooms in.",
+                IsArc: false, AddedOn: "2026-11-09"),
+            new("PhotoGrid", "Photo grid", "photo-grid", 0,
+                "Photos in justified rows of one height or in masonry columns, where a selected photo opens wide in place and every photo glides to its new spot on resize.",
+                IsArc: false, AddedOn: "2026-11-09"),
+            new("CoverFlow", "Cover flow", "cover-flow", 0,
+                "A row of album or book covers in perspective: the centred cover faces you, the rest turn toward it, and a flick coasts and snaps to a cover.",
+                IsArc: false, AddedOn: "2026-11-09"),
+        ], IsArc: false),
+        new("AudioVideo", "Audio and video", "音频与视频",
+        [
+            new("VoiceOrb", "Voice orb", "voice-orb", 0,
+                "A glowing voice-mode sphere that breathes at rest, ripples while it listens, swirls while it thinks and pulses as it speaks, with live captions and call controls.",
+                IsArc: false, AddedOn: "2026-11-07"),
+            new("NowPlaying", "Now playing", "now-playing", 0,
+                "A mini player bar that grows into a full player in one continuous morph, with a waveform scrubber and artwork that slides the way you skip.",
+                IsArc: false, AddedOn: "2026-11-07"),
+            new("VoiceRecorder", "Voice recorder", "voice-recorder", 0,
+                "A voice note composer: record into a live waveform, review and scrub the take, then send it into the thread as a voice bubble.",
+                IsArc: false, AddedOn: "2026-11-07"),
+        ], IsArc: false),
+        new("Data", "Data", "数据",
+        [
+            new("BookingPill", "Booking pill", "booking-pill", 0,
+                "A compact booking bar for place, dates and guests: each segment opens its own picker, and the pill widens around the open one while a raised chip glides under it.",
+                IsArc: false, AddedOn: "2026-11-09"),
+            new("ActivityRings", "Activity rings", "activity-rings", 0,
+                "Concentric rings for daily goals that fill on a spring, close at the goal and keep going round past it, with a legend whose numbers roll.",
+                IsArc: false, AddedOn: "2026-11-09"),
+            new("TimeDial", "Time dial", "time-dial", 0,
+                "A round dial for a time of day or a length of time: drag the handle around the face, and it snaps to steps and answers the arrow keys.",
+                IsArc: false, AddedOn: "2026-11-09"),
+            new("DateReel", "Date reel", "date-reel", 0,
+                "A date picker of turning wheels for day, month and year: flick a wheel and it coasts, then comes to rest on a row.",
+                IsArc: false, AddedOn: "2026-11-09"),
+        ], IsArc: false),
+        new("Type", "Type", "文字",
+        [
+            new("KeycapKeyboard", "Keycap keyboard", "keycap-keyboard", 0,
+                "Sculpted mechanical keycaps that sink and glow as you type or click, with the typed text above the board.",
+                IsArc: false, AddedOn: "2026-11-09"),
+            new("SlotText", "Slot text", "slot-text", 3, "Text and numbers that spin into their new value like slot machine reels.", AddedOn: "2026-11-09"),
+            new("SandText", "Sand text", "sand-text", 0,
+                "Large letters built from grains of sand that pour in from above, scatter where the pointer digs, and fill themselves back in.",
+                IsArc: false, AddedOn: "2026-11-09"),
+            new("TypewriterTerminal", "Typewriter terminal", "typewriter-terminal", 0,
+                "A terminal window that plays a script: commands typed at a person's pace, output line by line, and a caret that blinks while it waits.",
+                IsArc: false, AddedOn: "2026-11-09"),
+        ], IsArc: false),
+        new("Loaders", "Loaders", "加载",
+        [
+            new("StretchRefresh", "Stretch refresh", "stretch-refresh", 0,
+                "A feed you pull down to refresh: the rows spread apart, a line stretches across the gap until it is time to let go, then runs while new items arrive.",
+                IsArc: false, AddedOn: "2026-11-07"),
+            new("MorphLoader", "Morph loader", "morph-loader", 0,
+                "A tiny loader whose four strokes morph between dots, bars, a ring and a square, then fold into a check or a cross when the work finishes.",
+                IsArc: false, AddedOn: "2026-11-07"),
+            new("SkeletonMorph", "Skeleton morph", "skeleton-morph", 0,
+                "Loading placeholders that stretch into the real content block by block, while the card eases to its new height.",
+                IsArc: false, AddedOn: "2026-11-07"),
+            new("BlackHole", "Black hole", "black-hole", 0,
+                "A delete transition that spirals the chosen items into a small singularity while the rest of the list bends around it, and spins them back out on undo.",
+                IsArc: false, AddedOn: "2026-11-07"),
+            new("ChargeSession", "Charge session", "charge-session", 0,
+                "A live charging card: energy flows from the charger along the cable into the battery, which fills toward a draggable limit while power, energy, time and cost update.",
+                IsArc: false, AddedOn: "2026-11-07"),
+        ], IsArc: false),
+        new("Playful", "Playful", "趣味",
+        [
+            new("StickerPeel", "Sticker peel", "sticker-peel", 0,
+                "Stickers on a surface that lift a corner on hover, fold back along a real crease when pulled, and stick down where you drop them.",
+                IsArc: false, AddedOn: "2026-10-29"),
+            new("TicketTear", "Ticket tear", "ticket-tear", 0,
+                "An event ticket with a stub you tear off: it rips along the perforation hole by hole, following your hand, then falls away.",
+                IsArc: false, AddedOn: "2026-11-08"),
+            new("PageCurl", "Page curl", "page-curl", 0,
+                "A small book that opens on its cover: tap or drag a page corner and it curls over along a fold that follows the pointer.",
+                IsArc: false, AddedOn: "2026-10-29"),
+            new("OrbitLogos", "Orbit logos", "orbit-logos", 0,
+                "An integrations orbit: your mark at the center, logos on two slowly turning rings, and a detail card that morphs out of the chosen logo.",
+                IsArc: false, AddedOn: "2026-10-29"),
+            new("PrizeWheel", "Prize wheel", "prize-wheel", 0,
+                "A prize wheel you flick or wind up from its hub, with real momentum, a pointer that bends against every peg, weighted prizes, and the won slice lifting into a reward card with a code to copy.",
+                IsArc: false, AddedOn: "2026-11-09"),
+        ], IsArc: false),
         new("Cursor", "Cursor", "光标",
         [
             new("DotGrid", "Dot grid", "dot-grid", 0,
                 "A field of dots that swells away from the pointer like a lens and sends a ripple out from every click.",
                 IsArc: false, AddedOn: "2026-10-27"),
+            new("ImageTrail", "Image trail", "image-trail", 0,
+                "A surface where the pointer leaves a trail of pictures that pop in along its path, rest for a moment and sink away.",
+                IsArc: false, AddedOn: "2026-11-09"),
             new("GravityWell", "Gravity well", "gravity-well", 0,
                 "Tiles that lean toward the pointer, shrink and dim as if pulled into a well, with a click that rolls a shockwave through the grid.",
                 IsArc: false, AddedOn: "2026-10-27"),
             new("InkFluid", "Ink fluid", "ink-fluid", 0,
                 "A fluid simulation behind your content: the pointer stirs soft ink that swirls and fades, and a slow stir keeps it moving when nobody does.",
                 IsArc: false, AddedOn: "2026-10-27"),
-            new("ImageTrail", "Image trail", "image-trail", 0,
-                "A surface where the pointer leaves a trail of pictures that pop in along its path, rest for a moment and sink away.",
-                IsArc: false, AddedOn: "2026-11-09"),
+            new("CursorTrailDraw", "Cursor trail draw", "cursor-trail-draw", 0,
+                "A sketching board: ink that thins with speed or pen pressure, a laser pointer whose trail fades by itself, and rough boxes, circles, triangles and lines that spring into clean shapes when the pen lifts.",
+                IsArc: false, AddedOn: "2026-11-14"),
         ], IsArc: false),
         new("Ai", "AI", "AI",
         [
@@ -523,12 +510,21 @@ public static partial class GalleryCatalog
             new("PaymentFlow", "Payment flow", "payment-flow", 0,
                 "A card payment from checkout through tokenization, authorization and the issuer's decision to settlement.",
                 IsArc: false, AddedOn: "2026-10-21"),
+            new("DnsResolution", "DNS resolution", "dns-resolution", 0,
+                "A browser asks its resolver for a name, the resolver walks from a root server to the domain's own name server, caches the answer and replies from the cache next time.",
+                IsArc: false, AddedOn: "2026-11-09"),
+            new("ModelTraining", "Model training", "model-training", 0,
+                "A training loop step by step: a batch flows forward to a prediction, the loss is measured and flows back, the weights move and the loss curve falls.",
+                IsArc: false, AddedOn: "2026-11-09"),
             new("MultiRegionFailover", "Multi-region failover", "multi-region-failover", 0,
                 "A global load balancer shifts traffic to a standby region and promotes its database when the primary region goes down.",
                 IsArc: false, AddedOn: "2026-10-21"),
             new("VectorSearch", "Vector search", "vector-search", 0,
                 "A question is embedded as a vector and answered with its nearest documents by cosine similarity.",
                 IsArc: false, AddedOn: "2026-10-21"),
+            new("BranchGraph", "Branch graph", "branch-graph", 0,
+                "A git commit graph that previews how a pull request lands; branches draw in as colored lanes, a rebase lifts commits and replays them, a squash folds them into one, and hovering a commit shows its details.",
+                IsArc: false, AddedOn: "2026-11-09"),
             new("AgentLoop", "Agent loop", "agent-loop", 0,
                 "An agent gathers context, calls tools and checks the result, going round the loop until the task is done.",
                 IsArc: false, AddedOn: "2026-10-23"),
@@ -544,15 +540,6 @@ public static partial class GalleryCatalog
             new("ReasoningTree", "Reasoning tree", "reasoning-tree", 0,
                 "A search over candidate thoughts: each is scored, weak branches are pruned, the best expand and the winning path draws in.",
                 IsArc: false, AddedOn: "2026-10-23"),
-            new("DnsResolution", "DNS resolution", "dns-resolution", 0,
-                "A browser asks its resolver for a name, the resolver walks from a root server to the domain's own name server, caches the answer and replies from the cache next time.",
-                IsArc: false, AddedOn: "2026-11-09"),
-            new("ModelTraining", "Model training", "model-training", 0,
-                "A training loop step by step: a batch flows forward to a prediction, the loss is measured and flows back, the weights move and the loss curve falls.",
-                IsArc: false, AddedOn: "2026-11-09"),
-            new("BranchGraph", "Branch graph", "branch-graph", 0,
-                "A git-style history drawn commit by commit: branches split off into their own lanes and merge back, with branch and tag labels and each commit's history on selection.",
-                IsArc: false, AddedOn: "2026-11-09"),
         ], IsArc: false),
     ];
 
@@ -561,12 +548,21 @@ public static partial class GalleryCatalog
     /// the Arc components (<see cref="Categories"/> / <see cref="Count"/>). Ports of free Arc blocks link to their
     /// uiarc.dev page; original blocks have none.
     /// </summary>
-    public static readonly GalleryCategory Blocks = new("Blocks", "Blocks", "区块", [],
-        Subcategories: BlockCatalog.Groups.Select(g => new GalleryCategory(g.Code, g.Title, g.ChineseTitle,
+    public static readonly GalleryCategory Blocks = new("Blocks", "Blocks", "区块", [], Subcategories: BlockGroups(BlockCatalog.Groups, "blocks"));
+
+    /// <summary>
+    /// The Screens section, after Blocks as on uiarc.dev: whole-page blocks from the TKCode.Arc.Blocks catalog
+    /// (<see cref="BlockCatalog.ScreenGroups"/>). Their pages stay under <c>/blocks/</c>, and they are not part of the Arc
+    /// components (<see cref="Count"/>).
+    /// </summary>
+    public static readonly GalleryCategory Screens = new("Screens", "Screens", "页面", [], Subcategories: BlockGroups(BlockCatalog.ScreenGroups, "screens"));
+
+    private static GalleryCategory[] BlockGroups(BlockGroup[] groups, string arcSection) =>
+        groups.Select(g => new GalleryCategory(g.Code, g.Title, g.ChineseTitle,
             BlockCatalog.Blocks.Where(b => b.Group == g.Code)
-                .Select(b => new GalleryEntry(b.ClassName, b.Title, b.Slug, 0, b.Description, IsArc: b.IsArcPort, ArcPath: $"blocks/{b.Slug}",
+                .Select(b => new GalleryEntry(b.ClassName, b.Title, b.Slug, 0, b.Description, IsArc: b.IsArcPort, ArcPath: $"{arcSection}/{b.Slug}",
                     AddedOn: AddedOnOf(b.ClassName)))
-                .ToArray())).ToArray());
+                .ToArray())).ToArray();
 
     /// <summary>
     /// The Mobile section of the sidebar: the components of TKCode.Arc.Mobile, whose live demos run inside a phone frame
@@ -607,10 +603,13 @@ public static partial class GalleryCatalog
     /// <summary>The PDF group (TKCode.Arc.Pdf); listed after Video, not part of the Arc components.</summary>
     public static GalleryCategory Pdf => Extras[4];
 
-    /// <summary>The Components section of the sidebar: Arc's groups with Advanced charts, Workflow, Dock, Video and PDF after Charts, then the other extras.</summary>
+    /// <summary>The agents group (TKCode.Arc.A2UI); listed after PDF, not part of the Arc components.</summary>
+    public static GalleryCategory Agents => Extras[5];
+
+    /// <summary>The Components section of the sidebar: Arc's groups with Advanced charts, Workflow, Dock, Video, PDF and Agents after Charts, then the other extras.</summary>
     public static IEnumerable<GalleryCategory> AllCategories => s_allCategories ??=
-        Categories.SelectMany(c => c.Code == "Charts" ? new[] { c, AdvancedCharts, Workflow, Dock, Video, Pdf } : new[] { c })
-                  .Concat(Extras.Where(e => !ReferenceEquals(e, AdvancedCharts) && !ReferenceEquals(e, Workflow) && !ReferenceEquals(e, Dock) && !ReferenceEquals(e, Video) && !ReferenceEquals(e, Pdf)))
+        Categories.SelectMany(c => c.Code == "Charts" ? new[] { c, AdvancedCharts, Workflow, Dock, Video, Pdf, Agents } : new[] { c })
+                  .Concat(Extras.Where(e => !ReferenceEquals(e, AdvancedCharts) && !ReferenceEquals(e, Workflow) && !ReferenceEquals(e, Dock) && !ReferenceEquals(e, Video) && !ReferenceEquals(e, Pdf) && !ReferenceEquals(e, Agents)))
                   .ToArray();
 
     // The lists below are built once, when first read: they are read on every page opening. Not in field initializers, whose
@@ -619,9 +618,9 @@ public static partial class GalleryCatalog
     private static GalleryEntry[]? s_allEntries;
     private static GalleryEntry[]? s_componentEntries;
 
-    /// <summary>Every entry the gallery lists: the Docs, Components, Blocks and Special components sections.</summary>
+    /// <summary>Every entry the gallery lists: the Docs, Components, Blocks, Screens, Special components and Mobile sections.</summary>
     public static IEnumerable<GalleryEntry> AllEntries => s_allEntries ??=
-        Docs.AllEntries.Concat(AllCategories.SelectMany(c => c.AllEntries)).Concat(Blocks.AllEntries).Concat(Special.SelectMany(c => c.AllEntries)).Concat(Mobile.AllEntries).ToArray();
+        Docs.AllEntries.Concat(AllCategories.SelectMany(c => c.AllEntries)).Concat(Blocks.AllEntries).Concat(Screens.AllEntries).Concat(Special.SelectMany(c => c.AllEntries)).Concat(Mobile.AllEntries).ToArray();
 
     /// <summary>Every entry of the Components section: Arc's components and the extras.</summary>
     public static IEnumerable<GalleryEntry> ComponentEntries => s_componentEntries ??= AllCategories.SelectMany(c => c.Entries).ToArray();

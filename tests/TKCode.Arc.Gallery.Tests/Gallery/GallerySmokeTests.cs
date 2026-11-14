@@ -16,23 +16,28 @@ public class GallerySmokeTests
     [AvaloniaFact]
     public void Catalog_Lists_All_Components()
     {
-        GalleryCatalog.Count.ShouldBe(123);
+        GalleryCatalog.Count.ShouldBe(129);
         GalleryCatalog.Categories.Length.ShouldBe(22);
         // PageViewer sits in Arc's Media group but has no Arc original to link to (design/components/pdf/pdf.md, section 1).
         // AvatarUpload sits in the Editors group but is an independent implementation of a Pro-like component, so it does not
         // link to an Arc page (design/decisions/0043, design/components/editors/avatar-upload.md).
-        GalleryCatalog.Categories.ShouldAllBe(c => c.IsArc && c.Entries.Where(e => e.ClassName != "PageViewer" && e.ClassName != "AvatarUpload").All(e => e.IsArc && e.ArcUrl != null));
+        // The seven Pro-like components filed in Arc's groups as on uiarc.dev (design/decisions/0047) do not link either.
+        string[] unlinked = ["PageViewer", "AvatarUpload", "EmojiPicker", "MegaMenuMorph", "TocProgress", "ShareAccess", "ConfirmPopover", "UndoToast", "WindowRange"];
+        GalleryCatalog.Categories.ShouldAllBe(c => c.IsArc && c.Entries.Where(e => !unlinked.Contains(e.ClassName)).All(e => e.IsArc && e.ArcUrl != null));
+        GalleryCatalog.Categories.SelectMany(c => c.Entries).Where(e => unlinked.Contains(e.ClassName)).ShouldAllBe(e => !e.IsArc && e.ArcUrl == null);
         GalleryCatalog.AllEntries.First(e => e.ClassName == "PageViewer").ArcUrl.ShouldBeNull();
         GalleryCatalog.AllEntries.First(e => e.ClassName == "AvatarUpload").ArcUrl.ShouldBeNull();
         // Extras (TKCode components with no Arc original) are listed separately and not counted.
         GalleryCatalog.Extras.ShouldAllBe(c => !c.IsArc && c.Entries.All(e => !e.IsArc && e.ArcUrl == null));
-        GalleryCatalog.Special.ShouldAllBe(c => !c.IsArc && c.Entries.All(e => !e.IsArc && e.ArcUrl == null));
+        // Slot text is a free Arc component listed under Special › Type, as on uiarc.dev, so it keeps its link.
+        GalleryCatalog.Special.ShouldAllBe(c => !c.IsArc && c.Entries.Where(e => e.ClassName != "SlotText").All(e => !e.IsArc && e.ArcUrl == null));
+        GalleryCatalog.AllEntries.First(e => e.ClassName == "SlotText").ArcUrl.ShouldBe("https://uiarc.dev/components/slot-text");
         // Blocks and Special components are listed under their own sections and not counted either.
         GalleryCatalog.AllEntries.Count().ShouldBe(GalleryCatalog.Count + GalleryCatalog.Extras.Sum(c => c.Entries.Length) + GalleryCatalog.Docs.Entries.Length
-            + GalleryCatalog.Blocks.AllEntries.Count() + GalleryCatalog.Special.Sum(c => c.Entries.Length) + GalleryCatalog.Mobile.Entries.Length);
+            + GalleryCatalog.Blocks.AllEntries.Count() + GalleryCatalog.Screens.AllEntries.Count() + GalleryCatalog.Special.Sum(c => c.Entries.Length) + GalleryCatalog.Mobile.Entries.Length);
         GalleryCatalog.AllEntries.Select(e => e.ClassName).ShouldBeUnique();
         // The sidebar footer counts the whole Components section, extras included.
-        GalleryCatalog.ComponentCount.ShouldBe(GalleryCatalog.Count + 33);
+        GalleryCatalog.ComponentCount.ShouldBe(GalleryCatalog.Count + 34);
         GalleryCatalog.ComponentEntries.Count().ShouldBe(GalleryCatalog.ComponentCount);
     }
 

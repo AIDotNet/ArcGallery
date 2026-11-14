@@ -1,10 +1,10 @@
 ---
 title: 按钮
 summary: 页面、表单、对话框或工具栏中单个操作的默认按钮：主要、次要、幽灵与危险四种样式，三种尺寸，加载时保持宽度不变。
-source-hash: 06608c06416e
+source-hash: 3227a199efab
 ---
 
-<Demo name="Variants" />
+<Demo name="Playground" />
 
 ## 何时使用
 
@@ -58,13 +58,7 @@ source-hash: 06608c06416e
 | `Danger` | 带边框的表面 | 危险色 | 破坏性操作，颜色在按下之前发出警告 |
 | `Text` | 无：无填充、无边框、无内边距 | 次要文字，悬停时为前景色 | 只显示内容本身，例如一行中的图标或简短文字 |
 
-```xml
-<arc:Button Content="保存更改" Variant="Primary" />
-<arc:Button Content="取消" Variant="Secondary" />
-<arc:Button Content="了解更多" Variant="Ghost" />
-<arc:Button Content="删除项目" Variant="Danger" />
-<arc:Button Content="编辑" Variant="Text" />
-```
+<Demo name="Variants" />
 
 每种变体都有自己的状态。`Primary` 在悬停和按下时降低不透明度。`Secondary` 与 `Ghost` 在悬停和按下时以弱化的表面色填充。
 放在凸起表面（对话框、抽屉、底部面板、弹出框或菜单）上时，`Ghost` 改用更明显的填充，因为弱化的表面色与凸起表面几乎同色。

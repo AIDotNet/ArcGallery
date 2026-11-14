@@ -3,7 +3,7 @@ title: Switch
 summary: A tactile toggle for settings that take effect immediately.
 ---
 
-<Demo name="SettingsList" />
+<Demo name="Playground" />
 
 ## When to use
 
@@ -72,6 +72,8 @@ the not-allowed cursor.
 
 Stack the switches to form a list of settings. Each switch's label names the setting, and the rows are separated by
 the spacing of the list rather than by lines.
+
+<Demo name="SettingsList" />
 
 ```xml
 <StackPanel Spacing="4">

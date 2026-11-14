@@ -46,6 +46,7 @@ public sealed class GalleryShell : Grid
     private bool _isNarrow;
     private GalleryStreamMarkView? _streamMark;
     private GalleryProjectsView? _projects;
+    private Avalonia.Controls.Control? _a2ui;
     private GalleryComponentsView? _components;
     private GallerySettingsView? _settings;
     private GalleryHomeView? _home;
@@ -188,8 +189,16 @@ public sealed class GalleryShell : Grid
     public void Navigate(GalleryRoute route)
     {
         // The dashboard demo is an app of its own, as on uiarc.dev/demo: its sidebar and top bar take the whole frame.
-        SetChromeVisible(route.Kind != GalleryRouteKind.Demo);
+        SetChromeVisible(route.Kind is not (GalleryRouteKind.Demo or GalleryRouteKind.A2UI));
         _drawer.IsOpen = false;
+        if (route.Kind == GalleryRouteKind.A2UI)
+        {
+            HideSidebar();
+            ReleaseFocusFromPage();
+            _pageHost.Content = _a2ui ??= GalleryA2UI.CreateApp(() => Navigate(GalleryRoute.Home));
+            SetRoute(GalleryRoute.A2UI);
+            return;
+        }
         if (route.Kind == GalleryRouteKind.StreamMark)
         {
             HideSidebar();
@@ -433,7 +442,7 @@ public sealed class GalleryShell : Grid
     private bool IsEntryPageShown => _pageHost.Content is { } content
         && !ReferenceEquals(content, _home) && !ReferenceEquals(content, _friends) && !ReferenceEquals(content, _demo)
         && !ReferenceEquals(content, _streamMark) && !ReferenceEquals(content, _projects) && !ReferenceEquals(content, _components)
-        && !ReferenceEquals(content, _settings);
+        && !ReferenceEquals(content, _settings) && !ReferenceEquals(content, _a2ui);
 
     /// <summary>
     /// The window remembers the last focused element of its focus scope, and Avalonia forgets it only when that element

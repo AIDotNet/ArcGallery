@@ -1,0 +1,7 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.KeycapKeyboardLettersDemo">
+    <!-- Three rows of letters, Shift, Delete and a space bar. Click a key, or focus it and type. -->
+    <arc:KeycapKeyboard Layout="Letters" Placeholder="Click a key or focus and type" MaxWidth="640" />
+</UserControl>
