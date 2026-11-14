@@ -1,7 +1,7 @@
 ---
 title: 用户菜单
 summary: 头像背后的账户、设置、主题与退出登录。在手机上以底部面板的形式打开。
-source-hash: 52c876e9dc47
+source-hash: e1abceb07efa
 ---
 
 <Demo name="TopBar" />
@@ -100,6 +100,24 @@ userMenu.SignOutRequested += (_, _) => status.Text = "正在退出登录…";
 ```
 
 `SignOutRequested` 在动作执行之前触发，因此适合在此显示状态文字或清除本地缓存。如果动作抛出异常，菜单仍会停止等待并关闭；失败信息应由动作自行报告，因为菜单不会显示它。未设置动作，或任务已经完成时，菜单会立即关闭，并把焦点交还头像。
+
+### 内置文字与语言
+
+菜单自带的文字跟随应用的语言（启动时的 `UseLanguages(...)`，之后用 `ArcLanguage.Set` 切换）：“状态”“主题”“退出登录”三行、“正在退出登录”，以及屏幕阅读器为头像和每个状态、主题选项朗读的名称。内置英文、简体中文和繁体中文，语言一变就随之更新，菜单打开时也是如此。
+
+要使用应用自己的用词，设置 `StatusLabel`、`ThemeLabel`、`SignOutLabel` 或 `SigningOutLabel`。设置了的文字在所有语言中都替换本地化文字；改回 `null` 即重新跟随语言。`SignOutGestureText` 不是该行的文字，而是退出登录行末端的快捷键提示。
+
+```xml
+<arc:UserMenu DisplayName="Ada Lovelace"
+              IsStatusVisible="True"
+              StatusLabel="在线状态"
+              ThemeLabel="外观"
+              SignOutLabel="注销"
+              SigningOutLabel="正在注销…"
+              SignOutGestureText="⇧⌘Q" />
+```
+
+这些属性都是普通字符串，因此自带翻译的应用可以把它们绑定到自己的本地化文字上。
 
 ### 照片与数据驱动的入口
 
@@ -246,6 +264,8 @@ userMenu.SignOutAction = () => viewModel.SignOutCommand.ExecuteAsync(null);
 **如何隐藏主题选择？** 设置 `IsThemeSwitchVisible="False"`。主题行随即从面板中移除，应用可在其他位置提供自己的主题控件。
 
 **退出登录的加载指示器如何出现？** 从 `SignOutAction` 返回一个未完成的 `Task`。该行会显示加载指示器和“正在退出登录”文字，直到任务完成，然后菜单关闭。
+
+**如何修改“状态”“主题”或“退出登录”这几行的文字？** 设置 `StatusLabel`、`ThemeLabel` 或 `SignOutLabel`（退出登录进行中的文字用 `SigningOutLabel`）。不设置时，这几行使用应用的语言。`SignOutGestureText` 只设置退出登录行末端的快捷键提示。
 
 **能否在窄窗口中显示姓名和箭头？** 不能。姓名和箭头只在宽度至少 640 px 的窗口中显示，底部面板只保留头像。应围绕这一点规划页面布局，因为菜单没有将断点作为可设置项公开。
 

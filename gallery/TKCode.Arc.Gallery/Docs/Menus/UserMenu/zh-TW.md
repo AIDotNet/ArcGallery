@@ -1,7 +1,7 @@
 ---
 title: 使用者選單
 summary: 頭像背後的帳號、設定、主題與登出。在手機上以底部面板的形式開啟。
-source-hash: 52c876e9dc47
+source-hash: e1abceb07efa
 ---
 
 <Demo name="TopBar" />
@@ -100,6 +100,24 @@ userMenu.SignOutRequested += (_, _) => status.Text = "正在登出…";
 ```
 
 `SignOutRequested` 在動作執行之前觸發，因此適合在此顯示狀態文字或清除本機快取。如果動作擲出例外，選單仍會停止等待並關閉；失敗資訊應由動作自行回報，因為選單不會顯示它。未設定動作，或工作已經完成時，選單會立即關閉，並把焦點交還頭像。
+
+### 內建文字與語言
+
+選單自帶的文字跟隨應用程式的語言（啟動時的 `UseLanguages(...)`，之後用 `ArcLanguage.Set` 切換）：「狀態」「主題」「登出」三列、「正在登出」，以及螢幕閱讀器為頭像和每個狀態、主題選項朗讀的名稱。內建英文、簡體中文與繁體中文，語言一變就隨之更新，選單開啟時也是如此。
+
+要使用應用程式自己的用詞，設定 `StatusLabel`、`ThemeLabel`、`SignOutLabel` 或 `SigningOutLabel`。設定了的文字在所有語言中都取代在地化文字；改回 `null` 即重新跟隨語言。`SignOutGestureText` 不是該列的文字，而是登出列末端的快速鍵提示。
+
+```xml
+<arc:UserMenu DisplayName="Ada Lovelace"
+              IsStatusVisible="True"
+              StatusLabel="線上狀態"
+              ThemeLabel="外觀"
+              SignOutLabel="登出帳號"
+              SigningOutLabel="正在登出…"
+              SignOutGestureText="⇧⌘Q" />
+```
+
+這些屬性都是一般字串，因此自帶翻譯的應用程式可以把它們繫結到自己的在地化文字上。
 
 ### 照片與資料驅動的入口
 
@@ -246,6 +264,8 @@ userMenu.SignOutAction = () => viewModel.SignOutCommand.ExecuteAsync(null);
 **如何隱藏主題選擇？** 設定 `IsThemeSwitchVisible="False"`。主題列隨即從面板中移除，應用程式可在其他位置提供自己的主題控制項。
 
 **登出的載入指示器如何出現？** 從 `SignOutAction` 回傳一個未完成的 `Task`。該列會顯示載入指示器和「正在登出」文字，直到工作完成，然後選單關閉。
+
+**如何修改「狀態」「主題」或「登出」這幾列的文字？** 設定 `StatusLabel`、`ThemeLabel` 或 `SignOutLabel`（登出進行中的文字用 `SigningOutLabel`）。不設定時，這幾列使用應用程式的語言。`SignOutGestureText` 只設定登出列末端的快速鍵提示。
 
 **能否在窄視窗中顯示姓名與箭頭？** 不能。姓名與箭頭只在寬度至少 640 px 的視窗中顯示，底部面板只保留頭像。應圍繞這一點規劃頁面版面配置，因為選單沒有將斷點作為可設定項公開。
 
