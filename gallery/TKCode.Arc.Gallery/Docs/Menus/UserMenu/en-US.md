@@ -137,6 +137,29 @@ If the action throws, the menu still stops waiting and closes; report the failur
 menu does not show it. When no action is set, or the task has already finished, the menu closes at once and returns
 focus to the avatar.
 
+### Built-in text and languages
+
+The menu's own text follows the app's language (`UseLanguages(...)` at startup, `ArcLanguage.Set` later): the Status,
+Theme and Sign out rows, "Signing out", and the names a screen reader hears for the avatar and for each status and theme
+choice. It ships in English, Simplified Chinese and Traditional Chinese, and changes as soon as the language does, even
+while the menu is open.
+
+To use the app's own words, set `StatusLabel`, `ThemeLabel`, `SignOutLabel` or `SigningOutLabel`. A label that is set
+replaces the localized text in every language; set it back to `null` to follow the language again. `SignOutGestureText`
+is not the row's text: it is the shortcut hint at the end of the sign-out row.
+
+```xml
+<arc:UserMenu DisplayName="Ada Lovelace"
+              IsStatusVisible="True"
+              StatusLabel="Presence"
+              ThemeLabel="Appearance"
+              SignOutLabel="Log out"
+              SigningOutLabel="Logging out…"
+              SignOutGestureText="⇧⌘Q" />
+```
+
+The labels are plain strings, so an app with its own translations can bind them to its localized strings.
+
 ### Photo and destinations as data
 
 `AvatarSource` shows a photo. Without one, or while the photo loads, the initials are shown. `ItemsSource` creates
@@ -308,6 +331,10 @@ can apply its own theme control elsewhere.
 
 **How does the sign-out spinner appear?** Return an unfinished `Task` from `SignOutAction`. The row shows the spinner and
 the label "Signing out" until the task completes, then the menu closes.
+
+**How do I change the text of the Status, Theme or Sign out row?** Set `StatusLabel`, `ThemeLabel` or `SignOutLabel`
+(and `SigningOutLabel` for the text shown while signing out). Without them the rows use the app's language.
+`SignOutGestureText` only sets the shortcut hint at the end of the sign-out row.
 
 **Can I show the name and the chevron on a narrow window?** No. The name and the chevron show only on windows at least
 640 px wide, and the sheet keeps the avatar alone. Plan the page layout around that, because the menu does not expose the

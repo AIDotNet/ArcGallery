@@ -40001,8 +40001,8 @@
         <target>已用数量，单位与仪表相同。</target>
       </trans-unit>
       <trans-unit id="UserMenu">
-        <source>The account menu behind a person's avatar in an app's top bar (Arc user menu): a compact identity header, a short group of account destinations (`Items`, keep it to three or four), an inline light / dark / system switch, an optional presence switch and sign out. Theme and status choices keep the menu open; everything else closes it and returns focus to the avatar. When `SignOutAction` returns an unfinished task the row shows a spinner and "Signing out", and the menu closes once it settles. Below a 640px wide window the menu opens as a bottom sheet that follows a downward drag. The panel scales out of the avatar on a spring that never overshoots, rows fade in 16ms apart, one highlight glides between rows and the switch thumbs slide on Arc's CSS spring.</source>
-        <target>应用顶栏中位于用户头像后的账户菜单（Arc 用户菜单）：包含紧凑的身份标题、一组简短的账户目的地（`Items`，建议保留三到四个）、内联的浅色 / 深色 / 跟随系统切换、可选的在线状态切换以及退出登录。主题和状态选项会使菜单保持打开；其他操作会关闭菜单并将焦点返回头像。当 `SignOutAction` 返回未完成的任务时，该行会显示加载指示并显示“Signing out”，待其完成后菜单再关闭。窗口宽度小于 640px 时，菜单会以底部面板形式打开，并跟随向下拖动。面板以不会过冲的弹簧从头像处缩放展开，各行每隔 16ms 依次淡入，一个高亮块在行间滑动，开关滑块按 Arc 的 CSS 弹簧滑动。</target>
+        <source>The account menu behind a person's avatar in an app's top bar (Arc user menu): a compact identity header, a short group of account destinations (`Items`, keep it to three or four), an inline light / dark / system switch, an optional presence switch and sign out. Theme and status choices keep the menu open; everything else closes it and returns focus to the avatar. When `SignOutAction` returns an unfinished task the row shows a spinner and "Signing out", and the menu closes once it settles. Below a 640px wide window the menu opens as a bottom sheet that follows a downward drag. The built-in text (the Status, Theme and Sign out rows, the choice names and the accessible names) follows the app's language; `StatusLabel`, `ThemeLabel`, `SignOutLabel` and `SigningOutLabel` replace the row text with the app's own. The panel scales out of the avatar on a spring that never overshoots, rows fade in 16ms apart, one highlight glides between rows and the switch thumbs slide on Arc's CSS spring.</source>
+        <target>应用顶栏中位于用户头像后的账户菜单（Arc 用户菜单）：包含紧凑的身份标题、一组简短的账户目的地（`Items`，建议保留三到四个）、内联的浅色 / 深色 / 跟随系统切换、可选的在线状态切换以及退出登录。主题和状态选项会使菜单保持打开；其他操作会关闭菜单并将焦点返回头像。当 `SignOutAction` 返回未完成的任务时，该行会显示加载指示并显示“正在退出登录”，待其完成后菜单再关闭。窗口宽度小于 640px 时，菜单会以底部面板形式打开，并跟随向下拖动。内置文字（“状态”“主题”“退出登录”三行、各选项名称与无障碍名称）跟随应用的语言；`StatusLabel`、`ThemeLabel`、`SignOutLabel` 和 `SigningOutLabel` 可用应用自己的文字替换这几行的文字。面板以不会过冲的弹簧从头像处缩放展开，各行每隔 16ms 依次淡入，一个高亮块在行间滑动，开关滑块按 Arc 的 CSS 弹簧滑动。</target>
       </trans-unit>
       <trans-unit id="UserMenu.AvatarSource">
         <source>Photo; falls back to initials while it loads or when it fails.</source>
@@ -40069,12 +40069,20 @@
         <target>退出登录处理程序。未完成的任务会使菜单保持打开并显示加载指示，直至任务完成。</target>
       </trans-unit>
       <trans-unit id="UserMenu.SignOutGestureText">
-        <source>Shortcut hint for the sign-out row (for example "⇧⌘Q").</source>
-        <target>退出登录行的快捷键提示（例如“⇧⌘Q”）。</target>
+        <source>Shortcut hint shown at the end of the sign-out row (for example "⇧⌘Q"); it does not replace the row's text (`SignOutLabel`).</source>
+        <target>显示在退出登录行末端的快捷键提示（例如“⇧⌘Q”）；它不会替换该行的文字（`SignOutLabel`）。</target>
+      </trans-unit>
+      <trans-unit id="UserMenu.SignOutLabel">
+        <source>Text of the sign-out row; null uses the localized "Sign out" (which follows the language).</source>
+        <target>退出登录行的文字；为 null 时使用本地化的“退出登录”（跟随语言）。</target>
       </trans-unit>
       <trans-unit id="UserMenu.SignOutRequested">
         <source>Raised when the sign-out row is activated (before `SignOutAction` runs).</source>
         <target>退出登录行被激活时引发（在 `SignOutAction` 运行之前）。</target>
+      </trans-unit>
+      <trans-unit id="UserMenu.SigningOutLabel">
+        <source>Text of the sign-out row while an asynchronous `SignOutAction` runs; null uses the localized "Signing out" (which follows the language).</source>
+        <target>异步 `SignOutAction` 运行期间退出登录行的文字；为 null 时使用本地化的“正在退出登录”（跟随语言）。</target>
       </trans-unit>
       <trans-unit id="UserMenu.Status">
         <source>Presence status (Available, Busy or Away) shown by the dot and the status switch; two-way bound.</source>
@@ -40083,6 +40091,14 @@
       <trans-unit id="UserMenu.StatusChanged">
         <source>Raised when a status is chosen; the menu stays open.</source>
         <target>选择状态时引发；菜单保持打开。</target>
+      </trans-unit>
+      <trans-unit id="UserMenu.StatusLabel">
+        <source>Text of the presence switch row; null uses the localized "Status" (which follows the language).</source>
+        <target>在线状态切换行的文字；为 null 时使用本地化的“状态”（跟随语言）。</target>
+      </trans-unit>
+      <trans-unit id="UserMenu.ThemeLabel">
+        <source>Text of the theme switch row; null uses the localized "Theme" (which follows the language).</source>
+        <target>主题切换行的文字；为 null 时使用本地化的“主题”（跟随语言）。</target>
       </trans-unit>
       <trans-unit id="UserMenu.ThemePreference">
         <source>Theme chosen in the inline switch (Light, Dark or System); two-way bound. Applying it is up to the app.</source>
