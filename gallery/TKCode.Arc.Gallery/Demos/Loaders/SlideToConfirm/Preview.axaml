@@ -1,0 +1,75 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.SlideToConfirmPreviewDemo">
+    <!-- A 400 px payment card: payee, two details, the slider and a note. The made-up payment takes 1.1 s, and the
+         card returns to its idle state 2.6 s after it succeeds. Drag the thumb to the end, or focus it and hold Space. -->
+    <Border MaxWidth="400"
+            Margin="8"
+            Padding="24"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Background="{arc:ArcDesignTokenResource Surface}"
+            BorderBrush="{arc:ArcDesignTokenResource Border}"
+            BorderThickness="1"
+            CornerRadius="{arc:ArcDesignTokenResource RadiusStep24}">
+        <StackPanel Spacing="20">
+            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                <Ellipse Width="44" Height="44">
+                    <Ellipse.Fill>
+                        <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                            <GradientStop Offset="0" Color="#FFB44C" />
+                            <GradientStop Offset="0.55" Color="#F2637E" />
+                            <GradientStop Offset="1" Color="#6A5BF0" />
+                        </LinearGradientBrush>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <StackPanel Grid.Column="1" Spacing="2" VerticalAlignment="Center">
+                    <TextBlock Text="Noor Haddad"
+                               FontFamily="{arc:ArcDesignTokenResource DisplayFontFamily}"
+                               FontSize="15"
+                               FontWeight="Medium"
+                               LetterSpacing="-0.45"
+                               Foreground="{arc:ArcDesignTokenResource Foreground}" />
+                    <TextBlock Text="Pottery class, 4 sessions"
+                               FontSize="13"
+                               Foreground="{arc:ArcDesignTokenResource TextSecondary}"
+                               TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+                <TextBlock Grid.Column="2"
+                           Text="$86.00"
+                           FontSize="20"
+                           FontWeight="Medium"
+                           FontFeatures="+tnum"
+                           VerticalAlignment="Center"
+                           Foreground="{arc:ArcDesignTokenResource Foreground}" />
+            </Grid>
+            <Border BorderThickness="0,1,0,0"
+                    BorderBrush="{arc:ArcDesignTokenResource BorderSubtle}"
+                    Padding="0,12,0,4">
+                <StackPanel Spacing="8">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <TextBlock Text="From" FontSize="13" Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+                        <TextBlock Grid.Column="1" Text="Linen savings ··2207" FontSize="13" FontFeatures="+tnum"
+                                   HorizontalAlignment="Right" Foreground="{arc:ArcDesignTokenResource Foreground}" />
+                    </Grid>
+                    <Grid ColumnDefinitions="Auto,*">
+                        <TextBlock Text="Arrives" FontSize="13" Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+                        <TextBlock Grid.Column="1" Text="Within a minute" FontSize="13"
+                                   HorizontalAlignment="Right" Foreground="{arc:ArcDesignTokenResource Foreground}" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+            <arc:SlideToConfirm x:Name="Slider"
+                                Label="Slide to pay $86"
+                                PendingLabel="Paying"
+                                ConfirmedLabel="Paid to Noor"
+                                ErrorLabel="Not paid, slide to retry" />
+            <TextBlock Text="Sample payment. Nothing is charged."
+                       FontSize="12"
+                       HorizontalAlignment="Center"
+                       TextTrimming="CharacterEllipsis"
+                       Foreground="{arc:ArcDesignTokenResource TextMuted}" />
+        </StackPanel>
+    </Border>
+</UserControl>

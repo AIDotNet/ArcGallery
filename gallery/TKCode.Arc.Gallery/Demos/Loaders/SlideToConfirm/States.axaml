@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.SlideToConfirmStatesDemo">
+    <!-- Top: an action that always fails after 0.9 s, so the error label replaces the instruction until the next slide.
+         Bottom: a disabled slider. -->
+    <StackPanel Spacing="20" Width="350" Margin="16" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <arc:SlideToConfirm x:Name="Failing"
+                            Label="Slide to unlock door 3"
+                            PendingLabel="Unlocking"
+                            ConfirmedLabel="Unlocked"
+                            ErrorLabel="Door offline, slide to retry" />
+        <arc:SlideToConfirm Label="Slide to start shift"
+                            IsEnabled="False" />
+    </StackPanel>
+</UserControl>

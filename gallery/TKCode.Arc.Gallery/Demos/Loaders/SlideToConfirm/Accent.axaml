@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.SlideToConfirmAccentDemo">
+    <!-- AccentBrush recolors the liquid and the success circle; the track, the thumb and the text keep the theme. These
+         two stay confirmed until you press Reset. -->
+    <StackPanel Spacing="20" Width="350" Margin="16" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <arc:SlideToConfirm x:Name="Green"
+                            Label="Slide to approve"
+                            ConfirmedLabel="Approved"
+                            AccentBrush="#22A06B" />
+        <arc:SlideToConfirm x:Name="Violet"
+                            Label="Slide to publish"
+                            ConfirmedLabel="Published"
+                            AccentBrush="#7747FF" />
+        <arc:Button Content="Reset"
+                    Variant="Secondary"
+                    Size="Small"
+                    HorizontalAlignment="Right"
+                    Click="OnReset" />
+    </StackPanel>
+</UserControl>

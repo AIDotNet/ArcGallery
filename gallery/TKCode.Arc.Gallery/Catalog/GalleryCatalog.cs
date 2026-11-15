@@ -381,6 +381,9 @@ public static partial class GalleryCatalog
             new("ChargeSession", "Charge session", "charge-session", 0,
                 "A live charging card: energy flows from the charger along the cable into the battery, which fills toward a draggable limit while power, energy, time and cost update.",
                 IsArc: false, AddedOn: "2026-11-07"),
+            new("SlideToConfirm", "Slide to confirm", "slide-to-confirm", 0,
+                "A slider you drag to the end to confirm an action: a liquid fill follows the thumb, an early release springs back, and the arrow turns into a check when the work is done.",
+                IsArc: false, AddedOn: "2026-11-14"),
         ], IsArc: false),
         new("Playful", "Playful", "趣味",
         [
