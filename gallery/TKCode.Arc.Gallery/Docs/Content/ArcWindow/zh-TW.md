@@ -1,7 +1,7 @@
 ---
 title: 視窗
 summary: 帶 Arc 標題列的桌面視窗：左、中、右三個區域放置你的控制項，保留原生拖曳、貼齊和縮放，標題列按鈕跟隨主題。
-source-hash: b87bd013c4a2
+source-hash: 8d1a79d06679
 ---
 
 <Demo name="Basic" />
@@ -97,7 +97,17 @@ public partial class MainWindow : ArcWindow
 
 <Demo name="CaptionButtons" />
 
-視窗最大化時，最大化按鈕顯示為還原。`CanResize` 或 `CanMaximize` 為 false 時最大化按鈕停用，`CanMinimize` 為 false 時最小化按鈕停用。
+視窗最大化時，最大化按鈕顯示為還原。`CanResize` 或 `CanMaximize` 為 false 時最大化按鈕停用，`CanMinimize` 為 false 時最小化按鈕停用。將 `UnavailableCaptionButtons` 設為 `Hide` 則改為隱藏這些按鈕，其餘按鈕隨之靠攏。這個屬性可繼承，因此可以和 `CanResize` 一起設在視窗上，也可以設在 `TitleBar` 上：
+
+```xml
+<arc:ArcWindow xmlns="https://github.com/avaloniaui"
+               xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+               CanResize="False" CanMinimize="False" UnavailableCaptionButtons="Hide">
+    <!-- 只顯示關閉按鈕 -->
+</arc:ArcWindow>
+```
+
+如果視窗允許某個操作，但你不想顯示對應按鈕，可在 `TitleBar` 上將 `ShowMinimizeButton`、`ShowMaximizeButton` 或 `ShowCloseButton` 設為 `False`。這兩種設定都只作用於標題列繪製的按鈕；macOS 紅綠燈（`System`）由系統繪製，保持不變。
 
 ### 視窗置頂
 
@@ -140,6 +150,8 @@ Windows 11 由 DWM 在視窗的左、右、下邊緣畫 1px 邊框，但用戶�
 <!-- api: TitleBar -->
 
 <!-- api: TitleBarCaptionButtons -->
+
+<!-- api: UnavailableCaptionButtonMode -->
 
 ## 協助工具
 

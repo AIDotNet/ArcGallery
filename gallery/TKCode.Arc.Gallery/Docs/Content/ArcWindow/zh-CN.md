@@ -1,7 +1,7 @@
 ---
 title: 窗口
 summary: 带 Arc 标题栏的桌面窗口：左、中、右三个区域放置你的控件，保留原生拖动、贴靠和缩放，标题栏按钮跟随主题。
-source-hash: b87bd013c4a2
+source-hash: 8d1a79d06679
 ---
 
 <Demo name="Basic" />
@@ -97,7 +97,17 @@ public partial class MainWindow : ArcWindow
 
 <Demo name="CaptionButtons" />
 
-窗口最大化时，最大化按钮显示为还原。`CanResize` 或 `CanMaximize` 为 false 时最大化按钮禁用，`CanMinimize` 为 false 时最小化按钮禁用。
+窗口最大化时，最大化按钮显示为还原。`CanResize` 或 `CanMaximize` 为 false 时最大化按钮禁用，`CanMinimize` 为 false 时最小化按钮禁用。把 `UnavailableCaptionButtons` 设为 `Hide` 则改为隐藏这些按钮，其余按钮随之靠拢。这个属性可继承，因此可以和 `CanResize` 一起设在窗口上，也可以设在 `TitleBar` 上：
+
+```xml
+<arc:ArcWindow xmlns="https://github.com/avaloniaui"
+               xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+               CanResize="False" CanMinimize="False" UnavailableCaptionButtons="Hide">
+    <!-- 只显示关闭按钮 -->
+</arc:ArcWindow>
+```
+
+如果窗口允许某个操作，但你不想显示对应按钮，可在 `TitleBar` 上把 `ShowMinimizeButton`、`ShowMaximizeButton` 或 `ShowCloseButton` 设为 `False`。这两种设置都只作用于标题栏绘制的按钮；macOS 红绿灯（`System`）由系统绘制，保持不变。
 
 ### 窗口置顶
 
@@ -140,6 +150,8 @@ Windows 11 由 DWM 在窗口的左、右、下边缘画 1px 边框，但客户�
 <!-- api: TitleBar -->
 
 <!-- api: TitleBarCaptionButtons -->
+
+<!-- api: UnavailableCaptionButtonMode -->
 
 ## 无障碍
 

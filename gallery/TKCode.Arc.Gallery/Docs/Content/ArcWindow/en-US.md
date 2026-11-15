@@ -107,7 +107,20 @@ The bar is 40 px tall. Set `Height` on the bar for another height; the window pa
 <Demo name="CaptionButtons" />
 
 Maximize shows restore while the window is maximized. It is disabled when `CanResize` or `CanMaximize` is false, and
-minimize when `CanMinimize` is false.
+minimize when `CanMinimize` is false. Set `UnavailableCaptionButtons` to `Hide` to hide them instead; the remaining
+buttons close up. The property is inherited, so set it on the window next to `CanResize`, or on the `TitleBar`:
+
+```xml
+<arc:ArcWindow xmlns="https://github.com/avaloniaui"
+               xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+               CanResize="False" CanMinimize="False" UnavailableCaptionButtons="Hide">
+    <!-- only close shows -->
+</arc:ArcWindow>
+```
+
+To leave out a button the window does allow, set `ShowMinimizeButton`, `ShowMaximizeButton` or `ShowCloseButton` to
+`False` on the `TitleBar`. Both settings apply to the buttons the bar draws; the macOS traffic lights (`System`) are the
+system's and stay as they are.
 
 ### Always on top
 
@@ -155,6 +168,8 @@ on this page, draws the same bar and moves, maximizes and closes nothing.
 <!-- api: TitleBar -->
 
 <!-- api: TitleBarCaptionButtons -->
+
+<!-- api: UnavailableCaptionButtonMode -->
 
 ## Accessibility
 

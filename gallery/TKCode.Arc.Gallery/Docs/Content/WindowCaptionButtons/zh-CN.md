@@ -1,7 +1,7 @@
 ---
 title: 窗口标题栏按钮
 summary: 内容延伸到顶部的窗口所用的最小化、最大化和关闭按钮：放进你自己的页头，按钮跟随窗口状态，并在 Windows 上打开贴靠布局。
-source-hash: 4f02708a501c
+source-hash: 108456a37d7b
 ---
 
 <Demo name="Preview" />
@@ -13,7 +13,7 @@ source-hash: 4f02708a501c
 这些按钮像系统按钮一样控制所在的窗口：
 
 - 最小化、最大化和关闭窗口，窗口最大化时最大化按钮显示为还原；
-- `CanResize` 或 `CanMaximize` 为 false 时最大化按钮禁用，`CanMinimize` 为 false 时最小化按钮禁用；
+- `CanResize` 或 `CanMaximize` 为 false 时最大化按钮禁用，`CanMinimize` 为 false 时最小化按钮禁用（在控件或窗口上设置 `UnavailableCaptionButtons="Hide"` 则改为隐藏）；
 - 在 Windows 上，它们会告诉系统自己是什么按钮，因此指向最大化按钮会打开 Windows 11 的贴靠布局。
 
 ## 何时不用
