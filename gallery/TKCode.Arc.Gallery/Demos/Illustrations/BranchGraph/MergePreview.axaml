@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.BranchGraphMergePreviewDemo">
+    <!-- A merge preview for a code review screen: four commits, two lanes, and no autoplay. -->
+    <arc:BranchGraph PullRequestTitle="Article search"
+                     PullRequestNumber="1024"
+                     SourceBranch="feat/search"
+                     AutoPlay="False">
+        <arc:BranchGraphCommit Id="a41c0e7" Branch="main" Message="Publish the help center" Author="Ines Duarte"
+                               Date="2 days ago" Additions="512" Deletions="0" Files="27" />
+        <arc:BranchGraphCommit Id="6d2e9b1" Branch="feat/search" Message="Index articles on save" Author="Ines Duarte"
+                               Body="Each saved article is added to the search index right away."
+                               Date="Yesterday" Additions="186" Deletions="11" Files="6" />
+        <arc:BranchGraphCommit Id="f03b58c" Branch="main" Parents="a41c0e7" Message="Upgrade to .NET 10" Author="Ines Duarte"
+                               Date="3 hours ago" Additions="9" Deletions="9" Files="2" />
+        <arc:BranchGraphCommit Id="b7a4e20" Branch="feat/search" Message="Rank results by freshness" Author="Ines Duarte"
+                               Body="Newer articles come first when two match equally well."
+                               Date="1 hour ago" Additions="58" Deletions="7" Files="3" />
+    </arc:BranchGraph>
+</UserControl>

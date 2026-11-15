@@ -38,8 +38,10 @@ public class GalleryNewBadgeTests
     [Fact]
     public void The_Arc_Component_Count_Includes_Tree_Table()
     {
-        // 123: the Arc components plus PageViewer and AvatarUpload, which sit in Arc's groups without an Arc page to link to.
-        GalleryCatalog.Count.ShouldBe(123);
+        // 129: the Arc components plus PageViewer, AvatarUpload and the seven Pro-like components filed in Arc's groups
+        // (EmojiPicker, MegaMenuMorph, TocProgress, ShareAccess, ConfirmPopover, UndoToast, WindowRange), which have no Arc
+        // page to link to; Slot text is listed under Special › Type, as on uiarc.dev.
+        GalleryCatalog.Count.ShouldBe(129);
         GalleryCatalog.Categories.Length.ShouldBe(22);
     }
 
@@ -47,6 +49,7 @@ public class GalleryNewBadgeTests
     public void Every_Block_Mobile_Special_And_Workflow_Entry_Carries_The_Date_It_Was_Added()
     {
         var entries = GalleryCatalog.Blocks.AllEntries
+            .Concat(GalleryCatalog.Screens.AllEntries)
             .Concat(GalleryCatalog.Mobile.AllEntries)
             .Concat(GalleryCatalog.Special.SelectMany(c => c.AllEntries))
             .Concat(GalleryCatalog.Workflow.AllEntries)

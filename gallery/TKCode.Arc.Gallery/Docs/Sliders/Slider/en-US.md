@@ -3,7 +3,7 @@ title: Slider
 summary: Pick a value or a range on a track that follows your finger.
 ---
 
-<Demo name="SingleValue" />
+<Demo name="Playground" />
 
 ## When to use
 
@@ -81,6 +81,8 @@ slots.
 `StartContent` and `EndContent` sit before and after the track, such as icons or a mute button. A mute button suits a
 volume control: the person can silence the output without moving the thumb. Keep the content to a single glyph or a
 small icon button, because the track takes the remaining width.
+
+<Demo name="SingleValue" />
 
 ```xml
 <arc:Slider Label="Volume"

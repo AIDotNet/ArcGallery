@@ -1,0 +1,12 @@
+# group: Content
+Label presets "Email", "Full name", "Company"
+Placeholder presets "you@example.com", "Search customers"
+Description presets "We never share it.", "Shown on your invoice."
+Text
+# group: Appearance
+Size
+# group: State
+IsEnabled
+IsReadOnly
+IsInvalid
+ErrorMessage presets "Enter a valid email address."

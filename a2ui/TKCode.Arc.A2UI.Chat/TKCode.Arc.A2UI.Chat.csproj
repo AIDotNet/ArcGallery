@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <!-- Trimming and Native AOT / WebAssembly: the analyzers report any reflection-based JSON or code. -->
+        <IsAotCompatible>true</IsAotCompatible>
+        <TargetFrameworks>$(ArcTargetFrameworks)</TargetFrameworks>
+        <RootNamespace>TKCode.Arc.A2UI.Chat</RootNamespace>
+        <IsPackable>false</IsPackable>
+        <NoWarn>$(NoWarn);CS0436</NoWarn>
+        <!-- The chat's own icons (sidebar, composer, top bar). -->
+        <ArcLucideGenerator>true</ArcLucideGenerator>
+    </PropertyGroup>
+    <ItemGroup>
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc/TKCode.Arc.csproj" />
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.A2UI/TKCode.Arc.A2UI.csproj" />
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Special/TKCode.Arc.Special.csproj" />
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Icons.Lucide/TKCode.Arc.Icons.Lucide.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <InternalsVisibleTo Include="TKCode.Arc.A2UI.Chat.Tests" />
+        <InternalsVisibleTo Include="TKCode.Arc.Gallery.Tests" />
+    </ItemGroup>
+</Project>

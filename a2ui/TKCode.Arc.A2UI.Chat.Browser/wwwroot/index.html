@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>A2UI Chat</title>
+    <meta charset="UTF-8">
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A2UI Chat: answers with live interfaces drawn with TKCode.Arc. Bring your own Anthropic or OpenAI-compatible key, or try the examples.">
+    <!-- The Content-Security-Policy is a response header (a2ui/docker/headers.conf): it allows the generated import map below by
+         its hash, which only the image build knows. -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="preload" id="webassembly" />
+    <link rel="modulepreload" href="_framework/avalonia.js">
+    <script type="importmap"></script>
+    <script type='module' src="main#[.{fingerprint}].js"></script>
+</head>
+
+<body style="margin: 0; overflow: hidden">
+<div id="out">
+    <div class="avalonia-splash">
+        <div class="splash-name">A2UI</div>
+    </div>
+</div>
+<style>
+    .avalonia-splash {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #ffffff;
+        color: #0a0a0a;
+        font: 600 20px system-ui, sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .avalonia-splash { background: #0a0a0a; color: #fafafa; }
+    }
+
+    .avalonia-splash.splash-close { transition: opacity 200ms; opacity: 0; pointer-events: none; }
+</style>
+</body>
+
+</html>

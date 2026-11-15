@@ -1,0 +1,157 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.TocProgressPreviewDemo">
+    <!-- An invented engineering post in its own scroll container, with the table of contents beside it. Scroll the article or pick a heading. -->
+    <UserControl.Styles>
+        <Style Selector="StackPanel.section">
+            <Setter Property="Spacing" Value="12" />
+            <Setter Property="Margin" Value="0,24,0,0" />
+        </Style>
+        <Style Selector="StackPanel.section.sub">
+            <Setter Property="Margin" Value="0,16,0,0" />
+        </Style>
+        <Style Selector="TextBlock.h3">
+            <Setter Property="FontSize" Value="17" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="LetterSpacing" Value="-0.5" />
+            <Setter Property="Foreground" Value="{arc:ArcDesignTokenResource Foreground}" />
+        </Style>
+        <Style Selector="TextBlock.h4">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="Foreground" Value="{arc:ArcDesignTokenResource Foreground}" />
+        </Style>
+        <Style Selector="TextBlock.h5">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="Foreground" Value="{arc:ArcDesignTokenResource Foreground}" />
+        </Style>
+        <Style Selector="Border#Aside">
+            <Setter Property="Padding" Value="0,8,0,0" />
+        </Style>
+        <Style Selector="Border#ArticleCard">
+            <Setter Property="Height" Value="480" />
+            <Setter Property="CornerRadius" Value="{arc:ArcDesignTokenResource RadiusStep24}" />
+        </Style>
+        <Style Selector="StackPanel#Body">
+            <Setter Property="Margin" Value="36,32,36,48" />
+        </Style>
+        <Style Selector="Border#Aside.card">
+            <Setter Property="Padding" Value="16,16,16,12" />
+            <Setter Property="Background" Value="{arc:ArcDesignTokenResource Surface}" />
+            <Setter Property="BorderBrush" Value="{arc:ArcDesignTokenResource Border}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="{arc:ArcDesignTokenResource RadiusStep20}" />
+        </Style>
+        <Style Selector="Border#ArticleCard.narrow">
+            <Setter Property="Height" Value="420" />
+            <Setter Property="CornerRadius" Value="{arc:ArcDesignTokenResource RadiusStep20}" />
+        </Style>
+        <Style Selector="Border#ArticleCard.narrow StackPanel#Body">
+            <Setter Property="Margin" Value="20,24,20,40" />
+        </Style>
+        <Style Selector="TextBlock.p">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="LineHeight" Value="21.45" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Foreground" Value="{arc:ArcDesignTokenResource TextSecondary}" />
+        </Style>
+    </UserControl.Styles>
+    <Grid x:Name="Layout" ColumnDefinitions="*,224" RowDefinitions="Auto,Auto" ColumnSpacing="16" RowSpacing="16" MaxWidth="700">
+        <Border x:Name="ArticleCard"
+                Background="{arc:ArcDesignTokenResource Surface}"
+                BorderBrush="{arc:ArcDesignTokenResource Border}"
+                BorderThickness="1"
+                ClipToBounds="True">
+            <ScrollViewer x:Name="Article" VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="Body" MaxWidth="576" HorizontalAlignment="Left">
+                    <StackPanel Spacing="8" Margin="0,0,0,8">
+                        <TextBlock Text="How we halved photo upload failures on slow networks" FontSize="22" FontWeight="Medium" LineHeight="24.2" LetterSpacing="-0.66" TextWrapping="Wrap" Foreground="{arc:ArcDesignTokenResource Foreground}" />
+                        <TextBlock Text="Field notes from the mobile team · Spring release" FontSize="12" Foreground="{arc:ArcDesignTokenResource TextMuted}" />
+                        <Border Height="1" Margin="0,16,0,0" Background="{arc:ArcDesignTokenResource BorderSubtle}" />
+                    </StackPanel>
+
+                    <StackPanel Classes="section">
+                        <TextBlock Classes="h3" Text="Why uploads failed" arc:TocProgress.Heading="Why uploads failed" />
+                        <TextBlock Classes="p" Text="People share photos from trains, cafés and car parks, where the signal comes and goes. One upload in twelve never reached us, and most of those people did not try a second time." />
+                        <TextBlock Classes="p" Text="The failures were not random. They piled up on large pictures, on older phones and in the evening, when the networks in busy cities are at their slowest." />
+                    </StackPanel>
+
+                    <StackPanel Classes="section">
+                        <TextBlock Classes="h3" Text="Finding the failures" arc:TocProgress.Heading="Finding the failures" />
+                        <TextBlock Classes="p" Text="Our dashboards only counted the uploads that finished, so the first job was to see the ones that did not. We started recording every attempt on the phone itself." />
+                        <TextBlock Classes="p" Text="Within a week we had half a million attempts, enough to split them by network type, file size and the moment the connection gave up." />
+                    </StackPanel>
+
+                    <StackPanel Classes="section sub">
+                        <TextBlock Classes="h4" Text="Logging each attempt" arc:TocProgress.Heading="Logging each attempt" arc:TocProgress.Level="2" />
+                        <TextBlock Classes="p" Text="Each attempt writes three marks to a small local journal, which is sent with the next successful request instead of through a new channel." />
+                        <Border Background="{arc:ArcDesignTokenResource SurfaceMuted}" BorderBrush="{arc:ArcDesignTokenResource BorderSubtle}" BorderThickness="1" CornerRadius="14" Padding="14,12" Margin="0,4,0,0">
+                            <TextBlock FontFamily="{arc:ArcDesignTokenResource MonoFontFamily}" FontSize="12" LineHeight="19.2" Foreground="{arc:ArcDesignTokenResource Foreground}"
+                                       Text="journal.mark(&quot;picked&quot;);&#10;var sent = await uploader.SendAsync(photo);&#10;journal.mark(sent ? &quot;stored&quot; : &quot;dropped&quot;);" />
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel Classes="section sub">
+                        <TextBlock Classes="h4" Text="Where requests stalled" arc:TocProgress.Heading="Where requests stalled" arc:TocProgress.Level="2" />
+                        <TextBlock Classes="p" Text="Almost every failed upload had already sent most of its bytes. The connection dropped near the end, and the whole file started again from zero." />
+                        <TextBlock Classes="p" Text="Picture size mattered far more than the phone. A twelve megabyte photo failed four times as often as a three megabyte one on the same network." />
+                    </StackPanel>
+
+                    <StackPanel Classes="section sub">
+                        <TextBlock Classes="h5" Text="Timeouts on mobile" arc:TocProgress.Heading="Timeouts on mobile" arc:TocProgress.Level="3" />
+                        <TextBlock Classes="p" Text="Our client waited thirty seconds for any reply. On a slow link a large file needs longer than that, so the client gave up on uploads that were still moving." />
+                        <TextBlock Classes="p" Text="Raising the limit helped a little, but it also kept people staring at a spinner for a minute when the network really was gone." />
+                    </StackPanel>
+
+                    <StackPanel Classes="section">
+                        <TextBlock Classes="h3" Text="Uploading in pieces" arc:TocProgress.Heading="Uploading in pieces" />
+                        <TextBlock Classes="p" Text="The real fix was to stop treating a photo as one request. If a file travels in small parts, a dropped connection only costs the part in flight." />
+                    </StackPanel>
+
+                    <StackPanel Classes="section sub">
+                        <TextBlock Classes="h4" Text="Chunking the file" arc:TocProgress.Heading="Chunking the file" arc:TocProgress.Level="2" />
+                        <TextBlock Classes="p" Text="Photos now go up in parts of 256 kilobytes. The server keeps the parts it has and answers each request with the next offset it expects." />
+                        <TextBlock Classes="p" Text="Small parts also let the progress bar move steadily, which turned out to matter: people waited longer when they could see the upload moving." />
+                    </StackPanel>
+
+                    <StackPanel Classes="section sub">
+                        <TextBlock Classes="h4" Text="Resuming after a drop" arc:TocProgress.Heading="Resuming after a drop" arc:TocProgress.Level="2" />
+                        <TextBlock Classes="p" Text="When the connection comes back, the phone asks where it left off and carries on from there. Uploads also survive the app going to the background." />
+                        <TextBlock Classes="p" Text="We keep unfinished uploads for a day. After that the parts are cleaned up and the phone starts fresh, which happens to fewer than one upload in a thousand." />
+                    </StackPanel>
+
+                    <StackPanel Classes="section">
+                        <TextBlock Classes="h3" Text="Results" arc:TocProgress.Heading="Results" />
+                        <TextBlock Classes="p" Text="Failed uploads fell from one in twelve to one in twenty-five, and the slowest tenth of uploads finished forty percent sooner." />
+                        <TextBlock Classes="p" Text="Support tickets about missing photos dropped by more than half in the month after the release." />
+                    </StackPanel>
+
+                    <StackPanel Classes="section">
+                        <TextBlock Classes="h3" Text="Lessons for next time" arc:TocProgress.Heading="Lessons for next time" />
+                        <TextBlock Classes="p" Text="Measure on the device first. Our servers looked healthy the whole time, because the requests that failed never arrived." />
+                        <TextBlock Classes="p" Text="And test on a bad network on purpose. A throttled phone on a desk would have shown us the problem in an afternoon." />
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <Border x:Name="Aside" Grid.Column="1" VerticalAlignment="Top">
+            <StackPanel Spacing="16">
+                <arc:TocProgress x:Name="Toc"
+                                 Target="{Binding #Article}"
+                                 ReadingOffset="28"
+                                 ReadingTime="5"
+                                 DisplayMode="List"
+                                 ActiveChanged="OnActiveChanged" />
+                <Border x:Name="Footer" BorderBrush="{arc:ArcDesignTokenResource BorderSubtle}" BorderThickness="0,1,0,0" Padding="0,12,0,0">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="Reading" FontSize="12" Foreground="{arc:ArcDesignTokenResource TextMuted}" />
+                        <TextBlock x:Name="Current" FontSize="12" TextTrimming="CharacterEllipsis" MaxWidth="170" Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

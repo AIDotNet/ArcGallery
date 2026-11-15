@@ -126,9 +126,9 @@
         <source>Playful</source>
       </segment>
     </unit>
-    <unit id="Category_Widgets">
+    <unit id="Category_Type">
       <segment>
-        <source>Widgets</source>
+        <source>Type</source>
       </segment>
     </unit>
     <unit id="Category_Ai">
@@ -156,19 +156,9 @@
         <source>Glass</source>
       </segment>
     </unit>
-    <unit id="Category_Photos">
+    <unit id="Category_Galleries">
       <segment>
-        <source>Photos</source>
-      </segment>
-    </unit>
-    <unit id="Category_Publishing">
-      <segment>
-        <source>Publishing</source>
-      </segment>
-    </unit>
-    <unit id="Category_Inputs">
-      <segment>
-        <source>Inputs</source>
+        <source>Galleries</source>
       </segment>
     </unit>
     <unit id="Category_Cursor">
@@ -389,6 +379,26 @@
     <unit id="PreviewMobile">
       <segment>
         <source>Mobile</source>
+      </segment>
+    </unit>
+    <unit id="PlaygroundTitle">
+      <segment>
+        <source>Properties</source>
+      </segment>
+    </unit>
+    <unit id="PlaygroundReset">
+      <segment>
+        <source>Reset</source>
+      </segment>
+    </unit>
+    <unit id="PlaygroundNotSet">
+      <segment>
+        <source>Not set</source>
+      </segment>
+    </unit>
+    <unit id="PlaygroundXaml">
+      <segment>
+        <source>XAML</source>
       </segment>
     </unit>
     <unit id="PreviewFullscreen">
@@ -614,6 +624,46 @@
     <unit id="BlockGroup_Showpieces">
       <segment>
         <source>Showpieces</source>
+      </segment>
+    </unit>
+    <unit id="Category_Screens">
+      <segment>
+        <source>Screens</source>
+      </segment>
+    </unit>
+    <unit id="BlockGroup_Agents">
+      <segment>
+        <source>Agents</source>
+      </segment>
+    </unit>
+    <unit id="BlockGroup_Dashboards">
+      <segment>
+        <source>Dashboards</source>
+      </segment>
+    </unit>
+    <unit id="BlockGroup_ScreenProjects">
+      <segment>
+        <source>Projects</source>
+      </segment>
+    </unit>
+    <unit id="BlockGroup_Calendars">
+      <segment>
+        <source>Calendars</source>
+      </segment>
+    </unit>
+    <unit id="BlockGroup_PeopleCustomers">
+      <segment>
+        <source>People and customers</source>
+      </segment>
+    </unit>
+    <unit id="BlockGroup_InboxSupport">
+      <segment>
+        <source>Inbox and support</source>
+      </segment>
+    </unit>
+    <unit id="BlockGroup_ScreenCommerce">
+      <segment>
+        <source>Commerce</source>
       </segment>
     </unit>
     <unit id="Category_Docs">
@@ -1489,6 +1539,11 @@
     <unit id="NavProjects">
       <segment>
         <source>Open source</source>
+      </segment>
+    </unit>
+    <unit id="NavA2UI">
+      <segment>
+        <source>A2UI</source>
       </segment>
     </unit>
     <unit id="ProductAllComponents">

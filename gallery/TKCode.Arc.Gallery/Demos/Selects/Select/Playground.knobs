@@ -1,0 +1,8 @@
+# group: Content
+Label presets "Region", "Plan", "Time zone"
+Description presets "Where your workspace data is stored.", "You can change this later."
+Placeholder presets "Select a region", "Choose one"
+# group: Appearance
+Size
+# group: State
+IsEnabled

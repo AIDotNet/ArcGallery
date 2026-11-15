@@ -1,0 +1,7 @@
+# group: Appearance
+Variant
+Size
+Content presets "Save changes", "Delete project", "Export report"
+# group: State
+IsLoading
+IsEnabled

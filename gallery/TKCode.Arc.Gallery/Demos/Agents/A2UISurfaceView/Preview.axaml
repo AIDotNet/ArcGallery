@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.A2UISurfaceViewPreviewDemo">
+    <!-- An agent's answer streamed one A2UI message at a time (recorded, no model involved). -->
+    <StackPanel Spacing="12" MaxWidth="640">
+        <StackPanel Orientation="Horizontal" Spacing="12">
+            <arc:Button Content="Replay" Variant="Secondary" Size="Small" Click="OnReplay" />
+            <TextBlock x:Name="Status" VerticalAlignment="Center" FontSize="13" Foreground="{arc:ArcDesignTokenResource TextMuted}" />
+        </StackPanel>
+        <arc:A2UISurfaceView x:Name="View" SurfaceId="overview_1" />
+    </StackPanel>
+</UserControl>

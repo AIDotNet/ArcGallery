@@ -2,23 +2,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
              x:Class="TKCode.Arc.Gallery.Demos.PrizeWheelPreviewDemo">
-    <!-- Click the wheel, or Tab to it and press Enter. Larger slices are likelier: the odds decide the slice widths. -->
-    <StackPanel Spacing="18" HorizontalAlignment="Center">
-        <arc:PrizeWheel x:Name="Wheel"
-                        Label="Daily prize wheel"
-                        Width="320"
-                        Height="320"
-                        SpinCompleted="OnSpinCompleted">
-            <arc:PrizeWheelSegment Label="5% off" Weight="4" />
-            <arc:PrizeWheelSegment Label="Free shipping" Weight="3" />
-            <arc:PrizeWheelSegment Label="Sticker" Weight="3" />
-            <arc:PrizeWheelSegment Label="10% off" Weight="2" />
-            <arc:PrizeWheelSegment Label="Mug" Weight="1.5" />
-            <arc:PrizeWheelSegment Label="Gift card" Weight="1" />
-        </arc:PrizeWheel>
-        <TextBlock x:Name="Readout"
-                   Text="Spin to win a little something."
-                   HorizontalAlignment="Center"
-                   Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
-    </StackPanel>
+    <!--
+        Flick the wheel, or hold Spin to wind it up and let go. Eight equal slices with their own odds; the rare top
+        prize is featured. The won slice lifts into a reward card with a code to copy.
+    -->
+    <arc:PrizeWheel Label="Launch reward wheel"
+                    SizesByWeight="False"
+                    MaxWidth="880">
+        <arc:PrizeWheelSegment Label="5% off" Weight="30" Detail="On your next annual plan" Code="WHEEL-5OFF" />
+        <arc:PrizeWheelSegment Label="Free week" Weight="12" Detail="Seven extra days on any plan" Code="WHEEL-WEEK" />
+        <arc:PrizeWheelSegment Label="25% off" Weight="18" Detail="On your next annual plan" Code="WHEEL-25OFF" />
+        <arc:PrizeWheelSegment Label="Team plan" Weight="1" Detail="A full year of the team plan, free" Code="WHEEL-TEAMYEAR" IsFeatured="True" />
+        <arc:PrizeWheelSegment Label="Font pack" Weight="20" Detail="Twelve display typefaces to keep" Code="WHEEL-FONTS" />
+        <arc:PrizeWheelSegment Label="Extra storage" Weight="14" Detail="Another 50 GB for six months" Code="WHEEL-50GB" />
+        <arc:PrizeWheelSegment Label="3x exports" Weight="3" Detail="Triple export credits this quarter" Code="WHEEL-3XEXP" />
+        <arc:PrizeWheelSegment Label="1:1 session" Weight="2" Detail="Thirty minutes with a product designer" Code="WHEEL-SESSION" />
+    </arc:PrizeWheel>
 </UserControl>

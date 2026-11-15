@@ -1,0 +1,10 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.MonthCalendarPreviewDemo">
+    <!-- The whole screen at 1440 × 900, scaled to fit the stage; in the Mobile preview it lays out at the phone's 390
+         wide (load meters, the day's list, sheets). Data: MonthCalendarDemoData (a studio's month around today). -->
+    <Viewbox x:Name="Stage" Stretch="Uniform" StretchDirection="DownOnly">
+        <arc:MonthCalendar x:Name="Calendar" Width="1440" Height="900" />
+    </Viewbox>
+</UserControl>

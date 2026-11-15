@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.KeycapKeyboardMacroPadDemo">
+    <!-- One custom row makes a four-key pad; ShowsText="False" hides the text area and the value is shown here instead. -->
+    <StackPanel Spacing="14" MaxWidth="420">
+        <arc:KeycapKeyboard x:Name="Pad" ShowsText="False" Label="Macro pad">
+            <arc:KeycapKeyboard.Rows>
+                <arc:KeycapRow Keys="g o ! backspace" />
+            </arc:KeycapKeyboard.Rows>
+        </arc:KeycapKeyboard>
+        <TextBlock HorizontalAlignment="Center"
+                   Text="{Binding #Pad.Value, StringFormat='Value: {0}'}"
+                   FontFamily="{arc:ArcDesignTokenResource MonoFontFamily}"
+                   FontSize="{arc:ArcDesignTokenResource TypeSM}"
+                   Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+    </StackPanel>
+</UserControl>

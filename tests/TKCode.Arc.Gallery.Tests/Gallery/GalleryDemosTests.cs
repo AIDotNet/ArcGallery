@@ -123,7 +123,7 @@ public class GalleryDemosTests
         var doc = GalleryDocs.Get("Button", "en-US").ShouldNotBeNull();
         doc.Markdown.ShouldNotContain("<Demo ", Case.Sensitive);
         // The demo above the first section is the page's preview.
-        doc.Markdown.ShouldStartWith("<demo name=\"Button.Variants\" hero=\"true\"></demo>");
+        doc.Markdown.ShouldStartWith("<demo name=\"Button.Playground\" hero=\"true\"></demo>");
         doc.Markdown.ShouldContain("<demo name=\"Button.Sizes\"></demo>");
 
         doc.CopyMarkdown.ShouldNotContain("<demo");
@@ -140,8 +140,8 @@ public class GalleryDemosTests
         {
             page.IsDocsPage.ShouldBeTrue();
             var demos = Demos(page);
-            demos.Select(d => d.DemoId).ShouldBe(["Button.Variants", "Button.Sizes", "Button.LoadingMorph", "Button.Disabled"]);
-            demos.Select(d => d.IsHero).ShouldBe([true, false, false, false]);
+            demos.Select(d => d.DemoId).ShouldBe(["Button.Playground", "Button.Variants", "Button.Sizes", "Button.LoadingMorph", "Button.Disabled"]);
+            demos.Select(d => d.IsHero).ShouldBe([true, false, false, false, false]);
             demos.ShouldAllBe(d => d.Demo != null);
             demos[0].GetVisualDescendants().OfType<Button>().Select(b => b.Content).ShouldContain("Save changes");
 
@@ -269,7 +269,7 @@ public class GalleryDemosTests
             }
             page.SectionTitles[0].ShouldBe("预览");
             page.SectionTitles.ShouldContain("何时使用");
-            Demos(page).Select(d => d.DemoId).ShouldBe(["Switch.SettingsList", "Switch.Disabled"]);
+            Demos(page).Select(d => d.DemoId).ShouldBe(["Switch.Playground", "Switch.SettingsList", "Switch.Disabled"]);
         }
         finally
         {

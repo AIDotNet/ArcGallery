@@ -1,0 +1,7 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.BranchGraphPullRequestDemo">
+    <!-- With no commits the graph previews an invented pull request and cycles Before, Rebase, Merge and Squash. -->
+    <arc:BranchGraph />
+</UserControl>

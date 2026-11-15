@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.KeycapKeyboardShortcutDemo">
+    <!-- Shortcut turns one combination's keys to the accent; bindings print what keys do while their modifiers are held
+         (click ctrl to hold it). The function row and Windows words are on, the text area is off. -->
+    <arc:KeycapKeyboard Shortcut="Ctrl+Shift+P"
+                        Platform="Windows"
+                        ShowsFunctionRow="True"
+                        ShowsText="False"
+                        Label="Editor shortcuts">
+        <arc:KeycapBinding Gesture="Ctrl+C" Label="Copy" />
+        <arc:KeycapBinding Gesture="Ctrl+V" Label="Paste" />
+        <arc:KeycapBinding Gesture="Ctrl+Z" Label="Undo" />
+        <arc:KeycapBinding Gesture="Ctrl+S" Label="Save" />
+        <arc:KeycapBinding Gesture="Ctrl+F" Label="Find" />
+        <arc:KeycapBinding Gesture="F1" Label="Help" />
+    </arc:KeycapKeyboard>
+</UserControl>

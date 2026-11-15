@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.SandTextCodeDemo">
+    <!-- From code: let the letters go (they fall and disappear), then pour them back; the events report the ends. -->
+    <StackPanel Spacing="16" MaxWidth="560">
+        <arc:SandText x:Name="Sand"
+                      Text="Draft deleted"
+                      FontSize="44"
+                      Dissolved="OnDissolved"
+                      Gathered="OnGathered" />
+        <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Center">
+            <arc:Button Content="Let go" Variant="Secondary" Click="OnLetGo" />
+            <arc:Button Content="Pour back" Variant="Ghost" Click="OnPourBack" />
+            <TextBlock x:Name="Status"
+                       Text="Standing"
+                       VerticalAlignment="Center"
+                       Margin="8,0,0,0"
+                       Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

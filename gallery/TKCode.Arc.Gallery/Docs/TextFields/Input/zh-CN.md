@@ -1,10 +1,10 @@
 ---
 title: 输入框
 summary: 用于输入简短文本的文本框，自带标签、帮助文字与错误提示行。
-source-hash: 63e458b20144
+source-hash: 5e30297ee803
 ---
 
-<Demo name="Basic" />
+<Demo name="Playground" />
 
 ## 何时使用
 
@@ -25,6 +25,8 @@ source-hash: 63e458b20144
 - **在页面上原位重命名标题**：用 `InlineEdit`，它在编辑前看起来就是普通文字。
 
 ## 用法
+
+<Demo name="Basic" />
 
 ```xml
 <UserControl xmlns="https://github.com/avaloniaui"

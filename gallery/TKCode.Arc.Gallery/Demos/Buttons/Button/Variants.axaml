@@ -7,5 +7,6 @@
         <arc:Button Content="Cancel" Variant="Secondary" />
         <arc:Button Content="Learn more" Variant="Ghost" />
         <arc:Button Content="Delete project" Variant="Danger" />
+        <arc:Button Content="Edit" Variant="Text" />
     </WrapPanel>
 </UserControl>

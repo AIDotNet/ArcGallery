@@ -1,0 +1,10 @@
+# group: Value
+Value 0..100 step 1
+Maximum 10..200 step 10
+Label presets "Volume", "Brightness", "Price"
+IsValueVisible
+# group: Appearance
+ThumbDiameter 12..32 step 2
+TrackThickness 2..12 step 1
+# group: State
+IsEnabled

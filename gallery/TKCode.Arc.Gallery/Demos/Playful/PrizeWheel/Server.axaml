@@ -3,35 +3,28 @@
              xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
              x:Class="TKCode.Arc.Gallery.Demos.PrizeWheelServerDemo">
     <!--
-        The prize is decided elsewhere (here a fake server call that takes a moment), so the wheel is for show:
-        IsInteractive is off, slices are equal, and SpinTo lands on the answer. Each peg raises Ticked.
+        A single spin with a winner your server drew: the visitor still flicks or holds Spin, but WinnerPicker returns
+        the server's answer. After the spin the hub reads "Claimed" and the card has no "Spin again".
     -->
-    <StackPanel Spacing="16" HorizontalAlignment="Center">
+    <StackPanel Spacing="16" MaxWidth="880">
         <arc:PrizeWheel x:Name="Wheel"
-                        Label="Raffle wheel"
-                        Width="280"
-                        Height="280"
-                        IsInteractive="False"
+                        Label="Conference giveaway wheel"
+                        Title="Your welcome gift"
+                        Description="One spin per badge. Show the code at the help desk."
                         SizesByWeight="False"
-                        SpinText="Raffle"
-                        Duration="0:0:6"
-                        Turns="7"
-                        Ticked="OnTicked"
+                        IsSingleSpin="True"
                         SpinCompleted="OnSpinCompleted">
-            <arc:PrizeWheelSegment Label="Ada" />
-            <arc:PrizeWheelSegment Label="Bram" />
-            <arc:PrizeWheelSegment Label="Cleo" />
-            <arc:PrizeWheelSegment Label="Dev" />
-            <arc:PrizeWheelSegment Label="Elif" />
-            <arc:PrizeWheelSegment Label="Femi" />
-            <arc:PrizeWheelSegment Label="Gus" />
-            <arc:PrizeWheelSegment Label="Hana" />
+            <arc:PrizeWheelSegment Label="Early entry" Weight="40" Detail="Skip the queue at the keynote" Code="CONF-EARLY" />
+            <arc:PrizeWheelSegment Label="Tote bag" Weight="25" Detail="Pick one up at the merch stand" Code="CONF-TOTE" />
+            <arc:PrizeWheelSegment Label="Free coffee" Weight="20" Detail="Any drink at the lounge bar" Code="CONF-COFFEE" />
+            <arc:PrizeWheelSegment Label="Workshop seat" Weight="14" Detail="A reserved seat in any workshop" Code="CONF-SEAT" />
+            <arc:PrizeWheelSegment Label="VIP pass" Weight="1" Detail="Speaker dinner and backstage tour" Code="CONF-VIP" IsFeatured="True" />
         </arc:PrizeWheel>
         <StackPanel Orientation="Horizontal" Spacing="12" HorizontalAlignment="Center">
-            <arc:Button x:Name="Draw" Content="Draw a winner" Variant="Primary" Click="OnDraw" />
             <TextBlock x:Name="Readout"
                        VerticalAlignment="Center"
                        Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+            <arc:Button Content="Reset the demo" Variant="Ghost" Size="Small" Click="OnReset" />
         </StackPanel>
     </StackPanel>
 </UserControl>

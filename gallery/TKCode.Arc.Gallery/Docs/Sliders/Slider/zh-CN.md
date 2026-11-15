@@ -1,10 +1,10 @@
 ---
 title: 滑块
 summary: 在轨道上选取一个值或一个范围，跟随指针移动。
-source-hash: d79b02e3405f
+source-hash: 9148a365e371
 ---
 
-<Demo name="SingleValue" />
+<Demo name="Playground" />
 
 ## 何时使用
 
@@ -55,6 +55,8 @@ source-hash: d79b02e3405f
 ### 起始与结束内容
 
 `StartContent` 和 `EndContent` 分别位于轨道之前和之后，例如图标或静音按钮。静音按钮适合用于音量控件：用户无需移动滑块手柄即可让输出静音。内容应保持为单个字形或小图标按钮，因为轨道会占用其余的宽度。
+
+<Demo name="SingleValue" />
 
 ```xml
 <arc:Slider Label="音量"

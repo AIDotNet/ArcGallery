@@ -78,6 +78,7 @@ internal sealed class GalleryDemoBlock : BlockView
 public sealed class GalleryDemoView : StackPanel
 {
     private const double HeroHeight = 420;
+    private const double PlaygroundHeight = 500;
     // The room a demo that is not built yet keeps on its stage (plus the stage's padding), so the page does not shrink to
     // a column of empty frames before the visitor scrolls.
     private const double PendingHeight = 140;
@@ -101,6 +102,13 @@ public sealed class GalleryDemoView : StackPanel
     private Size _fitSize;
     private int _sizeGeneration;
     private StackPanel? _code;
+    // The playground panel beside (or below) the stage of a hero demo that has a .knobs file (gallery-playground.md).
+    private readonly Grid? _arena;
+    private GalleryPlaygroundPanel? _panel;
+    private bool _sideBySide = true;
+
+    /// <summary>The width at which the playground panel sits beside the stage; narrower, it is a drawer below it.</summary>
+    private const double PanelSideWidth = 840;
 
     public GalleryDemoView(string id, bool hero = false)
     {
@@ -147,7 +155,27 @@ public sealed class GalleryDemoView : StackPanel
         {
             _stage.MinHeight = HeroHeight;
         }
-        _body.Children.Add(_stage);
+        if (hero && _demo is not null && GalleryPlaygrounds.Get(id) is not null)
+        {
+            _arena = new Grid();
+            _arena.Children.Add(_stage);
+            // Room for the panel's rows and the XAML below them.
+            _stage.MinHeight = PlaygroundHeight;
+            // The panel is as tall as the stage and scrolls inside, so a long list of properties does not stretch the stage.
+            _stage.PropertyChanged += (_, e) =>
+            {
+                if (e.Property == BoundsProperty)
+                {
+                    SyncPanelHeight();
+                }
+            };
+            _body.Children.Add(_arena);
+            ArrangeArena(true);
+        }
+        else
+        {
+            _body.Children.Add(_stage);
+        }
 
         Children.Add(bar);
         Children.Add(_body);
@@ -182,6 +210,78 @@ public sealed class GalleryDemoView : StackPanel
         _view = _demo?.Create();
         _movable = CreateContent();
         _content.Child = _movable;
+        AttachPlayground();
+    }
+
+    /// <summary>The playground panel (null when this demo has none, or until the demo is built).</summary>
+    public GalleryPlaygroundPanel? Playground => _panel;
+
+    private void AttachPlayground()
+    {
+        if (_arena is null || _view is null || _panel is not null || GalleryPlaygrounds.Get(DemoId) is not { } playground)
+        {
+            return;
+        }
+        // The demo's element x:Name="Target" (the generator checked the demo has one; tests check it is a Control).
+        if (_view.FindControl<Control>("Target") is not { } target)
+        {
+            return;
+        }
+        _panel = new GalleryPlaygroundPanel(playground, target) { IsVisible = !IsShowingCode };
+        _arena.Children.Add(_panel);
+        ArrangeArena(_sideBySide);
+    }
+
+    private void SyncPanelHeight()
+    {
+        if (_panel is not null && _sideBySide && _stage.Bounds.Height > 0)
+        {
+            _panel.Height = _stage.Bounds.Height;
+        }
+    }
+
+    /// <summary>Puts the panel beside the stage (wide pages) or in a drawer below it.</summary>
+    private void ArrangeArena(bool side)
+    {
+        if (_arena is null)
+        {
+            return;
+        }
+        _sideBySide = side;
+        _arena.ColumnDefinitions = side ? new ColumnDefinitions("*,280") : new ColumnDefinitions("*");
+        _arena.RowDefinitions = side ? new RowDefinitions("Auto") : new RowDefinitions("Auto,Auto");
+        Grid.SetColumn(_stage, 0);
+        Grid.SetRow(_stage, 0);
+        if (_panel is { } panel)
+        {
+            Grid.SetColumn(panel, side ? 1 : 0);
+            Grid.SetRow(panel, side ? 0 : 1);
+            panel.Margin = side ? new Thickness(16, 0, 0, 0) : new Thickness(0, 12, 0, 0);
+            panel.VerticalAlignment = VerticalAlignment.Top;
+            panel.IsDrawer = !side;
+            if (side)
+            {
+                panel.Height = Math.Max(_stage.Bounds.Height, PlaygroundHeight);
+            }
+            else
+            {
+                panel.ClearValue(HeightProperty);
+            }
+        }
+    }
+
+    /// <inheritdoc />
+    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
+    {
+        base.OnPropertyChanged(change);
+        if (_arena is not null && change.Property == BoundsProperty && Bounds.Width > 0)
+        {
+            var side = Bounds.Width >= PanelSideWidth;
+            if (side != _sideBySide)
+            {
+                ArrangeArena(side);
+            }
+        }
     }
 
 
@@ -242,6 +342,10 @@ public sealed class GalleryDemoView : StackPanel
                 }
             }
             _stage.IsVisible = !code;
+            if (_panel is not null)
+            {
+                _panel.IsVisible = !code;
+            }
             if (_code is not null)
             {
                 _code.IsVisible = code;

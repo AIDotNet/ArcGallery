@@ -63,6 +63,16 @@ public sealed class GalleryDocsGenerator : IIncrementalGenerator
             .Select(static (demo, _) => demo!);
         context.RegisterSourceOutput(demos.Collect().Combine(pages.Collect()).Combine(context.CompilationProvider),
             static (spc, data) => EmitDemos(spc, data.Left.Left, data.Left.Right, data.Right));
+
+        // The playground panel's property lists (Demos/<Category>/<Component>/<Name>.knobs).
+        var knobs = context.AdditionalTextsProvider
+            .Where(static file => file.Path.EndsWith(".knobs", System.StringComparison.OrdinalIgnoreCase))
+            .Combine(projectDirectory)
+            .Select(static (pair, ct) => KnobFile.Parse(pair.Left.Path, pair.Left.GetText(ct)?.ToString(), pair.Right))
+            .Where(static file => file is not null)
+            .Select(static (file, _) => file!);
+        context.RegisterSourceOutput(knobs.Collect().Combine(demos.Collect()).Combine(context.CompilationProvider),
+            static (spc, data) => PlaygroundEmitter.Emit(spc, data.Left.Left, data.Left.Right, data.Right));
     }
 
     /// <summary>

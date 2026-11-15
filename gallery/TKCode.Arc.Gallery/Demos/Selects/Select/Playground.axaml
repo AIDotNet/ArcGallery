@@ -1,0 +1,14 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.SelectPlaygroundDemo">
+    <arc:Select x:Name="Target"
+                Label="Region"
+                Description="Where your workspace data is stored."
+                HorizontalAlignment="Center"
+                Width="280">
+        <arc:SelectItem Content="North America" Value="na" />
+        <arc:SelectItem Content="Europe" Value="eu" />
+        <arc:SelectItem Content="Asia Pacific" Value="apac" />
+    </arc:Select>
+</UserControl>

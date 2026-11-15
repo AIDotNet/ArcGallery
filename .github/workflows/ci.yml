@@ -62,3 +62,6 @@ jobs:
 
       - name: Test (gallery, headless Avalonia)
         run: dotnet test tests/TKCode.Arc.Gallery.Tests --no-build
+
+      - name: Test (A2UI Chat, headless Avalonia)
+        run: dotnet test a2ui/tests/TKCode.Arc.A2UI.Chat.Tests --no-build

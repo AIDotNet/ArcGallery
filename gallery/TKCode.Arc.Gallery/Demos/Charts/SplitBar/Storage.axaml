@@ -2,10 +2,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
              x:Class="TKCode.Arc.Gallery.Demos.SplitBarStorageDemo">
-    <arc:SplitBar Title="Storage" Total="256" ValueDecimals="1" ValueSuffix=" GB" RemainderLabel="Free" MaxWidth="560">
-        <arc:SplitBarSegment Label="Photos" Value="82.4" />
-        <arc:SplitBarSegment Label="Apps" Value="46.1" />
-        <arc:SplitBarSegment Label="Documents" Value="21.7" />
-        <arc:SplitBarSegment Label="System" Value="18.3" />
+    <!-- A fixed Total: the rest of the bar stays empty and the legend names it. -->
+    <arc:SplitBar Title="Storage"
+                  Description="Laptop drive"
+                  Total="512"
+                  ValueDecimals="1"
+                  ValueSuffix=" GB"
+                  RemainderLabel="Free"
+                  MaxWidth="720">
+        <arc:SplitBarSegment Label="Photos" Value="182.4" />
+        <arc:SplitBarSegment Label="Apps" Value="96.1" />
+        <arc:SplitBarSegment Label="Documents" Value="41.7" />
+        <arc:SplitBarSegment Label="System" Value="28.3" />
     </arc:SplitBar>
 </UserControl>

@@ -3,7 +3,7 @@ title: Input
 summary: The text box for a short typed value, with its label, helper text and error row built in.
 ---
 
-<Demo name="Basic" />
+<Demo name="Playground" />
 
 ## When to use
 
@@ -36,6 +36,8 @@ them.
 - **Renaming a title in place on a page**: use `InlineEdit`, which looks like text until it is edited.
 
 ## Usage
+
+<Demo name="Basic" />
 
 ```xml
 <UserControl xmlns="https://github.com/avaloniaui"

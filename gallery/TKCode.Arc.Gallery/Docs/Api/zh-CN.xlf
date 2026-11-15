@@ -4,6 +4,42 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" target-language="zh-CN" datatype="plaintext" original="TKCode.Arc">
     <body>
+      <trans-unit id="A2UISurfaceView">
+        <source>Shows one A2UI surface with Arc controls. Give it a `Renderer` and a `SurfaceId` (it waits for the surface to be created and clears when it is deleted), or a `Surface` directly. User input is written to the surface's data model and actions are sent through the renderer's `Outbound`.</source>
+        <target>用 Arc 控件显示一个 A2UI 界面。给它 `Renderer` 和 `SurfaceId`（它会等到界面被创建，界面被删除时清空），或直接给 `Surface`。用户输入写入界面的数据模型，动作通过渲染器的 `Outbound` 发出。</target>
+      </trans-unit>
+      <trans-unit id="A2UISurfaceView.ErrorTemplate">
+        <source>Builds the placeholder of an unknown or cyclic component (data: `A2UIFallbackInfo`).</source>
+        <target>生成未知或循环引用组件的占位（数据：`A2UIFallbackInfo`）。</target>
+      </trans-unit>
+      <trans-unit id="A2UISurfaceView.PendingContent">
+        <source>Shown while the surface or its root component has not arrived; null shows a skeleton.</source>
+        <target>界面或其根组件还没到达时显示的内容；为 null 时显示骨架屏。</target>
+      </trans-unit>
+      <trans-unit id="A2UISurfaceView.PendingTemplate">
+        <source>Builds the placeholder of a child that has not arrived yet (data: `A2UIFallbackInfo`); null shows nothing.</source>
+        <target>生成尚未到达的子组件的占位（数据：`A2UIFallbackInfo`）；为 null 时不显示任何内容。</target>
+      </trans-unit>
+      <trans-unit id="A2UISurfaceView.Registry">
+        <source>The component views to use; null uses `Default` (the basic catalog).</source>
+        <target>使用的组件视图；为 null 时使用 `Default`（基础目录）。</target>
+      </trans-unit>
+      <trans-unit id="A2UISurfaceView.Renderer">
+        <source>The renderer that owns the surface (with `SurfaceId`).</source>
+        <target>拥有该界面的渲染器（与 `SurfaceId` 一起使用）。</target>
+      </trans-unit>
+      <trans-unit id="A2UISurfaceView.ShowErrorPlaceholders">
+        <source>When true, unknown or cyclic components show a small error strip (useful while developing an agent).</source>
+        <target>为 true 时，未知或循环引用的组件显示一条小的错误提示（开发智能体时有用）。</target>
+      </trans-unit>
+      <trans-unit id="A2UISurfaceView.Surface">
+        <source>The surface to show; takes precedence over `SurfaceId`.</source>
+        <target>要显示的界面；优先于 `SurfaceId`。</target>
+      </trans-unit>
+      <trans-unit id="A2UISurfaceView.SurfaceId">
+        <source>The id of the surface to show; the view waits until the renderer creates it and clears when it is deleted.</source>
+        <target>要显示的界面 id；视图会等到渲染器创建它，界面被删除时清空。</target>
+      </trans-unit>
       <trans-unit id="Accordion">
         <source>Arc accordion: a list of question rows that reveal their answers in place. The panel height follows the content on a smooth spring that never overshoots and retargets mid-flight, the answer settles down 6px out of a subtle blur as it opens, and the chevron turns on a snappy spring. Single mode (Arc) keeps one row open and lets it close; `Multiple` opens rows independently. Arrow keys move between the row triggers, Home / End jump to the ends, Enter / Space toggle. Rows are `AccordionItem`s written inline (`&lt;arc:AccordionItem Header="Question"&gt;Answer&lt;/arc:AccordionItem&gt;`) or generated from `ItemsSource` (`ItemTemplate` renders the question, `ContentTemplate` the answer).</source>
         <target>Arc 手风琴：一组问题行，展开后在原位显示答案。面板高度沿平滑弹簧跟随内容变化，不会过冲，并且可以在动画中途改变目标；答案展开时从轻微模糊中下落 6px；箭头以灵敏的弹簧转动。单选模式（Arc）保持一行展开，并允许其收起；`Multiple` 则让各行独立展开。方向键在行触发器之间移动，Home / End 跳到首尾，Enter / Space 切换展开。行为内联书写的 `AccordionItem`（`&lt;arc:AccordionItem Header="Question"&gt;Answer&lt;/arc:AccordionItem&gt;`），或由 `ItemsSource` 生成（`ItemTemplate` 渲染问题，`ContentTemplate` 渲染答案）。</target>
@@ -5693,8 +5729,8 @@
         <target>`BottomSheet` 的停留高度，以窗口高度的比例表示。可从 "0.45, 0.92" 解析。</target>
       </trans-unit>
       <trans-unit id="BranchGraph">
-        <source>A git-style history: one row per commit, each branch in its own colored lane, curves where a branch splits off and where it merges back, merge commits drawn as rings, and pills for branch heads and tags. Its story draws the history commit by commit (the edges draw in, the dot pops, the branch label moves up) with a caption that says what each commit did. Play, pause, step, restart and a 0.5× / 1× / 2× speed control drive it; `StartsFinished` or reduced motion opens it on the whole history. Selecting a commit (click, or the arrow keys on the focused graph) highlights everything it descends from and dims the rest.</source>
-        <target>Git 风格的提交历史：每个提交一行，每个分支占据各自颜色的泳道，分支分出和合并回来的位置以曲线连接，合并提交画成圆环，分支头和标签显示为胶囊标签。它的演示逐个提交地绘制历史（连线画出、圆点弹出、分支标签上移），并配有说明每个提交做了什么的字幕。播放、暂停、单步、重新开始以及 0.5× / 1× / 2× 速度控件驱动演示；`StartsFinished` 或减少动效时直接显示完整历史。选中一个提交（点击，或在获得焦点的图上按方向键）会高亮它的所有祖先，其余部分变暗。</target>
+        <source>A git commit graph that previews how a pull request lands. Each commit is a row (newest on top) with its branch's colored lane on the left, the message and branch pills, the author, the short hash and the date; merge commits get a ring and an icon. The strategy control in the header switches between the history as it is (Before) and three previews computed from the data: Merge (a merge commit on top joins both lines), Rebase (the pull request's commits lift like cards and are replayed on the target's tip with new hashes) and Squash (they fold into one commit). The graph draws in on first sight, from the oldest commit up; while nobody interacts it cycles Before → Rebase → Merge → Squash, 2.6 s after each change settles. Hovering or arrowing to a commit shows its message, author and diff stats and dims the other branches; a click or a tap pins that card. The `Explainer` clock drives the cycle: `AutoPlay` starts it on first sight, `IsPlaying` is true while it cycles, `Pause` holds it (picks by the reader still animate), `StepForward` moves to the next strategy, `Restart` draws the graph in again and cycles from Before, and `Speed` scales every animation (0 shows each state at once). The cycle always repeats, so `IsLooping` has no effect; `Finished` is raised each time it returns to Before. The first pick, tap or key press stops it for good, and a pointer resting on the commits holds it. `AreControlsVisible` shows the strategy control. Under reduced motion every state shows at once and nothing cycles.</source>
+        <target>预览拉取请求如何落地的 git 提交图。每个提交一行（最新的在上），左侧是所在分支的彩色泳道，随后是消息和分支胶囊、作者、短哈希和日期；合并提交画成圆环并带图标。标题栏的策略控件在当前历史（Before）与根据数据算出的三种预览之间切换：Merge（顶部的合并提交连接两条线）、Rebase（拉取请求的提交像卡片一样抬起，以新的哈希重放到目标分支顶端）和 Squash（它们合成一个提交）。图形在首次出现时从最旧的提交向上绘出；无人操作时按 Before → Rebase → Merge → Squash 循环，每次变化稳定后等待 2.6 秒。悬停或用方向键移到某个提交会显示它的消息、作者和差异统计，并让其他分支变暗；点击或点按会固定该卡片。`Explainer` 的时钟驱动循环：`AutoPlay` 在首次出现时开始，循环时 `IsPlaying` 为 true，`Pause` 暂停（读者的选择仍有动画），`StepForward` 切到下一个策略，`Restart` 重新绘出图形并从 Before 开始循环，`Speed` 缩放所有动画（0 表示每个状态立即显示）。循环总是重复，因此 `IsLooping` 无效；每次回到 Before 都会触发 `Finished`。第一次选择、点按或按键会永久停止循环，指针停在提交上会暂停它。`AreControlsVisible` 控制策略控件的显示。减弱动效时每个状态立即显示，也不循环。</target>
       </trans-unit>
       <trans-unit id="BranchGraph.CommitDrawn">
         <source>Raised as each commit is drawn, with the commit, its index and what it did.</source>
@@ -5712,29 +5748,85 @@
         <source>Every word the card shows or announces.</source>
         <target>卡片显示或朗读的每一个文字。</target>
       </trans-unit>
+      <trans-unit id="BranchGraph.PullRequestNumber">
+        <source>The pull request's number, shown as "#N" after the heading (0 shows none).</source>
+        <target>拉取请求的编号，以 "#N" 显示在标题后（0 表示不显示）。</target>
+      </trans-unit>
+      <trans-unit id="BranchGraph.PullRequestTitle">
+        <source>The pull request's title: the heading (unless `Title` is set) and the squashed commit's message.</source>
+        <target>拉取请求的标题：作为标题显示（除非设置了 `Title`），也是压缩后提交的消息。</target>
+      </trans-unit>
       <trans-unit id="BranchGraph.RevealedCount">
-        <source>How many commits the story has drawn so far.</source>
-        <target>演示目前已绘制的提交数。</target>
+        <source>How many commits have been drawn (the first-load sweep draws them one by one).</source>
+        <target>已绘出的提交数（首次绘入时逐个绘出）。</target>
       </trans-unit>
       <trans-unit id="BranchGraph.SelectedCommit">
-        <source>The commit whose history is highlighted; null for none. Clicks and the arrow keys on the graph set it.</source>
-        <target>其历史被高亮的提交；null 表示无。点击和图上的方向键会设置它。</target>
+        <source>The commit whose detail card is pinned; null for none. A click, a tap or the arrow keys on the commits set it, Escape clears it.</source>
+        <target>详情卡片被固定的提交；null 表示无。点击、点按或在提交上按方向键会设置它，Escape 清除它。</target>
+      </trans-unit>
+      <trans-unit id="BranchGraph.SelectedStrategy">
+        <source>The preview shown: the history as it is, or the pull request merged, rebased or squashed (default Before).</source>
+        <target>当前显示的预览：现有的历史，或拉取请求被合并、变基或压缩后的样子（默认 Before）。</target>
+      </trans-unit>
+      <trans-unit id="BranchGraph.SelectionChanged">
+        <source>Raised when `SelectedStrategy` changes, by the reader, by code or by the autoplay cycle.</source>
+        <target>`SelectedStrategy` 改变时触发，无论由读者、代码还是自动循环引起。</target>
+      </trans-unit>
+      <trans-unit id="BranchGraph.SourceBranch">
+        <source>The pull request's branch, whose commits merge, rebase or squash; null picks the newest branch not merged yet.</source>
+        <target>拉取请求的分支，其提交会被合并、变基或压缩；null 时取最新且尚未合并的分支。</target>
       </trans-unit>
       <trans-unit id="BranchGraph.StartsFinished">
-        <source>Opens on the whole history instead of playing it (Play still replays the story). Use it for a plain graph.</source>
-        <target>直接显示完整历史而不播放（播放按钮仍可重放演示）。用于普通的静态图。</target>
+        <source>Opens with every commit drawn (no first-load sweep) and without the autoplay cycle. Use it for a still graph.</source>
+        <target>一开始就绘出所有提交（没有首次绘入），也不自动循环。用于静态图。</target>
+      </trans-unit>
+      <trans-unit id="BranchGraph.TargetBranch">
+        <source>The branch the pull request lands on; null takes the first branch of the history (usually main).</source>
+        <target>拉取请求落到的分支；null 时取历史中的第一个分支（通常是 main）。</target>
       </trans-unit>
       <trans-unit id="BranchGraphCommit">
-        <source>One commit of a `BranchGraph`, listed oldest first. `Branch` picks its lane. Without `Parents` its parent is the previous commit on the same branch, or, for a branch's first commit, the previous commit of any branch. Give two parents (the branch's own first) to merge.</source>
-        <target>`BranchGraph` 的一个提交，按从旧到新列出。`Branch` 决定它所在的泳道。未设置 `Parents` 时，其父提交是同一分支上的前一个提交；若是分支的第一个提交，则是任意分支的前一个提交。给出两个父提交（本分支的在前）即表示合并。</target>
+        <source>One commit of a `BranchGraph`, listed oldest first (the graph shows the newest on top). `Branch` picks its lane. Without `Parents` its parent is the previous commit on the same branch, or, for a branch's first commit, the previous commit of any branch. Give two parents (the branch's own first) to merge. The row shows the message, the author's avatar, `Hash` and `Date`; the detail card adds `Body` and the diff stats.</source>
+        <target>`BranchGraph` 的一个提交，按从旧到新列出（图中最新的在上）。`Branch` 决定它所在的泳道。未设置 `Parents` 时，其父提交是同一分支上的前一个提交；若是分支的第一个提交，则是任意分支的前一个提交。给出两个父提交（本分支的在前）即表示合并。行中显示消息、作者头像、`Hash` 和 `Date`；详情卡片再加上 `Body` 和差异统计。</target>
+      </trans-unit>
+      <trans-unit id="BranchGraphCommit.Additions">
+        <source>Lines added (shown with a + on the card); null hides the stats.</source>
+        <target>新增的行数（在卡片上带 + 显示）；null 时不显示统计。</target>
       </trans-unit>
       <trans-unit id="BranchGraphCommit.Author">
-        <source>Who made the commit (shown on wide cards and read by screen readers).</source>
-        <target>提交的作者（在宽卡片上显示，并由屏幕阅读器朗读）。</target>
+        <source>Who made the commit (shown on the detail card and read by screen readers).</source>
+        <target>提交的作者（显示在详情卡片上，并由屏幕阅读器朗读）。</target>
+      </trans-unit>
+      <trans-unit id="BranchGraphCommit.AuthorAvatar">
+        <source>The author's picture; null draws a colored disc.</source>
+        <target>作者的头像图片；null 时画一个彩色圆。</target>
+      </trans-unit>
+      <trans-unit id="BranchGraphCommit.AuthorColor">
+        <source>The color of the disc drawn without `AuthorAvatar`; null picks one from `Author`.</source>
+        <target>没有 `AuthorAvatar` 时所画圆的颜色；null 时根据 `Author` 选择。</target>
+      </trans-unit>
+      <trans-unit id="BranchGraphCommit.Body">
+        <source>The rest of the commit message, shown on the detail card (up to two lines).</source>
+        <target>提交消息的其余部分，显示在详情卡片上（最多两行）。</target>
       </trans-unit>
       <trans-unit id="BranchGraphCommit.Branch">
         <source>The branch the commit is made on; it picks the lane (default "main").</source>
         <target>提交所在的分支；它决定泳道（默认 "main"）。</target>
+      </trans-unit>
+      <trans-unit id="BranchGraphCommit.Date">
+        <source>When the commit was made, as display text ("2 hours ago", "Yesterday").</source>
+        <target>提交的时间，为显示文字（"2 hours ago"、"Yesterday"）。</target>
+      </trans-unit>
+      <trans-unit id="BranchGraphCommit.Deletions">
+        <source>Lines removed (shown with a − on the card).</source>
+        <target>删除的行数（在卡片上带 − 显示）。</target>
+      </trans-unit>
+      <trans-unit id="BranchGraphCommit.Files">
+        <source>Files changed.</source>
+        <target>改动的文件数。</target>
+      </trans-unit>
+      <trans-unit id="BranchGraphCommit.Hash">
+        <source>The short hash shown on the row and the card ("4c1d9e2"); null shows `Id`.</source>
+        <target>行和卡片上显示的短哈希（"4c1d9e2"）；null 时显示 `Id`。</target>
       </trans-unit>
       <trans-unit id="BranchGraphCommit.Id">
         <source>The commit's short id ("a1f3c0"); parents refer to commits by it. Without one the commit gets "#n".</source>
@@ -5749,16 +5841,24 @@
         <target>父提交的 id，以逗号或空格分隔，第一个位于本分支；留空则使用常规父提交（见类说明）。</target>
       </trans-unit>
       <trans-unit id="BranchGraphCommit.Tag">
-        <source>A tag on the commit ("v1.2.0"), shown as a pill.</source>
-        <target>提交上的标签（"v1.2.0"），显示为胶囊标签。</target>
+        <source>A tag on the commit ("v1.2.0"), shown as a pill in its branch's color after the branch pills.</source>
+        <target>提交上的标签（"v1.2.0"），以其分支颜色的胶囊显示在分支胶囊之后。</target>
       </trans-unit>
       <trans-unit id="BranchGraphCommitEventArgs">
         <source>Arguments of `CommitDrawn`.</source>
         <target>`CommitDrawn` 的参数。</target>
       </trans-unit>
       <trans-unit id="BranchGraphLabels">
-        <source>Every word a `BranchGraph` shows or announces, in English by default (the playback buttons are named by `PlaybackLabels`). Replace the instance to translate or reword; texts with names or numbers are functions so the word order can change.</source>
-        <target>`BranchGraph` 显示或朗读的每一个文字，默认为英文（播放按钮的名称由 `PlaybackLabels` 指定）。替换整个实例即可翻译或改写；包含名称或数字的文字为函数，以便调整词序。</target>
+        <source>Every word a `BranchGraph` shows or announces, in English by default. Replace the instance to translate or reword; texts with names or numbers are functions so the word order can change.</source>
+        <target>`BranchGraph` 显示或朗读的每一个文字，默认为英文。替换整个实例即可翻译或改写；包含名称或数字的文字为函数，以便调整词序。</target>
+      </trans-unit>
+      <trans-unit id="BranchGraphSelectionChangedEventArgs">
+        <source>Arguments of `SelectionChanged`.</source>
+        <target>`SelectionChanged` 的参数。</target>
+      </trans-unit>
+      <trans-unit id="BranchGraphStrategy">
+        <source>What a `BranchGraph` previews: the history as it is, or how its pull request would land.</source>
+        <target>`BranchGraph` 预览的内容：现有的历史，或其拉取请求会怎样落地。</target>
       </trans-unit>
       <trans-unit id="Breadcrumb">
         <source>Arc breadcrumb: where a page sits in a hierarchy, from the root to the current page. Crumbs are separated by chevrons; the last one is the current page (accent, medium weight, not a link) and every crumb reserves the width of its medium-weight label so becoming current never shifts the path. Crumbs present at first render stay still; crumbs added later slide in 8px from the path before them out of a subtle blur while their siblings make room on the smooth spring, and removed crumbs slide 4px back as they fade. Items are `BreadcrumbItem`s written inline or generated from `ItemsSource` (`ItemTemplate` renders the label). Choosing a crumb raises `ItemClick`, runs its `Command` and opens its `NavigateUri`. `MaxVisibleItems` (off by default, as in Arc) folds the middle of a long path into an overflow menu.</source>
@@ -10419,6 +10519,90 @@
       <trans-unit id="CubeMascotStatusChangedEventArgs">
         <source>Arguments of `StatusChanged`: the status the self-playing loop moved to.</source>
         <target>`StatusChanged` 的参数：自动播放的循环进入的状态。</target>
+      </trans-unit>
+      <trans-unit id="CursorTrailDraw">
+        <source>A whiteboard for quick sketches and live walkthroughs (Arc Cursor trail draw, design reference). Ink follows the pointer smoothly and takes its width from pen pressure, or from speed for a mouse or finger, tapering at both ends; the laser pointer leaves a trail that thins and fades on its own; and a rough circle, ellipse, box, square, triangle, four sided shape or line snaps to a clean shape on a small spring when the pen lifts, with a chip that offers to keep it as drawn.</source>
+        <target>用于快速草图和现场讲解的白板（Arc Cursor trail draw，设计参考）。墨迹平滑地跟随指针，宽度取自笔压，鼠标或手指则取自速度，两端收尖；激光笔留下的轨迹会自行变细并淡去；粗略画出的圆、椭圆、方框、正方形、三角形、其他四边形或直线在抬笔时沿一个小弹簧吸附成规整图形，并出现一个可以保留原样的标签。</target>
+      </trans-unit>
+      <trans-unit id="CursorTrailDraw.AccentBrush">
+        <source>Color of the accent ink, the laser and the picked tool; null uses the theme accent.</source>
+        <target>强调色墨水、激光和所选工具的颜色；为 null 时使用主题强调色。</target>
+      </trans-unit>
+      <trans-unit id="CursorTrailDraw.Hint">
+        <source>The line shown on an empty board; an empty string hides it.</source>
+        <target>空白板上显示的一行提示；空字符串时隐藏。</target>
+      </trans-unit>
+      <trans-unit id="CursorTrailDraw.IsPaused">
+        <source>Stops all animation: shapes land at once and the laser shows only its dot. Drawing still works.</source>
+        <target>停止所有动画：图形立即落定，激光只显示圆点。绘图照常可用。</target>
+      </trans-unit>
+      <trans-unit id="CursorTrailDraw.IsSnapEnabled">
+        <source>Whether rough shapes snap clean when the pen lifts; people switch it in the toolbar or with S.</source>
+        <target>抬笔时是否把粗略的图形吸附成规整图形；用户可在工具栏中或按 S 切换。</target>
+      </trans-unit>
+      <trans-unit id="CursorTrailDraw.Items">
+        <source>The items on the board, oldest first (read-only; use `SetItems` to load a sketch).</source>
+        <target>白板上的条目，按从旧到新排列（只读；用 `SetItems` 载入草图）。</target>
+      </trans-unit>
+      <trans-unit id="CursorTrailDraw.ItemsChanged">
+        <source>Raised after a stroke lands or snaps, is kept as drawn, undone or cleared.</source>
+        <target>在一笔落下或吸附、保留原样、撤销或清空之后触发。</target>
+      </trans-unit>
+      <trans-unit id="CursorTrailDraw.Label">
+        <source>Heading and accessible name of the board.</source>
+        <target>白板的标题和无障碍名称。</target>
+      </trans-unit>
+      <trans-unit id="CursorTrailDraw.LaserFade">
+        <source>How long the laser trail takes to fade.</source>
+        <target>激光轨迹淡出所需的时间。</target>
+      </trans-unit>
+      <trans-unit id="CursorTrailDraw.PenSize">
+        <source>Pen width in px at half pressure; strokes thin with speed and taper at both ends.</source>
+        <target>半压力时的笔宽（px）；笔画随速度变细，两端收尖。</target>
+      </trans-unit>
+      <trans-unit id="CursorTrailDraw.PlaysIntro">
+        <source>Whether the board plays a short sketch once, the first time it is in view, when it starts empty: a rough box and circle snap clean and get joined, then the laser points at them. Turn it off where the board holds real work.</source>
+        <target>白板在空白状态下第一次进入视野时，是否播放一段简短的草图：一个粗略的方框和圆吸附成规整图形并被连起来，然后激光指向它们。白板承载真实工作内容时请关闭。</target>
+      </trans-unit>
+      <trans-unit id="CursorTrailDraw.SelectedInkId">
+        <source>The `Id` of the ink in use; null picks the first ink.</source>
+        <target>当前使用的墨水的 `Id`；为 null 时选第一种墨水。</target>
+      </trans-unit>
+      <trans-unit id="CursorTrailDraw.Smoothing">
+        <source>How far the ink trails the pointer, from 0 (raw) to 1 (very smooth).</source>
+        <target>墨迹落后于指针的程度，从 0（原始）到 1（非常平滑）。</target>
+      </trans-unit>
+      <trans-unit id="CursorTrailDraw.Speed">
+        <source>Multiplies the speed of the snap spring, the laser fade and the intro.</source>
+        <target>吸附弹簧、激光淡出和开场草图的速度倍数。</target>
+      </trans-unit>
+      <trans-unit id="CursorTrailDraw.Tool">
+        <source>The tool in use; people switch it in the toolbar or with P and L.</source>
+        <target>当前使用的工具；用户可在工具栏中或按 P 和 L 切换。</target>
+      </trans-unit>
+      <trans-unit id="CursorTrailDrawInk">
+        <source>One ink in the toolbar of a `CursorTrailDraw` board. Without a `Brush` an ink named `accent` uses the board's accent, one named `red` the theme's danger color and any other the foreground.</source>
+        <target>`CursorTrailDraw` 白板工具栏中的一种墨水。没有设置 `Brush` 时，名为 `accent` 的墨水使用白板的强调色，名为 `red` 的使用主题的危险色，其他使用前景色。</target>
+      </trans-unit>
+      <trans-unit id="CursorTrailDrawInk.Brush">
+        <source>The color of the ink; null picks a theme color by `Id`.</source>
+        <target>墨水的颜色；为 null 时按 `Id` 选用主题颜色。</target>
+      </trans-unit>
+      <trans-unit id="CursorTrailDrawInk.Id">
+        <source>The identifier stored on items drawn with this ink.</source>
+        <target>保存在用这种墨水画的条目上的标识。</target>
+      </trans-unit>
+      <trans-unit id="CursorTrailDrawInk.IsEnabled">
+        <source>Whether the ink can be picked.</source>
+        <target>这种墨水是否可以选用。</target>
+      </trans-unit>
+      <trans-unit id="CursorTrailDrawInk.IsVisible">
+        <source>Whether the ink is shown in the toolbar. Items drawn with a hidden ink keep their color.</source>
+        <target>这种墨水是否显示在工具栏中。用隐藏的墨水画的条目保留原来的颜色。</target>
+      </trans-unit>
+      <trans-unit id="CursorTrailDrawInk.Label">
+        <source>The name of the ink, read out by assistive technology ("Ink color").</source>
+        <target>墨水的名称，由辅助技术朗读（"Ink color"）。</target>
       </trans-unit>
       <trans-unit id="CustomerGalaxy">
         <source>A customer galaxy: every account a dot, its area by monthly recurring revenue and its color by health, slowly turning as a tilted two-armed spiral. Group the accounts by any dimension and the dots spring into one packed cluster per value, labelled with its MRR and size; pan, zoom about the pointer, double-click a cluster to fly into it, hover a dot for its card and click it to select it. A totals panel beside the stage (under it in narrow containers) shows the MRR, accounts, growing and at-risk MRR of everything or of the focused cluster, and a list of the clusters by MRR or by accounts whose rows fly to their cluster.</source>
@@ -18189,44 +18373,84 @@
         <target>快捷键的作用，用一两个词写成，小字印在它的键上。</target>
       </trans-unit>
       <trans-unit id="KeycapKeyboard">
-        <source>A keyboard of keycaps that shows shortcuts. `Shortcut` lights up one combination; `Bindings` print what each key does while its modifiers are held. Keys go down as they are pressed on the real keyboard and can be clicked: a click on a modifier holds it until the next key, and every key raises `KeyInvoked`.</source>
-        <target>显示快捷键的键帽键盘。`Shortcut` 点亮一个组合；`Bindings` 在按住修饰键时写出每个键的作用。真实键盘按下时键会跟着按下，键也可以点击：点击修饰键会保持按住直到下一个键，每个键都会触发 `KeyInvoked`。</target>
+        <source>A board of sculpted mechanical keycaps with the typed text above it. Real typing and clicks press the matching cap into its housing, light a soft glow under it and add the character to `Value`. `Layout` picks a compact 60% board or letters only, and `Rows` builds any board, such as a macro pad.</source>
+        <target>一块立体机械键帽键盘，打出的文字显示在它上方。真实打字和点击会把对应的键帽按进底座，在它下面亮起一圈柔光，并把字符加到 `Value`。`Layout` 选择紧凑 60% 键盘或纯字母键盘，`Rows` 可以搭出任意键盘，例如宏键盘。</target>
       </trans-unit>
       <trans-unit id="KeycapKeyboard.ActiveModifiers">
         <source>The modifiers held now, by the real keyboard or by clicked modifier keys. Bindings for exactly these show.</source>
         <target>当前按住的修饰键，来自真实键盘或点击的修饰键。正好对应这些修饰键的快捷键会显示。</target>
       </trans-unit>
       <trans-unit id="KeycapKeyboard.IsClickable">
-        <source>Whether keys can be clicked. Real presses still light up when false.</source>
-        <target>键是否可以点击。为 false 时真实按键仍会让键亮起。</target>
+        <source>Whether keys can be clicked and focused. Real presses still light them when false.</source>
+        <target>键是否可以点击和获得焦点。为 false 时真实按键仍会点亮它们。</target>
       </trans-unit>
       <trans-unit id="KeycapKeyboard.KeyInvoked">
-        <source>Raised when a key is clicked, or pressed on the real keyboard while it is tracked. Modifier keys alone do not raise it.</source>
-        <target>点击一个键，或在跟踪时真实键盘按下一个键时触发。单独的修饰键不会触发。</target>
+        <source>Raised when a key is clicked, pressed with Enter or Space while focused, or pressed on the real keyboard while presses are heard. Modifier keys alone do not raise it.</source>
+        <target>点击一个键、在键获得焦点时按 Enter 或 Space，或在监听按键时真实键盘按下一个键时触发。单独的修饰键不会触发。</target>
       </trans-unit>
       <trans-unit id="KeycapKeyboard.KeySize">
-        <source>Largest width of one key unit in px; the keys shrink below it to fit.</source>
-        <target>一个键位的最大宽度（px）；空间不够时键会缩小。</target>
+        <source>Largest key unit in px (the side of a one-unit key) when set; the keys shrink below it to fit. When not set, keys grow up to 54 px.</source>
+        <target>设置后作为键单位（一个单位键的边长）的最大值（px）；空间不够时键会缩小。不设置时，键最大长到 54 px。</target>
       </trans-unit>
       <trans-unit id="KeycapKeyboard.Label">
-        <source>Accessible name of the keyboard.</source>
+        <source>Accessible name of the board.</source>
         <target>键盘的无障碍名称。</target>
       </trans-unit>
+      <trans-unit id="KeycapKeyboard.Layout">
+        <source>The built-in board: a compact 60% board (default) or letters only. `Rows` replaces it when it has keys.</source>
+        <target>内置键盘：紧凑 60% 键盘（默认）或纯字母键盘。`Rows` 有键时会取代它。</target>
+      </trans-unit>
+      <trans-unit id="KeycapKeyboard.MaxLength">
+        <source>The longest text kept; older characters drop off the start. 0 or less keeps everything.</source>
+        <target>保留的最长文字；更早的字符从开头丢掉。0 或更小表示全部保留。</target>
+      </trans-unit>
+      <trans-unit id="KeycapKeyboard.Placeholder">
+        <source>Shown in the text area while the text is empty.</source>
+        <target>文字为空时在文字区显示。</target>
+      </trans-unit>
       <trans-unit id="KeycapKeyboard.Platform">
-        <source>Which labels the modifier keys carry, and in which order they sit.</source>
-        <target>修饰键上印什么标签，以及它们的排列顺序。</target>
+        <source>Which words the modifier keys of the compact board carry, and in which order they sit. When not set, the board carries ctrl, opt and cmd; set it to Windows for ctrl, win and alt, or to Auto to follow the system.</source>
+        <target>紧凑键盘的修饰键上印什么词，以及它们的排列顺序。不设置时印 ctrl、opt 和 cmd；设为 Windows 印 ctrl、win 和 alt，设为 Auto 跟随系统。</target>
       </trans-unit>
       <trans-unit id="KeycapKeyboard.Shortcut">
-        <source>The shortcut to light up, such as "Ctrl+Shift+P" or "⌘K". Null or empty lights up nothing.</source>
-        <target>要点亮的快捷键，例如“Ctrl+Shift+P”或“⌘K”。为 null 或空时不点亮任何键。</target>
+        <source>The shortcut to light up in the accent, such as "Ctrl+Shift+P" or "⌘K". Null or empty lights up nothing.</source>
+        <target>要用强调色点亮的快捷键，例如“Ctrl+Shift+P”或“⌘K”。为 null 或空时不点亮任何键。</target>
       </trans-unit>
       <trans-unit id="KeycapKeyboard.ShowsFunctionRow">
-        <source>Whether the row of Esc and F1 to F12 is shown.</source>
-        <target>是否显示 Esc 和 F1 到 F12 这一行。</target>
+        <source>Whether the compact board has a row of Esc and F1 to F12 on top.</source>
+        <target>紧凑键盘顶部是否有 Esc 和 F1 到 F12 这一行。</target>
+      </trans-unit>
+      <trans-unit id="KeycapKeyboard.ShowsText">
+        <source>Whether the text area above the board is shown. Turn it off when you show `Value` yourself.</source>
+        <target>是否显示键盘上方的文字区。自己显示 `Value` 时把它关掉。</target>
       </trans-unit>
       <trans-unit id="KeycapKeyboard.Tracking">
-        <source>Which real key presses light up keys.</source>
-        <target>哪些真实按键会让键亮起。</target>
+        <source>Which real key presses the keyboard hears: none, presses while it has focus (default), or every press in the window.</source>
+        <target>键盘监听哪些真实按键：不监听、拥有焦点时的按键（默认），或窗口里的所有按键。</target>
+      </trans-unit>
+      <trans-unit id="KeycapKeyboard.Value">
+        <source>The typed text. Typing and clicks append to it, Delete removes its last character and Return starts a new line.</source>
+        <target>打出的文字。打字和点击会追加到它后面，Delete 删除最后一个字符，Return 另起一行。</target>
+      </trans-unit>
+      <trans-unit id="KeycapKeyboard.ValueChanged">
+        <source>Raised when `Value` changes, by typing or by code.</source>
+        <target>`Value` 变化时触发，无论是打字还是代码修改。</target>
+      </trans-unit>
+      <trans-unit id="KeycapRow">
+        <source>One row of a custom `KeycapKeyboard` board (`Rows`): its keys written as tokens separated by spaces, such as "k e y backspace".</source>
+        <target>自定义 `KeycapKeyboard` 键盘（`Rows`）的一行：它的键写成用空格分隔的记号，例如 "k e y backspace"。</target>
+      </trans-unit>
+      <trans-unit id="KeycapRow.IsEnabled">
+        <source>Whether the row's keys can be pressed with the pointer or by keyboard focus. Real key presses still light them.</source>
+        <target>这一行的键能否用指针或键盘焦点按下。真实按键仍会点亮它们。</target>
+      </trans-unit>
+      <trans-unit id="KeycapRow.IsVisible">
+        <source>Whether the row is shown. A hidden row takes no space and its keys do not light up.</source>
+        <target>这一行是否显示。隐藏的行不占位置，它的键也不会亮起。</target>
+      </trans-unit>
+      <trans-unit id="KeycapRow.Keys">
+        <source>The keys, left to right, separated by spaces: single characters, or "space", "backspace", "enter", "shift", "tab" and "caps". Unknown words are skipped.</source>
+        <target>从左到右的键，用空格分隔：单个字符，或 "space"、"backspace"、"enter"、"shift"、"tab" 和 "caps"。不认识的词会被跳过。</target>
       </trans-unit>
       <trans-unit id="KnowledgeBase">
         <source>The documents an assistant can search and quote, on one card: totals and an Add files button over a drop zone, the document list with each file's stage (queued, uploading, parsing, embedding, ready or failed), a progress ring, its chunk count and date, Re-index and Delete (with an inline confirmation), Retry on a failed row, and a search preview that ranks the indexed passages for a question and marks the words that matched. Without an `IndexHandler` the card runs a simulated pipeline that splits each document's `Text` into chunks; without a `SearchHandler` it searches those chunks with BM25. Set both to connect your own storage, parser, embeddings and vector search. With no documents of your own and `IsSampleData` left on, the card shows the invented Kestrel Lane library (`KnowledgeBaseSamples`).</source>
@@ -22696,6 +22920,286 @@
         <source>Raised for every real change of `Value`: typing, paste, keys, chips, a currency choice, automation and programmatic sets (`ChangeSource` tells them apart). Never raised during template application.</source>
         <target>`Value` 每次实际变化时引发：输入、粘贴、按键、标签、货币选择、自动化及程序设置均会触发（`ChangeSource` 用于区分来源）。应用模板期间从不引发。</target>
       </trans-unit>
+      <trans-unit id="MonthCalendar">
+        <source>A complete calendar app screen around a month: a sidebar (Calendar, Upcoming and Invitations, the user's calendars with a show or hide toggle and Only, teammates' calendars and an account menu), a month grid that packs multi-day events into lanes, shows timed events as chips and folds the rest into "N more", and a docked day panel with the day's busy time, all-day events, the schedule and the free gaps you can block as focus time. Events open details with replies, guests, notes, a link to copy, a calendar picker and delete; a form adds events. Filter by calendar or by text, drag chips to another day, drag across days to plan a span, and undo moves and deletes from the toast. The screen fills its container (give it a height). From 1080 wide the day panel docks beside the month, below that it is a sheet; below 900 the sidebar is a sheet; when the month is narrower than 560 it shows load meters and the selected day's list under it.</source>
+        <target>完整的月视图日历应用界面：侧栏（日历、即将到来与邀请、用户的日历（附显示或隐藏开关及 "Only"）、同事的日历与账户菜单）、将多日事件排入车道、以标签显示定时事件、其余折叠为 "N more" 的月视图网格，以及停靠的日面板（显示当日忙碌时段、全天事件、日程，以及可安排为专注时间的空闲时段）。事件可打开详情，其中包含回复、参与者、备注、复制链接、日历选择器与删除；表单用于添加事件。可按日历或文本筛选，拖动标签到其他日期，跨日拖动以规划时段，并可在 Toast 中撤销移动与删除。该界面填满其容器（需设置高度）。宽度达到 1080 时，日面板停靠在月视图旁；低于此宽度则为抽屉。宽度低于 900 时侧栏改为抽屉；月视图宽度小于 560 时，其下方显示负载仪表与所选日期的列表。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.Culture">
+        <source>Month, weekday, date and time formats; null uses the current UI culture.</source>
+        <target>月份、星期、日期與時間的格式；为 null 时使用当前 UI 区域文化。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.CurrentUserId">
+        <source>The `Id` of the signed-in person: their invitations get a reply control and their name fills the account row.</source>
+        <target>当前登录者的 `Id`：其邀请会显示回复控件，其姓名会填入账户行。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.DayPanelWidth">
+        <source>The docked day panel's width (two-way; 300–460, the grip on its edge changes it).</source>
+        <target>停靠日面板的宽度（双向绑定；300–460，拖动其边缘的把手可改变宽度）。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.EventChanged">
+        <source>Raised after an event was moved (drag, Alt + arrows, Undo), answered or put on another calendar.</source>
+        <target>事件被移动（拖动、Alt + 方向键、撤销）、回复或改到其他日历后引发。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.EventCreated">
+        <source>Raised after an event was added: the form, Block focus time, or Undo of a delete (the same event comes back).</source>
+        <target>新增事件后引发：通过表单、专注时间块或撤销删除（同一事件恢复）时。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.EventCreating">
+        <source>Raised before the new event form, a focus block or Undo adds an event; set `ErrorMessage` to refuse it.</source>
+        <target>表单、专注时间块或撤销操作新增事件之前引发；设置 `ErrorMessage` 可拒绝添加。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.EventDeleted">
+        <source>Raised after an event was deleted (the trash button, Delete, or Undo of a new event).</source>
+        <target>事件被删除后引发（垃圾桶按钮、Delete 键或撤销新增的事件）。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.EventInvoked">
+        <source>Raised when the user opens an event (a chip, a row, an invitation), whether or not it was open.</source>
+        <target>用户打开事件（标签、列表行或邀请）时引发，无论其是否已打开。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.FilterText">
+        <source>The event filter text (two-way): events whose title does not contain it dim.</source>
+        <target>事件筛选文本（双向绑定）：标题不包含该文本的事件会变暗。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.FirstDayOfWeek">
+        <source>The first day of the week (Monday by default; the account menu switches it between Monday and Sunday).</source>
+        <target>每周的第一天（默认为星期一；账户菜单可在星期一与星期日之间切换）。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.IsDayPanelOpen">
+        <source>Whether the docked day panel shows (two-way; the header toggle changes it). Below 1080 wide the panel is a sheet that opens when a day or an event is picked.</source>
+        <target>停靠日面板是否显示（双向绑定；标题栏的按钮可切换）。宽度低于 1080 时，面板为抽屉，选择日期或事件时打开。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.IsSidebarCollapsed">
+        <source>Whether the docked sidebar is collapsed to a rail of icons (two-way).</source>
+        <target>停靠侧栏是否收起为图标轨（双向绑定）。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.Labels">
+        <source>Every word the screen shows or announces.</source>
+        <target>`MonthCalendar` 显示或朗读给屏幕阅读器的所有文字。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.MinimumFreeGap">
+        <source>The shortest free gap the day panel offers to block (an hour).</source>
+        <target>日面板提供安排为专注时间的最短空闲时段（一小时）。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.Month">
+        <source>The month shown (two-way): any date in it; it is kept as the month's first day.</source>
+        <target>显示的月份（双向绑定）：可为其中任一日期；内部保存为该月的第一天。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.MonthChanged">
+        <source>Raised when `Month` changes (by the user or in code).</source>
+        <target>`Month` 改变时引发（无论由用户还是代码改变）。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.RsvpChanged">
+        <source>Raised when the user answers an invitation (also raises `EventChanged`).</source>
+        <target>用户回复邀请时引发（同时也会引发 `EventChanged`）。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.SelectedDate">
+        <source>The selected day (two-way): the day panel shows it. Picking a day, an event or "N more" changes it.</source>
+        <target>选中的日期（双向绑定）：日面板显示该日。选择日期、事件或 "N more" 都会改变它。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.SelectedDateChanged">
+        <source>Raised when `SelectedDate` changes (by the user or in code).</source>
+        <target>`SelectedDate` 改变时引发（无论由用户还是代码改变）。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.ShowWeekends">
+        <source>Whether Saturday and Sunday show as columns (two-way; the account menu switches it).</source>
+        <target>星期六和星期日是否显示为列（双向绑定；账户菜单可切换）。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.TeammateId">
+        <source>The teammate whose month shows when `View` is `Teammate` (two-way).</source>
+        <target>当 `View` 为 `Teammate` 时显示其月视图的同事（双向绑定）。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.Today">
+        <source>The date treated as today; null follows the system clock (and midnight).</source>
+        <target>视为今天的日期；为 null 时跟随系统时钟（以及午夜）。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.View">
+        <source>What the main area shows (two-way): the month, the upcoming list, the invitations or a teammate's month.</source>
+        <target>主区域显示的内容（双向绑定）：月视图、即将到来的列表、邀请或某位同事的月视图。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.WorkDayEnd">
+        <source>The end of the working hours.</source>
+        <target>工作时间的结束时刻。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.WorkDayStart">
+        <source>The start of the working hours: free gaps are looked for from here.</source>
+        <target>工作时间的开始时刻：从此处开始查找空闲时段。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendar.WorkspaceName">
+        <source>The workspace name at the top of the sidebar.</source>
+        <target>侧栏顶部显示的工作区名称。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarAttendee">
+        <source>One guest of a `MonthCalendarEvent` and their reply.</source>
+        <target>`MonthCalendarEvent` 的一位参与者及其回复。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarAttendee.PersonId">
+        <source>The `Id` of the guest.</source>
+        <target>参与者的 `Id`。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarAttendee.Status">
+        <source>The guest's reply (`Pending` shows "Awaiting reply").</source>
+        <target>参与者的回复（`Pending` 显示为 "Awaiting reply"）。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarDateChangedEventArgs">
+        <source>Arguments of `MonthChanged` and `SelectedDateChanged`.</source>
+        <target>`MonthChanged` 与 `SelectedDateChanged` 的事件参数。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarEvent">
+        <source>One event of a `MonthCalendar`. Dates are calendar dates (no time zone): `StartDate` and the inclusive `EndDate`. Without `StartTime` the event lasts all day; with it, it is a timed event (24 hour `StartTime` and `EndTime`). All-day and multi-day events show as tinted bars, timed events as chips with the time in the calendar's color.</source>
+        <target>`MonthCalendar` 的一个事件。日期为日历日期（不含时区）：`StartDate` 与包含在内的 `EndDate`。未设置 `StartTime` 时事件为全天；设置后为定时事件（24 小时制的 `StartTime` 与 `EndTime`）。全天和多日事件显示为有色条，定时事件显示为带有日历颜色时间的标签。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarEvent.CalendarId">
+        <source>The `Id` of its calendar; an unknown calendar draws gray.</source>
+        <target>其所属日历的 `Id`；未知的日历显示为灰色。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarEvent.EndDate">
+        <source>The last date (inclusive); null for a one-day event.</source>
+        <target>最后一天（包含在内）；单日事件为 null。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarEvent.EndTime">
+        <source>The end time; null ends an hour after `StartTime`.</source>
+        <target>结束时间；为 null 时在 `StartTime` 之后一小时结束。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarEvent.Id">
+        <source>A stable identifier (selection, focus, undo and the callbacks use it).</source>
+        <target>稳定的标识符（选择、焦点、撤销和回调均使用它）。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarEvent.IsEnabled">
+        <source>Whether the event can be moved, answered, recalendared or deleted (false keeps it read only).</source>
+        <target>事件能否被移动、回复、更换日历或删除（为 false 时只读）。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarEvent.IsVisible">
+        <source>Whether the event shows at all (false hides it everywhere without removing it).</source>
+        <target>事件是否显示（为 false 时在所有位置隐藏，但不删除）。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarEvent.Location">
+        <source>A place (a room, an address or a link) shown under the title in lists.</source>
+        <target>地点（会议室、地址或链接），在列表中显示于标题之下。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarEvent.Notes">
+        <source>Free text shown in the details and on invitation cards.</source>
+        <target>在详情和邀请卡片上显示的自由文本。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarEvent.OrganizerId">
+        <source>The `Id` of the person who sent the invitation.</source>
+        <target>发出邀请的人的 `Id`。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarEvent.Rsvp">
+        <source>The current user's reply (`CurrentUserId`): `Pending` marks an invitation; `None` is the user's own event.</source>
+        <target>当前用户的回复（`CurrentUserId`）：`Pending` 表示邀请；`None` 表示用户自己的事件。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarEvent.StartDate">
+        <source>The first date.</source>
+        <target>第一天。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarEvent.StartTime">
+        <source>The start time; null makes it an all-day event.</source>
+        <target>开始时间；为 null 时为全天事件。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarEvent.Tag">
+        <source>Any object of the app's own.</source>
+        <target>应用自己使用的任意对象。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarEvent.Title">
+        <source>The title.</source>
+        <target>标题。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarEvent.VideoProvider">
+        <source>The video call service shown with its mark (for example "Video room"); null for no call.</source>
+        <target>随标识一同显示的视频通话服务（例如 "Video room"）；为 null 时无通话。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarEvent.VideoUrl">
+        <source>The call link the details offer to copy.</source>
+        <target>详情中提供复制的通话链接。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarEventChangedEventArgs">
+        <source>Arguments of `EventChanged`: the event after the change and a copy of it from before.</source>
+        <target>`EventChanged` 的事件参数：更改后的事件以及更改前的副本。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarEventCreatingEventArgs">
+        <source>Arguments of `EventCreating`: set `ErrorMessage` to keep the new event form open and show the message under it (the event is then not added).</source>
+        <target>`EventCreating` 的事件参数：设置 `ErrorMessage` 可使新事件表单保持打开，并在其下方显示该消息（事件随即不会被添加）。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarEventEventArgs">
+        <source>Arguments of an event about one `MonthCalendarEvent` (created, deleted, invoked).</source>
+        <target>关于某个 `MonthCalendarEvent` 的事件参数（已创建、已删除、已打开）。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarLabels">
+        <source>Every word `MonthCalendar` shows or reads to screen readers, in English by default. Replace the instance (`Labels`) to translate or reword. Texts with `{0}`, `{1}` … are composite format strings; dates inside them are formatted with `Culture` and the date patterns below.</source>
+        <target>`MonthCalendar` 显示或朗读给屏幕阅读器的全部文字，默认为英文。替换实例（`Labels`）即可翻译或改写。含 `{0}`、`{1}` … 的文本为复合格式字符串；其中的日期按 `Culture` 及下列日期格式进行格式化。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarPerson">
+        <source>A person a `MonthCalendar` refers to: the current user, guests, organizers and teammates.</source>
+        <target>`MonthCalendar` 引用的人员：当前用户、参与者、组织者和同事。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarPerson.Avatar">
+        <source>A picture; null shows the initials on a generated color.</source>
+        <target>头像图片；为 null 时显示在生成的颜色底色上的姓名首字母。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarPerson.Email">
+        <source>The email address (the account row shows the current user's).</source>
+        <target>电子邮件地址（账户行显示当前用户的邮箱）。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarPerson.Id">
+        <source>The identifier events refer to.</source>
+        <target>事件所引用的标识符。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarPerson.IsEnabled">
+        <source>Whether the person's row in the sidebar can be used.</source>
+        <target>该人员在侧栏中的行能否使用。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarPerson.IsTeammate">
+        <source>Whether the person is listed under the sidebar's team calendars (the first five teammates are).</source>
+        <target>该人员是否列在侧栏的团队日历下（前五位同事会列出）。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarPerson.IsVisible">
+        <source>Whether the person is listed in the sidebar and the guest picker.</source>
+        <target>该人员是否列在侧栏和参与者选择器中。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarPerson.Name">
+        <source>The full name.</source>
+        <target>全名。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarRsvpChangedEventArgs">
+        <source>Arguments of `RsvpChanged`: the user answered an invitation.</source>
+        <target>`RsvpChanged` 的事件参数：用户回复了一项邀请。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarSource">
+        <source>One calendar of a `MonthCalendar`: a name, a color and an icon, drawn wherever its events appear.</source>
+        <target>`MonthCalendar` 的一个日历：包含名称、颜色和图标，显示于其事件出现的所有位置。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarSource.CustomColor">
+        <source>The color used in both themes when `Tone` is `Custom`.</source>
+        <target>`Tone` 为 `Custom` 时使用的颜色，在两种主题下通用。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarSource.Icon">
+        <source>A 24 × 24 stroke icon (for example an `ArcIcons` glyph); null draws a calendar.</source>
+        <target>24 × 24 的线条图标（例如 `ArcIcons` 图标）；为 null 时绘制日历图标。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarSource.Id">
+        <source>The identifier events refer to (`CalendarId`).</source>
+        <target>事件所引用的标识符（`CalendarId`）。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarSource.IsEnabled">
+        <source>Whether the sidebar toggle can be used.</source>
+        <target>侧栏的开关能否使用。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarSource.IsShown">
+        <source>Whether its events show (two-way: the sidebar toggle, Only and All change it).</source>
+        <target>其事件是否显示（双向绑定：侧栏开关、"Only" 和 "All" 会改变它）。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarSource.IsVisible">
+        <source>Whether the calendar is listed in the sidebar and the pickers (its events still follow `IsShown`).</source>
+        <target>该日历是否列在侧栏和选择器中（其事件仍遵循 `IsShown`）。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarSource.Name">
+        <source>The name in the sidebar, the details and the calendar pickers.</source>
+        <target>侧栏、详情和日历选择器中显示的名称。</target>
+      </trans-unit>
+      <trans-unit id="MonthCalendarSource.Tone">
+        <source>The color preset.</source>
+        <target>颜色预设。</target>
+      </trans-unit>
       <trans-unit id="MorphBlock">
         <source>One piece of a `SkeletonMorph` layout (Arc Skeleton morph, design reference). While its region loads it is a skeleton of the given size and its content is not shown; when the region resolves, the content mounts in place, the skeleton stretches from its own box to the content's measured box on a critically damped spring while it fades, and the content sharpens in out of a 4 px blur. Give text skeletons the text's line height and line count (`Lines`, `LineHeight`) and set `SkeletonWidth` near the typical text width. A block outside a `SkeletonMorph` simply shows its content.</source>
         <target>`SkeletonMorph` 版式中的一个部分（Arc Skeleton morph，设计参考）。所在区域加载时它是给定尺寸的骨架，不显示内容；区域解析时内容就地挂载，骨架在淡出的同时沿临界阻尼弹簧从自身的盒子伸展到内容测得的盒子，内容则从 4 px 模糊中变清晰。为文本骨架提供文本的行高与行数（`Lines`、`LineHeight`），并把 `SkeletonWidth` 设为接近文本的典型宽度。不在 `SkeletonMorph` 中的块直接显示其内容。</target>
@@ -26101,16 +26605,72 @@
         <target>每个席位的降价，从某个席位数起生效（以达到的最大层级为准）。</target>
       </trans-unit>
       <trans-unit id="PrizeWheel">
-        <source>A prize wheel: slices with their own odds, a spin that draws a winner by those odds and slows to a stop on it, pegs that flick the pointer as they pass, and the winning slice lit once the wheel rests.</source>
-        <target>抽奖转盘：每块扇区有自己的概率，转动时按概率抽出中奖项并减速停在它上面，经过的钉子会拨动指针，转盘停下后中奖扇区亮起。</target>
+        <source>A promo or referral prize wheel with real momentum: flick the wheel and it keeps the speed you gave it, or hold the hub to wind it back while a ring fills and let go to throw it. A flexible pointer bends against every peg and snaps back with a short wobble, the wheel slows into a long settle on a slice drawn by weight, and the won slice lifts into a reward card with a copyable code beside a list of every prize and its chance.</source>
+        <target>一个带真实惯性的促销或推荐抽奖转盘：甩动转盘，它会保持你给它的速度；或按住中心钮，在圆环充满的同时把转盘往回拧，松手即抛出。灵活的指针顶着每颗钉子弯曲，再带着短促的摆动弹回，转盘经过一段悠长的减速停在按权重抽出的扇区上，中奖扇区升起成一张带可复制兑换码的奖励卡，旁边列出每个奖品及其概率。</target>
+      </trans-unit>
+      <trans-unit id="PrizeWheel.AccentBrush">
+        <source>The color of the pointer, the featured prize, the charge ring and the won slice; the theme's accent by default.</source>
+        <target>指针、头奖、蓄力环和中奖扇区的颜色；默认为主题的强调色。</target>
+      </trans-unit>
+      <trans-unit id="PrizeWheel.ClaimedText">
+        <source>The hub's word once a single-spin wheel has given its prize.</source>
+        <target>单次旋转的转盘发出奖品后，中心钮上显示的文字。</target>
+      </trans-unit>
+      <trans-unit id="PrizeWheel.CodeAnnouncement">
+        <source>Announced after `WonAnnouncement` when the prize has a code; `{0}` is the code, spelled out.</source>
+        <target>奖品带有兑换码时，在 `WonAnnouncement` 之后播报；`{0}` 是逐字拼读的兑换码。</target>
+      </trans-unit>
+      <trans-unit id="PrizeWheel.CodeCopied">
+        <source>Raised after the reward card's Copy button put the won code on the clipboard.</source>
+        <target>奖励卡的复制按钮把中奖兑换码放到剪贴板之后触发。</target>
+      </trans-unit>
+      <trans-unit id="PrizeWheel.CopiedText">
+        <source>The Copy button's label after a copy, also announced.</source>
+        <target>复制成功后复制按钮的标签，也会被播报。</target>
+      </trans-unit>
+      <trans-unit id="PrizeWheel.CopyFailedText">
+        <source>The Copy button's label when the clipboard refuses, also announced.</source>
+        <target>剪贴板拒绝时复制按钮的标签，也会被播报。</target>
+      </trans-unit>
+      <trans-unit id="PrizeWheel.CopyText">
+        <source>The Copy button's label.</source>
+        <target>复制按钮的标签。</target>
+      </trans-unit>
+      <trans-unit id="PrizeWheel.Description">
+        <source>One line under the heading.</source>
+        <target>标题下方的一行文字。</target>
+      </trans-unit>
+      <trans-unit id="PrizeWheel.DriftSpeed">
+        <source>Multiplies the slow drift of the wheel before its first spin (1); 0 holds it still.</source>
+        <target>第一次旋转之前转盘缓慢漂移的速度倍数（1）；0 表示静止。</target>
       </trans-unit>
       <trans-unit id="PrizeWheel.Duration">
-        <source>How long a spin takes from the first push to the stop.</source>
-        <target>一次转动从开始到停下所用的时间。</target>
+        <source>How long a spin started from code (`Spin`, `SpinTo`) takes from the first push to the stop. Spins thrown by a flick or the hub last as long as their speed carries them.</source>
+        <target>从代码开始的旋转（`Spin`、`SpinTo`）从第一下推动到停下所用的时间。甩动或中心钮抛出的旋转，速度能带它转多久就转多久。</target>
+      </trans-unit>
+      <trans-unit id="PrizeWheel.HintText">
+        <source>The gesture hint under the description; it also describes the wheel to assistive technology.</source>
+        <target>描述下方的手势提示；它也用来向辅助技术描述转盘。</target>
+      </trans-unit>
+      <trans-unit id="PrizeWheel.IsDriftPaused">
+        <source>Holds the idle drift. A spin a person starts still runs to the end.</source>
+        <target>暂停空闲时的漂移。用户开始的旋转仍会转完。</target>
       </trans-unit>
       <trans-unit id="PrizeWheel.IsInteractive">
-        <source>Whether a person can spin the wheel by clicking, tapping or pressing Enter or Space (true).</source>
-        <target>是否允许用户通过点击、轻点或按 Enter、Space 转动转盘（true）。</target>
+        <source>Whether a person can spin the wheel by flicking it, holding the hub, pressing Enter or Space, or with "Spin again" (true). When false the wheel only spins from code and is not a Tab stop.</source>
+        <target>用户能否通过甩动、按住中心钮、按 Enter 或 Space，或点击"再转一次"来旋转转盘（true）。为 false 时转盘只能从代码旋转，也不是 Tab 停留点。</target>
+      </trans-unit>
+      <trans-unit id="PrizeWheel.IsOddsVisible">
+        <source>Whether the panel lists every prize with its chance (true).</source>
+        <target>面板是否列出每个奖品及其概率（true）。</target>
+      </trans-unit>
+      <trans-unit id="PrizeWheel.IsPanelVisible">
+        <source>Whether the reward panel shows beside or under the wheel: the title, description and gesture hint, the reward card after a win, and the odds list (true). False leaves the wheel alone.</source>
+        <target>奖励面板是否显示在转盘旁边或下方：标题、描述和手势提示，中奖后的奖励卡，以及概率列表（true）。为 false 时只保留转盘。</target>
+      </trans-unit>
+      <trans-unit id="PrizeWheel.IsSingleSpin">
+        <source>Allows one spin only: once it lands the wheel locks on the prize, the hub reads `ClaimedText` and "Spin again" is hidden. `ClearResult` unlocks it.</source>
+        <target>只允许转一次：落定后转盘锁定在奖品上，中心钮显示 `ClaimedText`，并隐藏"再转一次"。`ClearResult` 会解除锁定。</target>
       </trans-unit>
       <trans-unit id="PrizeWheel.IsSpinning">
         <source>Whether the wheel is turning.</source>
@@ -26120,6 +26680,10 @@
         <source>The accessible name of the wheel.</source>
         <target>转盘的无障碍名称。</target>
       </trans-unit>
+      <trans-unit id="PrizeWheel.OddsTitle">
+        <source>The heading of the odds list.</source>
+        <target>概率列表的标题。</target>
+      </trans-unit>
       <trans-unit id="PrizeWheel.Result">
         <source>The slice the wheel last stopped on; null before the first spin ends.</source>
         <target>转盘上次停下时所在的扇区；第一次转动结束前为 null。</target>
@@ -26128,33 +26692,69 @@
         <source>The index of the slice the wheel last stopped on; -1 before the first spin ends.</source>
         <target>转盘上次停下时所在扇区的索引；第一次转动结束前为 -1。</target>
       </trans-unit>
+      <trans-unit id="PrizeWheel.SelectionChanged">
+        <source>Raised when `Result` changes: to the winner when the wheel rests, and to none when a new spin starts or the result is cleared.</source>
+        <target>`Result` 变化时触发：转盘停下时变为中奖者，新的旋转开始或结果被清除时变为空。</target>
+      </trans-unit>
       <trans-unit id="PrizeWheel.SizesByWeight">
-        <source>Whether slices are as wide as their odds (true) or all the same width.</source>
-        <target>扇区宽度是否与其概率成比例（true），否则所有扇区一样宽。</target>
+        <source>Whether slices are as wide as their odds (true) or all the same width. Slices too thin for a label drop it; the odds list still names them.</source>
+        <target>扇区宽度是否与其概率成比例（true），否则所有扇区一样宽。太窄放不下标签的扇区不显示标签，概率列表仍会列出它。</target>
+      </trans-unit>
+      <trans-unit id="PrizeWheel.SpinAgainText">
+        <source>The label of the card's button that spins once more.</source>
+        <target>奖励卡上再转一次的按钮的标签。</target>
       </trans-unit>
       <trans-unit id="PrizeWheel.SpinCompleted">
         <source>Raised when the wheel comes to rest, with the winning slice.</source>
         <target>转盘停下时触发，并带有中奖扇区。</target>
       </trans-unit>
       <trans-unit id="PrizeWheel.SpinText">
-        <source>The word in the hub, which spins the wheel.</source>
-        <target>中心圆上的文字，点击它会转动转盘。</target>
+        <source>The word on the hub, which winds up and throws the wheel.</source>
+        <target>中心钮上的文字，按住它可以蓄力并抛出转盘。</target>
+      </trans-unit>
+      <trans-unit id="PrizeWheel.SpinningText">
+        <source>Announced when a spin starts.</source>
+        <target>旋转开始时播报的文字。</target>
       </trans-unit>
       <trans-unit id="PrizeWheel.Ticked">
-        <source>Raised each time a peg flicks the pointer, for a click sound or a haptic tick.</source>
-        <target>每次钉子拨动指针时触发，可用于播放点击声或触觉反馈。</target>
+        <source>Raised each time a peg passes the pointer, for a click sound or a haptic tick.</source>
+        <target>每颗钉子经过指针时触发，可用于播放咔哒声或触觉反馈。</target>
+      </trans-unit>
+      <trans-unit id="PrizeWheel.Title">
+        <source>The heading beside the wheel before the first prize.</source>
+        <target>第一次中奖之前转盘旁边的标题。</target>
       </trans-unit>
       <trans-unit id="PrizeWheel.Turns">
-        <source>The least number of full turns a spin makes before it settles on the winner.</source>
-        <target>转动在停到中奖项之前至少转过的整圈数。</target>
+        <source>The least number of full turns a spin started from code (`Spin`, `SpinTo`) makes before it settles on the winner. Spins thrown by a flick or the hub turn as far as their speed carries them.</source>
+        <target>从代码开始的旋转（`Spin`、`SpinTo`）在停到中奖者之前至少转过的整圈数。甩动或中心钮抛出的旋转，速度能带它转多远就转多远。</target>
+      </trans-unit>
+      <trans-unit id="PrizeWheel.WeakHintText">
+        <source>The hint shown instead after a flick too gentle to spin the wheel.</source>
+        <target>甩动太轻、没能转动转盘后改为显示的提示。</target>
+      </trans-unit>
+      <trans-unit id="PrizeWheel.WinnerPicker">
+        <source>Chooses the winner when a person spins the wheel, such as a result your server already drew; it gets the slices and returns an index. Without it (or when it returns an index out of range) the wheel draws by weight, which suits a demo but not a real prize.</source>
+        <target>用户旋转转盘时选出中奖者，例如你的服务器已经抽出的结果；它接收所有扇区并返回一个索引。没有设置它（或它返回的索引超出范围）时，转盘按权重抽取，这适合演示，但不适合真实奖品。</target>
+      </trans-unit>
+      <trans-unit id="PrizeWheel.WonAnnouncement">
+        <source>Announced when the wheel rests; `{0}` is the prize.</source>
+        <target>转盘停下时播报的文字；`{0}` 是奖品。</target>
       </trans-unit>
       <trans-unit id="PrizeWheelResultEventArgs">
         <source>The slice a `PrizeWheel` stopped on.</source>
         <target>`PrizeWheel` 停下时所在的扇区。</target>
       </trans-unit>
       <trans-unit id="PrizeWheelSegment">
-        <source>One slice of a `PrizeWheel`: its prize and its odds.</source>
-        <target>`PrizeWheel` 的一块扇区：它的奖品和概率。</target>
+        <source>One slice of a `PrizeWheel`: its prize, what the reward card says about it, and its odds.</source>
+        <target>`PrizeWheel` 的一块扇区：它的奖品、奖励卡上关于它的说明，以及它的概率。</target>
+      </trans-unit>
+      <trans-unit id="PrizeWheelSegment.Code">
+        <source>The code the reward card shows with a Copy button; no code box when it is empty.</source>
+        <target>奖励卡上显示的兑换码，旁边有复制按钮；为空时不显示兑换码框。</target>
+      </trans-unit>
+      <trans-unit id="PrizeWheelSegment.Detail">
+        <source>A line under the prize in the reward card, such as what the reward is good for.</source>
+        <target>奖励卡中奖品下方的一行说明，例如这个奖励能用来做什么。</target>
       </trans-unit>
       <trans-unit id="PrizeWheelSegment.Fill">
         <source>A fill of the slice's own; by default slices alternate between the wheel's two surfaces.</source>
@@ -26164,13 +26764,21 @@
         <source>The label color on a slice with its own `Fill`; the wheel's text color by default.</source>
         <target>设置了 `Fill` 的扇区上的文字颜色；默认为转盘的文字颜色。</target>
       </trans-unit>
+      <trans-unit id="PrizeWheelSegment.IsFeatured">
+        <source>Marks the rare top prize: its slice and label are tinted with the accent and the odds list shows a dot after it. Mark one slice at most.</source>
+        <target>标记稀有的头奖：它的扇区和标签用强调色着色，概率列表中它的后面显示一个圆点。最多标记一个扇区。</target>
+      </trans-unit>
       <trans-unit id="PrizeWheelSegment.Label">
-        <source>The prize, written on the slice. Keep it short: a word or two.</source>
-        <target>写在扇区上的奖品。要简短：一两个词。</target>
+        <source>The prize, written on the slice. Keep it short: about 14 characters at most.</source>
+        <target>写在扇区上的奖品。要简短：最多约 14 个字符。</target>
       </trans-unit>
       <trans-unit id="PrizeWheelSegment.Weight">
         <source>The slice's odds relative to the others (1 by default; 0 never wins).</source>
         <target>扇区相对于其他扇区的概率（默认 1；0 永远不会中）。</target>
+      </trans-unit>
+      <trans-unit id="PrizeWheelSelectionChangedEventArgs">
+        <source>The change of a `PrizeWheel`'s result: the slice before and after.</source>
+        <target>`PrizeWheel` 结果的变化：变化前后的扇区。</target>
       </trans-unit>
       <trans-unit id="ProductColorOption">
         <source>A color a `ProductDetail` product comes in, with its own pictures.</source>
@@ -29957,12 +30565,16 @@
         <target>格式化读数、刻度标签和朗读的值（默认：en-US，小数位取自步长或最小值）。</target>
       </trans-unit>
       <trans-unit id="SandText">
-        <source>A line of text that crumbles into grains of sand and drifts away on the wind, then gathers back grain by grain into the same letters.</source>
-        <target>一行文字碎成沙粒、随风飘走，然后又一粒一粒聚回原来的字母。</target>
+        <source>Large text drawn as grains of sand. The grains pour in from above and fill each letter from the bottom up, the pointer digs through the letters and throws grains that tumble and pile up, and once nobody digs the letters fill back in while the spilled sand disappears. A new `Text` collapses the old letters into dunes while the new word pours in.</source>
+        <target>由沙粒画出的大号文字。沙粒从上方倒入，从下往上填满每个字母；指针挖过字母时会抛出沙粒，沙粒翻滚并堆积；没有人再挖时字母重新填满，散落的沙子随之消失。新的 `Text` 会让旧字母坍成沙丘，同时新词倒入。</target>
+      </trans-unit>
+      <trans-unit id="SandText.DigRadius">
+        <source>How far around the pointer the sand is dug away, in px (14 by default).</source>
+        <target>指针周围被挖开的范围，单位为 px（默认 14）。</target>
       </trans-unit>
       <trans-unit id="SandText.Dissolved">
-        <source>Raised when the last grain has blown away.</source>
-        <target>最后一粒沙被吹走时触发。</target>
+        <source>Raised when the letters have been let go (`IsDissolved`) and the last grain has gone.</source>
+        <target>字母被放开（`IsDissolved`）且最后一粒沙消失时触发。</target>
       </trans-unit>
       <trans-unit id="SandText.Distance">
         <source>How far a typical grain travels before it has faded, in px.</source>
@@ -29976,25 +30588,41 @@
         <source>How long the text takes to blow away completely, and to gather again.</source>
         <target>文字完全吹散所用的时间，聚回也用同样的时间。</target>
       </trans-unit>
+      <trans-unit id="SandText.FontSizeRatio">
+        <source>The letters' size as a share of the control's width (for example 0.18); 0 (the default) uses `FontSize`.</source>
+        <target>字母大小占控件宽度的比例（例如 0.18）；0（默认）表示使用 `FontSize`。</target>
+      </trans-unit>
       <trans-unit id="SandText.Gathered">
-        <source>Raised when the last grain is back in its letter.</source>
-        <target>最后一粒沙回到字母中时触发。</target>
+        <source>Raised when the last grain of a pour is back in its letter: after the first show, a new text, `Gather`, or healing after digging.</source>
+        <target>一次倒入的最后一粒沙回到字母中时触发：首次显示、新文字、`Gather` 或挖掘后的修复之后。</target>
       </trans-unit>
       <trans-unit id="SandText.GrainSize">
-        <source>The side of one grain in px; long or large text uses larger grains to stay within `MaxGrains`.</source>
-        <target>一粒沙的边长，单位为 px；文字较长或较大时会用更大的沙粒，以不超过 `MaxGrains`。</target>
+        <source>The side of one grain in px (2 by default).</source>
+        <target>一粒沙的边长，单位为 px（默认 2）。</target>
+      </trans-unit>
+      <trans-unit id="SandText.HeadingLevel">
+        <source>The heading level assistive technology reports for the text (2 by default, like an h2); 0 reports plain text.</source>
+        <target>辅助技术为文字报告的标题级别（默认 2，相当于 h2）；0 表示普通文字。</target>
+      </trans-unit>
+      <trans-unit id="SandText.IsDigEnabled">
+        <source>Whether the pointer (mouse, pen or a dragging finger) digs through the letters (true by default).</source>
+        <target>指针（鼠标、笔或拖动的手指）是否挖过字母（默认 true）。</target>
       </trans-unit>
       <trans-unit id="SandText.IsDissolved">
-        <source>Whether the text has blown away (true) or stands gathered (false). Two-way.</source>
-        <target>文字是已被吹散（true）还是聚在一起（false）。双向绑定。</target>
+        <source>Whether the letters are let go (true): every grain turns loose, falls and disappears. Setting it back to false pours the letters in again. Two-way.</source>
+        <target>是否放开字母（true）：每粒沙都变松、落下并消失。设回 false 会重新倒入字母。双向绑定。</target>
       </trans-unit>
       <trans-unit id="SandText.MaxGrains">
         <source>The most grains the text is broken into.</source>
         <target>文字最多碎成的沙粒数。</target>
       </trans-unit>
+      <trans-unit id="SandText.Palette">
+        <source>The grain colors: each grain picks one and lightens or darkens it a little. Null or empty uses the text color (`Foreground`, the accent by default). At most 51 colors are used.</source>
+        <target>沙粒颜色：每粒沙挑选其中一种，并稍微变亮或变暗。为 null 或空时使用文字颜色（`Foreground`，默认为强调色）。最多使用 51 种颜色。</target>
+      </trans-unit>
       <trans-unit id="SandText.Text">
-        <source>The text to show.</source>
-        <target>要显示的文字。</target>
+        <source>The text the letters form. Keep it to one short line; changing it drops the old letters and pours the new.</source>
+        <target>字母组成的文字。只放一行短文字；修改它会让旧字母落下并倒入新字母。</target>
       </trans-unit>
       <trans-unit id="SandText.Trigger">
         <source>What sets the text off: a click (the default), hovering, or nothing but code.</source>
@@ -34665,20 +35293,28 @@
         <target>触发提醒的预算比例（0.8 = 80%），范围 0.01 到 2。</target>
       </trans-unit>
       <trans-unit id="SplitBar">
-        <source>One horizontal bar split into parts in proportion to their values, with a legend of labels, values and shares under it. When a value changes, a segment is added or one is removed, every part springs to its new share (the springs keep their speed when interrupted, so live data never jumps). Pointing at a part, or moving through the parts with the arrow keys, lifts it and dims the others; a click or Enter raises `SegmentInvoked`. A `Total` larger than the sum leaves the rest of the track empty, shown in the legend as `RemainderLabel`.</source>
-        <target>一条按各部分数值比例分段的水平条，下方有显示标签、数值和占比的图例。当某个值变化、新增或移除一个分段时，每个部分都会以弹簧动画过渡到新的占比（弹簧在被打断时保持速度，因此实时数据不会跳变）。指针指向某个部分，或用方向键在各部分间移动时，该部分会浮起，其余部分变暗；点击或按 Enter 会触发 `SegmentInvoked`。`Total` 大于总和时，轨道的剩余部分留空，在图例中显示为 `RemainderLabel`。</target>
+        <source>One 100% bar split into shares, for traffic sources, budgets, storage or votes. Resting on a part (or moving to it with the arrow keys) widens it a little, enough to show its own label when it is small, while the others give way and dim, and the readout above names it with its share and value. Labels sit inside a part when they fit and move to a lane under the bar with leader lines when they do not. The legend switches parts off and on: a part that is off collapses in place and the rest reflow on springs, their percentages rolling to the new shares. A `Total` larger than the sum leaves the rest of the track empty, named `RemainderLabel`.</source>
+        <target>一根合计为 100% 的条形，按占比分段，适合流量来源、预算、存储或投票。指针停在某一段上（或用方向键移到它上面）时，这一段会稍微变宽，较小的段会宽到足以显示自己的标签，其余各段让出位置并变淡，上方的读数给出它的占比和数值。标签放得下时在段内，放不下时移到条形下方的标签行，并用引线连到这一段。图例可以关掉或重新打开某一段：关掉的段在原处收拢，其余各段以弹簧动画重新分配，百分比滚动到新的占比。`Total` 大于各段之和时，轨道其余部分留空，名称为 `RemainderLabel`。</target>
+      </trans-unit>
+      <trans-unit id="SplitBar.Description">
+        <source>One line under the title; null shows none.</source>
+        <target>标题下方的一行说明；null 时不显示。</target>
+      </trans-unit>
+      <trans-unit id="SplitBar.HiddenChanged">
+        <source>Raised when a part is switched off or back on, by the legend, the keyboard or code (`IsHidden`).</source>
+        <target>某一段被关掉或重新打开时触发，无论来自图例、键盘还是代码（`IsHidden`）。</target>
       </trans-unit>
       <trans-unit id="SplitBar.HighlightedIndex">
-        <source>The part that is lifted while the others dim; -1 for none. Pointing and the arrow keys set it.</source>
-        <target>浮起而其余部分变暗的那个部分；-1 表示无。指针指向和方向键会设置它。</target>
+        <source>The part that is widened while the others dim; -1 for none. Pointing and the arrow keys set it.</source>
+        <target>变宽而其余各段变淡的那一段；-1 表示没有。指针指向和方向键会设置它。</target>
       </trans-unit>
       <trans-unit id="SplitBar.IsLegendVisible">
-        <source>Shows the legend under the bar (default true).</source>
-        <target>在条下方显示图例（默认 true）。</target>
+        <source>Shows the legend under the bar (default true). Each entry switches its part and highlights it on hover.</source>
+        <target>在条形下方显示图例（默认 true）。每个图例项可以关掉或打开它对应的段，指针悬停时高亮这一段。</target>
       </trans-unit>
       <trans-unit id="SplitBar.IsSumVisible">
-        <source>Shows the rolling sum (and "of total") beside the title (default true).</source>
-        <target>在标题旁显示滚动的总和（以及 "of total"）（默认 true）。</target>
+        <source>Shows the readout (the rolling total, or the highlighted part) beside the title (default true).</source>
+        <target>在标题旁显示读数（滚动的合计，或高亮的段）（默认 true）。</target>
       </trans-unit>
       <trans-unit id="SplitBar.ItemsSource">
         <source>The parts from a view model; when set it replaces `Segments`.</source>
@@ -34689,12 +35325,12 @@
         <target>当 `Total` 大于总和时，空余部分在图例中的标签；null 时不在图例中显示。</target>
       </trans-unit>
       <trans-unit id="SplitBar.SegmentInvoked">
-        <source>Raised when a part is clicked, or chosen with Enter or Space on the focused bar.</source>
-        <target>点击某个部分，或在获得焦点的条上按 Enter 或空格键选中它时触发。</target>
+        <source>Raised when a part is clicked, or chosen with Enter or Space on the focused bar. When no handler marks it handled, Enter and Space then switch the part off, as the legend does.</source>
+        <target>点击某一段，或在获得焦点的条形上按 Enter 或空格键选中它时触发。如果没有处理程序把它标记为已处理，Enter 和空格键随后会像图例一样关掉这一段。</target>
       </trans-unit>
       <trans-unit id="SplitBar.ShowsPercent">
-        <source>Shows each part's share as a percentage in the legend (default true).</source>
-        <target>在图例中以百分比显示每个部分的占比（默认 true）。</target>
+        <source>Shows each part's share as a percentage in the legend (default true); false shows its value instead.</source>
+        <target>在图例中以百分比显示每一段的占比（默认 true）；为 false 时改为显示它的数值。</target>
       </trans-unit>
       <trans-unit id="SplitBar.Title">
         <source>The heading above the bar, also the accessible name; null shows no heading.</source>
@@ -34704,9 +35340,17 @@
         <source>The amount the full bar stands for. NaN (the default) makes the bar the sum of its parts; a larger total leaves the rest empty. A total smaller than the sum is ignored.</source>
         <target>整条所代表的数量。NaN（默认）表示整条为各部分之和；更大的总量会让剩余部分留空。小于总和的总量会被忽略。</target>
       </trans-unit>
+      <trans-unit id="SplitBar.TotalLabel">
+        <source>The label of the readout while no part is highlighted (default "Total").</source>
+        <target>没有高亮任何段时读数的标签（默认 "Total"）。</target>
+      </trans-unit>
+      <trans-unit id="SplitBar.Unit">
+        <source>The word after values in the readout and in what screen readers hear, such as "sessions"; null for none.</source>
+        <target>读数中以及屏幕阅读器读出的数值后面的单位词，例如 "sessions"；null 表示没有。</target>
+      </trans-unit>
       <trans-unit id="SplitBar.ValueDecimals">
-        <source>Digits after the decimal point in values (0 to 6).</source>
-        <target>数值中小数点后的位数（0 到 6）。</target>
+        <source>Digits after the decimal point in values (0 to 6). Shares always show one.</source>
+        <target>数值中小数点后的位数（0 到 6）。占比始终显示一位小数。</target>
       </trans-unit>
       <trans-unit id="SplitBar.ValuePrefix">
         <source>Text before every value, such as "$".</source>
@@ -34716,13 +35360,21 @@
         <source>Text after every value, such as " GB".</source>
         <target>每个数值后面的文本，例如 " GB"。</target>
       </trans-unit>
+      <trans-unit id="SplitBarHiddenChangedEventArgs">
+        <source>Arguments of `HiddenChanged`.</source>
+        <target>`HiddenChanged` 的参数。</target>
+      </trans-unit>
       <trans-unit id="SplitBarSegment">
-        <source>One part of a `SplitBar`: a label, a value and an optional color. Changing `Value` springs the bar to the new shares; the bar listens to its segments while it is on screen.</source>
-        <target>`SplitBar` 的一个部分：一个标签、一个数值和一个可选的颜色。更改 `Value` 会让条以弹簧动画过渡到新的占比；条在屏幕上显示时会监听它的各个分段。</target>
+        <source>One part of a `SplitBar`: a label, a value and an optional color. Changing `Value` springs the bar to the new shares; the bar listens to its segments while it is on screen. `IsHidden` switches the part off (the legend does it too): it collapses in place and the others fill the bar.</source>
+        <target>`SplitBar` 的一段：一个标签、一个数值和一个可选的颜色。更改 `Value` 会让条形以弹簧动画过渡到新的占比；条形在屏幕上显示时会监听它的各段。`IsHidden` 关掉这一段（图例也可以）：它在原处收拢，其余各段补满条形。</target>
       </trans-unit>
       <trans-unit id="SplitBarSegment.Brush">
         <source>The segment's color; null takes the next chart series color.</source>
         <target>分段的颜色；null 时取下一个图表系列颜色。</target>
+      </trans-unit>
+      <trans-unit id="SplitBarSegment.IsHidden">
+        <source>True while the part is switched off: it takes no room in the bar, its legend entry reads "Off" and the shares are worked out over the parts that are on. The legend and Enter on the bar switch it.</source>
+        <target>这一段被关掉时为 true：它在条形中不占位置，图例项显示 "Off"，占比按打开的各段计算。图例和条形上的 Enter 键可以切换它。</target>
       </trans-unit>
       <trans-unit id="SplitBarSegment.Label">
         <source>The name shown in the legend and read by screen readers.</source>
@@ -37201,16 +37853,16 @@
         <target>同时显示的提示数量（默认 3）；较旧的提示在后方等待，前方的提示关闭后再依次出现。</target>
       </trans-unit>
       <trans-unit id="TocProgress">
-        <source>A table of contents for a long article that follows the reader. The section being read is highlighted, the sections above it read as done, and a rail along the list fills down to the reader's place inside the current section, with the percentage of the article read beside the heading. Choosing a section scrolls the article to it.</source>
-        <target>跟随读者的长文章目录。正在阅读的章节被高亮，上面的章节显示为已读，列表旁的一条轨道向下填充到读者在当前章节中的位置，标题旁显示文章已读的百分比。选择一个章节会把文章滚动到那里。</target>
+        <source>A table of contents for a long article that keeps pace with the reader. A thin line runs down the headings and steps into each level's indent; the part already read fills in section by section as the article scrolls, and a marker at its tip lights each heading it reaches. The minutes left to read sit beside the title and end on Finished. Choosing a heading glides the article there while the line traces the way.</source>
+        <target>跟上读者进度的长文章目录。一条细线沿着标题向下延伸，并折入每个层级的缩进；随着文章滚动，已读部分逐节填满，末端的标记会点亮它到达的每个标题。标题旁显示剩余的阅读分钟数，读完时变为 Finished。选择一个标题，文章会平滑滚动过去，线也会一路描到那里。</target>
       </trans-unit>
       <trans-unit id="TocProgress.ActivationRatio">
-        <source>Where the reading line sits, as a share of the viewport's height from its top (0 to 1).</source>
-        <target>阅读线所在的位置，以视口高度从顶部算起的比例表示（0 到 1）。</target>
+        <source>Where the reading line sits, as a share of the viewport's height from its top (0 to 1); used while `ReadingOffset` is not set.</source>
+        <target>阅读线所在的位置，以视口高度从顶部算起的比例表示（0 到 1）；在未设置 `ReadingOffset` 时使用。</target>
       </trans-unit>
       <trans-unit id="TocProgress.ActiveChanged">
-        <source>Raised when the reader moves into another section.</source>
-        <target>读者进入另一个章节时触发。</target>
+        <source>Raised when the marker reaches another section, while reading or while a chosen section scrolls into place.</source>
+        <target>标记到达另一个章节时触发，无论是在阅读中，还是在所选章节滚动到位的过程中。</target>
       </trans-unit>
       <trans-unit id="TocProgress.ActiveIndex">
         <source>The section being read, or -1 before the first heading (read-only).</source>
@@ -37240,13 +37892,25 @@
         <source>How much of the article has been scrolled through, 0 to 1 (read-only).</source>
         <target>文章已滚动过的比例，0 到 1（只读）。</target>
       </trans-unit>
+      <trans-unit id="TocProgress.ReadingOffset">
+        <source>Where the reading line sits, in pixels below the top of the article's viewport (usually the height of a sticky header plus a little air). Chosen headings scroll to this line. Not set (NaN, the default): the line is `ActivationRatio` of the viewport down and chosen headings stop `ScrollMargin` below the top.</source>
+        <target>阅读线所在的位置，以文章视口顶部向下的像素数表示（通常是固定页头的高度再加一点留白）。选择的标题会滚动到这条线。未设置时（NaN，默认）：阅读线位于视口向下 `ActivationRatio` 处，选择的标题停在顶部下方 `ScrollMargin` 处。</target>
+      </trans-unit>
+      <trans-unit id="TocProgress.ReadingTime">
+        <source>Reading time of the whole article in minutes. Not set (NaN, the default): estimated from the words in the article at 230 words a minute.</source>
+        <target>整篇文章的阅读时间，单位为分钟。未设置时（NaN，默认）：按每分钟 230 个词，根据文章中的词数估算。</target>
+      </trans-unit>
       <trans-unit id="TocProgress.ScrollMargin">
-        <source>The room left above a heading when the list scrolls the article to it.</source>
-        <target>列表把文章滚动到某个标题时，在标题上方留出的空间。</target>
+        <source>The room left above a heading when the list scrolls the article to it (while `ReadingOffset` is not set).</source>
+        <target>列表把文章滚动到某个标题时，在标题上方留出的空间（在未设置 `ReadingOffset` 时）。</target>
       </trans-unit>
       <trans-unit id="TocProgress.ShowsPercent">
-        <source>Whether the percentage read shows beside the heading.</source>
-        <target>是否在标题旁显示已读百分比。</target>
+        <source>Whether the percentage read shows beside the heading when the time left is off (`ShowsTimeLeft` false).</source>
+        <target>关闭剩余时间时（`ShowsTimeLeft` 为 false），是否在标题旁显示已读百分比。</target>
+      </trans-unit>
+      <trans-unit id="TocProgress.ShowsTimeLeft">
+        <source>Whether the minutes left to read show beside the heading, rolling to each new value and ending on Finished with a check.</source>
+        <target>是否在标题旁显示剩余的阅读分钟数；数值滚动到每个新值，最后显示带对勾的 Finished。</target>
       </trans-unit>
       <trans-unit id="TocProgress.Target">
         <source>The article's scroll viewer, whose position the list follows and which it scrolls when a section is chosen.</source>
@@ -41575,6 +42239,94 @@
       <trans-unit id="WindRoseSector">
         <source>A direction sector of a `WindRoseChart` as drawn: what the tooltip, the reading and the events report.</source>
         <target>`WindRoseChart` 的一个方向扇区（按绘制后的样子）：提示、读数和事件所报告的内容。</target>
+      </trans-unit>
+      <trans-unit id="WindowRange">
+        <source>A time window over a live area chart. Drag either edge of the frame to resize the window, drag inside it to pan and flick it to let it coast, or press anywhere else on the chart to glide the window there. The chart outside the window fades back, the part inside stays in full color, and the start, length and end readouts roll to their new values. New `Data` morphs the chart in place, and with `IsLive` a dot pulses on the latest point.</source>
+        <target>叠在实时面积图上的时间窗口。拖动框架的任一边缘可调整窗口大小，在窗口内拖动可平移，甩动后窗口会惯性滑行；在图表其他位置按下，窗口会滑行到那里。窗口外的图表淡出，窗口内保持全色，起点、长度和终点读数滚动到新值。新的 `Data` 会让图表原地形变，开启 `IsLive` 时最新的点上有一个脉动的圆点。</target>
+      </trans-unit>
+      <trans-unit id="WindowRange.Accent">
+        <source>One color for the frame and the line. Null uses the theme: the selected-control color for the frame and the first chart series for the line.</source>
+        <target>框架和折线共用的颜色。为 null 时使用主题：框架用选中控件的颜色，折线用第一个图表系列色。</target>
+      </trans-unit>
+      <trans-unit id="WindowRange.ChartHeight">
+        <source>Height of the chart and its frame in pixels, from 64 to 240.</source>
+        <target>图表及其框架的高度（像素），范围 64 到 240。</target>
+      </trans-unit>
+      <trans-unit id="WindowRange.Data">
+        <source>The series behind the window, one number per point, spread evenly from `Minimum` to `Maximum`. Assign a new list to morph the chart to it; edits inside the list are not observed.</source>
+        <target>窗口背后的序列，每个点一个数字，均匀分布在 `Minimum` 到 `Maximum` 之间。赋一个新列表会让图表形变到新数据；列表内部的修改不会被察觉。</target>
+      </trans-unit>
+      <trans-unit id="WindowRange.End">
+        <source>The end of the window in domain units; null means the end of the domain.</source>
+        <target>窗口的终点（定义域单位）；为 null 表示定义域的终点。</target>
+      </trans-unit>
+      <trans-unit id="WindowRange.IsLive">
+        <source>Pulses a dot on the latest point to show that the series is still arriving.</source>
+        <target>在最新的点上显示一个脉动的圆点，表示序列仍在更新。</target>
+      </trans-unit>
+      <trans-unit id="WindowRange.Label">
+        <source>Names the group and prefixes the names of the start, window and end sliders.</source>
+        <target>为组命名，并作为起点、窗口和终点三个滑块名称的前缀。</target>
+      </trans-unit>
+      <trans-unit id="WindowRange.LargeStep">
+        <source>How far Page Up, Page Down and Shift with an arrow move; null means a tenth of the domain.</source>
+        <target>Page Up、Page Down 以及 Shift 加方向键移动的距离；为 null 表示定义域的十分之一。</target>
+      </trans-unit>
+      <trans-unit id="WindowRange.MaxSpan">
+        <source>The widest window as end minus start; null means the whole domain.</source>
+        <target>窗口的最大宽度（终点减起点）；为 null 表示整个定义域。</target>
+      </trans-unit>
+      <trans-unit id="WindowRange.Maximum">
+        <source>The end of the domain; null means the index of the last data point.</source>
+        <target>定义域的终点；为 null 表示最后一个数据点的索引。</target>
+      </trans-unit>
+      <trans-unit id="WindowRange.MinSpan">
+        <source>The narrowest window as end minus start; null means one `Step`.</source>
+        <target>窗口的最小宽度（终点减起点）；为 null 表示一个 `Step`。</target>
+      </trans-unit>
+      <trans-unit id="WindowRange.Minimum">
+        <source>The start of the domain, for example day 0.</source>
+        <target>定义域的起点，例如第 0 天。</target>
+      </trans-unit>
+      <trans-unit id="WindowRange.ShowSpan">
+        <source>Shows the length of the window between the start and end readouts. Turn it off in very tight spaces.</source>
+        <target>在起点和终点读数之间显示窗口的长度。空间非常紧张时可以关闭。</target>
+      </trans-unit>
+      <trans-unit id="WindowRange.SpanFormatter">
+        <source>Formats the middle readout from end minus start, for example `span =&gt; $"{span + 1} days"`. Without it the span is written as a number.</source>
+        <target>根据终点减起点格式化中间的读数，例如 `span =&gt; $"{span + 1} days"`。未设置时以数字显示长度。</target>
+      </trans-unit>
+      <trans-unit id="WindowRange.Start">
+        <source>The start of the window in domain units; null means the start of the last quarter of the domain.</source>
+        <target>窗口的起点（定义域单位）；为 null 表示定义域最后四分之一的起点。</target>
+      </trans-unit>
+      <trans-unit id="WindowRange.Step">
+        <source>Both ends snap to multiples of this, counted from `Minimum`, and an arrow key moves by it.</source>
+        <target>两端都吸附到从 `Minimum` 起算的该值的整数倍，方向键也按它移动。</target>
+      </trans-unit>
+      <trans-unit id="WindowRange.Ticks">
+        <source>Labels under the chart, such as the first day of each month. Assign a new list to change them.</source>
+        <target>图表下方的标签，例如每月的第一天。赋一个新列表来更改它们。</target>
+      </trans-unit>
+      <trans-unit id="WindowRange.ValueChanged">
+        <source>Raised on every change of the window: while dragging, while it coasts after a flick, and for keys and code.</source>
+        <target>窗口每次变化时触发：拖动中、甩动后的惯性滑行中，以及按键和代码改变时。</target>
+      </trans-unit>
+      <trans-unit id="WindowRange.ValueCommitted">
+        <source>Raised once the window has settled after a drag, a flick or a key. Fetch the report for the window here.</source>
+        <target>拖动、甩动或按键之后窗口静止时触发一次。在这里获取窗口对应的报表。</target>
+      </trans-unit>
+      <trans-unit id="WindowRange.ValueFormatter">
+        <source>Formats the start and end readouts and the spoken values, for example a day index as "Jun 14". Without it the value is written as a number with the decimals of `Step`.</source>
+        <target>格式化起点和终点读数以及朗读的值，例如把天的索引写成 "Jun 14"。未设置时按 `Step` 的小数位数写成数字。</target>
+      </trans-unit>
+      <trans-unit id="WindowRange.WindowEnd">
+        <source>The end of the window as it is now (after defaults and limits are applied).</source>
+        <target>当前窗口的终点（已应用默认值和限制）。</target>
+      </trans-unit>
+      <trans-unit id="WindowRange.WindowStart">
+        <source>The start of the window as it is now (after defaults and limits are applied).</source>
+        <target>当前窗口的起点（已应用默认值和限制）。</target>
       </trans-unit>
       <trans-unit id="WorkflowCanvas">
         <source>Shows a `WorkflowGraph` on a dotted canvas (visual rules from Arc's free hero-section block, HeroRelay): one card per step, edges between them, and a run played out step by step. Set the steps' states as your run goes; when a step finishes, the data draws along its edges in the accent before the next step shows as running, and the edges of a branch the run did not take turn dashed. Steps without a position are arranged in ranks; by default the whole workflow shows at actual size and shrinks like a screenshot when it does not fit. Pan with a drag or the wheel, zoom with Ctrl / ⌘ + wheel, a pinch or the keyboard, and move between steps with the arrow keys.</source>

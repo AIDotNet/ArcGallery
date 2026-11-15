@@ -11,12 +11,12 @@ public static partial class GalleryCatalog
         [
             new("Button", "Button", "button", 0, "A clear, responsive action with quiet secondary states."),
             new("ActionButton", "Action button", "action-button", 3, "A compact button for frequent toolbar actions."),
-            new("ActionSwap", "Action swap", "action-swap", 5, "Swap an action label while preserving its place and intent.", AddedOn: "2026-10-26"),
             new("SplitButton", "Split button", "split-button", 5, "A primary action with a menu of nearby alternatives."),
             new("ButtonGroup", "Button group", "button-group", 5, "Related actions joined into one surface with hairline dividers: a hover highlight glides between segments, the pressed one answers in place, and an attached menu can close the row."),
             new("FloatingButtonGroup", "Floating button group", "floating-button-group", 2, "Separate soft buttons in a quiet tray, with one shared highlight that morphs from button to button as you move, and a pressed state that settles in place."),
             new("ExpandingButtonGroup", "Expanding button group", "expanding-button-group", 7, "Icon buttons in a compact group: the one you point at or focus grows to reveal its label while its neighbours slide aside, and an action confirms in place."),
             new("CopyButton", "Copy button", "copy-button", 1, "Copy a value with immediate confirmation."),
+            new("ActionSwap", "Action swap", "action-swap", 5, "Swap an action label while preserving its place and intent.", AddedOn: "2026-10-26"),
             new("IconMorph", "Icon morph", "icon-morph", 3, "Icons that morph between states: menu to close, play to pause, copy to check, and more."),
             new("ConfirmMorph", "Confirm morph", "confirm-morph", 7, "A destructive button that morphs into an inline confirmation, a spinner, and a result with undo."),
             new("ThemeSwitcher", "Theme switcher", "theme-switch", 2, "Four smooth ways to move between light and dark appearance."),
@@ -69,8 +69,8 @@ public static partial class GalleryCatalog
             new("RadioGroup", "Radio group", "radio-group", 3, "Choose one option from a visible set."),
             new("Switch", "Switch", "switch", 0, "A tactile toggle for settings that take effect immediately."),
             new("SegmentedControl", "Segmented control", "segmented-control", 3, "Switch between a small set of related views."),
-            new("ToggleGroup", "Toggle group", "toggle-group", 3, "A row of toggle buttons for one choice or for several independent options.", AddedOn: "2026-11-09"),
             new("Rating", "Rating", "rating", 3, "A simple, accessible way to capture a numeric opinion.", AddedOn: "2026-11-09"),
+            new("ToggleGroup", "Toggle group", "toggle-group", 3, "A row of toggle buttons for one choice or for several independent options.", AddedOn: "2026-11-09"),
         ]),
         new("Sliders", "Sliders", "滑块",
         [
@@ -78,6 +78,7 @@ public static partial class GalleryCatalog
             new("ElasticSlider", "Elastic slider", "elastic-slider", 7, "A slider that stretches like rubber past its ends, with a swaying value tag and detents the thumb clicks into."),
             new("RangeHistogramSlider", "Range histogram slider", "range-histogram-slider", 7, "A price range over a live histogram of the data, lighting the bars inside the range and settling on bar edges.", AddedOn: "2026-11-09"),
             new("RulerSlider", "Ruler slider", "ruler-slider", 7, "A tape of ticks that slides under a fixed needle, with momentum, snapping, and a rolling readout.", AddedOn: "2026-11-09"),
+            new("WindowRange", "Window range", "window-range", 7, "A movable window over a live area chart that you resize by its edges or fling to pan, with dates that roll as it moves.", IsArc: false, AddedOn: "2026-11-14"),
         ]),
         new("Pickers", "Pickers", "选取器",
         [
@@ -86,6 +87,9 @@ public static partial class GalleryCatalog
             new("DateRangePicker", "Date range picker", "date-range-picker", 6, "A range picker that grows from its trigger into two months with presets and a stretching range highlight."),
             new("TimePicker", "Time picker", "time-picker", 6, "Choose a time with sensible keyboard behavior."),
             new("ColorPicker", "Color picker", "color-picker", 6, "A swatch that grows into a picker with format morphing, eyedropper, saved swatches, and contrast readout."),
+            new("EmojiPicker", "Emoji picker", "emoji-picker", 0,
+                "Find an emoji by name or browse every category: recently used first, a skin tone for people and hands, and a grid you can move through with the keyboard.",
+                IsArc: false, AddedOn: "2026-11-09"),
         ]),
         new("Editors", "Editors", "编辑器",
         [
@@ -99,6 +103,12 @@ public static partial class GalleryCatalog
             new("Tabs", "Tabs", "tabs", 4, "Switch between related content in the same context."),
             new("Breadcrumb", "Breadcrumb", "breadcrumb", 4, "Show where a page sits in a hierarchy."),
             new("Pagination", "Pagination", "pagination", 4, "Move through a long collection with clear bounds."),
+            new("MegaMenuMorph", "Mega menu morph", "mega-menu-morph", 0,
+                "A site navigation bar whose one dropdown panel springs to each item's size and place as the pointer moves along the bar, with the content sliding in from the side it travelled to.",
+                IsArc: false, AddedOn: "2026-11-09"),
+            new("TocProgress", "Table of contents progress", "table-of-contents-progress", 0,
+                "A table of contents for a long article whose line steps into each heading level, fills in as you read and marks the current section, with the minutes left beside the title; choosing a heading glides the article there.",
+                IsArc: false, AddedOn: "2026-11-09"),
         ]),
         new("Expand", "Expand", "展开与滚动",
         [
@@ -116,6 +126,12 @@ public static partial class GalleryCatalog
             new("Popover", "Popover", "popover", 5, "A small anchored surface for contextual information."),
             new("HoverCard", "Hover card", "hover-card", 5, "Preview a person or link on hover or focus without leaving the page."),
             new("Tooltip", "Tooltip", "tooltip", 1, "Short supporting text for unfamiliar controls."),
+            new("ShareAccess", "Share access", "share-access", 0,
+                "A document share dialog: invite people by email with a role, change or remove each person's access, choose who else can open the link and copy it.",
+                IsArc: false, AddedOn: "2026-11-09"),
+            new("ConfirmPopover", "Confirm popover", "confirm-popover", 0,
+                "A small question next to the button that asked it, for actions such as delete: focus starts on Cancel, Escape backs out, and the work can run before it closes.",
+                IsArc: false, AddedOn: "2026-11-09"),
         ]),
         new("Messages", "Messages", "消息",
         [
@@ -124,6 +140,9 @@ public static partial class GalleryCatalog
             new("ToastStack", "Toast stack", "toast-stack", 7, "Stack short results at the edge until you reach for them."),
             new("AnnouncementBar", "Announcement bar", "announcement-bar", 7, "A top banner that rotates messages, counts down, and collapses smoothly when dismissed."),
             new("CookieConsent", "Cookie consent", "cookie-consent", 7, "A consent bar that morphs into preferences and folds into a reopen button."),
+            new("UndoToast", "Undo toast", "undo-toast", 0,
+                "A toast for an action that can be taken back, with a countdown ring and an Undo button; the countdown holds while the pointer or focus is on it.",
+                IsArc: false, AddedOn: "2026-11-09"),
         ]),
         new("Progress", "Progress", "进度",
         [
@@ -163,7 +182,7 @@ public static partial class GalleryCatalog
             new("AnimatedCounter", "Animated counter", "animated-counter", 1, "Give changing totals a clear sense of movement."),
             new("Ridgeline", "Ridgeline", "ridgeline", 8, "Overlapping distributions, one ridge per group: hover to lift a ridge and read its quartiles, switch datasets and every curve morphs."),
             new("Treemap", "Treemap", "treemap", 8, "A squarified treemap: click to drill and the tiles grow to fill the view, with a breadcrumb back and metrics that morph every tile."),
-            new("SplitBar", "Split bar", "split-bar", 8, "One bar split into parts by their share of a total, with a legend of labels, values and percentages; the parts spring to their new shares as the data changes.", AddedOn: "2026-11-09"),
+            new("SplitBar", "Split bar", "split-bar", 8, "A single bar that adds up to 100%: point at a part to widen it and read its figures, switch parts off from the legend and the others close up, with labels inside the parts or in a lane underneath.", AddedOn: "2026-11-09"),
         ]),
         new("Tables", "Tables", "表格与数据",
         [
@@ -194,7 +213,6 @@ public static partial class GalleryCatalog
             new("InViewTitle", "In-view title", "in-view-title", 3, "Bring a section title in as it scrolls into view."),
             new("TextMorph", "Text morph", "text-morph", 1, "Morph a label into its next state, letter by letter."),
             new("TextShimmer", "Text shimmer", "text-shimmer", 3, "Show ongoing work with a calm light across the words."),
-            new("SlotText", "Slot text", "slot-text", 3, "Text and numbers that spin into their new value like slot machine reels.", AddedOn: "2026-11-09"),
         ]),
     ];
 }

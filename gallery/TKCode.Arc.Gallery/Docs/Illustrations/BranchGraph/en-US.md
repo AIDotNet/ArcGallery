@@ -1,87 +1,87 @@
 ---
 title: Branch graph
-summary: A git-style history drawn commit by commit; branches split off into their own lanes and merge back, with branch and tag labels and each commit's history on selection.
+summary: A git commit graph that previews how a pull request lands; branches draw in as colored lanes, a rebase lifts commits and replays them, a squash folds them into one, and hovering a commit shows its details.
 ---
 
-<Demo name="History" />
+<Demo name="PullRequest" />
 
 ## When to use
 
-`BranchGraph` draws a version history the way git tools do: one row per commit, each branch in its own colored lane,
-a curve where a branch splits off and another where it merges back, merge commits drawn as rings, and pills for each
-branch's newest commit and for tags. As a story, it draws the history commit by commit (the edges draw in, the dot pops,
-the branch label moves up) while a caption says what each commit did: a first commit, a commit on a branch, a new
-branch, a merge with its two parents. Selecting a commit lights everything it descends from and dims the rest, which
-answers "is this fix in that release?" at a glance.
+`BranchGraph` shows a short git history the way git clients do, newest commit on top: each branch in its own colored
+lane, an S-bend where a branch leaves and where it joins back, merge commits drawn as rings with a merge icon, and a
+pill on each branch's newest commit. The strategy control in the header previews how the pull request would land:
 
-- **Docs and courses about version control**: branching, merging and release branches, shown rather than told.
-- **Release notes and changelogs**: how a release came together, with its tag.
-- **Developer tools**: a compact history next to a pull request or a deploy.
+- **Before** is the history as it is, and the summary says how far the branch is ahead and behind.
+- **Merge** makes room at the top for a merge commit and draws both lines into it.
+- **Rebase** lifts the pull request's commits like cards, carries them one after another along an arc into the
+  target's lane and sets them down with a ring while their hashes are rewritten.
+- **Squash** flies the commits into one point, where a single commit named after the pull request appears.
+
+Hovering a commit, or reaching it with the arrow keys, shows a card with its message, author and diff stats and dims
+the other branches.
+
+- **Code review and pull request screens**: a merge strategy picker that shows what the target will look like.
+- **Developer tools**: a commit panel with hover details and keyboard browsing.
+- **Docs and landing pages** for version control or CI products that explain merge, rebase and squash.
 
 ## When not to use
 
-- **Long histories**: every commit is a row and nothing is virtualized; keep it to a few dozen commits. Use a `Table`
-  or a dedicated log view for full repositories.
-- **Diffs and file changes**: the graph shows the shape of the history, not what changed.
-- **Many cards on a page**: each animates while it plays. Set `StartsFinished` on the ones that only need the picture.
+- **Long histories**: every commit is a row and nothing is virtualized. The graph is built for a focused slice of about
+  five to fifteen commits; use a `Table` for a full log.
+- **Release notes**: use a `Timeline` when people need to read what changed rather than how branches joined.
+- **The live state of a repository**: the merge, rebase and squash views are previews computed from the data. Say so
+  where the page could be read as the real thing.
 
 ## Usage
 
-The card needs no data: it plays an invented history of nine commits on `main`, a feature branch and a hotfix branch,
-with two merges and a release tag.
+With no commits the graph previews an invented pull request (a feature branch three commits ahead of `main`, with a
+short fix branch merged earlier). On first sight the lines draw up from the oldest commit; then, while nobody
+interacts, it cycles Before, Rebase, Merge and Squash, waiting 2.6 seconds after each change settles. A pointer resting
+on the commits holds the cycle, and the first pick, tap or key press stops it for good.
 
 ```xml
 <arc:BranchGraph />
 ```
 
-`BranchGraph` derives from `Explainer`, which supplies the story clock (`IsPlaying`, `Speed`, `IsLooping`, `Play()`,
-`Pause()`, `StepForward()`, `Restart()`), start on view, the playback buttons and the polite live region; this control
-adds the speed control and the graph.
+### Merge preview
 
-### Your own history
+Add `BranchGraphCommit` items oldest first; the graph shows the newest on top. `Branch` picks the lane and `Parents`
+names a commit's parents (two make a merge). `Hash`, `Date`, `Author`, `Body`, `Additions`, `Deletions` and `Files`
+fill the row and the detail card. `PullRequestTitle`, `PullRequestNumber`, `SourceBranch` and `TargetBranch` describe the
+pull request; without them the graph takes the newest branch that has not been merged and lands it on the first branch.
+Set `AutoPlay="False"` for a panel the reader drives.
 
-Add `BranchGraphCommit` items oldest first. `Branch` picks the lane (default `main`). Without `Parents` a commit's
-parent is the previous commit on its branch, or, for a branch's first commit, the previous commit of any branch; give
-`Parents` to branch from somewhere else or, with two ids (the branch's own first), to merge. Lanes are given in the
-order branches appear and reused once a branch has been merged.
-
-<Demo name="PlainGraph" />
+<Demo name="MergePreview" />
 
 ```xml
-<arc:BranchGraph Title="Release branch" StartsFinished="True" IsNewestFirst="True" AreControlsVisible="False">
-    <arc:BranchGraphCommit Id="5e1a20" Branch="main" Message="Start the 2.0 cycle" Author="Rhea" />
-    <arc:BranchGraphCommit Id="6f2b31" Branch="release/2.0" Message="Freeze features for 2.0" Author="Rhea" />
-    <arc:BranchGraphCommit Id="7a3c42" Branch="main" Message="Add dark mode settings" Author="Sam" />
-    <arc:BranchGraphCommit Id="8b4d53" Branch="release/2.0" Message="Fix crash on startup" Author="Rhea" Tag="v2.0.0" />
-    <arc:BranchGraphCommit Id="9c5e64" Branch="main" Message="Merge release/2.0" Parents="7a3c42, 8b4d53" Author="Sam" />
+<arc:BranchGraph PullRequestTitle="Article search" PullRequestNumber="1024"
+                 SourceBranch="feat/search" AutoPlay="False">
+    <arc:BranchGraphCommit Id="a41c0e7" Branch="main" Message="Publish the help center" Date="2 days ago" />
+    <arc:BranchGraphCommit Id="6d2e9b1" Branch="feat/search" Message="Index articles on save" Date="Yesterday" />
+    <arc:BranchGraphCommit Id="f03b58c" Branch="main" Parents="a41c0e7" Message="Upgrade to .NET 10" Date="3 hours ago" />
+    <arc:BranchGraphCommit Id="b7a4e20" Branch="feat/search" Message="Rank results by freshness" Date="1 hour ago" />
 </arc:BranchGraph>
 ```
 
-`StartsFinished` opens on the whole history (Play still replays it), `IsNewestFirst` puts the newest commit on top
-as `git log` does, and `ItemsSource` takes the commits from a view model. `RevealedCount` reports how far the story is
-and `CommitDrawn` is raised for each commit with its `Kind`: `Commit`, `Branch` or `Merge`.
+`SelectedStrategy` (two way) is the preview shown and `SelectionChanged` reports every change with `OldValue`,
+`NewValue` and `IsUserChange`. `SelectedCommit` (two way) is the commit whose card is pinned. `ItemsSource` takes the
+commits from a view model, `CommitDrawn` is raised as each commit lands in the first-load sweep and `RevealedCount`
+counts them, and `StartsFinished` opens with everything drawn and no cycle. `Labels` holds every word the graph shows or
+speaks.
 
-### Selection
-
-A click on a commit, or the arrow keys on the focused graph, sets `SelectedCommit` (two way). The commit's row is
-highlighted, everything it descends from stays lit and the rest dims. Click it again or press Escape to clear.
-
-<Demo name="Selection" />
-
-`Labels` holds every word the card shows or speaks; replace it to translate or reword.
-
-### Reduced motion
-
-Under reduced motion the card opens on the whole history. Play and Next step still work, and each commit appears in
-place.
-
-<Demo name="ReducedMotion" />
+The cycle runs on the explainer clock of `Explainer`: `IsPlaying` is true while it cycles, `Pause()` holds it,
+`StepForward()` moves to the next strategy, `Restart()` draws the graph in again, `Speed` scales every animation (0 shows
+each state at once) and `AreControlsVisible` shows the strategy control.
 
 ## API reference
 
 <!-- api: BranchGraph -->
 
 <!-- api: BranchGraphCommit -->
+
+<!-- api: BranchGraphStrategy -->
+
+<!-- api: BranchGraphSelectionChangedEventArgs -->
 
 <!-- api: BranchGraphLabels -->
 
@@ -91,33 +91,34 @@ place.
 
 ## Accessibility
 
-- The card is a group named by `Title` ("Branch history"). The status line says Ready, Drawing, Paused or Up to date.
-- The graph is one tab stop. Up and Down move the selection from commit to commit, Home and End go to the first and
-  last row, Escape clears it. Its accessible name is the selected commit ("Merge feature/search, 2c8d0e on main by
-  Mira, v1.2.0"), or the newest one drawn.
-- The live region speaks the caption only when the reader drives the story (a step, a pause, a restart).
-- Lanes are told apart by position as well as color, merge commits by their ring, and branch names are written in the
-  pills.
+- The card is a group named from the title and the branches ("Search filters, history of feat/filters and main").
+- The strategy control is a row of segments with one tab stop; the arrow keys, Home and End pick a strategy at once.
+- The commits are one tab stop, newest first. Arriving with the keyboard inspects the newest commit; Up and Down move
+  through the commits, Home and End go to the first and last, Escape closes the card. The list's accessible name is the
+  inspected commit with its hash, author, date, diff stats and the branches that point to it, or the summary.
+- A polite live region speaks the summary after each strategy the reader picks; the cycle is not announced.
+- Nothing relies on color alone: branch names are written in the pills, merge commits have a ring and an icon, and the
+  diff stats carry + and − signs.
 
 ## Motion
 
 | Change | Full | Reduced | Off |
 |---|---|---|---|
-| Edges into a new commit | Draw in over 0.5 s | Appear | Appear |
-| Commit dot | Pops in with a small overshoot | Appears | Appears |
-| Row text and pills | Fade in | Appear | Appear |
-| Caption | Crossfade | Changes in place | Changes in place |
+| First sight | Lines draw up from the oldest commit; each commit lands as its line reaches it | Shown at once | Shown at once |
+| Rebase and squash | Commits lift into cards and fly along an arc, 0.15 s apart, set down with a ring | Jump | Jump |
+| Merge | Rows make room, the merge commit lands, both lines draw into it | Jump | Jump |
+| Hash rewrite | The new hash rises in the accent color and fades to muted | In place | In place |
+| Inspecting a commit | The other branches dim, the dot grows, the card fades in | At once | At once |
+| Autoplay cycle | Runs | Off | Off |
 
-Each commit takes 1.6 seconds at speed 1. Everything runs on the story clock, so it pauses, steps and scales with
-`Speed`.
+Every pick starts from wherever things are, so picking a new strategy mid-flight never jumps. `Speed` multiplies the pace.
 
 ## Responsive behavior
 
-- The lanes take 18 px each; the message takes the rest of the row and is cut with an ellipsis.
-- From 480 px the author and short id show on the right of each row; narrower, they are left out (screen readers still
-  hear them).
-- The card is at most 760 px wide; under 560 px its padding tightens and under 420 px the "Speed" words hide.
-- A tap selects a commit, as a click does.
+- The graph keeps an 80 px gutter for up to three lanes; rows are 44 px and the message is cut with an ellipsis.
+- The date column hides under 720 px, the author under 560 px and the hash under 400 px; the card and the accessible
+  names keep them. Under 600 px the strategy control takes a full row.
+- A tap on a commit pins its card and a tap on it again, or elsewhere in the list, closes it.
 
 ## Related
 
