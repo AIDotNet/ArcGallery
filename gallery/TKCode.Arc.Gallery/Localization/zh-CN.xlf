@@ -127,6 +127,12 @@
         <target state="translated">PDF 文档</target>
       </segment>
     </unit>
+    <unit id="Category_Agents">
+      <segment>
+        <source>Agents</source>
+        <target state="translated">智能体</target>
+      </segment>
+    </unit>
     <unit id="Category_Layout">
       <segment>
         <source>Layout</source>
