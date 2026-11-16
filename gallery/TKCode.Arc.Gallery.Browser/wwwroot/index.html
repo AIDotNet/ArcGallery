@@ -14,10 +14,11 @@
     <!-- Bump ?v= when the icons change: they are cached for a day (docker/nginx.conf) and browsers keep favicons longer still. -->
     <link rel="icon" type="image/png" href="favicon.png?v=2">
     <link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
+    <!-- Before any module preload: Firefox discards an import map that appears after one. The SDK fills this placeholder. -->
+    <script type="importmap"></script>
     <link rel="preload" id="webassembly" />
     <!-- Avalonia imports this module only after the runtime has started; fetched from here it comes in alongside the runtime's own files. -->
     <link rel="modulepreload" href="_framework/avalonia.js">
-    <script type="importmap"></script>
     <script type='module' src="main#[.{fingerprint}].js"></script>
 </head>
 
