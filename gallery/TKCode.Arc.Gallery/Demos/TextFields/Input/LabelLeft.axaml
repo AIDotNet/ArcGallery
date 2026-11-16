@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.InputLabelLeftDemo">
+    <StackPanel Spacing="32" MaxWidth="480" HorizontalAlignment="Left">
+        <!-- Set on a container: every Arc field inside lines up at the widest label. -->
+        <StackPanel Spacing="12" arc:Field.LabelPlacement="Left">
+            <arc:Input Label="Email"
+                       Placeholder="you@example.com"
+                       Description="We never share it." />
+            <arc:Select Label="Region" Placeholder="Select an option">
+                <arc:SelectItem Content="Europe" />
+                <arc:SelectItem Content="North America" />
+                <arc:SelectItem Content="Asia Pacific" />
+            </arc:Select>
+            <arc:Combobox Label="Time zone" Placeholder="Search or select…">
+                <arc:SelectItem Content="UTC" />
+                <arc:SelectItem Content="Europe/Berlin" />
+                <arc:SelectItem Content="America/New_York" />
+            </arc:Combobox>
+        </StackPanel>
+        <!-- Set on one field, with a fixed column width. -->
+        <arc:Input Label="Search"
+                   LabelPlacement="Left"
+                   LabelWidth="80"
+                   Size="Small"
+                   Placeholder="Filter rows" />
+    </StackPanel>
+</UserControl>

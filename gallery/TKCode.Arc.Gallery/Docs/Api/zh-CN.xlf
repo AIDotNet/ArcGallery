@@ -6904,6 +6904,14 @@
         <source>Visible label above the trigger; also the accessible name.</source>
         <target>触发器上方的可见标签；同时是无障碍名称。</target>
       </trans-unit>
+      <trans-unit id="Cascader.LabelPlacement">
+        <source>Where the label sits: Top (default) or Left of the editor. Inherited from `arc:Field.LabelPlacement` on a container.</source>
+        <target>标签的位置：Top（默认）或编辑器左侧（Left）。继承自容器上的 `arc:Field.LabelPlacement`。</target>
+      </trans-unit>
+      <trans-unit id="Cascader.LabelWidth">
+        <source>Width of the left label column; NaN (default) takes the widest left label of the scope, up to 240 px.</source>
+        <target>左侧标签列的宽度；NaN（默认）取同一范围内最宽的左侧标签，最大 240 px。</target>
+      </trans-unit>
       <trans-unit id="Cascader.LeafOnly">
         <source>When true (the default) only leaves can be picked; parents just open their children.</source>
         <target>为 true（默认）时只能选择叶子；父节点只展开它的子级。</target>
@@ -8731,6 +8739,14 @@
       <trans-unit id="Combobox.Label">
         <source>Visible label above the field; also names the field and its list.</source>
         <target>字段上方的可见标签；同时为字段及其列表命名。</target>
+      </trans-unit>
+      <trans-unit id="Combobox.LabelPlacement">
+        <source>Where the label sits: Top (default) or Left of the editor. Inherited from `arc:Field.LabelPlacement` on a container.</source>
+        <target>标签的位置：Top（默认）或编辑器左侧（Left）。继承自容器上的 `arc:Field.LabelPlacement`。</target>
+      </trans-unit>
+      <trans-unit id="Combobox.LabelWidth">
+        <source>Width of the left label column; NaN (default) takes the widest left label of the scope, up to 240 px.</source>
+        <target>左侧标签列的宽度；NaN（默认）取同一范围内最宽的左侧标签，最大 240 px。</target>
       </trans-unit>
       <trans-unit id="Combobox.MaxDropDownHeight">
         <source>Tallest the list gets (Arc: min(300px, 40% of the window)).</source>
@@ -11520,6 +11536,14 @@
         <source>Accessible name of the trigger and the panel (Arc: "Date range"); shown above when `IsLabelVisible`.</source>
         <target>触发器和面板的无障碍名称（Arc：“Date range”）；当 `IsLabelVisible` 为 true 时显示在上方。</target>
       </trans-unit>
+      <trans-unit id="DateRangePicker.LabelPlacement">
+        <source>Where the label sits: Top (default) or Left of the editor. Inherited from `arc:Field.LabelPlacement` on a container.</source>
+        <target>标签的位置：Top（默认）或编辑器左侧（Left）。继承自容器上的 `arc:Field.LabelPlacement`。</target>
+      </trans-unit>
+      <trans-unit id="DateRangePicker.LabelWidth">
+        <source>Width of the left label column; NaN (default) takes the widest left label of the scope, up to 240 px.</source>
+        <target>左侧标签列的宽度；NaN（默认）取同一范围内最宽的左侧标签，最大 240 px。</target>
+      </trans-unit>
       <trans-unit id="DateRangePicker.MaxDate">
         <source>Latest selectable day.</source>
         <target>可选择的最晚日期。</target>
@@ -14260,6 +14284,14 @@
         <source>The visible label (Arc: required). Also the accessible name of the content.</source>
         <target>可见标签（Arc 中为必填）；同时是内容的无障碍名称。</target>
       </trans-unit>
+      <trans-unit id="Field.LabelPlacement">
+        <source>Where the label sits: Top (default, above the editor) or Left (in a column to the left of the editor, centred on a field of the same `Size`, with the description and error under the editor). Inherited: set it on a panel to lay out every Arc field inside (`arc:Field.LabelPlacement="Left"`), or on one field. A field inside a `FormItem` leaves its label to the item, and a field that is part of another control's template follows only a value set on itself.</source>
+        <target>标签的位置：Top（默认，在编辑器上方）或 Left（在编辑器左侧的一列，按同一 `Size` 的字段垂直居中，说明与错误仍在编辑器下方）。可继承：设置在面板上时面板内的每个 Arc 字段都会采用（`arc:Field.LabelPlacement="Left"`），也可以只设置在一个字段上。`FormItem` 内的字段把标签交给表单项；属于其他控件模板的字段只采用设置在它自身上的值。</target>
+      </trans-unit>
+      <trans-unit id="Field.LabelWidth">
+        <source>Width of the label column when `LabelPlacement` is Left. NaN (default) sizes it to the widest left label under the element that sets the placement (or the width, or `Grid.IsSharedSizeScope`), up to 240 px; longer labels wrap. Inherited.</source>
+        <target>`LabelPlacement` 为 Left 时标签列的宽度。NaN（默认）取设置标签位置（或宽度，或 `Grid.IsSharedSizeScope`）的元素之下最宽的左侧标签，最大 240 px；更长的标签换行。可继承。</target>
+      </trans-unit>
       <trans-unit id="Field.MessageSwap">
         <source>How the message rows move between texts: changed words (default) or the whole line (PasswordStrength).</source>
         <target>消息行在不同文本之间的切换方式：仅变化的词（默认）或整行（PasswordStrength）。</target>
@@ -14291,6 +14323,14 @@
       <trans-unit id="FieldTextBox.Label">
         <source>The visible label above the frame; also the accessible name.</source>
         <target>外框上方的可见标签，同时作为无障碍名称。</target>
+      </trans-unit>
+      <trans-unit id="FieldTextBox.LabelPlacement">
+        <source>Where the label sits: Top (default) or Left of the frame. Inherited from `arc:Field.LabelPlacement` on a container.</source>
+        <target>标签的位置：Top（默认）或外框左侧（Left）。继承自容器上的 `arc:Field.LabelPlacement`。</target>
+      </trans-unit>
+      <trans-unit id="FieldTextBox.LabelWidth">
+        <source>Width of the left label column; NaN (default) takes the widest left label of the scope, up to 240 px.</source>
+        <target>左侧标签列的宽度；NaN（默认）取同一范围内最宽的左侧标签，最大 240 px。</target>
       </trans-unit>
       <trans-unit id="FieldTextBox.Placeholder">
         <source>Hint shown while the field is empty (same as `PlaceholderText`).</source>
@@ -14793,8 +14833,8 @@
         <target>标签所指向并聚焦的编辑器。为 null 时，若内容可获得焦点则使用内容，否则使用其第一个可获得焦点且已启用的子元素。</target>
       </trans-unit>
       <trans-unit id="FormLabelPlacement">
-        <source>Where a `FormItem` puts its label (`LabelPlacementProperty`).</source>
-        <target>`FormItem` 标签的位置（`LabelPlacementProperty`）。</target>
+        <source>Where a `FormItem` (`Form.LabelPlacement`) or a standalone Arc field (`Field.LabelPlacement`) puts its label.</source>
+        <target>`FormItem`（`Form.LabelPlacement`）或独立的 Arc 字段（`Field.LabelPlacement`）放置标签的位置。</target>
       </trans-unit>
       <trans-unit id="FormRequiredIndicator">
         <source>How a `FormItem` marks whether it is required (`RequiredIndicatorProperty`).</source>
@@ -23428,6 +23468,14 @@
         <source>Visible label of the trigger; also its accessible name.</source>
         <target>触发器的可见标签，也是其无障碍名称。</target>
       </trans-unit>
+      <trans-unit id="MorphSelect.LabelPlacement">
+        <source>Where the label sits: Top (default) or Left of the editor. Inherited from `arc:Field.LabelPlacement` on a container.</source>
+        <target>标签的位置：Top（默认）或编辑器左侧（Left）。继承自容器上的 `arc:Field.LabelPlacement`。</target>
+      </trans-unit>
+      <trans-unit id="MorphSelect.LabelWidth">
+        <source>Width of the left label column; NaN (default) takes the widest left label of the scope, up to 240 px.</source>
+        <target>左侧标签列的宽度；NaN（默认）取同一范围内最宽的左侧标签，最大 240 px。</target>
+      </trans-unit>
       <trans-unit id="MorphSelect.MaxListHeight">
         <source>Defines the `MaxListHeight` property.</source>
         <target>定义 `MaxListHeight` 属性。</target>
@@ -23903,6 +23951,14 @@
       <trans-unit id="MultiSelect.Label">
         <source>Visible label of the control; also its accessible name.</source>
         <target>控件的可见标签，也是其无障碍名称。</target>
+      </trans-unit>
+      <trans-unit id="MultiSelect.LabelPlacement">
+        <source>Where the label sits: Top (default) or Left of the editor. Inherited from `arc:Field.LabelPlacement` on a container.</source>
+        <target>标签的位置：Top（默认）或编辑器左侧（Left）。继承自容器上的 `arc:Field.LabelPlacement`。</target>
+      </trans-unit>
+      <trans-unit id="MultiSelect.LabelWidth">
+        <source>Width of the left label column; NaN (default) takes the widest left label of the scope, up to 240 px.</source>
+        <target>左侧标签列的宽度；NaN（默认）取同一范围内最宽的左侧标签，最大 240 px。</target>
       </trans-unit>
       <trans-unit id="MultiSelect.MaxDropDownHeight">
         <source>Tallest the menu gets before it scrolls. Arc's menu has no limit (the screen bounds it).</source>
@@ -31708,6 +31764,14 @@
         <source>Defines the `Label` property.</source>
         <target>定义 `Label` 属性。</target>
       </trans-unit>
+      <trans-unit id="Select.LabelPlacement">
+        <source>Where the label sits: Top (default) or Left of the editor. Inherited from `arc:Field.LabelPlacement` on a container.</source>
+        <target>标签的位置：Top（默认）或编辑器左侧（Left）。继承自容器上的 `arc:Field.LabelPlacement`。</target>
+      </trans-unit>
+      <trans-unit id="Select.LabelWidth">
+        <source>Width of the left label column; NaN (default) takes the widest left label of the scope, up to 240 px.</source>
+        <target>左侧标签列的宽度；NaN（默认）取同一范围内最宽的左侧标签，最大 240 px。</target>
+      </trans-unit>
       <trans-unit id="Select.MaxDropDownHeight">
         <source>Defines the `MaxDropDownHeight` property.</source>
         <target>定义 `MaxDropDownHeight` 属性。</target>
@@ -36388,6 +36452,14 @@
         <source>The visible label (Arc: required). Also the accessible name of the editor.</source>
         <target>可见标签（Arc：必填），同时也是编辑器的无障碍名称。</target>
       </trans-unit>
+      <trans-unit id="TagInput.LabelPlacement">
+        <source>Where the label sits: Top (default) or Left of the editor. Inherited from `arc:Field.LabelPlacement` on a container.</source>
+        <target>标签的位置：Top（默认）或编辑器左侧（Left）。继承自容器上的 `arc:Field.LabelPlacement`。</target>
+      </trans-unit>
+      <trans-unit id="TagInput.LabelWidth">
+        <source>Width of the left label column; NaN (default) takes the widest left label of the scope, up to 240 px.</source>
+        <target>左侧标签列的宽度；NaN（默认）取同一范围内最宽的左侧标签，最大 240 px。</target>
+      </trans-unit>
       <trans-unit id="TagInput.LimitAnnouncementFormat">
         <source>Announced when `MaxTags` refuses an add; `{0}` is the limit.</source>
         <target>`MaxTags` 拒绝添加时播报；`{0}` 为上限。</target>
@@ -37571,6 +37643,14 @@
       <trans-unit id="TimePicker.Label">
         <source>The visible label above the trigger (Arc: required).</source>
         <target>触发器上方的可见标签（Arc：必填）。</target>
+      </trans-unit>
+      <trans-unit id="TimePicker.LabelPlacement">
+        <source>Where the label sits: Top (default) or Left of the editor. Inherited from `arc:Field.LabelPlacement` on a container.</source>
+        <target>标签的位置：Top（默认）或编辑器左侧（Left）。继承自容器上的 `arc:Field.LabelPlacement`。</target>
+      </trans-unit>
+      <trans-unit id="TimePicker.LabelWidth">
+        <source>Width of the left label column; NaN (default) takes the widest left label of the scope, up to 240 px.</source>
+        <target>左侧标签列的宽度；NaN（默认）取同一范围内最宽的左侧标签，最大 240 px。</target>
       </trans-unit>
       <trans-unit id="TimePicker.MaxDropDownHeight">
         <source>Tallest the list grows before it scrolls (Arc: 250px).</source>
@@ -38911,6 +38991,14 @@
       <trans-unit id="TreeSelect.Label">
         <source>Visible label above the trigger; also the accessible name.</source>
         <target>触发器上方的可见标签；也是无障碍名称。</target>
+      </trans-unit>
+      <trans-unit id="TreeSelect.LabelPlacement">
+        <source>Where the label sits: Top (default) or Left of the editor. Inherited from `arc:Field.LabelPlacement` on a container.</source>
+        <target>标签的位置：Top（默认）或编辑器左侧（Left）。继承自容器上的 `arc:Field.LabelPlacement`。</target>
+      </trans-unit>
+      <trans-unit id="TreeSelect.LabelWidth">
+        <source>Width of the left label column; NaN (default) takes the widest left label of the scope, up to 240 px.</source>
+        <target>左侧标签列的宽度；NaN（默认）取同一范围内最宽的左侧标签，最大 240 px。</target>
       </trans-unit>
       <trans-unit id="TreeSelect.LeafOnly">
         <source>In single mode, only leaves can be picked: a click on a parent opens or closes it.</source>

@@ -1,7 +1,7 @@
 ---
 title: 輸入框
 summary: 用於輸入簡短文字的文字方塊，內建標籤、說明文字與錯誤提示列。
-source-hash: 5e30297ee803
+source-hash: 9dd855c1cdbe
 ---
 
 <Demo name="Playground" />
@@ -139,6 +139,26 @@ endpoint.TextChanged += (_, _) => endpoint.ErrorMessage = null;
 <Demo name="Sizes" />
 
 同一個表單只用一種尺寸。`Small` 適合密集的管理表格與工具列，`Medium` 是表單和設定頁的預設值，`Large` 適合單一醒目的欄位，例如登入頁的電子郵件。挑選器、選擇器與特殊輸入框使用相同的 `Size` 值，混合使用時統一尺寸即可對齊。
+
+### 標籤在左側
+
+`LabelPlacement="Left"` 把標籤放到外框左側的一欄，適合精簡的工具列、篩選列與密集的設定面板。標籤依欄位 `Size` 的外框高度（36、44 或 50 px）垂直置中，說明列與錯誤列仍在外框下方。`LabelWidth` 固定欄寬；維持 `NaN`（預設）時欄寬取標籤寬度，上限 240 px，超出後換行。
+
+<Demo name="LabelLeft" />
+
+```xml
+<!-- Every Arc field in the panel puts its label on the left, lined up at the widest label. -->
+<StackPanel Spacing="12" arc:Field.LabelPlacement="Left">
+    <arc:Input Label="Email" Placeholder="you@example.com" />
+    <arc:Select Label="Region" Placeholder="Select an option" />
+    <arc:Combobox Label="Time zone" Placeholder="Search or select…" />
+</StackPanel>
+
+<!-- One field, with a fixed label column. -->
+<arc:Input Label="Search" LabelPlacement="Left" LabelWidth="80" Size="Small" />
+```
+
+標籤位置可以繼承。在面板上設定 `arc:Field.LabelPlacement`（以及 `arc:Field.LabelWidth`），面板內的 Arc 欄位都會跟著改變：輸入框、多行文字框、密碼框與搜尋框，數字、金額與電話輸入，各種挑選器、`TagInput` 以及選擇器系列。寬度為 `NaN` 時，同一面板下的欄位共用一欄，寬度等於其中最寬的標籤。要讓某個區段單獨對齊，在區段上設定 `Grid.IsSharedSizeScope="True"`。在 `Form` 中請改用 `FormItem` 與 `Form.LabelPlacement`；`FormItem` 裡的欄位由表單項目負責繪製標籤。
 
 ### 前綴與後綴
 

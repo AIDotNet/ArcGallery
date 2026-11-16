@@ -168,6 +168,33 @@ Keep one size per form. `Small` suits dense admin tables and toolbars, `Medium` 
 settings, and `Large` fits a single prominent field such as the email on a sign-in page. Pickers, selects and the
 special inputs take the same `Size` values, so a mixed form lines up when they all use the same one.
 
+### Label on the left
+
+`LabelPlacement="Left"` puts the label in a column to the left of the frame, for compact toolbars, filter bars and
+dense settings panels. The label is centred on the frame of the field's `Size` (36, 44 or 50 px) and the description
+and error rows stay under the frame. `LabelWidth` fixes the column; left at `NaN` (the default) it takes the width of
+the label, capped at 240 px, after which the label wraps.
+
+<Demo name="LabelLeft" />
+
+```xml
+<!-- Every Arc field in the panel puts its label on the left, lined up at the widest label. -->
+<StackPanel Spacing="12" arc:Field.LabelPlacement="Left">
+    <arc:Input Label="Email" Placeholder="you@example.com" />
+    <arc:Select Label="Region" Placeholder="Select an option" />
+    <arc:Combobox Label="Time zone" Placeholder="Search or select…" />
+</StackPanel>
+
+<!-- One field, with a fixed label column. -->
+<arc:Input Label="Search" LabelPlacement="Left" LabelWidth="80" Size="Small" />
+```
+
+The placement is inherited. Set `arc:Field.LabelPlacement` (and `arc:Field.LabelWidth`) on a panel and every Arc
+field inside follows it: inputs, text areas, password and search fields, number, money and phone inputs, the pickers,
+`TagInput` and the select family. With the width `NaN` the fields under that panel share one column, as wide as their
+widest label. Set `Grid.IsSharedSizeScope="True"` on a section to give it its own column. Inside a `Form`, use
+`FormItem` and `Form.LabelPlacement` instead; a field in a `FormItem` leaves its label to the item.
+
 ### Prefix and suffix
 
 <Demo name="PrefixAndSuffix" />
