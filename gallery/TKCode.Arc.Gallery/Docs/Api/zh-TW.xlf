@@ -22397,8 +22397,8 @@
         <target>顯示在標籤文字上方的圖示幾何，例如 Lucide 圖示。</target>
       </trans-unit>
       <trans-unit id="MobileTextField">
-        <source>Mobile text field: a 44px filled field with an optional `Icon` before the text and a clear button that shows while the field has focus and text. The border takes the accent color while focused; there is no hover state. It derives from Avalonia's `TextBox`, so text, selection and binding work as they do there. Show a placeholder with `PlaceholderText`.</source>
-        <target>移動端文字方塊：44px 高的填充文字方塊，文字前可有 `Icon`，有焦點且有文字時顯示清除按鈕。取得焦點時邊框變為強調色；沒有懸停狀態。它衍生自 Avalonia 的 `TextBox`，所以文字、選取和繫結都和那裡一樣。用 `PlaceholderText` 顯示預留位置提示。</target>
+        <source>Mobile text field: a 44px filled field with an optional `Icon` before the text and a clear button that shows while the field has focus and text. The border takes the accent color while focused; there is no hover state. It derives from Avalonia's `TextBox`, so text, selection and binding work as they do there. Show a placeholder with `PlaceholderText`. A long press opens a `TextEditMenu` with Cut, Copy, Paste and Select All (its theme sets it as `ContextFlyout`; set another flyout or `ContextMenu` to replace it).</source>
+        <target>移動端文字方塊：44px 高的填充文字方塊，文字前可有 `Icon`，有焦點且有文字時顯示清除按鈕。取得焦點時邊框變為強調色；沒有懸停狀態。它衍生自 Avalonia 的 `TextBox`，所以文字、選取和繫結都和那裡一樣。用 `PlaceholderText` 顯示預留位置提示。長按會開啟帶剪下、拷貝、貼上和全選的 `TextEditMenu`（主題把它設為 `ContextFlyout`；設定別的彈出層或 `ContextMenu` 可以取代它）。</target>
       </trans-unit>
       <trans-unit id="MobileTextField.Icon">
         <source>The glyph geometry shown before the text, for example a Lucide icon.</source>

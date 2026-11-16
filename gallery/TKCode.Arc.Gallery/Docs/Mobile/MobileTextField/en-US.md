@@ -37,9 +37,36 @@ The live demo runs inside a phone frame, a desktop simulation; the soft keyboard
 
 The clear button shows only while the field has focus and text, and not when it is read only or `ShowClearButton` is false. It empties the field and keeps the focus. A field has no hover state: a finger does not hover.
 
+### Long-press menu
+
+A long press on the field opens a `TextEditMenu` above it: Cut, Copy, Paste and Select All, as on a phone. The menu
+shows only the actions that apply. Cut and Copy need a selection, so a password field (`PasswordChar` set) never offers
+them, and a read-only field offers neither Cut nor Paste. Select All leaves once everything is selected, and after Select
+All the menu comes back for the new selection. Dragging a selection handle opens the menu over the selection. The menu
+does not take focus, so the soft keyboard stays up; a tap outside, typing or moving the focus away closes it. Its text
+follows the app language (en-US, zh-CN, zh-TW).
+
+The theme sets the menu as the field's `ContextFlyout`, and `Searchbar` has it too. Set your own `ContextFlyout` or
+`ContextMenu` on a field to replace it, or set `<arcm:TextEditMenu />` as the `ContextFlyout` of another `TextBox` to
+give it the same menu.
+
+On iOS, add the `TKCode.Arc.Mobile.iOS` package and derive the app delegate from `ArcAppDelegate<App>`. A long press
+then opens the system edit menu (iOS 16 and later), the keyboard's "Paste from …" suggestion pastes into the field, and
+pasting does not bring up the "Allow Paste" prompt. Without it, the Arc menu shows on iOS as everywhere else.
+
+```csharp
+[Register("AppDelegate")]
+public partial class AppDelegate : ArcAppDelegate<App>
+{
+    protected override AppBuilder CustomizeAppBuilder(AppBuilder builder) =>
+        base.CustomizeAppBuilder(builder).UseArc(arc => arc.UseArcMobile());
+}
+```
+
 ### Tokens
 
-`TextFieldToken` holds the geometry: `FieldHeight` (44), `ContentPadding` (12 at the sides), `BorderWidth` (1), `GlyphExtent` (18), `IconMargin` and `DisabledOpacity` (0.5). Colors, radii and type come from the ArcDesign tokens.
+`TextFieldToken` holds the geometry: `FieldHeight` (44), `ContentPadding` (12 at the sides), `BorderWidth` (1), `GlyphExtent` (18), `IconMargin` and `DisabledOpacity` (0.5). `TextEditMenuToken` holds the menu's `ItemHeight` (44), `ItemPadding` (14 at
+the sides) and `AnchorGap` (8, between the menu and the field). Colors, radii and type come from the ArcDesign tokens.
 
 ## API reference
 
