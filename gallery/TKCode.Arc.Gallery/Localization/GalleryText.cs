@@ -106,6 +106,7 @@ public static class GalleryText
             "Dock" => GalleryShellLangResourceKind.Category_Dock,
             "Video" => GalleryShellLangResourceKind.Category_Video,
             "Pdf" => GalleryShellLangResourceKind.Category_Pdf,
+            "Agents" => GalleryShellLangResourceKind.Category_Agents,
             "Layout" => GalleryShellLangResourceKind.Category_Layout,
             "Tables" => GalleryShellLangResourceKind.Category_Tables,
             "Activity" => GalleryShellLangResourceKind.Category_Activity,
