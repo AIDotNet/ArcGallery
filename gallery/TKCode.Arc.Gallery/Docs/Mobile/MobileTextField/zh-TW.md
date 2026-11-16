@@ -1,7 +1,7 @@
 ---
 title: 移動端文字方塊
 summary: 44 px 高的填充文字方塊，可帶圖示和清除按鈕，取得焦點時邊框變為強調色。
-source-hash: b7378e7ee1ad
+source-hash: cee92d846535
 ---
 
 <Demo name="Basic" />
@@ -38,9 +38,26 @@ source-hash: b7378e7ee1ad
 
 清除按鈕只在文字方塊有焦點且有文字時顯示；唯讀或 `ShowClearButton` 為 false 時不顯示。點它會清空文字並保持焦點。文字方塊沒有懸停狀態：手指不會懸停。
 
+### 長按選單
+
+長按文字方塊會在它上方開啟 `TextEditMenu`：剪下、拷貝、貼上和全選，和手機上一樣。選單只顯示能用的操作：剪下和拷貝需要選取範圍，所以密碼欄位（設定了 `PasswordChar`）從不提供這兩項；唯讀的文字方塊沒有剪下和貼上。全部選取後不再顯示全選，點全選之後選單會為新的選取範圍再次出現。拖曳選取控點時，選單出現在選取範圍上方。選單不取得焦點，所以螢幕鍵盤保持開啟；點外面、輸入文字或焦點移走時選單關閉。選單文字跟隨應用程式語言（en-US、zh-CN、zh-TW）。
+
+主題把這個選單設為文字方塊的 `ContextFlyout`，`Searchbar` 也有。在文字方塊上設定自己的 `ContextFlyout` 或 `ContextMenu` 可以取代它；把 `<arcm:TextEditMenu />` 設為其他 `TextBox` 的 `ContextFlyout`，就能讓它也有同樣的選單。
+
+在 iOS 上，加入 `TKCode.Arc.Mobile.iOS` 套件，並讓 App 的 delegate 衍生自 `ArcAppDelegate<App>`。這樣長按會開啟系統編輯選單（iOS 16 以上），鍵盤上的「從…貼上」建議能貼到文字方塊裡，貼上時也不會跳出「允許貼上」的確認框。不加這個套件時，iOS 上和其他平台一樣顯示 Arc 選單。
+
+```csharp
+[Register("AppDelegate")]
+public partial class AppDelegate : ArcAppDelegate<App>
+{
+    protected override AppBuilder CustomizeAppBuilder(AppBuilder builder) =>
+        base.CustomizeAppBuilder(builder).UseArc(arc => arc.UseArcMobile());
+}
+```
+
 ### Token
 
-`TextFieldToken` 保存幾何：`FieldHeight`（44）、`ContentPadding`（兩側 12）、`BorderWidth`（1）、`GlyphExtent`（18）、`IconMargin` 和 `DisabledOpacity`（0.5）。顏色、圓角和字型來自 ArcDesign token。
+`TextFieldToken` 保存幾何：`FieldHeight`（44）、`ContentPadding`（兩側 12）、`BorderWidth`（1）、`GlyphExtent`（18）、`IconMargin` 和 `DisabledOpacity`（0.5）。`TextEditMenuToken` 保存選單的 `ItemHeight`（44）、`ItemPadding`（兩側 14）和 `AnchorGap`（選單與文字方塊之間的 8）。顏色、圓角和字型來自 ArcDesign token。
 
 ## API 參考
 

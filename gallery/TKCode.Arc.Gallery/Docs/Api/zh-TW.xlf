@@ -4560,6 +4560,10 @@
         <source>The title bar at the top of the window. A new `TitleBar` by default; set your own to fill its left, center and right content, or null for none.</source>
         <target>視窗頂端的標題列。預設是一個新的 `TitleBar`；設為你自己的標題列以填入左、中、右內容，設為 null 則不顯示。</target>
       </trans-unit>
+      <trans-unit id="ArcWindow.UnavailableCaptionButtons">
+        <source>What the drawn minimize and maximize buttons show while the window does not allow them (`CanMinimize`, or `CanResize` and `CanMaximize`, false): `Disable` (the default) keeps them disabled, `Hide` hides them. Inherited by the window's `TitleBar` and any `WindowCaptionButtons` in it. The macOS traffic lights are the system's and stay as they are.</source>
+        <target>視窗不允許最小化或最大化時（`CanMinimize` 為 false，或 `CanResize`、`CanMaximize` 為 false），繪製的最小化和最大化按鈕如何顯示：`Disable`（預設）保持停用，`Hide` 隱藏它們。視窗的 `TitleBar` 及其中的任何 `WindowCaptionButtons` 都會繼承此值。macOS 紅綠燈由系統繪製，保持不變。</target>
+      </trans-unit>
       <trans-unit id="ArenaPaneState">
         <source>What one of the arena's two answers shows. The arena owns and updates it; read it to follow a round. Before the vote `Model` is set but nothing the person sees carries its name (see `IsBlind`).</source>
         <target>竞技場兩個回答之一的顯示狀態。由競技場擁有並更新；透過它可追蹤某一輪。投票前，`Model` 已設定，但使用者看到的任何內容都不顯示其名稱（參見 `IsBlind`）。</target>
@@ -22433,8 +22437,8 @@
         <target>顯示在標籤文字上方的圖示幾何，例如 Lucide 圖示。</target>
       </trans-unit>
       <trans-unit id="MobileTextField">
-        <source>Mobile text field: a 44px filled field with an optional `Icon` before the text and a clear button that shows while the field has focus and text. The border takes the accent color while focused; there is no hover state. It derives from Avalonia's `TextBox`, so text, selection and binding work as they do there. Show a placeholder with `PlaceholderText`.</source>
-        <target>移動端文字方塊：44px 高的填充文字方塊，文字前可有 `Icon`，有焦點且有文字時顯示清除按鈕。取得焦點時邊框變為強調色；沒有懸停狀態。它衍生自 Avalonia 的 `TextBox`，所以文字、選取和繫結都和那裡一樣。用 `PlaceholderText` 顯示預留位置提示。</target>
+        <source>Mobile text field: a 44px filled field with an optional `Icon` before the text and a clear button that shows while the field has focus and text. The border takes the accent color while focused; there is no hover state. It derives from Avalonia's `TextBox`, so text, selection and binding work as they do there. Show a placeholder with `PlaceholderText`. A long press opens a `TextEditMenu` with Cut, Copy, Paste and Select All (its theme sets it as `ContextFlyout`; set another flyout or `ContextMenu` to replace it).</source>
+        <target>移動端文字方塊：44px 高的填充文字方塊，文字前可有 `Icon`，有焦點且有文字時顯示清除按鈕。取得焦點時邊框變為強調色；沒有懸停狀態。它衍生自 Avalonia 的 `TextBox`，所以文字、選取和繫結都和那裡一樣。用 `PlaceholderText` 顯示預留位置提示。長按會開啟帶剪下、拷貝、貼上和全選的 `TextEditMenu`（主題把它設為 `ContextFlyout`；設定別的彈出層或 `ContextMenu` 可以取代它）。</target>
       </trans-unit>
       <trans-unit id="MobileTextField.Icon">
         <source>The glyph geometry shown before the text, for example a Lucide icon.</source>
@@ -34100,6 +34104,70 @@
         <source>One shape of a `SketchToImageRegion`.</source>
         <target>`SketchToImageRegion` 中的一個形狀。</target>
       </trans-unit>
+      <trans-unit id="SlideToConfirm">
+        <source>A slider you drag to the end to confirm an action, for payments, transfers and other deliberate steps. A liquid fill follows the thumb with a lag and necks down when the thumb pulls ahead, while the track swells around the pressed thumb. Letting go before `Threshold` springs the thumb back. Letting go past it confirms: the track draws into the thumb, a spinner shows while the task from `ConfirmAction` runs, and the arrow turns into a check with `ConfirmedLabel` beside it. Arrow, Page, Home and End keys move the thumb; holding Space or Enter glides it to the end.</source>
+        <target>拖到盡頭才確認操作的滑桿，用於付款、轉帳等需要慎重的步驟。液態填色稍慢一步跟隨滑塊，滑塊領先時收細成一段細頸，同時軌道在按住的滑塊周圍鼓起。在 `Threshold` 之前放開，滑塊彈回；越過它放開即確認：軌道收進滑塊，`ConfirmAction` 的任務執行時顯示轉圈，接著箭頭變成勾號，旁邊顯示 `ConfirmedLabel`。方向鍵、Page、Home 與 End 鍵移動滑塊；按住 Space 或 Enter 讓它自動滑到盡頭。</target>
+      </trans-unit>
+      <trans-unit id="SlideToConfirm.AccentBrush">
+        <source>The color of the liquid fill and of the success circle; null uses the theme's control fill, which follows the accent.</source>
+        <target>液態填色與成功圓的顏色；為 null 時使用主題的控制項填色，它跟隨強調色。</target>
+      </trans-unit>
+      <trans-unit id="SlideToConfirm.ConfirmAction">
+        <source>The work to run once a slide completes. While its task runs the control shows the spinner and `PendingLabel`; success shows the check, an exception shows `ErrorLabel`. Null goes straight to success.</source>
+        <target>滑動完成後要執行的工作。任務執行期間控制項顯示轉圈與 `PendingLabel`；成功時顯示勾號，拋出例外時顯示 `ErrorLabel`。為 null 時直接顯示成功。</target>
+      </trans-unit>
+      <trans-unit id="SlideToConfirm.Confirmed">
+        <source>Raised once when a slide completes, before `ConfirmAction` runs.</source>
+        <target>一次滑動完成時觸發一次，在 `ConfirmAction` 執行之前。</target>
+      </trans-unit>
+      <trans-unit id="SlideToConfirm.ConfirmedLabel">
+        <source>Shown beside the check and announced once the action succeeds.</source>
+        <target>顯示在勾號旁邊，並在操作成功時朗讀。</target>
+      </trans-unit>
+      <trans-unit id="SlideToConfirm.ErrorLabel">
+        <source>Replaces the label, in the danger color, after the action fails, until the next slide starts.</source>
+        <target>操作失敗後以危險色取代說明文字，直到下一次滑動開始。</target>
+      </trans-unit>
+      <trans-unit id="SlideToConfirm.IsHintEnabled">
+        <source>Nudges the thumb every few seconds while idle and untouched, so people see that it moves. Only with full motion.</source>
+        <target>閒置且無人觸碰時每隔幾秒輕推一下滑塊，讓人看出它可以移動。僅在完整動態效果下生效。</target>
+      </trans-unit>
+      <trans-unit id="SlideToConfirm.Label">
+        <source>The instruction drawn in the track and used as the slider's accessible name.</source>
+        <target>繪製在軌道中的操作說明，同時作為滑桿的無障礙名稱。</target>
+      </trans-unit>
+      <trans-unit id="SlideToConfirm.PendingLabel">
+        <source>Shown beside the spinner and announced while the task from `ConfirmAction` runs.</source>
+        <target>在 `ConfirmAction` 的任務執行期間顯示在轉圈旁邊並朗讀。</target>
+      </trans-unit>
+      <trans-unit id="SlideToConfirm.Progress">
+        <source>How far the thumb is along the track, from 0 (start) to 1 (end).</source>
+        <target>滑塊在軌道上的位置，從 0（起點）到 1（終點）。</target>
+      </trans-unit>
+      <trans-unit id="SlideToConfirm.ResetAfter">
+        <source>How long after success the control expands back to its idle state; null stays confirmed until `Reset`.</source>
+        <target>成功後經過多久展開回閒置狀態；為 null 時保持確認狀態，直到呼叫 `Reset`。</target>
+      </trans-unit>
+      <trans-unit id="SlideToConfirm.State">
+        <source>Where the control is in its slide and confirm cycle.</source>
+        <target>控制項在滑動與確認流程中所處的階段。</target>
+      </trans-unit>
+      <trans-unit id="SlideToConfirm.StateChanged">
+        <source>Raised whenever `State` changes, with the exception when the action failed.</source>
+        <target>每當 `State` 變化時觸發；操作失敗時附帶例外。</target>
+      </trans-unit>
+      <trans-unit id="SlideToConfirm.Threshold">
+        <source>The fraction of the track the thumb must pass before letting go confirms (0.5 to 1). Below it the thumb springs back.</source>
+        <target>放開即確認前滑塊必須越過的軌道比例（0.5 到 1）。低於它時滑塊彈回。</target>
+      </trans-unit>
+      <trans-unit id="SlideToConfirmState">
+        <source>Where a `SlideToConfirm` is in its slide and confirm cycle.</source>
+        <target>`SlideToConfirm` 在滑動與確認流程中所處的階段。</target>
+      </trans-unit>
+      <trans-unit id="SlideToConfirmStateChangedEventArgs">
+        <source>Arguments of `StateChanged`.</source>
+        <target>`StateChanged` 的參數。</target>
+      </trans-unit>
       <trans-unit id="Slider">
         <source>Arc slider: a value or a range on a track. The thumb follows the pointer 1:1, rubber-bands up to 9px past its limits and settles on the step grid with the velocity of the release (on a coarse grid the release may carry it one step further); pressing the track springs the nearest thumb there. A bubble with rolling digits rides the thumb while it is dragged or keyboard focused and lingers 700ms after a release. Arrows, Shift+arrows, PageUp / PageDown and Home / End work as in a native range input; a key at a limit makes the thumb strain toward the press and spring home. Unlike `Slider`, `SmallChange` is the step the value snaps to. Set `IsRange` for two thumbs (`LowerValue` / `UpperValue`).</source>
         <target>Arc 滑桿：在軌道上選擇一個值或一個範圍。滑塊跟隨指標 1:1 移動，超出限制時會有 9px 的回彈，並以放開時的速度落到步進網格上（在粗網格上，放開時可能再多移動一步）；按下軌道會使最近的滑塊彈到該處。拖曳或鍵盤聚焦時，一個帶滾動數字的氣泡會跟隨滑塊，放開後再保留 700ms。方向鍵、Shift+方向鍵、PageUp / PageDown 以及 Home / End 的行為與原生範圍輸入一致；在極限處按鍵時，滑塊會朝按壓方向拉伸，然後彈回原位。與 `Slider` 不同，`SmallChange` 是數值吸附的步長。設定 `IsRange` 可使用兩個滑塊（`LowerValue` / `UpperValue`）。</target>
@@ -37744,6 +37812,18 @@
         <source>Content before the caption buttons, at the right of the bar (tool buttons, a theme switcher).</source>
         <target>標題列按鈕之前、標題列右側的內容（工具按鈕、主題切換）。</target>
       </trans-unit>
+      <trans-unit id="TitleBar.ShowCloseButton">
+        <source>Shows the close button when the bar draws the caption buttons. True by default.</source>
+        <target>由標題列繪製標題列按鈕時，顯示關閉按鈕。預設為 True。</target>
+      </trans-unit>
+      <trans-unit id="TitleBar.ShowMaximizeButton">
+        <source>Shows the maximize / restore button when the bar draws the caption buttons. True by default.</source>
+        <target>由標題列繪製標題列按鈕時，顯示最大化 / 還原按鈕。預設為 True。</target>
+      </trans-unit>
+      <trans-unit id="TitleBar.ShowMinimizeButton">
+        <source>Shows the minimize button when the bar draws the caption buttons. True by default.</source>
+        <target>由標題列繪製標題列按鈕時，顯示最小化按鈕。預設為 True。</target>
+      </trans-unit>
       <trans-unit id="TitleBar.ShowTopmostButton">
         <source>Shows a pin toggle before the caption buttons that keeps the window above other windows: it is checked while the window's `Topmost` is true and sets it when toggled. Off by default. It shows whatever `CaptionButtons` is, and only the window's own bar drives the window.</source>
         <target>在標題列按鈕之前顯示一個圖釘開關，讓視窗保持在其他視窗之上：視窗的 `Topmost` 為 true 時開關處於選取狀態，切換開關會設定它。預設關閉。無論 `CaptionButtons` 取何值都會顯示，而且只有視窗自己的標題列會控制視窗。</target>
@@ -37751,6 +37831,10 @@
       <trans-unit id="TitleBar.Title">
         <source>The title. Follows the window's `Title` unless set.</source>
         <target>標題。未設定時跟隨視窗的 `Title`。</target>
+      </trans-unit>
+      <trans-unit id="TitleBar.UnavailableCaptionButtons">
+        <source>What the drawn minimize and maximize show while the window does not allow them (`CanMinimize`, or `CanResize` and `CanMaximize`, false): `Disable` (the default) keeps them disabled, `Hide` hides them. Inherited from the window, so `UnavailableCaptionButtons="Hide"` on the `ArcWindow` reaches the bar. The macOS traffic lights (`System`) are the system's and stay as they are.</source>
+        <target>視窗不允許最小化或最大化時（`CanMinimize` 為 false，或 `CanResize`、`CanMaximize` 為 false），標題列繪製的最小化和最大化按鈕如何顯示：`Disable`（預設）保持停用，`Hide` 隱藏它們。此值從視窗繼承，因此在 `ArcWindow` 上設定 `UnavailableCaptionButtons="Hide"` 會作用到標題列。macOS 紅綠燈（`System`）由系統繪製，保持不變。</target>
       </trans-unit>
       <trans-unit id="TitleBarCaptionButtons">
         <source>Who draws minimize, maximize and close (see `CaptionButtons`).</source>
@@ -39611,6 +39695,10 @@
       <trans-unit id="TypewriterTerminalLineEventArgs">
         <source>A line of a `TypewriterTerminal` script that has just completed.</source>
         <target>`TypewriterTerminal` 腳本中剛完成的一行。</target>
+      </trans-unit>
+      <trans-unit id="UnavailableCaptionButtonMode">
+        <source>What minimize and maximize show while the window does not allow them (see `UnavailableCaptionButtons`).</source>
+        <target>視窗不允許最小化或最大化時，對應按鈕如何顯示（參見 `UnavailableCaptionButtons`）。</target>
       </trans-unit>
       <trans-unit id="UndoToast">
         <source>A toast for an action that can be taken back: "Conversation archived" with an Undo button and a ring that counts the seconds left. The countdown holds while the pointer is over the toast or focus is inside it, and continues where it stopped. When it runs out (or the toast is dismissed) the action stands; Undo, or the platform's undo shortcut while the toast is open, raises `Undone` and runs `UndoCommand`. Showing a new action in an open toast lets the earlier one stand and restarts the countdown. `ShowAsync` answers with true when the action was undone, so the caller can defer the real work until the toast closes.</source>
@@ -42201,8 +42289,8 @@
         <target>應用程式希望與該行事曆一同保存的任意物件。</target>
       </trans-unit>
       <trans-unit id="WindowCaptionButtons">
-        <source>Minimize, maximize / restore and close for a window whose content reaches the top (an `ArcWindow` with `IsTitleBarVisible="False"`), placed wherever the app draws its own header. The buttons drive the window they are in and follow it: maximize shows restore while the window is maximized and is disabled while the window cannot grow (`CanResize` or `CanMaximize` false), minimize while `CanMinimize` is false. On Windows they tell the system what they are, so the maximize button opens Snap Layouts. `TitleBar` draws its own caption buttons with this control; show one set per window.</source>
-        <target>內容延伸到頂端的視窗（`IsTitleBarVisible="False"` 的 `ArcWindow`）所用的最小化、最大化 / 還原和關閉按鈕，可放在應用程式自己繪製的頁首中的任意位置。按鈕控制所在的視窗並跟隨其狀態：視窗最大化時最大化按鈕顯示為還原，視窗不能放大時（`CanResize` 或 `CanMaximize` 為 false）最大化按鈕停用，`CanMinimize` 為 false 時最小化按鈕停用。在 Windows 上，它們會告訴系統自己是什麼按鈕，因此最大化按鈕會開啟貼齊版面配置。`TitleBar` 也用這個控制項繪製自己的標題列按鈕；每個視窗只顯示一組。</target>
+        <source>Minimize, maximize / restore and close for a window whose content reaches the top (an `ArcWindow` with `IsTitleBarVisible="False"`), placed wherever the app draws its own header. The buttons drive the window they are in and follow it: maximize shows restore while the window is maximized and is disabled while the window cannot grow (`CanResize` or `CanMaximize` false), minimize while `CanMinimize` is false; with `UnavailableCaptionButtons` set to `Hide` they are hidden instead. On Windows they tell the system what they are, so the maximize button opens Snap Layouts. `TitleBar` draws its own caption buttons with this control; show one set per window.</source>
+        <target>內容延伸到頂端的視窗（`IsTitleBarVisible="False"` 的 `ArcWindow`）所用的最小化、最大化 / 還原和關閉按鈕，可放在應用程式自己繪製的頁首中的任意位置。按鈕控制所在的視窗並跟隨其狀態：視窗最大化時最大化按鈕顯示為還原，視窗不能放大時（`CanResize` 或 `CanMaximize` 為 false）最大化按鈕停用，`CanMinimize` 為 false 時最小化按鈕停用；`UnavailableCaptionButtons` 設為 `Hide` 時改為隱藏。在 Windows 上，它們會告訴系統自己是什麼按鈕，因此最大化按鈕會開啟貼齊版面配置。`TitleBar` 也用這個控制項繪製自己的標題列按鈕；每個視窗只顯示一組。</target>
       </trans-unit>
       <trans-unit id="WindowCaptionButtons.IsPreview">
         <source>True draws the buttons without driving the window: they minimize, maximize and close nothing and the system does not treat them as caption buttons. For previews, such as a mock-up of a window inside a page. False by default.</source>
@@ -42219,6 +42307,10 @@
       <trans-unit id="WindowCaptionButtons.ShowMinimizeButton">
         <source>Shows the minimize button. True by default.</source>
         <target>顯示最小化按鈕。預設為 True。</target>
+      </trans-unit>
+      <trans-unit id="WindowCaptionButtons.UnavailableCaptionButtons">
+        <source>What minimize and maximize show while the window does not allow them (`CanMinimize`, or `CanResize` and `CanMaximize`, false): `Disable` (the default) keeps them disabled, `Hide` hides them. Inherited, so it can be set on the window (`ArcWindow`) or a `TitleBar`.</source>
+        <target>視窗不允許最小化或最大化時（`CanMinimize` 為 false，或 `CanResize`、`CanMaximize` 為 false），最小化和最大化按鈕如何顯示：`Disable`（預設）保持停用，`Hide` 隱藏它們。此值可繼承，因此可以設在視窗（`ArcWindow`）或 `TitleBar` 上。</target>
       </trans-unit>
       <trans-unit id="WindRoseBin">
         <source>One speed bin of a `WindRoseChart`: a band of each petal, from its minimum up to the next bin's minimum.</source>

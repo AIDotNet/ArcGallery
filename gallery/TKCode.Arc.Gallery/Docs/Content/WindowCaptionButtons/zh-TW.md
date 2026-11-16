@@ -1,7 +1,7 @@
 ---
 title: 視窗標題列按鈕
 summary: 內容延伸到頂端的視窗所用的最小化、最大化和關閉按鈕：放進你自己的頁首，按鈕跟隨視窗狀態，並在 Windows 上開啟貼齊版面配置。
-source-hash: 4f02708a501c
+source-hash: 108456a37d7b
 ---
 
 <Demo name="Preview" />
@@ -13,7 +13,7 @@ source-hash: 4f02708a501c
 這些按鈕像系統按鈕一樣控制所在的視窗：
 
 - 最小化、最大化和關閉視窗，視窗最大化時最大化按鈕顯示為還原；
-- `CanResize` 或 `CanMaximize` 為 false 時最大化按鈕停用，`CanMinimize` 為 false 時最小化按鈕停用；
+- `CanResize` 或 `CanMaximize` 為 false 時最大化按鈕停用，`CanMinimize` 為 false 時最小化按鈕停用（在控制項或視窗上設定 `UnavailableCaptionButtons="Hide"` 則改為隱藏）；
 - 在 Windows 上，它們會告訴系統自己是什麼按鈕，因此指向最大化按鈕會開啟 Windows 11 的貼齊版面配置。
 
 ## 何時不用

@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <!-- The Android app: the gallery in one view (like the browser host), installed from an APK that GitHub Releases carries.
+         Needs the .NET android workload and a JDK; it is not in ArcGallery.slnx, so a machine without them still builds the rest.
+           dotnet build gallery/TKCode.Arc.Gallery.Android -c Debug                      debug-signed APK, runs on a device or emulator
+           dotnet publish gallery/TKCode.Arc.Gallery.Android -c Release -p:ArcApk=true   release APK (.github/workflows/gallery-android.yml) -->
+    <PropertyGroup>
+        <TargetFramework>net11.0-android</TargetFramework>
+        <OutputType>Exe</OutputType>
+        <RootNamespace>TKCode.Arc.Gallery.Android</RootNamespace>
+        <AssemblyName>TKCode.Arc.Gallery.Android</AssemblyName>
+        <ApplicationId>dev.tkcode.arc.gallery</ApplicationId>
+        <ApplicationTitle>TKCode Gallery</ApplicationTitle>
+        <ApplicationVersion>1</ApplicationVersion>
+        <ApplicationDisplayVersion>$(ArcVersion)</ApplicationDisplayVersion>
+        <SupportedOSPlatformVersion>24</SupportedOSPlatformVersion>
+        <AndroidManifest>Properties/AndroidManifest.xml</AndroidManifest>
+        <IsPackable>false</IsPackable>
+        <NoWarn>$(NoWarn);CS0436</NoWarn>
+        <!-- An APK people install by hand: the phones in use today (arm64). The assembly store is 77 MB per ABI, so -p:ArcAndroidEmulator=true
+             adds x64 (the emulator on a PC) only when asked for. -->
+        <RuntimeIdentifiers>android-arm64</RuntimeIdentifiers>
+        <RuntimeIdentifiers Condition="'$(ArcAndroidEmulator)' == 'true'">android-arm64;android-x64</RuntimeIdentifiers>
+        <AndroidPackageFormat>apk</AndroidPackageFormat>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Avalonia.Android" />
+        <PackageReference Include="Avalonia.Fonts.Inter" />
+        <ProjectReference Include="../TKCode.Arc.Gallery/TKCode.Arc.Gallery.csproj" />
+        <ProjectReference Include="../TKCode.Arc.Gallery.Shots/TKCode.Arc.Gallery.Shots.csproj" />
+        <ProjectReference Include="../TKCode.Arc.Gallery.Content/TKCode.Arc.Gallery.Content.csproj" />
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Fonts/TKCode.Arc.Fonts.csproj" />
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Icons.Lucide/TKCode.Arc.Icons.Lucide.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <AndroidResource Include="Resources/drawable/icon.png" />
+    </ItemGroup>
+    <!-- The logos of the Friends page, as resources (AssetLogoSource), as in the desktop host. -->
+    <ItemGroup>
+        <AvaloniaResource Include="../TKCode.Arc.Gallery.Browser/wwwroot/friends/*.png" Link="Friends/%(Filename)%(Extension)" />
+    </ItemGroup>
+    <!-- The screenshots and the page text are resource-only assemblies that Avalonia finds by name; the linker would drop them. -->
+    <ItemGroup>
+        <TrimmerRootAssembly Include="TKCode.Arc.Gallery.Shots" />
+        <TrimmerRootAssembly Include="TKCode.Arc.Gallery.Content" />
+    </ItemGroup>
+    <!-- Release signing: with -p:ArcApk=true and the ARC_ANDROID_KEYSTORE* variables set (gallery-android.yml) the APK is signed
+         with that key; without them a debug key signs it, which installs the same way but is not a key to publish updates with. -->
+    <PropertyGroup Condition="'$(ArcApk)' == 'true' And '$(ARC_ANDROID_KEYSTORE)' != ''">
+        <AndroidKeyStore>true</AndroidKeyStore>
+        <AndroidSigningKeyStore>$(ARC_ANDROID_KEYSTORE)</AndroidSigningKeyStore>
+        <AndroidSigningStorePass>env:ARC_ANDROID_KEYSTORE_PASSWORD</AndroidSigningStorePass>
+        <AndroidSigningKeyAlias>$(ARC_ANDROID_KEY_ALIAS)</AndroidSigningKeyAlias>
+        <AndroidSigningKeyPass>env:ARC_ANDROID_KEY_PASSWORD</AndroidSigningKeyPass>
+    </PropertyGroup>
+</Project>

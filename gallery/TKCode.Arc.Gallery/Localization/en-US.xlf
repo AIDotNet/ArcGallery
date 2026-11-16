@@ -1316,6 +1316,31 @@
         <source>Linux x64</source>
       </segment>
     </unit>
+    <unit id="DownloadAndroid">
+      <segment>
+        <source>Android (APK)</source>
+      </segment>
+    </unit>
+    <unit id="DownloadAndroidTitle">
+      <segment>
+        <source>Why install the Android app</source>
+      </segment>
+    </unit>
+    <unit id="DownloadAndroidText">
+      <segment>
+        <source>Avalonia renders this page in WebAssembly inside your mobile browser, so startup, scrolling and motion are shaped by that environment. The Android app runs Arc natively, with the real touch behavior of the mobile components.</source>
+      </segment>
+    </unit>
+    <unit id="HomeWebAndroidTitle">
+      <segment>
+        <source>Install the Android app for the real experience</source>
+      </segment>
+    </unit>
+    <unit id="HomeWebAndroidText">
+      <segment>
+        <source>This page runs in WebAssembly in your browser. The Android app is native, smoother, and shows the mobile components as they really behave.</source>
+      </segment>
+    </unit>
     <unit id="CompareWeb">
       <segment>
         <source>Web</source>

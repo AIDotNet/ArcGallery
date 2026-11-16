@@ -18,6 +18,7 @@ internal sealed class GalleryDownloadSection : GalleryTwoPane
 {
     private static readonly Download[] s_downloads =
     [
+        new("android", GalleryClientOs.Android, GalleryShellLangResourceKind.DownloadAndroid),
         new("osx-arm64", GalleryClientOs.MacOS, GalleryShellLangResourceKind.DownloadMacArm),
         new("osx-x64", GalleryClientOs.MacOS, GalleryShellLangResourceKind.DownloadMacIntel),
         new("win-x64", GalleryClientOs.Windows, GalleryShellLangResourceKind.DownloadWindows),
@@ -56,10 +57,12 @@ internal sealed class GalleryDownloadSection : GalleryTwoPane
     private Control BuildOffer()
     {
         var stack = new StackPanel { Spacing = 16 };
+        // An Android visitor is offered the Android app, which comes first in the list; the desktop files stay below it.
+        var android = GalleryHost.ClientOs == GalleryClientOs.Android;
         stack.Children.Add(GallerySite.Heading(GalleryShellLangResourceKind.DownloadEyebrow,
-                                               GallerySite.Reveal(GalleryShellLangResourceKind.DownloadTitle),
-                                               GalleryShellLangResourceKind.DownloadText));
-        // A phone cannot install it: say so before the list, which stays for whoever wants the link.
+                                               GallerySite.Reveal(android ? GalleryShellLangResourceKind.DownloadAndroidTitle : GalleryShellLangResourceKind.DownloadTitle),
+                                               android ? GalleryShellLangResourceKind.DownloadAndroidText : GalleryShellLangResourceKind.DownloadText));
+        // Any other phone cannot install the desktop app: say so before the list, which stays for whoever wants the link.
         if (GalleryHost.ClientOs == GalleryClientOs.Mobile)
         {
             var alert = new Alert { Tone = AlertTone.Info };
@@ -68,7 +71,8 @@ internal sealed class GalleryDownloadSection : GalleryTwoPane
         }
         var list = new StackPanel { Spacing = 8 };
         var first = true;
-        foreach (var download in s_downloads.OrderByDescending(d => d.Os == GalleryHost.ClientOs))
+        // The Android app is offered to Android visitors only; everyone else sees the desktop files.
+        foreach (var download in s_downloads.Where(d => d.Os != GalleryClientOs.Android || android).OrderByDescending(d => d.Os == GalleryHost.ClientOs))
         {
             list.Children.Add(BuildRow(download, first && download.Os == GalleryHost.ClientOs));
             first = false;

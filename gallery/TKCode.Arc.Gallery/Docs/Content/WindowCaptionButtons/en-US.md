@@ -15,7 +15,8 @@ in the title bar's place.
 The buttons drive the window they are in, like the system's:
 
 - they minimize, maximize and close the window, and maximize shows restore while the window is maximized;
-- maximize is disabled while `CanResize` or `CanMaximize` is false, and minimize while `CanMinimize` is false;
+- maximize is disabled while `CanResize` or `CanMaximize` is false, and minimize while `CanMinimize` is false (with
+  `UnavailableCaptionButtons="Hide"`, here or on the window, they are hidden instead);
 - on Windows they tell the system what they are, so pointing at maximize opens Windows 11 Snap Layouts.
 
 ## When not to use

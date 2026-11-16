@@ -471,10 +471,12 @@ public sealed class GalleryHomeView : UserControl
 
     private Control BuildWebStrip()
     {
+        // On an Android phone the recommendation is the Android app; everywhere else the desktop app.
+        var android = GalleryHost.ClientOs == GalleryClientOs.Android;
         var text = new StackPanel { Spacing = 4 };
-        text.Children.Add(GallerySite.Text(GalleryShellLangResourceKind.HomeWebTitle, ArcDesignTokenKind.Foreground, 16, FontWeight.Medium));
-        text.Children.Add(GallerySite.Text(GalleryShellLangResourceKind.HomeWebNoteText, ArcDesignTokenKind.TextSecondary, 13.5));
-        WebStrip = Strip(text, GallerySite.Action(GalleryShellLangResourceKind.NavDownload, ButtonVariant.Primary, ShowDownload, ArcIcons.Download, ControlSize.Small));
+        text.Children.Add(GallerySite.Text(android ? GalleryShellLangResourceKind.HomeWebAndroidTitle : GalleryShellLangResourceKind.HomeWebTitle, ArcDesignTokenKind.Foreground, 16, FontWeight.Medium));
+        text.Children.Add(GallerySite.Text(android ? GalleryShellLangResourceKind.HomeWebAndroidText : GalleryShellLangResourceKind.HomeWebNoteText, ArcDesignTokenKind.TextSecondary, 13.5));
+        WebStrip = Strip(text, GallerySite.Action(android ? GalleryShellLangResourceKind.DownloadAndroid : GalleryShellLangResourceKind.NavDownload, ButtonVariant.Primary, ShowDownload, ArcIcons.Download, ControlSize.Small));
         return WebStrip;
     }
 
