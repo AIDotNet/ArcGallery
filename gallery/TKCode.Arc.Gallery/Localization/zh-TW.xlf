@@ -1573,6 +1573,36 @@
         <target state="translated">Linux x64</target>
       </segment>
     </unit>
+    <unit id="DownloadAndroid">
+      <segment>
+        <source>Android (APK)</source>
+        <target state="translated">Android (APK)</target>
+      </segment>
+    </unit>
+    <unit id="DownloadAndroidTitle">
+      <segment>
+        <source>Why install the Android app</source>
+        <target state="translated">為什麼安裝 Android 應用程式</target>
+      </segment>
+    </unit>
+    <unit id="DownloadAndroidText">
+      <segment>
+        <source>Avalonia renders this page in WebAssembly inside your mobile browser, so startup, scrolling and motion are shaped by that environment. The Android app runs Arc natively, with the real touch behavior of the mobile components.</source>
+        <target state="translated">這個頁面由 Avalonia 在手機瀏覽器的 WebAssembly 中渲染，啟動、捲動和動畫都受這個環境限制。Android 應用程式以原生方式執行 Arc，可以體驗行動端元件真實的觸控表現。</target>
+      </segment>
+    </unit>
+    <unit id="HomeWebAndroidTitle">
+      <segment>
+        <source>Install the Android app for the real experience</source>
+        <target state="translated">安裝 Android 應用程式，獲得真實體驗</target>
+      </segment>
+    </unit>
+    <unit id="HomeWebAndroidText">
+      <segment>
+        <source>This page runs in WebAssembly in your browser. The Android app is native, smoother, and shows the mobile components as they really behave.</source>
+        <target state="translated">這個頁面在瀏覽器的 WebAssembly 中執行。Android 應用程式是原生的，更流暢，也能看到行動端元件真實的表現。</target>
+      </segment>
+    </unit>
     <unit id="CompareWeb">
       <segment>
         <source>Web</source>

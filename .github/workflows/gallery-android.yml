@@ -1,0 +1,162 @@
+name: Gallery (Android)
+
+# Builds the Gallery Android app (an APK, arm64).
+#   - push of a v* tag:                       the APK is attached to the GitHub release of that tag
+#   - workflow_dispatch with a tag:           builds that tag and attaches the APK to its existing release
+#   - workflow_dispatch without a tag, and
+#     pull_request touching this file:        dry run, the APK stays a workflow artifact
+# The APK is signed with the key in the ANDROID_KEYSTORE_BASE64, ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_ALIAS and ANDROID_KEY_PASSWORD
+# secrets; without them a debug key signs it (it installs the same, but updates from another build will not install over it).
+# The site (gallery/TKCode.Arc.Gallery/Shell/GalleryDownloadSection.cs) recommends the file named TKCode.Arc.Gallery-<version>-android.apk
+# to Android visitors. The other workflows add to the same release (the libraries are TKCode.Arc's: tag both repositories alike).
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag to build and attach the APK to (empty = dry run); TKCode.Arc is checked out at the same tag
+        type: string
+        default: ""
+      arc_ref:
+        description: TKCode.Arc branch, tag or commit to build against (empty = the tag above, else main)
+        type: string
+        default: ""
+  pull_request:
+    paths:
+      - .github/workflows/gallery-android.yml
+      - gallery/TKCode.Arc.Gallery.Android/**
+
+concurrency:
+  group: gallery-android-${{ github.ref }}-${{ inputs.tag }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_NOLOGO: "true"
+  DOTNET_CLI_TELEMETRY_OPTOUT: "true"
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: "true"
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    name: android-arm64
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # Empty on tag pushes and pull requests, which build the ref that triggered the run.
+          ref: ${{ inputs.tag }}
+
+      # The libraries the gallery builds against; Directory.Build.props picks up ./arc.
+      - uses: actions/checkout@v7
+        with:
+          repository: AIDotNet/TKCode.Arc
+          ref: ${{ inputs.arc_ref || inputs.tag || (startsWith(github.ref, 'refs/tags/') && github.ref_name) || 'main' }}
+          path: arc
+
+      - uses: actions/setup-dotnet@v6
+        with:
+          global-json-file: global.json
+          dotnet-version: 10.0.x
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "21"
+
+      - uses: actions/cache@v6
+        with:
+          path: ~/.nuget/packages
+          key: nuget-android-${{ hashFiles('**/*.csproj', 'arc/Directory.Packages.props', 'arc/build/Versions.props', 'global.json') }}
+          restore-keys: nuget-android-
+
+      - name: Install the android workload
+        run: dotnet workload install android
+
+      - name: Read version
+        id: version
+        run: |
+          version="$(sed -n 's:.*<ArcVersion>\(.*\)</ArcVersion>.*:\1:p' arc/build/Versions.props)"
+          if [[ -z "$version" ]]; then
+            echo "::error::ArcVersion not found in arc/build/Versions.props"
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Restore the signing key
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          if [[ -n "$KEYSTORE_BASE64" ]]; then
+            echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/gallery.keystore"
+            echo "ARC_ANDROID_KEYSTORE=$RUNNER_TEMP/gallery.keystore" >> "$GITHUB_ENV"
+          else
+            echo "::warning::ANDROID_KEYSTORE_BASE64 is not set: the APK is signed with a debug key"
+          fi
+
+      - name: Publish
+        env:
+          ARC_ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ARC_ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ARC_ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: >
+          dotnet publish gallery/TKCode.Arc.Gallery.Android
+          -c Release -p:ArcApk=true
+          -p:ApplicationDisplayVersion="$VERSION"
+          -p:ApplicationVersion="${{ github.run_number }}"
+          -o publish/android
+
+      - name: Package
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          mkdir -p dist
+          cp publish/android/dev.tkcode.arc.gallery-Signed.apk "dist/TKCode.Arc.Gallery-$VERSION-android.apk"
+          ls -l dist
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: gallery-android
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 30
+
+  release:
+    name: GitHub release
+    if: startsWith(github.ref, 'refs/tags/v') || inputs.tag != ''
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: gallery-android
+          path: dist
+
+      - name: Attach to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ inputs.tag || github.ref_name }}
+        run: |
+          # The other gallery workflows may create the release at the same time: create it, or add to it if it exists.
+          prerelease=""
+          if [[ "$TAG" == *-* ]]; then
+            prerelease="--prerelease"
+          fi
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            gh release upload "$TAG" dist/* --clobber
+          else
+            gh release create "$TAG" dist/* --title "$TAG" --generate-notes $prerelease \
+              || gh release upload "$TAG" dist/* --clobber
+          fi

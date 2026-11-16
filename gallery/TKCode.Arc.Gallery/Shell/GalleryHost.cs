@@ -21,8 +21,11 @@ public enum GalleryClientOs
     Windows,
     Linux,
 
-    /// <summary>A phone or tablet: there is no app to install, so the site offers the downloads for later.</summary>
-    Mobile
+    /// <summary>A phone or tablet this gallery has no app for (iOS): the site offers the desktop downloads for later.</summary>
+    Mobile,
+
+    /// <summary>An Android phone or tablet: the site recommends the Android app (an APK of the release).</summary>
+    Android
 }
 
 /// <summary>What the shell needs to know about its host: which one it is, the visitor's system and the version.</summary>
@@ -48,7 +51,13 @@ public static class GalleryHost
     public static string Runtime { get; } =
         $".NET {Environment.Version.Major}.{Environment.Version.Minor} · Avalonia {typeof(Avalonia.Application).Assembly.GetName().Version?.ToString(3)} · {RuntimeInformation.RuntimeIdentifier}";
 
-    /// <summary>The system a browser's user agent names; a phone or tablet counts as <see cref="GalleryClientOs.Mobile"/>.</summary>
+    /// <summary>Whether the visitor is on a phone or tablet, which cannot install the desktop app.</summary>
+    public static bool IsPhone => ClientOs is GalleryClientOs.Mobile or GalleryClientOs.Android;
+
+    /// <summary>
+    /// The system a browser's user agent names; an Android phone or tablet is <see cref="GalleryClientOs.Android"/>, any other
+    /// phone or tablet <see cref="GalleryClientOs.Mobile"/>.
+    /// </summary>
     public static GalleryClientOs ParseUserAgent(string? userAgent)
     {
         if (string.IsNullOrEmpty(userAgent))
@@ -56,7 +65,11 @@ public static class GalleryHost
             return GalleryClientOs.Unknown;
         }
         // Android says Linux and an iPhone says Mac OS X, so the phones come first.
-        if (Has("Android") || Has("iPhone") || Has("iPad") || Has("iPod") || Has("Mobile"))
+        if (Has("Android"))
+        {
+            return GalleryClientOs.Android;
+        }
+        if (Has("iPhone") || Has("iPad") || Has("iPod") || Has("Mobile"))
         {
             return GalleryClientOs.Mobile;
         }

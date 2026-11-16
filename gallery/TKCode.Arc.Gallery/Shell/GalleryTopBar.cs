@@ -380,7 +380,7 @@ public sealed class GalleryTopBar : Border
         _header.BrandName = level >= 4 ? string.Empty : BrandName;
         if (_download is not null)
         {
-            _download.IsVisible = level < 2 && GalleryHost.ClientOs != GalleryClientOs.Mobile;
+            _download.IsVisible = level < 2 && !GalleryHost.IsPhone;
             SetIconOnly(_download, _downloadLabel, level >= 1, GalleryShellLangResourceKind.NavDownload);
             Remeasure(_download);
             Remeasure(_downloadLabel!);

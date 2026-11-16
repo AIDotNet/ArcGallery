@@ -16,7 +16,8 @@ public class GallerySiteTests
     private static GalleryRelease Release(string version) => new(version, new Uri("https://example.test/release"),
     [
         new GalleryReleaseAsset($"TKCode.Arc.Gallery-{version}-osx-arm64.dmg", new Uri("https://example.test/mac.dmg"), 75 * 1024 * 1024),
-        new GalleryReleaseAsset($"TKCode.Arc.Gallery-{version}-win-x64.exe", new Uri("https://example.test/win.exe"), 170 * 1024 * 1024)
+        new GalleryReleaseAsset($"TKCode.Arc.Gallery-{version}-win-x64.exe", new Uri("https://example.test/win.exe"), 170 * 1024 * 1024),
+        new GalleryReleaseAsset($"TKCode.Arc.Gallery-{version}-android.apk", new Uri("https://example.test/gallery.apk"), 90 * 1024 * 1024)
     ]);
 
     /// <summary>Runs <paramref name="test"/> with the shell in a window of this width, as the site or as the app.</summary>
@@ -104,6 +105,38 @@ public class GallerySiteTests
     }
 
     [AvaloniaFact]
+    public void An_Android_Visitor_Is_Recommended_The_Android_App_First()
+    {
+        WithShell(GalleryHostKind.Web, 390, (shell, window) =>
+        {
+            var home = Home(window);
+            var section = home.Download!;
+            home.ShowDownload();
+            section.OfferedRuntimes.First().ShouldBe("android");
+            for (var i = 0; i < 6; i++)
+            {
+                Dispatcher.UIThread.RunJobs();
+                window.UpdateLayout();
+            }
+            section.UrlOf("android").ToString().ShouldBe("https://example.test/gallery.apk");
+            shell.TopBar.DownloadButton!.IsVisible.ShouldBeFalse("a phone cannot install the desktop app");
+        }, os: GalleryClientOs.Android);
+    }
+
+    [AvaloniaFact]
+    public void The_Android_App_Is_Offered_To_Android_Only()
+    {
+        WithShell(GalleryHostKind.Web, 390, (_, window) =>
+        {
+            Home(window).Download!.OfferedRuntimes.First().ShouldNotBe("android");
+        }, os: GalleryClientOs.Mobile);
+        WithShell(GalleryHostKind.Web, 1280, (_, window) =>
+        {
+            Home(window).Download!.OfferedRuntimes.First().ShouldNotBe("android");
+        }, os: GalleryClientOs.Windows);
+    }
+
+    [AvaloniaFact]
     public void The_Download_Section_Offers_The_Visitors_System_First_And_Links_Its_File()
     {
         WithShell(GalleryHostKind.Web, 1280, (_, window) =>
@@ -131,7 +164,7 @@ public class GallerySiteTests
     [InlineData("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605", GalleryClientOs.MacOS)]
     [InlineData("Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/130", GalleryClientOs.Windows)]
     [InlineData("Mozilla/5.0 (X11; Linux x86_64) Chrome/130", GalleryClientOs.Linux)]
-    [InlineData("Mozilla/5.0 (Linux; Android 14) Chrome/130 Mobile", GalleryClientOs.Mobile)]
+    [InlineData("Mozilla/5.0 (Linux; Android 14) Chrome/130 Mobile", GalleryClientOs.Android)]
     [InlineData("Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)", GalleryClientOs.Mobile)]
     [InlineData("iPad", GalleryClientOs.Mobile)]
     [InlineData("", GalleryClientOs.Unknown)]
