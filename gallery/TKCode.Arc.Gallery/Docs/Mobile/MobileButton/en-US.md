@@ -22,7 +22,7 @@ The live demo runs inside a phone frame, a desktop simulation. With a mouse, pre
 
 ## Usage
 
-The mobile `Button` is in the `https://github.com/AIDotNet/TKCode.Arc.Mobile` XAML namespace (prefix `arcm`) and in the .NET namespace `TKCode.Arc.Mobile`, so it does not clash with the desktop `Button`; this page's API table calls it `MobileButton` for the same reason. It derives from Avalonia's `Button`, so `Content`, `Command` and `Click` work as usual.
+The mobile `Button` is in the `https://github.com/AIDotNet/TKCode.Arc.Mobile` XAML namespace (prefix `arcm`) and in the .NET namespace `TKCode.Arc.Mobile`, so it does not clash with the desktop `Button`; this page's API table calls it `MobileButton` for the same reason. A C# file that imports both `TKCode.Arc` and `TKCode.Arc.Mobile` has to pick one: alias it, as in `using MobileButton = TKCode.Arc.Mobile.Button;` (the same goes for `Checkbox`, `Dialog`, `Switch`, `Toast`, `RadioCard` and `RadioCards`). It derives from Avalonia's `Button`, so `Content`, `Command` and `Click` work as usual.
 
 ```xml
 <StackPanel xmlns="https://github.com/avaloniaui"
