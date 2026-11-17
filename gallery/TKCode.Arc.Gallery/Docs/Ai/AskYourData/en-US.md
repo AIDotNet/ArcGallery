@@ -28,6 +28,9 @@ Wire the card to your model and a read only database role with three delegates. 
 `Simulation`, answers you supply; with neither it waits in its empty state ("Ask a question about your data") and Ask
 stays unavailable.
 
+Colored code needs the highlighter: add `TKCode.Arc.Highlighting` and call `UseArcHighlighting()` in `UseArc(...)`; from
+1.2.0 `UseArcSpecial()` no longer enables it. Without it the code shows in the plain text color.
+
 ```xml
 <arc:AskYourData Placeholder="Ask about your orders" />
 ```

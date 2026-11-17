@@ -33,6 +33,9 @@ lights up its box. One tab away, the Preview shows the result working.
 </UserControl>
 ```
 
+Colored code needs the highlighter: add `TKCode.Arc.Highlighting` and call `UseArcHighlighting()` in `UseArc(...)`; from
+1.2.0 `UseArcSpecial()` no longer enables it. Without it the code shows in the plain text color.
+
 `DesignToCode` is a `TemplatedControl` in the Special package. Register the package with `UseArcSpecial()` next to
 `UseArcControls()`. The card fills its container's width; keep it between 360 and 760px wide, in a page or a dialog.
 

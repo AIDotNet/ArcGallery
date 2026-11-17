@@ -31,6 +31,8 @@ source-hash: 86b8dc9f93c2
 </UserControl>
 ```
 
+程式碼著色需要高亮器：加入 `TKCode.Arc.Highlighting`，並在 `UseArc(...)` 中呼叫 `UseArcHighlighting()`；自 1.2.0 起 `UseArcSpecial()` 不再自動啟用它。沒有它時，程式碼以一般文字顏色顯示。
+
 `DesignToCode` 是 Special 套件中的 `TemplatedControl`。在 `UseArcControls()` 旁邊以 `UseArcSpecial()` 註冊這個套件。
 卡片會填滿容器的寬度；請把它放在頁面或對話方塊中，寬度保持在 360 到 760px 之間。
 
