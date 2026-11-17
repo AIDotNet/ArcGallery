@@ -1,7 +1,7 @@
 ---
 title: Design to code
 summary: 截圖轉程式碼卡片：掃描線找出拖入的截圖或設計檔畫框中的版面區域，接著程式碼在旁邊串流寫出，並與區域一一對應，切換一個分頁即可看到即時預覽。
-source-hash: 86b8dc9f93c2
+source-hash: 613d61229470
 ---
 
 <Demo name="Preview" />

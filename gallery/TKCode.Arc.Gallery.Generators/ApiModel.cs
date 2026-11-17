@@ -54,8 +54,9 @@ internal sealed class ApiType
                               SymbolDisplayMiscellaneousOptions.IncludeNullableReferenceTypeModifier |
                               SymbolDisplayMiscellaneousOptions.EscapeKeywordIdentifiers);
 
-    private ApiType(INamedTypeSymbol symbol, string? summary, string? baseName)
+    private ApiType(INamedTypeSymbol symbol, string? summary, string? baseName, string? customization)
     {
+        Customization = customization;
         Name = ApiName(symbol);
         TypeExpression = symbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
         Package = symbol.ContainingAssembly.Name;
@@ -73,6 +74,12 @@ internal sealed class ApiType
     public string? Summary { get; }
 
     public string? BaseName { get; }
+
+    /// <summary>
+    /// How the control can be restyled (AIDotNet/TKCode.Arc#154): <c>"Drawn"</c> when it or an Arc base class draws in
+    /// <c>Render</c>, <c>"Templated"</c> for a templated control that does not, null for anything else.
+    /// </summary>
+    public string? Customization { get; }
 
     public List<string> PseudoClasses { get; } = new();
 
@@ -132,6 +139,32 @@ internal sealed class ApiType
                    .Any(m => m.DeclaredAccessibility == Accessibility.Public);
     }
 
+    private static string? CustomizationOf(List<INamedTypeSymbol> arcChain, INamedTypeSymbol? firstNonArc)
+    {
+        if (!Derives(firstNonArc, "Avalonia.Controls.Control"))
+        {
+            return null;
+        }
+        var draws = arcChain.Any(t => t.GetMembers("Render").OfType<IMethodSymbol>().Any(m => m.IsOverride && m.Parameters.Length == 1));
+        if (draws)
+        {
+            return "Drawn";
+        }
+        return Derives(firstNonArc, "Avalonia.Controls.Primitives.TemplatedControl") ? "Templated" : null;
+    }
+
+    private static bool Derives(INamedTypeSymbol? type, string metadataName)
+    {
+        for (var current = type; current is not null; current = current.BaseType)
+        {
+            if (current.ToDisplayString() == metadataName)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static bool IsArcAssembly(IAssemblySymbol assembly)
         => assembly.Name == "TKCode.Arc" || assembly.Name.StartsWith("TKCode.Arc.", System.StringComparison.Ordinal);
 
@@ -145,7 +178,7 @@ internal sealed class ApiType
             current = current.BaseType;
         }
         var baseName = current is null || current.SpecialType == SpecialType.System_Object ? null : current.ToDisplayString(s_typeFormat);
-        var result = new ApiType(type, docs.Summary(type), baseName);
+        var result = new ApiType(type, docs.Summary(type), baseName, CustomizationOf(chain, current));
 
         var names = new HashSet<string>(System.StringComparer.Ordinal);
         var events = new HashSet<string>(System.StringComparer.Ordinal);

@@ -1,7 +1,7 @@
 ---
 title: 移動端按鈕
 summary: 觸控優先的按鈕：用按壓狀態取代懸停狀態，最小觸控目標 44 px。
-source-hash: 2e0988df87cc
+source-hash: f90481ae5821
 ---
 
 <Demo name="Basic" />

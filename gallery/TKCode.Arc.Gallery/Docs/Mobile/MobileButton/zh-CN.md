@@ -1,7 +1,7 @@
 ---
 title: 移动端按钮
 summary: 触控优先的按钮：用按压状态代替悬停状态，最小触控目标 44 px。
-source-hash: 2e0988df87cc
+source-hash: f90481ae5821
 ---
 
 <Demo name="Basic" />

@@ -1,7 +1,7 @@
 ---
 title: 安装片段
 summary: 一张快速上手卡片：框架标签、三个编号步骤和高亮代码片段带开发者从安装走到第一个事件，"生成密钥"会把新密钥就地擦入占位符。
-source-hash: 930f505bb4f7
+source-hash: 0d7e2f83412b
 ---
 
 <Demo name="Preview" />

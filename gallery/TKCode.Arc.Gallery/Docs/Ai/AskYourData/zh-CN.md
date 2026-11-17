@@ -1,7 +1,7 @@
 ---
 title: Ask your data
 summary: 自然语言生成图表的卡片：输入问题，SQL 流式写入一个可折叠、带语法着色的面板，查询运行时行数滚动计数，答案以堆叠柱形、折线或表格逐步呈现，下方附一行洞察。
-source-hash: d8e6b2801e65
+source-hash: fc9b67d50b7c
 ---
 
 <Demo name="Preview" />

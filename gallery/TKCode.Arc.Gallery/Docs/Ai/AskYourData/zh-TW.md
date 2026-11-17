@@ -1,7 +1,7 @@
 ---
 title: Ask your data
 summary: 以自然語言產生圖表的卡片：輸入問題，SQL 串流寫入一個可收合、帶語法著色的面板，查詢執行時列數滾動計數，答案以堆疊長條、折線或表格逐步呈現，下方附一行洞察。
-source-hash: d8e6b2801e65
+source-hash: fc9b67d50b7c
 ---
 
 <Demo name="Preview" />
