@@ -1,7 +1,7 @@
 ---
 title: Design to code
 summary: 截图转代码卡片：扫描线找出拖入的截图或设计文件画框中的布局区域，随后代码在旁边流式写出，并与区域一一对应，切换一个标签页即可看到实时预览。
-source-hash: 86b8dc9f93c2
+source-hash: 613d61229470
 ---
 
 <Demo name="Preview" />

@@ -1,7 +1,7 @@
 ---
 title: 安裝片段
 summary: 一張快速上手卡片：框架分頁、三個編號步驟和醒目標示的程式碼片段帶開發者從安裝走到第一個事件，「產生金鑰」會把新金鑰就地擦入預留位置。
-source-hash: 930f505bb4f7
+source-hash: 0d7e2f83412b
 ---
 
 <Demo name="Preview" />

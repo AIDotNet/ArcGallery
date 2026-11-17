@@ -320,7 +320,8 @@ public sealed class GalleryDocsGenerator : IIncrementalGenerator
         AppendChunked(code, "GalleryApiType", "Types", types.Values.OrderBy(t => t.Name, System.StringComparer.Ordinal).ToList(), 16, type =>
         {
             code.Append("        new(").Append(Literal(type.Name)).Append(", ").Append(Literal(type.Package)).Append(", ")
-                .Append(Literal(type.Summary)).Append(", ").Append(Literal(type.BaseName)).AppendLine(",");
+                .Append(Literal(type.Summary)).Append(", ").Append(Literal(type.BaseName)).Append(", ")
+                .Append(Literal(type.Customization)).AppendLine(",");
             code.Append("            [").Append(string.Join(", ", type.PseudoClasses.Select(Literal))).AppendLine("],");
             code.AppendLine("            [");
             foreach (var member in type.Members)

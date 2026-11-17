@@ -1,7 +1,7 @@
 ---
 title: Code suggestion
 summary: AI 代码修改建议：模型提出的改动以行内差异块的形式流式进入一个小型编辑器面板，由人逐个接受或拒绝，也可以用 Cmd 或 Ctrl + Enter 一次全部接受。
-source-hash: 80e80ed9e469
+source-hash: 4371f9c7e4b6
 ---
 
 <Demo name="Preview" />

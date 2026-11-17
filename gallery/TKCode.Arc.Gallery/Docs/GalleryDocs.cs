@@ -316,6 +316,10 @@ public static partial class GalleryDocs
         {
             markdown.Append(string.Format(CultureInfo.InvariantCulture, text.Inherits, baseName)).Append("\n\n");
         }
+        if (type.Customization switch { "Drawn" => text.Drawn, "Templated" => text.Templated, _ => null } is { } customization)
+        {
+            markdown.Append(customization).Append("\n\n");
+        }
         return markdown.ToString();
     }
 
@@ -402,25 +406,31 @@ public static partial class GalleryDocs
     /// <summary>The words the generated parts of a page are made of, per language (en-US for the rest).</summary>
     private sealed record GalleryDocText(string Property, string Type, string Default, string Description, string Event,
                                          string Arguments, string PseudoClasses, string Inherits, string ReadOnly,
-                                         string Attached, string Untranslated, string Outdated)
+                                         string Attached, string Untranslated, string Outdated, string Templated, string Drawn)
     {
         private static readonly GalleryDocText s_english = new(
             "Property", "Type", "Default", "Description", "Event", "Arguments", "Pseudo-classes:",
             "Derives from `{0}`: every member of `{0}` works as well.", "Read-only.", "Attached.",
             "This page is not translated yet; it shows the English original.",
-            "The English page changed after this translation was made; some details may be out of date.");
+            "The English page changed after this translation was made; some details may be out of date.",
+            "Customization: templated. Its ControlTheme's template can be replaced; keep the `PART_` names it looks for.",
+            "Customization: drawn in code (`Render`). A new template does not change what it draws; restyle it through its design tokens and brush properties.");
 
         private static readonly GalleryDocText s_simplified = new(
             "属性", "类型", "默认值", "说明", "事件", "参数", "伪类：",
             "派生自 `{0}`，`{0}` 的成员同样可用。", "只读。", "附加属性。",
             "此页尚未翻译，以下为英文原文。",
-            "英文原文在翻译之后有更新，部分内容可能已过时。");
+            "英文原文在翻译之后有更新，部分内容可能已过时。",
+            "定制方式：模板化。可以替换它的 ControlTheme 模板，但要保留它查找的 `PART_` 名称。",
+            "定制方式：代码绘制（`Render`）。替换模板不会改变它绘制的内容；请通过它的设计 Token 与画刷属性调整外观。");
 
         private static readonly GalleryDocText s_traditional = new(
             "屬性", "型別", "預設值", "說明", "事件", "引數", "虛擬類別：",
             "衍生自 `{0}`，`{0}` 的成員同樣可用。", "唯讀。", "附加屬性。",
             "此頁尚未翻譯，以下為英文原文。",
-            "英文原文在翻譯之後有更新，部分內容可能已過時。");
+            "英文原文在翻譯之後有更新，部分內容可能已過時。",
+            "自訂方式：範本化。可以替換它的 ControlTheme 範本，但要保留它查找的 `PART_` 名稱。",
+            "自訂方式：程式碼繪製（`Render`）。替換範本不會改變它繪製的內容；請透過它的設計 Token 與筆刷屬性調整外觀。");
 
         public static GalleryDocText For(string language) => language.ToLowerInvariant() switch
         {
