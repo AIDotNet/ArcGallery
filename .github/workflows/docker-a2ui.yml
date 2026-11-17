@@ -31,7 +31,7 @@ jobs:
   image:
     name: Build and push the A2UI Chat image
     runs-on: ubuntu-latest
-        timeout-minutes: 90
+    timeout-minutes: 90
     permissions:
       contents: read
       packages: write
@@ -79,10 +79,10 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-  # Runs the image that was just pushed and checks what matters to the browser: brotli for the
-  # fingerprinted WebAssembly, long-lived caching for it, and revalidation for index.html and for the
-  # files that keep their names across deploys (the Chinese font, the screenshots); and to AI
-  # assistants: llms.txt and the Markdown pages as UTF-8 text, and a 404 for a page that does not exist.
+  # Runs the image that was just pushed and checks what matters to the browser: brotli and long-lived caching for the
+  # fingerprinted WebAssembly, gzip and revalidation for the files that keep their names across deploys (avalonia.js,
+  # the Chinese font, index.html), the Content-Security-Policy with the import map's hash filled in, and the fallback
+  # to index.html for the app's own routes.
   smoke:
     name: Check the pushed image
     needs: image
@@ -102,32 +102,27 @@ jobs:
 
       - name: Run the image
         run: |
-          IMAGE="ghcr.io/aidotnet/arcgallery:sha-${GITHUB_SHA::7}"
+          IMAGE="ghcr.io/aidotnet/a2ui-chat:sha-${GITHUB_SHA::7}"
           docker pull "$IMAGE"
-          docker run -d --name gallery -p 8080:80 "$IMAGE"
-          for i in $(seq 1 30); do curl -sf http://127.0.0.1:8080/ > /dev/null && break; sleep 1; done
-          WASM=$(docker exec gallery sh -c 'cd /usr/share/nginx/html/_framework && ls *.wasm | grep -E "\.[0-9a-z]{8,}\.wasm$" | head -1')
+          docker run -d --name a2ui -p 8080:80 "$IMAGE"
+          for _ in $(seq 1 30); do curl -sf http://127.0.0.1:8080/ > /dev/null && break; sleep 1; done
+          WASM=$(docker exec a2ui sh -c 'cd /usr/share/nginx/html/_framework && ls *.wasm | grep -E "\.[0-9a-z]{8,}\.wasm$" | head -1')
           echo "fingerprinted wasm: $WASM"
           curl -sfI -H 'Accept-Encoding: br' "http://127.0.0.1:8080/_framework/$WASM" | tee wasm.headers
           grep -qi '^content-encoding: br' wasm.headers
           grep -qi '^cache-control: public, max-age=31536000, immutable' wasm.headers
           grep -qi '^content-type: application/wasm' wasm.headers
-          curl -sfI -H 'Accept-Encoding: gzip' http://127.0.0.1:8080/avalonia.js | tee js.headers
+          curl -sfI -H 'Accept-Encoding: gzip' http://127.0.0.1:8080/_framework/avalonia.js | tee js.headers
           grep -qi '^content-encoding: gzip' js.headers
           grep -qi '^cache-control: no-cache' js.headers
           curl -sfI http://127.0.0.1:8080/ | tee index.headers
           grep -qi '^cache-control: no-cache' index.headers
+          grep -qi "^content-security-policy: .*script-src 'self' 'wasm-unsafe-eval' 'sha256-" index.headers
+          if grep -q '__IMPORTMAP_HASH__' index.headers; then exit 1; fi
           curl -sfI http://127.0.0.1:8080/fonts/NotoSansSC-Subset.otf | tee font.headers
           grep -qi '^cache-control: no-cache' font.headers
-          curl -sfI http://127.0.0.1:8080/llms.txt | tee llms.headers
-          grep -qi '^content-type: text/plain; charset=utf-8' llms.headers
-          curl -sfI -H 'Accept-Encoding: br' http://127.0.0.1:8080/zh-CN/components/button.md | tee md.headers
-          grep -qi '^content-type: text/markdown; charset=utf-8' md.headers
-          grep -qi '^content-encoding: br' md.headers
-          grep -qi '^access-control-allow-origin: \*' md.headers
-          curl -sf http://127.0.0.1:8080/skills/tkcode-arc/SKILL.md | head -2 | grep -q '^name: tkcode-arc'
-          test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8080/components/no-such-page.md)" = 404
+          curl -sf http://127.0.0.1:8080/some/app/route | grep -q '<title>A2UI Chat</title>'
 
       - name: Logs on failure
         if: failure()
-        run: docker logs gallery || true
+        run: docker logs a2ui || true
