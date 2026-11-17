@@ -37,6 +37,15 @@ and know which file it belongs to, without giving them an editor.
 
 ## Usage
 
+`CodeBlock` is in `TKCode.Arc`. The colors come from the `TKCode.Arc.Highlighting` package: add it and register it
+in `UseArc`, or the code shows as plain text. In a trimmed app, `ArcHighlightLanguages` keeps only the grammars you
+list (for example `<ArcHighlightLanguages>csharp;json;xml</ArcHighlightLanguages>` in the project file):
+
+```csharp
+AppBuilder.Configure<App>()
+    .UseArc(arc => arc.UseArcControls().UseArcHighlighting());
+```
+
 ```xml
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:arc="https://github.com/AIDotNet/TKCode.Arc">
@@ -49,7 +58,7 @@ and know which file it belongs to, without giving them an editor.
 `CodeBlock` derives from Avalonia's `TemplatedControl`, so it takes the usual layout, styling and automation
 behavior of a control. It is not a `TextBox`: `Code` is the only text it accepts, the text is read-only, and the frame
 has a header and an optional expand row around the code area. Highlighting uses the TextMate grammars of the StreamMark
-engine, painted with Arc's syntax role colors.
+engine (through `TKCode.Arc.Highlighting`), painted with Arc's syntax role colors.
 
 ### Anatomy
 

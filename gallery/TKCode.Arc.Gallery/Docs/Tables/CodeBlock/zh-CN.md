@@ -1,7 +1,7 @@
 ---
 title: 代码块
 summary: 只读的代码查看器，带文件名标题、语法着色与复制按钮。
-source-hash: d2bff149a7c5
+source-hash: a0bdd4261bc3
 ---
 
 <Demo name="Default" />
@@ -26,6 +26,13 @@ source-hash: d2bff149a7c5
 
 ## 用法
 
+`CodeBlock` 在 `TKCode.Arc` 中。着色来自 `TKCode.Arc.Highlighting` 包：添加它并在 `UseArc` 中注册，否则代码显示为纯文本。裁剪发布的应用可以用 `ArcHighlightLanguages` 只保留列出的语法（例如在项目文件中写 `<ArcHighlightLanguages>csharp;json;xml</ArcHighlightLanguages>`）：
+
+```csharp
+AppBuilder.Configure<App>()
+    .UseArc(arc => arc.UseArcControls().UseArcHighlighting());
+```
+
 ```xml
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:arc="https://github.com/AIDotNet/TKCode.Arc">
@@ -35,7 +42,7 @@ source-hash: d2bff149a7c5
 </UserControl>
 ```
 
-`CodeBlock` 派生自 Avalonia 的 `TemplatedControl`，因此拥有控件常见的布局、样式与自动化行为。它不是 `TextBox`：`Code` 是它唯一接受的文本，文本为只读，框体在代码区域之外还有标题与可选的展开行。语法高亮使用 StreamMark 引擎的 TextMate 语法，并以 Arc 的语法角色颜色绘制。
+`CodeBlock` 派生自 Avalonia 的 `TemplatedControl`，因此拥有控件常见的布局、样式与自动化行为。它不是 `TextBox`：`Code` 是它唯一接受的文本，文本为只读，框体在代码区域之外还有标题与可选的展开行。语法高亮使用 StreamMark 引擎的 TextMate 语法（通过 `TKCode.Arc.Highlighting`），并以 Arc 的语法角色颜色绘制。
 
 ### 结构
 

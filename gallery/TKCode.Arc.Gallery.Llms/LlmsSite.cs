@@ -41,7 +41,7 @@ public static partial class LlmsSite
 
     /// <summary>The packages on nuget.org; the others are built from the repository (the Push step of .github/workflows/ci.yml lists them).</summary>
     private static readonly HashSet<string> s_onNuGet = [
-        "TKCode.Arc", "TKCode.Arc.Core", "TKCode.Arc.Fonts", "TKCode.Arc.Icons.Lucide", "TKCode.Arc.Blocks", "TKCode.Arc.AdvancedCharts",
+        "TKCode.Arc", "TKCode.Arc.Markdown", "TKCode.Arc.Highlighting", "TKCode.Arc.Core", "TKCode.Arc.Fonts", "TKCode.Arc.Icons.Lucide", "TKCode.Arc.Blocks", "TKCode.Arc.AdvancedCharts",
         "TKCode.Arc.Special", "TKCode.Arc.Workflow", "TKCode.Arc.Themes.Pixel", "TKCode.Arc.Themes.Corners", "TKCode.Arc.Mobile",
         "TKCode.Arc.Dock", "TKCode.Arc.Terminal", "TKCode.Arc.Audio", "TKCode.Arc.Pdf", "TKCode.Arc.Video",
     ];
@@ -50,6 +50,8 @@ public static partial class LlmsSite
     private static readonly Dictionary<string, string> s_registration = new()
     {
         ["TKCode.Arc"] = "UseArcControls()",
+        ["TKCode.Arc.Markdown"] = "UseArcMarkdown()",
+        ["TKCode.Arc.Highlighting"] = "UseArcHighlighting()",
         ["TKCode.Arc.Blocks"] = "UseArcBlocks()",
         ["TKCode.Arc.Mobile"] = "UseArcMobile()",
         ["TKCode.Arc.AdvancedCharts"] = "UseArcAdvancedCharts()",

@@ -1,7 +1,7 @@
 ---
 title: 聊天對話
 summary: 帶分組訊息、表情回應、已讀回執、輸入狀態以及附帶附件輸入區的聊天對話。
-source-hash: 99f8ef4800d0
+source-hash: d982eaa97654
 ---
 
 <Demo name="SupportConversation" />
@@ -25,6 +25,13 @@ source-hash: 99f8ef4800d0
 - **需要依日期從伺服器分頁載入的歷史紀錄**：對話只顯示交給它的訊息，不會載入歷史紀錄。請在檢視模型中載入分頁，再加入集合。
 
 ## 用法
+
+加入 `TKCode.Arc.Markdown` 套件並在 `UseArc` 中註冊（訊息內文是 Markdown）。需要為訊息中的程式碼上色時，再加入 `TKCode.Arc.Highlighting` 並呼叫 `UseArcHighlighting()`：
+
+```csharp
+AppBuilder.Configure<App>()
+    .UseArc(arc => arc.UseArcControls().UseArcMarkdown().UseArcHighlighting());
+```
 
 `Participants` 列出對話中的人員，`CurrentUserId` 標示其中哪一位是你。你的訊息以強調色顯示在右側，其他人的訊息顯示在左側並附上姓名。訊息由舊到新排列，清單始終停留在最新一則。
 

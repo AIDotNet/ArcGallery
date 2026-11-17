@@ -1,7 +1,7 @@
 ---
 title: Markdown
 summary: 以 Arc 的風格渲染 Markdown 文件與串流回覆，程式碼區塊使用 Arc 的語法配色高亮。
-source-hash: 79985ea6ceb9
+source-hash: c95c3e1a15c7
 ---
 
 <Demo name="Document" />
@@ -25,6 +25,13 @@ source-hash: 79985ea6ceb9
 - **數學公式、圖表或其他嵌入式格式**：`Markdown` 渲染文字、程式碼和表格。需要時，請把 StreamMark 的數學或圖表外掛加入你自己的 `MarkdownServices`，而不是在文字中貼上圖片。
 
 ## 用法
+
+加入 `TKCode.Arc.Markdown` 套件並在 `UseArc` 中註冊。需要為圍欄程式碼上色時，再加入 `TKCode.Arc.Highlighting` 並呼叫 `UseArcHighlighting()`；未加入時程式碼區塊顯示為純文字：
+
+```csharp
+AppBuilder.Configure<App>()
+    .UseArc(arc => arc.UseArcControls().UseArcMarkdown().UseArcHighlighting());
+```
 
 靜態文字透過 `Text` 設定。文件隨內容增長，內部沒有捲動。
 
@@ -146,7 +153,7 @@ markdown.FindNext();                   // 目前相符項目移動並捲動到�
 
 ### 程式碼高亮
 
-`MarkdownHighlightPlugin` 使用 `CodeBlock` 同樣使用的 TextMate 語法為圍欄程式碼上色，並以 Arc 語法調色盤中適用於明暗模式的顏色繪製每種角色。註解為斜體。沒有語法的語言保持為純文字，因此未知的標籤不會導致文件失敗。該外掛是預設服務的一部分。把語言名稱傳給它的建構函式，可以在第一個程式碼區塊請求之前於背景預先載入這些語法。
+`MarkdownHighlightPlugin` 使用 `CodeBlock` 同樣使用的 TextMate 語法為圍欄程式碼上色，並以 Arc 語法調色盤中適用於明暗模式的顏色繪製每種角色。註解為斜體。沒有語法的語言保持為純文字，因此未知的標籤不會導致文件失敗。該外掛是預設服務的一部分。把語言名稱傳給它的建構函式，可以在第一個程式碼區塊請求之前於背景預先載入這些語法。語法來自 `TKCode.Arc.Highlighting`：未呼叫 `UseArcHighlighting()` 時，外掛不支援任何語言，所有程式碼區塊都是純文字。
 
 ```csharp
 markdown.Services = new MarkdownServices

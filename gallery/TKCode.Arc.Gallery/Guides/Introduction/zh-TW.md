@@ -1,6 +1,6 @@
 ---
 title: 介紹
-source-hash: c05b617dee31
+source-hash: 511df4b2737a
 ---
 
 # 介紹
@@ -95,7 +95,9 @@ TKCode.Arc 將 [Arc](https://uiarc.dev) 帶到 Avalonia：相同的元件分組�
 
 | 套件 | 內容 | 來源 |
 |---|---|---|
-| `TKCode.Arc` | 元件（`UseArcControls()`）、串流式 `Markdown` 控制項與 `CodeBlock`。引入 `TKCode.Arc.Core`。 | NuGet |
+| `TKCode.Arc` | 元件（`UseArcControls()`），包括 `CodeBlock`。引入 `TKCode.Arc.Core`。 | NuGet |
+| `TKCode.Arc.Markdown` | 串流式 `Markdown` 控制項、`ChatThread` 與 `ChatComposer`（`UseArcMarkdown()`）。引入 StreamMark。 | NuGet |
+| `TKCode.Arc.Highlighting` | TextMate 語法醒目提示，用於 `CodeBlock`、富文字編輯器與 Markdown（`UseArcHighlighting()`）；未引用時程式碼為純文字。 | NuGet |
 | `TKCode.Arc.Core` | ArcDesign 設計權杖與調色盤、彈簧動態效果引擎、共用基礎元件、187 個內建 Lucide 字形。引入 `TKCode.Arc.Foundation`。 | NuGet |
 | `TKCode.Arc.Foundation` | 主題、權杖、語言與套件註冊的執行階段（`UseArc(...)`、`ArcTheme`、`ArcLanguage`）及其原始碼產生器。 | NuGet（0.4 起） |
 | `TKCode.Arc.Fonts` | Geist 與 Geist Mono（`WithArcFonts()`）。 | NuGet |
@@ -111,7 +113,7 @@ TKCode.Arc 將 [Arc](https://uiarc.dev) 帶到 Avalonia：相同的元件分組�
 - **.NET**：這些套件以 `net8.0`、`net10.0` 與 `net11.0` 為目標。
 - **Avalonia**：Avalonia `12.1.5`，固定為確切版本。請在你的應用程式中使用相同的版本。Arc 沒有其他 UI 框架相依項目。
 - **平台**：Windows、macOS 與 Linux 桌面版。圖庫也可透過其 WebAssembly 主機在瀏覽器中執行。
-- **文字與程式碼的渲染**：Markdown 與語法醒目提示使用 StreamMark，由 `TKCode.Arc` 套件引入。
+- **文字與程式碼的渲染**：Markdown 與語法醒目提示使用 StreamMark，由 `TKCode.Arc.Markdown` 與 `TKCode.Arc.Highlighting` 套件引入；`TKCode.Arc` 本身不相依於它。
 
 ## 使用本圖庫
 
