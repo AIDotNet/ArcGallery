@@ -49,8 +49,8 @@
     </ItemGroup>
     <ItemGroup>
         <!-- Helpers the library's own test project shares with these tests (headless window, template probes, ...). -->
-        <Compile Include="$(ArcRoot)tests/TKCode.Arc.Tests/TestHelpers.cs" Link="Shared/TestHelpers.cs" />
-        <Compile Include="$(ArcRoot)tests/TKCode.Arc.Tests/NullTemplateProbe.cs" Link="Shared/NullTemplateProbe.cs" />
-        <Compile Include="$(ArcRoot)tests/TKCode.Arc.Tests/Pdf/PdfTestSupport.cs" Link="Shared/PdfTestSupport.cs" />
+        <Compile Include="$(ArcRoot)tests/Shared/TestHelpers.cs" Link="Shared/TestHelpers.cs" />
+        <Compile Include="$(ArcRoot)tests/Shared/NullTemplateProbe.cs" Link="Shared/NullTemplateProbe.cs" />
+        <Compile Include="$(ArcRoot)tests/TKCode.Arc.Extras.Tests/Pdf/PdfTestSupport.cs" Link="Shared/PdfTestSupport.cs" />
     </ItemGroup>
 </Project>
