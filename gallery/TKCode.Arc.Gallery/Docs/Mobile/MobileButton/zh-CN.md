@@ -23,7 +23,7 @@ source-hash: 2e0988df87cc
 
 ## 用法
 
-移动端的 `Button` 位于 XAML 命名空间 `https://github.com/AIDotNet/TKCode.Arc.Mobile`（前缀 `arcm`）和 .NET 命名空间 `TKCode.Arc.Mobile`，因此不会与桌面的 `Button` 冲突；出于同样的原因，本页的 API 表把它称为 `MobileButton`。它派生自 Avalonia 的 `Button`，所以 `Content`、`Command` 和 `Click` 照常使用。
+移动端的 `Button` 位于 XAML 命名空间 `https://github.com/AIDotNet/TKCode.Arc.Mobile`（前缀 `arcm`）和 .NET 命名空间 `TKCode.Arc.Mobile`，因此不会与桌面的 `Button` 冲突；出于同样的原因，本页的 API 表把它称为 `MobileButton`。同时导入 `TKCode.Arc` 与 `TKCode.Arc.Mobile` 的 C# 文件需要选定一方，用别名区分，例如 `using MobileButton = TKCode.Arc.Mobile.Button;`（`Checkbox`、`Dialog`、`Switch`、`Toast`、`RadioCard` 与 `RadioCards` 同理）。它派生自 Avalonia 的 `Button`，所以 `Content`、`Command` 和 `Click` 照常使用。
 
 ```xml
 <StackPanel xmlns="https://github.com/avaloniaui"
