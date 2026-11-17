@@ -19,6 +19,8 @@
         <PackageReference Include="Avalonia.Headless.XUnit" />
         <PackageReference Include="Avalonia.Markup.Xaml.Loader" />
         <ProjectReference Include="$(ArcRoot)src/TKCode.Arc/TKCode.Arc.csproj" />
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Markdown/TKCode.Arc.Markdown.csproj" />
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Highlighting/TKCode.Arc.Highlighting.csproj" />
         <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Blocks/TKCode.Arc.Blocks.csproj" />
         <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Mobile/TKCode.Arc.Mobile.csproj" />
         <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.AdvancedCharts/TKCode.Arc.AdvancedCharts.csproj" />

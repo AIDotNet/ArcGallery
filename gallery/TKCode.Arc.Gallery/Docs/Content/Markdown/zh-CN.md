@@ -1,7 +1,7 @@
 ---
 title: Markdown
 summary: 以 Arc 的风格渲染 Markdown 文档与流式回复，代码块使用 Arc 的语法配色高亮。
-source-hash: 79985ea6ceb9
+source-hash: c95c3e1a15c7
 ---
 
 <Demo name="Document" />
@@ -25,6 +25,13 @@ source-hash: 79985ea6ceb9
 - **数学公式、图表或其他嵌入式格式**：`Markdown` 渲染文字、代码和表格。需要时，请把 StreamMark 的数学或图表插件加入你自己的 `MarkdownServices`，而不是在文字中粘贴图片。
 
 ## 用法
+
+添加 `TKCode.Arc.Markdown` 包并在 `UseArc` 中注册。需要给围栏代码着色时，再添加 `TKCode.Arc.Highlighting` 并调用 `UseArcHighlighting()`；不添加时代码块显示为纯文本：
+
+```csharp
+AppBuilder.Configure<App>()
+    .UseArc(arc => arc.UseArcControls().UseArcMarkdown().UseArcHighlighting());
+```
 
 静态文本通过 `Text` 设置。文档随内容增长，内部没有滚动。
 
@@ -146,7 +153,7 @@ markdown.FindNext();                   // 当前匹配移动并滚动到它
 
 ### 代码高亮
 
-`MarkdownHighlightPlugin` 使用 `CodeBlock` 同样使用的 TextMate 语法为围栏代码着色，并以 Arc 语法调色板中适用于明暗模式的颜色绘制每种角色。注释为斜体。没有语法的语言保持为纯文本，因此未知的标签不会导致文档失败。该插件是默认服务的一部分。把语言名称传给它的构造函数，可以在第一个代码块请求之前在后台预加载这些语法。
+`MarkdownHighlightPlugin` 使用 `CodeBlock` 同样使用的 TextMate 语法为围栏代码着色，并以 Arc 语法调色板中适用于明暗模式的颜色绘制每种角色。注释为斜体。没有语法的语言保持为纯文本，因此未知的标签不会导致文档失败。该插件是默认服务的一部分。把语言名称传给它的构造函数，可以在第一个代码块请求之前在后台预加载这些语法。语法来自 `TKCode.Arc.Highlighting`：未调用 `UseArcHighlighting()` 时，插件不支持任何语言，所有代码块都是纯文本。
 
 ```csharp
 markdown.Services = new MarkdownServices

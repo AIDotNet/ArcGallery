@@ -107,7 +107,9 @@ as small, fast-starting single files.
 
 | Package | Contents | Where |
 |---|---|---|
-| `TKCode.Arc` | The components (`UseArcControls()`), the streaming `Markdown` control and `CodeBlock`. Brings in `TKCode.Arc.Core`. | NuGet |
+| `TKCode.Arc` | The components (`UseArcControls()`), including `CodeBlock`. Brings in `TKCode.Arc.Core`. | NuGet |
+| `TKCode.Arc.Markdown` | The streaming `Markdown` control, `ChatThread` and `ChatComposer` (`UseArcMarkdown()`). Brings in StreamMark. | NuGet |
+| `TKCode.Arc.Highlighting` | TextMate syntax highlighting for `CodeBlock`, the rich text editor and Markdown (`UseArcHighlighting()`); without it code is plain. | NuGet |
 | `TKCode.Arc.Core` | ArcDesign tokens and palette, the spring motion engine, shared primitives, 187 built-in Lucide glyphs. Brings in `TKCode.Arc.Foundation`. | NuGet |
 | `TKCode.Arc.Foundation` | The theme, token, language and package runtime (`UseArc(...)`, `ArcTheme`, `ArcLanguage`) and its source generator. | NuGet (0.4 and later) |
 | `TKCode.Arc.Fonts` | Geist and Geist Mono (`WithArcFonts()`). | NuGet |
@@ -125,8 +127,8 @@ as small, fast-starting single files.
   other UI framework dependency.
 - **Platforms**: desktop on Windows, macOS and Linux. The gallery also runs in the browser through its WebAssembly
   host.
-- **Rendering of text and code**: Markdown and syntax highlighting use StreamMark, which the `TKCode.Arc` package
-  brings in.
+- **Rendering of text and code**: Markdown and syntax highlighting use StreamMark, which the `TKCode.Arc.Markdown` and
+  `TKCode.Arc.Highlighting` packages bring in; `TKCode.Arc` itself does not depend on it.
 
 ## Using this gallery
 

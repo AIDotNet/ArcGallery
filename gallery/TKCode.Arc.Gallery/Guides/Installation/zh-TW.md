@@ -1,6 +1,6 @@
 ---
 title: 安裝
-source-hash: a091f268022f
+source-hash: 36521d6525d7
 ---
 
 # 安裝
@@ -41,7 +41,7 @@ dotnet add package TKCode.Arc.Icons.Lucide --version 1.1.1-preview.1    # 選用
 dotnet add package Avalonia.Fonts.Inter --version 12.1.5                 # 選用：內文使用的 Inter
 ```
 
-`TKCode.Arc` 會引入 `TKCode.Arc.Core`、`TKCode.Arc.Foundation` 與 StreamMark。如果你的方案使用集中式套件管理，請將版本號一次加入 `Directory.Packages.props`，並讓專案檔不含版本號：
+`TKCode.Arc` 會引入 `TKCode.Arc.Core` 與 `TKCode.Arc.Foundation`。`Markdown` 與 `ChatThread` 在 `TKCode.Arc.Markdown` 中（`UseArcMarkdown()`），`CodeBlock`、富文字編輯器與 Markdown 的程式碼上色需要 `TKCode.Arc.Highlighting`（`UseArcHighlighting()`）；這兩個套件會引入 StreamMark。如果你的方案使用集中式套件管理，請將版本號一次加入 `Directory.Packages.props`，並讓專案檔不含版本號：
 
 ```xml
 <ItemGroup>

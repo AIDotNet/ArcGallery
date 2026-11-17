@@ -46,9 +46,10 @@ those pieces. The finished apps have English UI text.
 libraries use (modal, snackbar, autocomplete, ...), so search it for the word in the request. Then read the shortlisted
 classes in [choosing.md](choosing.md): for each component it lists the nearby ones to choose instead and when, so you
 settle on one before fetching its page. Prefer a block when one covers the whole region (a sidebar, a settings page, a
-command palette). Note the package of each pick: components outside `TKCode.Arc` (the AI components in
-`TKCode.Arc.Special`, the phone controls in `TKCode.Arc.Mobile`, the DataGrid) need their package and registration
-call. The phone controls have their own XAML namespace,
+command palette). Note the package of each pick: components outside `TKCode.Arc` (`Markdown` and `ChatThread` in
+`TKCode.Arc.Markdown`, the AI components in `TKCode.Arc.Special`, the phone controls in `TKCode.Arc.Mobile`, the
+DataGrid) need their package and registration call. Colored code in `CodeBlock` and Markdown needs
+`TKCode.Arc.Highlighting` and `UseArcHighlighting()`. The phone controls have their own XAML namespace,
 `xmlns:arcm="https://github.com/AIDotNet/TKCode.Arc.Mobile"`, and drop the prefix of their page name: `MobileButton`
 is `<arcm:Button>`. Skip the groups marked decorative (text effects, cursor effects, showpieces) unless the brief asks for the effect. Compose screens from Arc controls and Avalonia layout panels
 (`Grid`, `StackPanel`, `WrapPanel`, `DockPanel`); do not rebuild a control Arc already has.

@@ -38,6 +38,14 @@ sends.
 
 ## Usage
 
+Add the `TKCode.Arc.Markdown` package and register it in `UseArc` (message bodies are Markdown). Add
+`TKCode.Arc.Highlighting` and `UseArcHighlighting()` too when code in messages should be colored:
+
+```csharp
+AppBuilder.Configure<App>()
+    .UseArc(arc => arc.UseArcControls().UseArcMarkdown().UseArcHighlighting());
+```
+
 `Participants` lists the people in the conversation, and `CurrentUserId` marks which of them is you. Your messages sit on
 the right in the accent color, and other people's messages sit on the left with their names. Messages are ordered from
 oldest to newest, and the list stays pinned to the newest one.

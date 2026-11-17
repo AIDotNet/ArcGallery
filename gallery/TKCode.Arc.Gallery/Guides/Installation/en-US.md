@@ -48,7 +48,9 @@ dotnet add package TKCode.Arc.Icons.Lucide --version 1.1.1-preview.1    # option
 dotnet add package Avalonia.Fonts.Inter --version 12.1.5                 # optional: Inter for body text
 ```
 
-`TKCode.Arc` brings in `TKCode.Arc.Core`, `TKCode.Arc.Foundation` and StreamMark. If your solution uses central
+`TKCode.Arc` brings in `TKCode.Arc.Core` and `TKCode.Arc.Foundation`. `Markdown` and `ChatThread` are in `TKCode.Arc.Markdown`
+(`UseArcMarkdown()`), and colored code in `CodeBlock`, the rich text editor and Markdown needs `TKCode.Arc.Highlighting`
+(`UseArcHighlighting()`); both bring in StreamMark. If your solution uses central
 package management, add the versions to `Directory.Packages.props` once and keep the project files version-free:
 
 ```xml

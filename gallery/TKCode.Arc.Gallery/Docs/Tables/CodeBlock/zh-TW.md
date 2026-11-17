@@ -1,7 +1,7 @@
 ---
 title: 程式碼區塊
 summary: 唯讀的程式碼檢視器，帶檔名標題、語法著色與複製按鈕。
-source-hash: d2bff149a7c5
+source-hash: a0bdd4261bc3
 ---
 
 <Demo name="Default" />
@@ -26,6 +26,13 @@ source-hash: d2bff149a7c5
 
 ## 用法
 
+`CodeBlock` 在 `TKCode.Arc` 中。上色來自 `TKCode.Arc.Highlighting` 套件：加入它並在 `UseArc` 中註冊，否則程式碼顯示為純文字。經過裁剪發佈的應用程式可以用 `ArcHighlightLanguages` 只保留列出的語法（例如在專案檔中寫 `<ArcHighlightLanguages>csharp;json;xml</ArcHighlightLanguages>`）：
+
+```csharp
+AppBuilder.Configure<App>()
+    .UseArc(arc => arc.UseArcControls().UseArcHighlighting());
+```
+
 ```xml
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:arc="https://github.com/AIDotNet/TKCode.Arc">
@@ -35,7 +42,7 @@ source-hash: d2bff149a7c5
 </UserControl>
 ```
 
-`CodeBlock` 衍生自 Avalonia 的 `TemplatedControl`，因此擁有控制項常見的版面配置、樣式與自動化行為。它不是 `TextBox`：`Code` 是它唯一接受的文字，文字為唯讀，框體在程式碼區域之外還有標題列與可選的展開列。語法醒目提示使用 StreamMark 引擎的 TextMate 語法，並以 Arc 的語法角色顏色繪製。
+`CodeBlock` 衍生自 Avalonia 的 `TemplatedControl`，因此擁有控制項常見的版面配置、樣式與自動化行為。它不是 `TextBox`：`Code` 是它唯一接受的文字，文字為唯讀，框體在程式碼區域之外還有標題列與可選的展開列。語法醒目提示使用 StreamMark 引擎的 TextMate 語法（透過 `TKCode.Arc.Highlighting`），並以 Arc 的語法角色顏色繪製。
 
 ### 結構
 

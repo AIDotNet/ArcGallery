@@ -39,6 +39,14 @@ text in a panel, a chat bubble or a document view looks like the rest of the app
 
 ## Usage
 
+Add the `TKCode.Arc.Markdown` package and register it in `UseArc`. Add `TKCode.Arc.Highlighting` and
+`UseArcHighlighting()` too when fenced code should be colored; without it code blocks are plain text:
+
+```csharp
+AppBuilder.Configure<App>()
+    .UseArc(arc => arc.UseArcControls().UseArcMarkdown().UseArcHighlighting());
+```
+
 Static text is set with `Text`. The document grows with its content and has no internal scrolling.
 
 ```xml
@@ -194,7 +202,8 @@ not survive. Use the `DocumentReady` event rather than a timer when the host res
 `MarkdownHighlightPlugin` highlights fenced code with the TextMate grammars that `CodeBlock` also uses, and paints each
 role in Arc's syntax palette for light or dark mode. Comments are italic. A language without a grammar stays plain text,
 so an unknown tag never fails the document. The plugin is part of the default services. Pass language names to its
-constructor to load those grammars in the background before the first block asks for them.
+constructor to load those grammars in the background before the first block asks for them. The grammars come from
+`TKCode.Arc.Highlighting`: without `UseArcHighlighting()` the plugin supports no language and every block is plain text.
 
 ```csharp
 markdown.Services = new MarkdownServices
