@@ -25,6 +25,8 @@ source-hash: 930f505bb4f7
 
 沒有框架也沒有模擬（見下文）時，卡片顯示三個步驟與空白的程式碼片段（上方的 Empty 分頁）。沒有設定金鑰產生器時，「產生金鑰」會編造一把展示金鑰並據實說明：不會傳送任何內容。傳入你自己的框架和金鑰端點：
 
+程式碼著色需要高亮器：加入 `TKCode.Arc.Highlighting`，並在 `UseArc(...)` 中呼叫 `UseArcHighlighting()`；自 1.2.0 起 `UseArcSpecial()` 不再自動啟用它。沒有它時，程式碼以一般文字顏色顯示。
+
 ```csharp
 snippet.KeyGenerator = async token =>
 {

@@ -31,6 +31,9 @@ With no frameworks and no simulation (below) the card shows its three steps over
 With no key generator, Generate key invents a demo key and says so: nothing is sent. Give it your own frameworks and your
 key endpoint:
 
+Colored code needs the highlighter: add `TKCode.Arc.Highlighting` and call `UseArcHighlighting()` in `UseArc(...)`; from
+1.2.0 `UseArcSpecial()` no longer enables it. Without it the code shows in the plain text color.
+
 ```csharp
 snippet.KeyGenerator = async token =>
 {

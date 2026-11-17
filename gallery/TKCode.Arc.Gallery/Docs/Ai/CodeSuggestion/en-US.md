@@ -31,6 +31,9 @@ Give the card the file in `Code`, the changes in `Hunks` and set `Status`. Each 
 lines starting at the zero based line `Start` with its `Insert` lines (remove 0 inserts before `Start`, an empty insert
 deletes). Hunks that overlap one before them are ignored. With no code and no hunks the card shows an empty file.
 
+Colored code needs the highlighter: add `TKCode.Arc.Highlighting` and call `UseArcHighlighting()` in `UseArc(...)`; from
+1.2.0 `UseArcSpecial()` no longer enables it. Without it the code shows in the plain text color.
+
 ```xml
 <arc:CodeSuggestion FileName="load.ts"
                     FilePath="src/api"

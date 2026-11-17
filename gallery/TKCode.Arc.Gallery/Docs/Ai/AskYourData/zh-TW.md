@@ -24,6 +24,8 @@ source-hash: d8e6b2801e65
 
 透過三個委派把卡片接上你的模型與唯讀資料庫角色。一個委派都沒有時，它會播放它的 `Simulation`，也就是由你提供的答案；兩者都沒有時，它會停在空狀態（「Ask a question about your data」），提問按鈕無法使用。
 
+程式碼著色需要高亮器：加入 `TKCode.Arc.Highlighting`，並在 `UseArc(...)` 中呼叫 `UseArcHighlighting()`；自 1.2.0 起 `UseArcSpecial()` 不再自動啟用它。沒有它時，程式碼以一般文字顏色顯示。
+
 ```xml
 <arc:AskYourData Placeholder="Ask about your orders" />
 ```

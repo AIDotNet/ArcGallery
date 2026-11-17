@@ -26,6 +26,8 @@ source-hash: 80e80ed9e469
 
 把檔案放進 `Code`，把變更放進 `Hunks`，並設定 `Status`。每個 `CodeSuggestionHunk` 從由零起算的第 `Start` 行開始，用它的 `Insert` 行取代 `Remove` 行（remove 為 0 時在 `Start` 之前插入，insert 為空時表示刪除）。與前面某個差異區塊重疊的差異區塊會被忽略。既沒有程式碼也沒有差異區塊時，卡片顯示一個空白檔案。
 
+程式碼著色需要高亮器：加入 `TKCode.Arc.Highlighting`，並在 `UseArc(...)` 中呼叫 `UseArcHighlighting()`；自 1.2.0 起 `UseArcSpecial()` 不再自動啟用它。沒有它時，程式碼以一般文字顏色顯示。
+
 ```xml
 <arc:CodeSuggestion FileName="load.ts"
                     FilePath="src/api"
