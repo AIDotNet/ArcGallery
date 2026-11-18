@@ -21,13 +21,13 @@
         <RuntimeIdentifiers>android-arm64</RuntimeIdentifiers>
         <RuntimeIdentifiers Condition="'$(ArcAndroidEmulator)' == 'true'">android-arm64;android-x64</RuntimeIdentifiers>
         <AndroidPackageFormat>apk</AndroidPackageFormat>
+        <!-- The gallery is trimming safe (AGENTS.md), so the linker may remove everything unused, not only what the SDK allows. -->
+        <TrimMode>full</TrimMode>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Avalonia.Android" />
         <PackageReference Include="Avalonia.Fonts.Inter" />
         <ProjectReference Include="../TKCode.Arc.Gallery/TKCode.Arc.Gallery.csproj" />
-        <ProjectReference Include="../TKCode.Arc.Gallery.Shots/TKCode.Arc.Gallery.Shots.csproj" />
-        <ProjectReference Include="../TKCode.Arc.Gallery.Content/TKCode.Arc.Gallery.Content.csproj" />
         <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Fonts/TKCode.Arc.Fonts.csproj" />
         <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Icons.Lucide/TKCode.Arc.Icons.Lucide.csproj" />
     </ItemGroup>
@@ -38,11 +38,7 @@
     <ItemGroup>
         <AvaloniaResource Include="../TKCode.Arc.Gallery.Browser/wwwroot/friends/*.png" Link="Friends/%(Filename)%(Extension)" />
     </ItemGroup>
-    <!-- The screenshots and the page text are resource-only assemblies that Avalonia finds by name; the linker would drop them. -->
-    <ItemGroup>
-        <TrimmerRootAssembly Include="TKCode.Arc.Gallery.Shots" />
-        <TrimmerRootAssembly Include="TKCode.Arc.Gallery.Content" />
-    </ItemGroup>
+    <!-- No screenshots or page text assemblies (35 MB): SiteFiles fetches them from the site. -->
     <!-- Release signing: with -p:ArcApk=true and the ARC_ANDROID_KEYSTORE* variables set (gallery-android.yml) the APK is signed
          with that key; without them a debug key signs it, which installs the same way but is not a key to publish updates with. -->
     <PropertyGroup Condition="'$(ArcApk)' == 'true' And '$(ARC_ANDROID_KEYSTORE)' != ''">

@@ -26,12 +26,22 @@ public interface IGalleryLanguageStore
 /// </summary>
 public static class GalleryLanguages
 {
-    /// <summary>Every language of the gallery, in menu order.</summary>
-    public static IReadOnlyList<GalleryLanguage> All { get; } =
+    private static readonly GalleryLanguage[] s_everything =
         [new("en-US", "English"), new("zh-CN", "简体中文"), new("zh-TW", "繁體中文")];
 
+    /// <summary>Every language the host offers, in menu order: all of the gallery's unless <see cref="Restrict"/> narrowed them.</summary>
+    public static IReadOnlyList<GalleryLanguage> All { get; private set; } = s_everything;
+
     /// <summary>The tags of <see cref="All"/>, for <c>UseLanguages</c>.</summary>
-    public static LanguageTag[] Tags => [LanguageTags.EnUS, LanguageTags.ZhCN, LanguageTags.ZhTW];
+    public static LanguageTag[] Tags => All.Select(language => LanguageTag.Parse(language.Tag)).ToArray();
+
+    /// <summary>
+    /// Offers only <paramref name="tags"/> (a subset of the gallery's languages, in menu order); a visitor whose language is
+    /// left out gets the closest one (Traditional Chinese falls back to Simplified). The Android app uses it to leave out the
+    /// pages it would have to fetch for one more language. Call it before the application is built.
+    /// </summary>
+    public static void Restrict(params string[] tags) =>
+        All = s_everything.Where(language => tags.Contains(language.Tag)).ToArray();
 
     /// <summary>Where the visitor's choice is kept; set by the host before the application is built.</summary>
     public static IGalleryLanguageStore? Store { get; set; }
@@ -57,6 +67,15 @@ public static class GalleryLanguages
         {
             return null;
         }
+        return Offered(MatchChinese(parts));
+    }
+
+    /// <summary>A language the host does not offer is replaced by the Chinese it does (Traditional falls back to Simplified).</summary>
+    private static string? Offered(string tag) =>
+        All.Any(language => language.Tag == tag) ? tag : All.Any(language => language.Tag == "zh-CN") ? "zh-CN" : null;
+
+    private static string MatchChinese(string[] parts)
+    {
         foreach (var part in parts.Skip(1))
         {
             switch (part.ToLowerInvariant())

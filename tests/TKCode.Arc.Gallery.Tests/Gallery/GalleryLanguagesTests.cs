@@ -54,6 +54,29 @@ public class GalleryLanguagesTests
     public void Match_Maps_A_System_Language_To_A_Gallery_Language(string? tag, string? expected)
         => GalleryLanguages.Match(tag).ShouldBe(expected);
 
+    // An AvaloniaFact: those run one after another on the UI thread, so no other test reads the language list while it is narrowed.
+    [AvaloniaFact]
+    public void A_Host_Can_Offer_Fewer_Languages_And_Traditional_Chinese_Falls_Back_To_Simplified()
+    {
+        var all = GalleryLanguages.All.Select(language => language.Tag).ToArray();
+        try
+        {
+            GalleryLanguages.Restrict("en-US", "zh-CN");
+            GalleryLanguages.All.Select(language => language.Tag).ShouldBe(["en-US", "zh-CN"]);
+            GalleryLanguages.Tags.Select(tag => tag.Value).ShouldBe(["en-US", "zh-CN"]);
+            GalleryLanguages.Match("zh-TW").ShouldBe("zh-CN");
+            GalleryLanguages.Match("zh-Hant-HK").ShouldBe("zh-CN");
+            GalleryLanguages.Match("zh-CN").ShouldBe("zh-CN");
+            GalleryLanguages.Match("en-GB").ShouldBe("en-US");
+            GalleryLanguages.Match("ja-JP").ShouldBeNull();
+        }
+        finally
+        {
+            GalleryLanguages.Restrict(all);
+        }
+        GalleryLanguages.Match("zh-TW").ShouldBe("zh-TW");
+    }
+
     [Fact]
     public void Initial_Prefers_The_Kept_Choice_Then_The_First_Known_Preferred_Language()
     {
