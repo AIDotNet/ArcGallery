@@ -169,6 +169,15 @@ public static partial class GalleryCatalog
                 "View a PDF with thumbnails, a table of contents, search, text selection, links and password prompts, rendered by PDFium on desktop and pdf.js in a browser.",
                 IsArc: false, AddedOn: "2026-11-08"),
         ], IsArc: false),
+        new("Graphics3D", "3D", "三维",
+        [
+            new("Viewport3D", "3D viewport", "viewport-3d", 0,
+                "Draw a 3D scene of your own inside the window: meshes, physically based materials, lights and shadows, drawn only when something changes, with other controls on top.",
+                IsArc: false, AddedOn: "2026-11-17"),
+            new("ModelViewer", "Model viewer", "model-viewer", 0,
+                "Show a glTF model, or one built in code, on a lit stage with a ground shadow: orbit, zoom and pan it, let it turn slowly, and reset the view.",
+                IsArc: false, AddedOn: "2026-11-17"),
+        ], IsArc: false),
         new("Agents", "Agents", "智能体",
         [
             new("A2UISurfaceView", "A2UI surface", "a2ui-surface", 0,
@@ -606,13 +615,16 @@ public static partial class GalleryCatalog
     /// <summary>The PDF group (TKCode.Arc.Pdf); listed after Video, not part of the Arc components.</summary>
     public static GalleryCategory Pdf => Extras[4];
 
-    /// <summary>The agents group (TKCode.Arc.A2UI); listed after PDF, not part of the Arc components.</summary>
-    public static GalleryCategory Agents => Extras[5];
+    /// <summary>The 3D group (TKCode.Arc.Graphics3D.Controls); listed after PDF, not part of the Arc components.</summary>
+    public static GalleryCategory Graphics3D => Extras[5];
 
-    /// <summary>The Components section of the sidebar: Arc's groups with Advanced charts, Workflow, Dock, Video, PDF and Agents after Charts, then the other extras.</summary>
+    /// <summary>The agents group (TKCode.Arc.A2UI); listed after 3D, not part of the Arc components.</summary>
+    public static GalleryCategory Agents => Extras[6];
+
+    /// <summary>The Components section of the sidebar: Arc's groups with Advanced charts, Workflow, Dock, Video, PDF, 3D and Agents after Charts, then the other extras.</summary>
     public static IEnumerable<GalleryCategory> AllCategories => s_allCategories ??=
-        Categories.SelectMany(c => c.Code == "Charts" ? new[] { c, AdvancedCharts, Workflow, Dock, Video, Pdf, Agents } : new[] { c })
-                  .Concat(Extras.Where(e => !ReferenceEquals(e, AdvancedCharts) && !ReferenceEquals(e, Workflow) && !ReferenceEquals(e, Dock) && !ReferenceEquals(e, Video) && !ReferenceEquals(e, Pdf) && !ReferenceEquals(e, Agents)))
+        Categories.SelectMany(c => c.Code == "Charts" ? new[] { c, AdvancedCharts, Workflow, Dock, Video, Pdf, Graphics3D, Agents } : new[] { c })
+                  .Concat(Extras.Where(e => !ReferenceEquals(e, AdvancedCharts) && !ReferenceEquals(e, Workflow) && !ReferenceEquals(e, Dock) && !ReferenceEquals(e, Video) && !ReferenceEquals(e, Pdf) && !ReferenceEquals(e, Graphics3D) && !ReferenceEquals(e, Agents)))
                   .ToArray();
 
     // The lists below are built once, when first read: they are read on every page opening. Not in field initializers, whose

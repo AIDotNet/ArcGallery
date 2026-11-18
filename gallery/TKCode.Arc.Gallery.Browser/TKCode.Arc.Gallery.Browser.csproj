@@ -37,6 +37,9 @@
         <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Audio.Browser/TKCode.Arc.Audio.Browser.csproj" />
         <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Video.Browser/TKCode.Arc.Video.Browser.csproj" />
         <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Pdf.Browser/TKCode.Arc.Pdf.Browser.csproj" />
+        <!-- The 3D viewports' WebGL 2 context. It needs nothing else here: its OpenGL ES calls go to the Emscripten GL layer that
+             Avalonia.Browser already links for Skia (-lGL, WebGL 2 allowed). -->
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Graphics3D.Browser/TKCode.Arc.Graphics3D.Browser.csproj" />
         <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Icons.Lucide/TKCode.Arc.Icons.Lucide.csproj" />
     </ItemGroup>
     <!-- .NET 11 WebAssembly needs Skia and HarfBuzz compiled with a newer Emscripten than the SkiaSharp 3.119 that Avalonia 12.1 brings:

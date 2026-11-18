@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.Viewport3DPreviewDemo">
+    <!-- A scene built in the code-behind: drag to orbit, scroll to zoom. The card is an ordinary control drawn over the
+         viewport; its switch starts and stops the animation. Without a graphics context the message shows instead. -->
+    <Grid MaxWidth="720" Height="360">
+        <Border CornerRadius="{arc:ArcDesignTokenResource RadiusPanel}" ClipToBounds="True">
+            <arc:Viewport3D x:Name="Viewport"
+                            StageBrush="{arc:Viewport3DTokenResource StageColor}"
+                            AutomationProperties.Name="A red box and a blue sphere on a gray floor" />
+        </Border>
+        <TextBlock Text="{Binding #Viewport.RendererError}"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="360"
+                   TextWrapping="Wrap" TextAlignment="Center"
+                   Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="16" Padding="14,10"
+                Background="{arc:ArcDesignTokenResource Surface}"
+                CornerRadius="{arc:ArcDesignTokenResource RadiusStep12}"
+                BoxShadow="{arc:ArcDesignTokenResource ShadowRaised}">
+            <arc:Switch x:Name="Spin" Content="Spin the box" />
+        </Border>
+    </Grid>
+</UserControl>

@@ -60,6 +60,8 @@ internal sealed partial class Program
         };
         // The PDF page imports pdf.js (about 110 KB compressed, and a worker of 310 KB when a document opens) before it builds its demos: other visits never fetch it.
         GalleryModules.PdfBackend = static () => ArcPdfBrowser.UseAsync();
+        // The 3D viewports draw in a WebGL 2 context of the page (TKCode.Arc.Graphics3D.Browser); the pages of the 3D group ask for it.
+        GalleryModules.Graphics3DBackend = static () => ArcGraphics3DBrowser.UseAsync();
         // A visitor who reads Chinese needs the font for the first frame: fetched here, the page keeps breathing meanwhile; asked
         // for by the first text layout, the request would stop it.
         var language = GalleryLanguages.Initial(BrowserLanguageStore.Preferred());

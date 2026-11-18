@@ -16,7 +16,7 @@ public interface IGalleryAssemblyLoader
 
 /// <summary>
 /// The parts of the gallery a host can load when a page first needs them: a PDF renderer (<see cref="PdfBackend"/>), real sound
-/// and video (<see cref="MediaBackend"/>), and the Special
+/// and video (<see cref="MediaBackend"/>), the 3D viewports' graphics context (<see cref="Graphics3DBackend"/>), and the Special
 /// components (TKCode.Arc.Special), which only the pages of the Special section show. A host that passes an <see cref="IGalleryAssemblyLoader"/> to
 /// <c>UseArcGallery</c> starts without them; opening a Special page loads the assembly and enables its package
 /// (<see cref="ArcRuntime.UsePackages"/>) before the page builds its demos. Every other host has them from the start.
@@ -34,6 +34,8 @@ public static class GalleryModules
     private static Task<bool>? s_special;
     private static Func<Task<bool>>? s_mediaBackend;
     private static Task<bool>? s_media;
+    private static Func<Task<bool>>? s_graphics3DBackend;
+    private static Task<bool>? s_graphics3D;
 
     /// <summary>Whether the Special components are left out until a page needs them.</summary>
     public static bool LoadsOnDemand => s_loader is not null;
@@ -41,7 +43,7 @@ public static class GalleryModules
     /// <summary>Whether <paramref name="entry"/>'s page can be built now: it needs no part that still has to be loaded.</summary>
     /// <param name="entry">The page's entry.</param>
     public static bool IsReady(GalleryEntry entry)
-        => !NeedsPdfBackend(entry) && !NeedsMediaBackend(entry) && (s_loader is null || !NeedsSpecial(entry) || s_special is { IsCompletedSuccessfully: true, Result: true });
+        => !NeedsPdfBackend(entry) && !NeedsMediaBackend(entry) && !NeedsGraphics3DBackend(entry) && (s_loader is null || !NeedsSpecial(entry) || s_special is { IsCompletedSuccessfully: true, Result: true });
 
     /// <summary>
     /// Loads and enables what <paramref name="entry"/>'s page needs; true when the page can be built, false when a part
@@ -52,6 +54,7 @@ public static class GalleryModules
         NeedsSpecial(entry) ? EnsureSpecialAsync()
         : NeedsPdfBackend(entry) ? EnsurePdfBackendAsync()
         : NeedsMediaBackend(entry) ? EnsureMediaBackendAsync()
+        : NeedsGraphics3DBackend(entry) ? EnsureGraphics3DBackendAsync()
         : Task.FromResult(true);
 
     /// <summary>
@@ -92,6 +95,30 @@ public static class GalleryModules
     private static async Task<bool> EnsureMediaBackendAsync()
     {
         await (s_media ??= s_mediaBackend!());
+        return true;
+    }
+
+    /// <summary>
+    /// Gives the 3D viewports a graphics context on a host where they have none by themselves (the WebAssembly host: a WebGL 2
+    /// context of the page, TKCode.Arc.Graphics3D.Browser). Asked for once, before the page of a 3D component builds its demos.
+    /// If it answers false the page still opens: its viewports then say why they show no picture.
+    /// </summary>
+    public static Func<Task<bool>>? Graphics3DBackend
+    {
+        get => s_graphics3DBackend;
+        set
+        {
+            s_graphics3DBackend = value;
+            s_graphics3D = null;
+        }
+    }
+
+    private static bool NeedsGraphics3DBackend(GalleryEntry entry) =>
+        s_graphics3DBackend is not null && s_graphics3D is not { IsCompleted: true } && GalleryCatalog.Graphics3D.AllEntries.Contains(entry);
+
+    private static async Task<bool> EnsureGraphics3DBackendAsync()
+    {
+        await (s_graphics3D ??= s_graphics3DBackend!());
         return true;
     }
 

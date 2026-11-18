@@ -12,7 +12,7 @@ public static class GalleryBuilderExtensions
     /// Markdown and ChatThread (<c>UseArcMarkdown()</c>), colored code (<c>UseArcHighlighting()</c>), the
     /// blocks (<c>UseArcBlocks()</c>), the mobile components (<c>UseArcMobile()</c>), the Pixel and corner styles the
     /// Appearance panel offers (<c>UseArcPixelTheme()</c>, <c>UseArcCorners()</c>), <c>UseArcAdvancedCharts()</c>,
-    /// <c>UseArcWorkflow()</c>, <c>UseArcDock()</c>, <c>UseArcVideo()</c>, <c>UseArcPdf()</c> and <c>UseArcSpecial()</c>. Call it inside <c>UseArc(...)</c> in every host that shows a
+    /// <c>UseArcWorkflow()</c>, <c>UseArcDock()</c>, <c>UseArcVideo()</c>, <c>UseArcPdf()</c>, <c>UseArcGraphics3D()</c> and <c>UseArcSpecial()</c>. Call it inside <c>UseArc(...)</c> in every host that shows a
     /// <see cref="Shell.GalleryWindow"/>; the host's <c>UseLanguages</c> decides which of the translations are used.
     /// </summary>
     /// <param name="builder">The Arc builder.</param>
@@ -43,6 +43,7 @@ public static class GalleryBuilderExtensions
             .DependsOn(static b => b.UseArcDock())
             .DependsOn(static b => b.UseArcVideo())
             .DependsOn(static b => b.UseArcPdf())
+            .DependsOn(static b => b.UseArcGraphics3D())
             .DependsOn(static b => b.UseArcMobile())
             .DependsOn(static b => b.UseArcPixelTheme())
             .DependsOn(static b => b.UseArcCorners()));

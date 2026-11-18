@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.ModelViewerLightingDemo">
+    <!-- Environment, AutoRotate and ShadowIntensity from ordinary controls. AutoRotate binds both ways, so the switch
+         follows the viewer's own button; the model turns only at full motion. -->
+    <StackPanel Spacing="16" MaxWidth="720">
+        <arc:ModelViewer x:Name="Viewer" Height="340"
+                         AutomationProperties.Name="A gold sphere, a red box and a white cone" />
+        <WrapPanel ItemSpacing="24" LineSpacing="12">
+            <arc:SegmentedControl x:Name="Environments"
+                                  AutomationProperties.Name="Environment"
+                                  VerticalAlignment="Center"
+                                  SelectedValue="Studio">
+                <arc:SegmentedOption Value="Studio" Label="Studio" />
+                <arc:SegmentedOption Value="Outdoor" Label="Outdoor" />
+                <arc:SegmentedOption Value="None" Label="None" />
+            </arc:SegmentedControl>
+            <arc:Switch Content="Auto-rotate" VerticalAlignment="Center"
+                        IsChecked="{Binding #Viewer.AutoRotate, Mode=TwoWay}" />
+            <arc:Slider x:Name="Shadow" Label="Shadow" Minimum="0" Maximum="100" Value="35" Width="220" />
+        </WrapPanel>
+    </StackPanel>
+</UserControl>

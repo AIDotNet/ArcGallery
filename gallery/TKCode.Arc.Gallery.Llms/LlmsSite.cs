@@ -59,6 +59,7 @@ public static partial class LlmsSite
         ["TKCode.Arc.Dock"] = "UseArcDock()",
         ["TKCode.Arc.Pdf"] = "UseArcPdf()",
         ["TKCode.Arc.Video"] = "UseArcVideo()",
+        ["TKCode.Arc.Graphics3D.Controls"] = "UseArcGraphics3D()",
         ["TKCode.Arc.Special"] = "UseArcSpecial()",
     };
 

@@ -56,6 +56,7 @@ public class GalleryNewBadgeTests
             .Concat(GalleryCatalog.Dock.AllEntries)
             .Concat(GalleryCatalog.Video.AllEntries)
             .Concat(GalleryCatalog.Pdf.AllEntries)
+            .Concat(GalleryCatalog.Graphics3D.AllEntries)
             .ToList();
         entries.Count.ShouldBeGreaterThan(0);
         entries.Where(e => !DateOnly.TryParseExact(e.AddedOn, "yyyy-MM-dd", out _)).Select(e => e.ClassName).ShouldBeEmpty();

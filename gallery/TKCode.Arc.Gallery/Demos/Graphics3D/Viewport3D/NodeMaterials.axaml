@@ -1,0 +1,15 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.Viewport3DNodeMaterialsDemo">
+    <!-- Three materials written as node graphs in the code-behind: marble, a wobbling blob and hologram stripes.
+         The slider changes a uniform of the hologram. -->
+    <StackPanel Spacing="12" MaxWidth="720">
+        <Border Height="320" CornerRadius="{arc:ArcDesignTokenResource RadiusPanel}" ClipToBounds="True">
+            <arc:Viewport3D x:Name="Viewport"
+                            ToneMapping="AcesFilmic"
+                            AutomationProperties.Name="A marble sphere, a wobbling blob and a striped hologram sphere" />
+        </Border>
+        <arc:Slider x:Name="Speed" Label="Stripe speed" Minimum="0" Maximum="8" Value="4" MaxWidth="280" HorizontalAlignment="Left" />
+    </StackPanel>
+</UserControl>

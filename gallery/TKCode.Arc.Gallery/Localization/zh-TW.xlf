@@ -127,6 +127,12 @@
         <target state="translated">PDF 文件</target>
       </segment>
     </unit>
+    <unit id="Category_Graphics3D">
+      <segment>
+        <source>3D</source>
+        <target state="translated">三維</target>
+      </segment>
+    </unit>
     <unit id="Category_Agents">
       <segment>
         <source>Agents</source>

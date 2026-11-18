@@ -828,6 +828,10 @@
         <source>Every word the builder shows or reads out (see `AgentBuilderLabels`).</source>
         <target>构建器显示或读出的所有文字（见 `AgentBuilderLabels`）。</target>
       </trans-unit>
+      <trans-unit id="AgentBuilder.PublishState">
+        <source>Draft, Published or Unpublished changes, from `SavedConfig`, `PublishedConfig` and the draft.</source>
+        <target>Draft、Published 或 Unpublished changes，由 `SavedConfig`、`PublishedConfig` 和草稿得出。</target>
+      </trans-unit>
       <trans-unit id="AgentBuilder.Published">
         <source>Raised after a publish went through, with what was published.</source>
         <target>发布成功后触发，带有发布的内容。</target>
@@ -836,13 +840,13 @@
         <source>What people use (two-way); null means the agent was never published (the badge says Draft).</source>
         <target>人们正在使用的内容（双向）；null 表示智能体从未发布（标签显示 Draft）。</target>
       </trans-unit>
-      <trans-unit id="AgentBuilder.PublishState">
-        <source>Draft, Published or Unpublished changes, from `SavedConfig`, `PublishedConfig` and the draft.</source>
-        <target>Draft、Published 或 Unpublished changes，由 `SavedConfig`、`PublishedConfig` 和草稿得出。</target>
-      </trans-unit>
       <trans-unit id="AgentBuilder.Responder">
         <source>Answers the test chat; null uses `AgentBuilderSimulatedResponder`, which calls no model.</source>
         <target>回答测试对话；null 时使用 `AgentBuilderSimulatedResponder`，它不调用任何模型。</target>
+      </trans-unit>
+      <trans-unit id="AgentBuilder.SaveError">
+        <source>The message of the last failed save or publish; null after a success.</source>
+        <target>上一次失败的保存或发布的消息；成功后为 null。</target>
       </trans-unit>
       <trans-unit id="AgentBuilder.Saved">
         <source>Raised after a save went through, with what was saved.</source>
@@ -851,10 +855,6 @@
       <trans-unit id="AgentBuilder.SavedConfig">
         <source>What is saved (two-way). Null when the builder first shows takes the settings on screen as saved. Discard returns to it; the save bar and `IsDirty` compare the draft with it.</source>
         <target>已保存的内容（双向）。构建器第一次显示时如果为 null，屏幕上的设置就算作已保存。Discard 会回到它；保存栏和 `IsDirty` 用它与草稿比较。</target>
-      </trans-unit>
-      <trans-unit id="AgentBuilder.SaveError">
-        <source>The message of the last failed save or publish; null after a success.</source>
-        <target>上一次失败的保存或发布的消息；成功后为 null。</target>
       </trans-unit>
       <trans-unit id="AgentBuilder.SelectedModelId">
         <source>The id of the chosen model in `Models` (two-way: the model pill and the test chat's model button edit it).</source>
@@ -1056,13 +1056,13 @@
         <source>Raised when the detail view of an agent opens (a card, the keyboard or `Open`).</source>
         <target>打开一个智能体的详情视图时触发（卡片、键盘或 `Open`）。</target>
       </trans-unit>
-      <trans-unit id="AgentGallery.Agents">
-        <source>The agents. A list that reports its changes (an `ObservableCollection`) is followed. Default: fourteen invented sample agents (`Agents`).</source>
-        <target>智能体列表。会跟随能报告变化的列表（`ObservableCollection`）。默认：十四个虚构的示例智能体（`Agents`）。</target>
-      </trans-unit>
       <trans-unit id="AgentGallery.AgentUninstalled">
         <source>Raised after an agent was removed and its id left `InstalledIds`.</source>
         <target>智能体被移除、id 已离开 `InstalledIds` 后触发。</target>
+      </trans-unit>
+      <trans-unit id="AgentGallery.Agents">
+        <source>The agents. A list that reports its changes (an `ObservableCollection`) is followed. Default: fourteen invented sample agents (`Agents`).</source>
+        <target>智能体列表。会跟随能报告变化的列表（`ObservableCollection`）。默认：十四个虚构的示例智能体（`Agents`）。</target>
       </trans-unit>
       <trans-unit id="AgentGallery.Categories">
         <source>The categories, in pill order after "All". Default: the six sample categories.</source>
@@ -1072,13 +1072,13 @@
         <source>Culture of every count and date (default "en-US").</source>
         <target>所有数字和日期使用的区域（默认 "en-US"）。</target>
       </trans-unit>
-      <trans-unit id="AgentGallery.InstalledIds">
-        <source>The ids of the installed agents (two-way: an install adds its id, an uninstall removes it).</source>
-        <target>已安装智能体的 id（双向：安装会加入 id，卸载会移除 id）。</target>
-      </trans-unit>
       <trans-unit id="AgentGallery.InstallFailed">
         <source>Raised when `InstallAsync` threw, with the message shown.</source>
         <target>`InstallAsync` 抛出异常时触发，带有显示的错误信息。</target>
+      </trans-unit>
+      <trans-unit id="AgentGallery.InstalledIds">
+        <source>The ids of the installed agents (two-way: an install adds its id, an uninstall removes it).</source>
+        <target>已安装智能体的 id（双向：安装会加入 id，卸载会移除 id）。</target>
       </trans-unit>
       <trans-unit id="AgentGallery.Labels">
         <source>The built-in text; replace the object to reword or translate the gallery.</source>
@@ -1644,6 +1644,10 @@
         <source>One past run of a routine.</source>
         <target>例行任务过去的一次运行。</target>
       </trans-unit>
+      <trans-unit id="AgentRoutineSchedule">
+        <source>Five-field cron schedules (minute, hour, day of month, month, day of week) as `AgentRoutines` shows them: the next run time and a plain English description. Fields take `*`, numbers, ranges (`1-5`), lists (`1,3,5`) and steps (`*/15`, `8-18/2`); day of week counts Sunday as 0 (7 is Sunday too). When both the day of month and the day of week are set, a day matching either runs, as in classic cron.</source>
+        <target>`AgentRoutines` 所用的五字段 cron 计划（分钟、小时、日期、月份、星期）：下次运行时间和平实的英文描述。字段可以是 `*`、数字、范围（`1-5`）、列表（`1,3,5`）和步长（`*/15`、`8-18/2`）；星期以星期日为 0（7 也是星期日）。日期和星期都设置时，与经典 cron 一样，符合其中之一的日子就会运行。</target>
+      </trans-unit>
       <trans-unit id="AgentRoutines">
         <source>Scheduled agent routines: each row shows the routine's name and agent, its schedule in words with the next run time, a strip of its recent outcomes, a switch that pauses or resumes it, and Run now. Opening a row shows the agent's instructions and the recent runs with their results. Give it your routines through `Routines` and a `RunHandler` that starts a run on your backend; without them it shows sample routines and Run now plays a short stand-in run. Schedules are five-field cron expressions (`AgentRoutineSchedule`).</source>
         <target>按计划执行的智能体例行任务：每行显示名称和智能体、用文字描述的计划和下次运行时间、近期结果条、暂停或恢复的开关以及 Run now。展开一行可以看到智能体的指令和近期运行及结果。通过 `Routines` 提供你的例行任务，并用 `RunHandler` 在你的后端启动运行；不提供时显示示例例行任务，Run now 播放一次简短的替身运行。计划是五字段 cron 表达式（`AgentRoutineSchedule`）。</target>
@@ -1675,10 +1679,6 @@
       <trans-unit id="AgentRoutines.RunRequested">
         <source>Raised when the person presses Run now, before the run starts.</source>
         <target>用户按下 Run now 时、运行开始前引发。</target>
-      </trans-unit>
-      <trans-unit id="AgentRoutineSchedule">
-        <source>Five-field cron schedules (minute, hour, day of month, month, day of week) as `AgentRoutines` shows them: the next run time and a plain English description. Fields take `*`, numbers, ranges (`1-5`), lists (`1,3,5`) and steps (`*/15`, `8-18/2`); day of week counts Sunday as 0 (7 is Sunday too). When both the day of month and the day of week are set, a day matching either runs, as in classic cron.</source>
-        <target>`AgentRoutines` 所用的五字段 cron 计划（分钟、小时、日期、月份、星期）：下次运行时间和平实的英文描述。字段可以是 `*`、数字、范围（`1-5`）、列表（`1,3,5`）和步长（`*/15`、`8-18/2`）；星期以星期日为 0（7 也是星期日）。日期和星期都设置时，与经典 cron 一样，符合其中之一的日子就会运行。</target>
       </trans-unit>
       <trans-unit id="AgentRoutinesLabels">
         <source>Every word an `AgentRoutines` list shows or reads out, with English defaults. Words built from values are functions, so an app can apply its own grammar. Assign a new instance to `Labels` to change them.</source>
@@ -1736,13 +1736,13 @@
         <source>Where the run stands (two-way: Stop sets Stopped, and the sample run sets every state).</source>
         <target>运行所处的状态（双向：Stop 设为 Stopped，示例运行会设置每种状态）。</target>
       </trans-unit>
-      <trans-unit id="AgentRun.Steps">
-        <source>The steps in the order they happened. A collection that raises change notifications (such as an `ObservableCollection`) is followed as steps arrive; each step's own changes are followed too. Null (the default) plays the built-in sample run.</source>
-        <target>按发生顺序排列的步骤。会跟随能发出变更通知的集合（例如 `ObservableCollection`）中新到的步骤，也会跟随每个步骤自身的变化。Null（默认）播放内置示例运行。</target>
-      </trans-unit>
       <trans-unit id="AgentRun.StepToggled">
         <source>Raised when a step's detail opens or closes.</source>
         <target>步骤详情展开或收起时引发。</target>
+      </trans-unit>
+      <trans-unit id="AgentRun.Steps">
+        <source>The steps in the order they happened. A collection that raises change notifications (such as an `ObservableCollection`) is followed as steps arrive; each step's own changes are followed too. Null (the default) plays the built-in sample run.</source>
+        <target>按发生顺序排列的步骤。会跟随能发出变更通知的集合（例如 `ObservableCollection`）中新到的步骤，也会跟随每个步骤自身的变化。Null（默认）播放内置示例运行。</target>
       </trans-unit>
       <trans-unit id="AgentRun.StopRequested">
         <source>Raised when the person presses Stop (before the run is marked stopped). Cancel your agent here.</source>
@@ -3128,13 +3128,13 @@
         <source>One or two sentences on what the feature does.</source>
         <target>一两句话说明功能能做什么。</target>
       </trans-unit>
-      <trans-unit id="AiFeatureLaunch.Dismissed">
-        <source>Raised when the person closes the announcement, with how they closed it.</source>
-        <target>用户关闭公告时触发，并说明是怎样关闭的。</target>
-      </trans-unit>
       <trans-unit id="AiFeatureLaunch.DismissOnTry">
         <source>Whether trying the feature also closes the announcement (with the reason Tried).</source>
         <target>试用功能时是否同时关闭公告（原因为 Tried）。</target>
+      </trans-unit>
+      <trans-unit id="AiFeatureLaunch.Dismissed">
+        <source>Raised when the person closes the announcement, with how they closed it.</source>
+        <target>用户关闭公告时触发，并说明是怎样关闭的。</target>
       </trans-unit>
       <trans-unit id="AiFeatureLaunch.Highlights">
         <source>Two to four short highlights, each shown with a check; null or empty hides the list.</source>
@@ -5504,13 +5504,13 @@
         <source>The Previous button's text ("Previous").</source>
         <target>“上一页”按钮的文字（"Previous"）。</target>
       </trans-unit>
-      <trans-unit id="BlogGrid.ReadingPost">
-        <source>The post open in the reader, or null (read only).</source>
-        <target>阅读器中打开的文章，或 null（只读）。</target>
-      </trans-unit>
       <trans-unit id="BlogGrid.ReadTimeFormat">
         <source>The reading time; {0} is the minutes ("{0} min read").</source>
         <target>阅读时长；{0} 是分钟数（"{0} min read"）。</target>
+      </trans-unit>
+      <trans-unit id="BlogGrid.ReadingPost">
+        <source>The post open in the reader, or null (read only).</source>
+        <target>阅读器中打开的文章，或 null（只读）。</target>
       </trans-unit>
       <trans-unit id="BlogGrid.ShowFeatured">
         <source>Shows the post marked featured, or the newest of the current filter, as a large card on page one (true).</source>
@@ -7084,10 +7084,6 @@
         <source>The button that clears the filters ("Show all").</source>
         <target>清除筛选的按钮（"Show all"）。</target>
       </trans-unit>
-      <trans-unit id="ChangelogFeed.Subscribed">
-        <source>A valid address was submitted. Post it to your mailing list here.</source>
-        <target>提交了有效地址。请在此把它发送到你的邮件列表。</target>
-      </trans-unit>
       <trans-unit id="ChangelogFeed.SubscribeLabel">
         <source>The pill's text ("Subscribe").</source>
         <target>胶囊的文字（"Subscribe"）。</target>
@@ -7095,6 +7091,10 @@
       <trans-unit id="ChangelogFeed.SubscribeState">
         <source>Where the subscribe control stands (read only).</source>
         <target>订阅控件的当前状态（只读）。</target>
+      </trans-unit>
+      <trans-unit id="ChangelogFeed.Subscribed">
+        <source>A valid address was submitted. Post it to your mailing list here.</source>
+        <target>提交了有效地址。请在此把它发送到你的邮件列表。</target>
       </trans-unit>
       <trans-unit id="ChangelogFeed.SubscriptionUndone">
         <source>The confirmation's Undo was pressed.</source>
@@ -7108,13 +7108,13 @@
         <source>The heading ("Changelog").</source>
         <target>标题（"Changelog"）。</target>
       </trans-unit>
-      <trans-unit id="ChangelogFeed.UpdatesWord">
-        <source>The word after any other number ("updates").</source>
-        <target>其他数字后面的词（"updates"）。</target>
-      </trans-unit>
       <trans-unit id="ChangelogFeed.UpdateWord">
         <source>The word after one ("update").</source>
         <target>数字为一时后面的词（"update"）。</target>
+      </trans-unit>
+      <trans-unit id="ChangelogFeed.UpdatesWord">
+        <source>The word after any other number ("updates").</source>
+        <target>其他数字后面的词（"updates"）。</target>
       </trans-unit>
       <trans-unit id="ChangelogSubscribeEventArgs">
         <source>Arguments of `Subscribed` and `SubscriptionUndone`.</source>
@@ -9292,13 +9292,13 @@
         <source>Attaches a confirm popover to any control: a click on the control opens it.</source>
         <target>把确认弹出框附加到任意控件：点击该控件即可打开。</target>
       </trans-unit>
-      <trans-unit id="ConfirmPopover.Cancelled">
-        <source>Raised when the question closes without confirming.</source>
-        <target>问题未经确认就关闭时触发。</target>
-      </trans-unit>
       <trans-unit id="ConfirmPopover.CancelText">
         <source>The cancel button's label.</source>
         <target>取消按钮的文字。</target>
+      </trans-unit>
+      <trans-unit id="ConfirmPopover.Cancelled">
+        <source>Raised when the question closes without confirming.</source>
+        <target>问题未经确认就关闭时触发。</target>
       </trans-unit>
       <trans-unit id="ConfirmPopover.Command">
         <source>Runs when the action is confirmed (after `ConfirmHandler` succeeds, when there is one).</source>
@@ -9308,10 +9308,6 @@
         <source>The parameter of `Command`.</source>
         <target>`Command` 的参数。</target>
       </trans-unit>
-      <trans-unit id="ConfirmPopover.Confirmed">
-        <source>Raised when the action is confirmed.</source>
-        <target>确认操作时触发。</target>
-      </trans-unit>
       <trans-unit id="ConfirmPopover.ConfirmHandler">
         <source>Optional work to run when the confirm button is pressed. The button shows a spinner and Cancel is disabled until it finishes; true closes the question as confirmed, false (or an exception) keeps it open so the person can try again.</source>
         <target>按下确认按钮时执行的可选工作。在它完成前，按钮显示加载动画，取消按钮不可用；返回 true 时作为已确认关闭，返回 false（或抛出异常）时保持打开，方便再试一次。</target>
@@ -9319,6 +9315,10 @@
       <trans-unit id="ConfirmPopover.ConfirmText">
         <source>The confirm button's label: the action as a verb ("Delete").</source>
         <target>确认按钮的文字：以动词表示的操作（“Delete”）。</target>
+      </trans-unit>
+      <trans-unit id="ConfirmPopover.Confirmed">
+        <source>Raised when the action is confirmed.</source>
+        <target>确认操作时触发。</target>
       </trans-unit>
       <trans-unit id="ConfirmPopover.Icon">
         <source>The mark beside the question (a warning triangle by default); null hides it.</source>
@@ -12164,13 +12164,13 @@
         <source>The search text (two-way). Pages whose title contains it stay; their sections and parents open.</source>
         <target>搜索文字（双向）。标题包含它的页面会保留，其分组和上级页面会展开。</target>
       </trans-unit>
-      <trans-unit id="DocsSidebar.SelectionChanged">
-        <source>Raised when `CurrentKey` changes, whether a page was chosen or the key was set in code, through a binding or by your router. Choosing the page that is already current raises `PageInvoked` only.</source>
-        <target>`CurrentKey` 改变时触发，无论是选择了页面，还是在代码中、通过绑定或由你的路由设置了键。选择已经是当前页面的页面只会触发 `PageInvoked`。</target>
-      </trans-unit>
       <trans-unit id="DocsSidebar.SelectedVersion">
         <source>The `Name` of the chosen version (two-way); null means the first.</source>
         <target>所选版本的 `Name`（双向）；为 null 表示第一个。</target>
+      </trans-unit>
+      <trans-unit id="DocsSidebar.SelectionChanged">
+        <source>Raised when `CurrentKey` changes, whether a page was chosen or the key was set in code, through a binding or by your router. Choosing the page that is already current raises `PageInvoked` only.</source>
+        <target>`CurrentKey` 改变时触发，无论是选择了页面，还是在代码中、通过绑定或由你的路由设置了键。选择已经是当前页面的页面只会触发 `PageInvoked`。</target>
       </trans-unit>
       <trans-unit id="DocsSidebar.VersionChanged">
         <source>Raised when another version is chosen in the switcher.</source>
@@ -14808,13 +14808,13 @@
         <source>The error text currently shown, or null while none is shown.</source>
         <target>当前显示的错误文本；未显示任何错误时为 null。</target>
       </trans-unit>
-      <trans-unit id="FormItem.Errors">
-        <source>Every binding error collected from the editors in the item, in document order, shown or not.</source>
-        <target>从项目中编辑器收集到的全部绑定错误，按文档顺序排列，无论是否显示。</target>
-      </trans-unit>
       <trans-unit id="FormItem.ErrorTemplate">
         <source>Template of the error, inline and in the tooltip. Its data is the first error object (usually the string the view model reported); without a template the error is its text.</source>
         <target>错误的模板，用于行内和提示框中。其数据为第一个错误对象（通常是视图模型报告的字符串）；没有模板时，错误即其文本。</target>
+      </trans-unit>
+      <trans-unit id="FormItem.Errors">
+        <source>Every binding error collected from the editors in the item, in document order, shown or not.</source>
+        <target>从项目中编辑器收集到的全部绑定错误，按文档顺序排列，无论是否显示。</target>
       </trans-unit>
       <trans-unit id="FormItem.HasErrors">
         <source>Whether the item takes part in validation and has an error (collected or explicit), shown or not.</source>
@@ -16172,370 +16172,6 @@
         <source>The number as shown ("1.2k").</source>
         <target>显示出来的数字（“1.2k”）。</target>
       </trans-unit>
-      <trans-unit id="ImageTrail">
-        <source>A surface that leaves a trail of pictures behind the pointer: every few dozen px of movement a picture pops in where the pointer is, tilted a little, rests for a moment and sinks away, cycling through `Sources`.</source>
-        <target>一块在指针后面留下一串图片的表面：指针每移动几十像素，就在指针所在处弹出一张略微倾斜的图片，停留片刻后下沉消失，依次循环 `Sources` 中的图片。</target>
-      </trans-unit>
-      <trans-unit id="ImageTrail.ImageCornerRadius">
-        <source>The corner radius of every picture.</source>
-        <target>每张图片的圆角。</target>
-      </trans-unit>
-      <trans-unit id="ImageTrail.ImageSize">
-        <source>The longer side of each picture on the trail, in px.</source>
-        <target>轨迹上每张图片较长一边的长度，单位为 px。</target>
-      </trans-unit>
-      <trans-unit id="ImageTrail.Label">
-        <source>The accessible name of the surface.</source>
-        <target>表面的无障碍名称。</target>
-      </trans-unit>
-      <trans-unit id="ImageTrail.Lifetime">
-        <source>How long a picture rests on the trail before it sinks away.</source>
-        <target>图片在轨迹上停留多久后下沉消失。</target>
-      </trans-unit>
-      <trans-unit id="ImageTrail.MaxImages">
-        <source>The most pictures on the trail at once; the oldest gives way to a new one.</source>
-        <target>轨迹上同时最多显示的图片数；新图片出现时最早的一张让位。</target>
-      </trans-unit>
-      <trans-unit id="ImageTrail.Sources">
-        <source>The pictures the trail cycles through, in order.</source>
-        <target>轨迹按顺序循环使用的图片。</target>
-      </trans-unit>
-      <trans-unit id="ImageTrail.Spacing">
-        <source>How far the pointer travels between two pictures, in px.</source>
-        <target>两张图片之间指针移动的距离，单位为 px。</target>
-      </trans-unit>
-      <trans-unit id="ImportRecord">
-        <source>One row sent to `ImportBatchAction`.</source>
-        <target>发送给 `ImportBatchAction` 的一行数据。</target>
-      </trans-unit>
-      <trans-unit id="ImportTarget">
-        <source>A field the rows are imported into: how columns are recognised (header names, synonyms, values), how its values are checked and, when a safe correction exists, how they are cleaned up.</source>
-        <target>行数据要导入的一个字段：如何识别对应的列（表头名称、同义词、取值），如何检查它的值，以及在有安全修正时如何清理这些值。</target>
-      </trans-unit>
-      <trans-unit id="ImportWizard">
-        <source>A four step CSV import in one card: choose or drop a file and preview it, match every column to a field with a confidence for each automatic match, fix the cells with problems in place (or let "Clean up" apply the safe fixes) while the counts roll down, then import the good rows in batches and read the summary. Rows whose problems are not fixed are left out, not blocking, so the rest can be imported now. Describe the fields as `Targets` with their header names, validators and safe fixes; send each batch to your server with `ImportBatchAction` and read the totals in `Completed`. With no action set the import is simulated.</source>
-        <target>在一张卡片里完成的四步 CSV 导入：选择或拖入文件并预览，把每一列匹配到字段（每个自动匹配都给出置信度），就地修正有问题的单元格（或让 "Clean up" 应用安全修正），同时计数滚动减少，最后分批导入无问题的行并查看汇总。问题未修正的行会被跳过而不会阻塞，其余行可以立即导入。用 `Targets` 描述字段，包括表头名称、校验器和安全修正；用 `ImportBatchAction` 把每一批发送到你的服务器，并在 `Completed` 中读取总数。未设置动作时导入为模拟。</target>
-      </trans-unit>
-      <trans-unit id="ImportWizard.BatchImported">
-        <source>Raised after each batch was imported.</source>
-        <target>每一批导入完成后触发。</target>
-      </trans-unit>
-      <trans-unit id="ImportWizard.BatchSize">
-        <source>Rows per batch (5; at least 1).</source>
-        <target>每批的行数（5；至少为 1）。</target>
-      </trans-unit>
-      <trans-unit id="ImportWizard.CompactWidth">
-        <source>Below this width of the card the step bar shows only its marks and mapping rows stack (520).</source>
-        <target>卡片窄于此宽度时，步骤条只显示标记，映射行改为上下排列（520）。</target>
-      </trans-unit>
-      <trans-unit id="ImportWizard.Completed">
-        <source>Raised once every batch is done, with the totals.</source>
-        <target>所有批次完成后触发一次，并带上总数。</target>
-      </trans-unit>
-      <trans-unit id="ImportWizard.CompletedCommand">
-        <source>Run with the `ImportWizardCompletedEventArgs` once every batch is done.</source>
-        <target>所有批次完成后，以 `ImportWizardCompletedEventArgs` 为参数执行。</target>
-      </trans-unit>
-      <trans-unit id="ImportWizard.ExistingKeys">
-        <source>Values of the key field (`IsKey`) that already exist; matching rows count as updates. Compared trimmed. Null with the default `Targets` uses the sample's four existing emails.</source>
-        <target>键字段（`IsKey`）中已经存在的值；匹配的行计为更新。比较时去掉首尾空格。为 null 且使用默认 `Targets` 时，采用样例中已存在的四个邮箱。</target>
-      </trans-unit>
-      <trans-unit id="ImportWizard.Failed">
-        <source>Raised when `ImportBatchAction` threw; the import can be tried again.</source>
-        <target>`ImportBatchAction` 抛出异常时触发；可以重试导入。</target>
-      </trans-unit>
-      <trans-unit id="ImportWizard.FileLoaded">
-        <source>Raised when a file was read and can be mapped.</source>
-        <target>文件已读取并可以开始映射时触发。</target>
-      </trans-unit>
-      <trans-unit id="ImportWizard.FileName">
-        <source>The loaded file's name; null before a file is loaded.</source>
-        <target>已加载文件的名称；加载文件之前为 null。</target>
-      </trans-unit>
-      <trans-unit id="ImportWizard.ImportBatchAction">
-        <source>Imports one batch of rows: awaited for each batch with a token that Cancel, starting over and the card leaving the window cancel. An exception stops the import, shows the message with a retry and raises `Failed`. Null simulates the import (about 388ms per batch).</source>
-        <target>导入一批行：每一批都会被等待，并传入一个令牌，点击取消、重新开始或卡片离开窗口时会取消它。抛出异常会停止导入，显示消息和重试按钮，并触发 `Failed`。为 null 时模拟导入（每批约 388ms）。</target>
-      </trans-unit>
-      <trans-unit id="ImportWizard.Labels">
-        <source>Every word the card shows or announces.</source>
-        <target>卡片显示或播报的所有文字。</target>
-      </trans-unit>
-      <trans-unit id="ImportWizard.MaxRows">
-        <source>The most data rows a file may have (5,000); a larger file is refused with a message.</source>
-        <target>一个文件最多允许的数据行数（5,000）；更大的文件会被拒绝并给出提示。</target>
-      </trans-unit>
-      <trans-unit id="ImportWizard.Noun">
-        <source>The word for one record in the copy ("contact").</source>
-        <target>文案中表示一条记录的词（"contact"）。</target>
-      </trans-unit>
-      <trans-unit id="ImportWizard.PluralNoun">
-        <source>The word for several records in the copy ("contacts").</source>
-        <target>文案中表示多条记录的词（"contacts"）。</target>
-      </trans-unit>
-      <trans-unit id="ImportWizard.RowCount">
-        <source>How many data rows the loaded file has (0 before one is loaded).</source>
-        <target>已加载文件的数据行数（加载文件之前为 0）。</target>
-      </trans-unit>
-      <trans-unit id="ImportWizard.SampleCsv">
-        <source>The text "Try a sample file" loads; null hides the button. Defaults to a sample customer list.</source>
-        <target>"Try a sample file" 加载的文本；为 null 时隐藏该按钮。默认是一份客户名单样例。</target>
-      </trans-unit>
-      <trans-unit id="ImportWizard.SampleFileName">
-        <source>The file name shown for the sample file.</source>
-        <target>样例文件显示的文件名。</target>
-      </trans-unit>
-      <trans-unit id="ImportWizard.SaveSkippedRowsAction">
-        <source>Saves the CSV of the rows that were left out: returns true when it was saved. Null asks for a place with the window's save dialog.</source>
-        <target>保存被跳过的行的 CSV：保存成功时返回 true。为 null 时用窗口的保存对话框选择位置。</target>
-      </trans-unit>
-      <trans-unit id="ImportWizard.Step">
-        <source>The step shown.</source>
-        <target>当前显示的步骤。</target>
-      </trans-unit>
-      <trans-unit id="ImportWizard.StepChanged">
-        <source>Raised when another step is shown.</source>
-        <target>显示另一个步骤时触发。</target>
-      </trans-unit>
-      <trans-unit id="ImportWizard.Targets">
-        <source>The fields to import into, in the order the review table shows them. Null uses a contact schema (name, email, company, role, phone, country, plan). Changing it starts over.</source>
-        <target>要导入的字段，顺序即检查表格中的列顺序。为 null 时使用联系人字段（姓名、邮箱、公司、角色、电话、国家、套餐）。修改它会重新开始。</target>
-      </trans-unit>
-      <trans-unit id="ImportWizardCompletedEventArgs">
-        <source>Arguments of `Completed` (also the parameter of `CompletedCommand`).</source>
-        <target>`Completed` 的参数（也是 `CompletedCommand` 的参数）。</target>
-      </trans-unit>
-      <trans-unit id="InboxSidebar">
-        <source>The navigation of a mail app, built on `Sidebar`: a rail toggle and Compose on top, the folders with their unread counts, the labels with colored dots under a heading that folds (with a "New label" row), and the storage meter and the signed-in account at the bottom. It collapses to a 64px icon rail where the folder icons, the label dots, Compose's pencil and the avatar stay and counts become dots; the width springs. Counts above 999 read "999+". Without `Folders` and `MailLabels` it shows an invented mailbox.</source>
-        <target>邮件应用的导航，基于 `Sidebar` 构建：顶部是图标栏切换按钮和写邮件按钮，下面是带未读数的文件夹、在可折叠标题下带彩色圆点的标签（最后有一行“New label”），底部是存储空间条和登录的账号。它可收起为 64px 的图标栏，文件夹图标、标签圆点、写邮件按钮的笔和头像都会保留，计数变成圆点；宽度以弹簧变化。超过 999 的计数显示为“999+”。没有 `Folders` 和 `MailLabels` 时显示一个虚构的邮箱。</target>
-      </trans-unit>
-      <trans-unit id="InboxSidebar.AccountEmail">
-        <source>The signed-in address in the footer.</source>
-        <target>底部显示的登录邮箱地址。</target>
-      </trans-unit>
-      <trans-unit id="InboxSidebar.AccountName">
-        <source>The signed-in person's name in the footer (also the avatar's initials).</source>
-        <target>底部显示的登录者姓名（也用作头像的首字母）。</target>
-      </trans-unit>
-      <trans-unit id="InboxSidebar.CanCreateLabels">
-        <source>Whether the labels end with a "New label" row.</source>
-        <target>标签列表最后是否有一行“New label”。</target>
-      </trans-unit>
-      <trans-unit id="InboxSidebar.ComposeCommand">
-        <source>Runs when Compose is pressed.</source>
-        <target>按下写邮件按钮时执行。</target>
-      </trans-unit>
-      <trans-unit id="InboxSidebar.ComposeRequested">
-        <source>Raised when Compose is pressed (after `ComposeCommand`).</source>
-        <target>按下写邮件按钮时引发（在 `ComposeCommand` 之后）。</target>
-      </trans-unit>
-      <trans-unit id="InboxSidebar.CreateLabelRequested">
-        <source>Raised by the "New label" row: ask for a name and add an `InboxSidebarLabel`.</source>
-        <target>由“New label”一行引发：请用户输入名称，然后添加一个 `InboxSidebarLabel`。</target>
-      </trans-unit>
-      <trans-unit id="InboxSidebar.IsCollapsed">
-        <source>Whether the sidebar is the icon rail (two-way).</source>
-        <target>侧边栏是否为图标栏（双向）。</target>
-      </trans-unit>
-      <trans-unit id="InboxSidebar.ItemInvoked">
-        <source>Raised when a folder or label is chosen (it becomes `SelectedKey`), also when it already was open.</source>
-        <target>选择文件夹或标签时引发（它成为 `SelectedKey`），即使它已经打开也会引发。</target>
-      </trans-unit>
-      <trans-unit id="InboxSidebar.Labels">
-        <source>The built-in text; replace the whole object to localize the sidebar.</source>
-        <target>内置文字；替换整个对象即可本地化侧边栏。</target>
-      </trans-unit>
-      <trans-unit id="InboxSidebar.MailboxName">
-        <source>The mailbox name beside the rail toggle.</source>
-        <target>图标栏切换按钮旁的邮箱名称。</target>
-      </trans-unit>
-      <trans-unit id="InboxSidebar.ResizeMode">
-        <source>How the width change reaches the page beside it: Overlay (default) or Push.</source>
-        <target>宽度变化如何影响旁边的页面：Overlay（默认）或 Push。</target>
-      </trans-unit>
-      <trans-unit id="InboxSidebar.SelectedKey">
-        <source>The key of the open folder or label (two-way); bind it to your route.</source>
-        <target>打开的文件夹或标签的键（双向）；可绑定到你的路由。</target>
-      </trans-unit>
-      <trans-unit id="InboxSidebar.SelectionChanged">
-        <source>Raised when `SelectedKey` changes, whether a folder or label was chosen or the key was set in code or through a binding. Choosing the folder that is already open raises `ItemInvoked` only.</source>
-        <target>`SelectedKey` 改变时触发，无论是选择了文件夹或标签，还是在代码中或通过绑定设置了键。选择已经打开的文件夹只会触发 `ItemInvoked`。</target>
-      </trans-unit>
-      <trans-unit id="InboxSidebar.StorageTotal">
-        <source>Storage available, in gigabytes; 0 hides the meter.</source>
-        <target>可用的存储空间，单位为 GB；为 0 时隐藏存储空间条。</target>
-      </trans-unit>
-      <trans-unit id="InboxSidebar.StorageUsed">
-        <source>Storage used, in gigabytes.</source>
-        <target>已用的存储空间，单位为 GB。</target>
-      </trans-unit>
-      <trans-unit id="InboxTriage">
-        <source>An inbox built for getting through it fast: swipe a row right to archive or left to snooze or assign, or keep your hands on the keys (J / K to move, E archive, S snooze, A assign, L label, Z undo). A counter rolls down as the inbox empties, a bar fills with what is done, every action can be undone from the bar at the bottom, and an empty inbox says so. Triaged items leave `Items` (and come back on undo); `Triaged` and `Undone` report each step so your server can follow. An inbox that is empty when it first loads shows a sample.</source>
-        <target>一个为快速处理而做的收件箱：向右滑动一行即可归档，向左滑动可稍后提醒或分配，也可以不离开键盘（J / K 移动，E 归档，S 稍后提醒，A 分配，L 标签，Z 撤销）。收件箱变空时计数向下滚动，进度条显示已完成的部分，每个操作都能在底部的条上撤销，清空时会明确告诉你。处理过的项目离开 `Items`（撤销时回来）；`Triaged` 和 `Undone` 报告每一步，便于服务器同步。首次加载时收件箱为空，会显示一组示例。</target>
-      </trans-unit>
-      <trans-unit id="InboxTriage.CurrentItem">
-        <source>The item the keyboard acts on (two-way through `MoveTo`); null when the inbox is empty.</source>
-        <target>键盘操作的项目（通过 `MoveTo` 双向）；收件箱为空时为 null。</target>
-      </trans-unit>
-      <trans-unit id="InboxTriage.Handled">
-        <source>Items triaged since the block loaded (undo takes one back).</source>
-        <target>区块加载以来处理过的项目数（撤销会减一）。</target>
-      </trans-unit>
-      <trans-unit id="InboxTriage.Remaining">
-        <source>Items still to triage.</source>
-        <target>还需要处理的项目数。</target>
-      </trans-unit>
-      <trans-unit id="InboxTriage.ShowsShortcuts">
-        <source>Whether the row of key hints shows under the header (default true).</source>
-        <target>标题下方是否显示按键提示（默认 true）。</target>
-      </trans-unit>
-      <trans-unit id="InboxTriage.SnoozeFor">
-        <source>When snoozed items come back, from now; null means tomorrow at 9:00.</source>
-        <target>稍后提醒的项目从现在起多久后回来；null 表示明天 9:00。</target>
-      </trans-unit>
-      <trans-unit id="InboxTriage.Title">
-        <source>The heading ("Inbox").</source>
-        <target>标题（“Inbox”）。</target>
-      </trans-unit>
-      <trans-unit id="InboxTriage.Triaged">
-        <source>Raised after an item was archived, snoozed, assigned or labelled.</source>
-        <target>项目被归档、稍后提醒、分配或加标签后触发。</target>
-      </trans-unit>
-      <trans-unit id="InboxTriage.UndoDuration">
-        <source>How long the undo bar stays after an action (6 s); zero keeps it until the next action.</source>
-        <target>操作后撤销条停留多久（6 秒）；为零时一直保留到下一个操作。</target>
-      </trans-unit>
-      <trans-unit id="InboxTriage.Undone">
-        <source>Raised after an action was undone; `Action` is the action taken back.</source>
-        <target>操作被撤销后触发；`Action` 是被撤回的操作。</target>
-      </trans-unit>
-      <trans-unit id="InboxTriage.UsesSampleData">
-        <source>Whether an inbox that is empty when it first loads gets the sample items, teammates and labels (default true).</source>
-        <target>首次加载时收件箱为空是否得到示例项目、同事和标签（默认 true）。</target>
-      </trans-unit>
-      <trans-unit id="InboxTriageEventArgs">
-        <source>Arguments of `Triaged` and `Undone`.</source>
-        <target>`Triaged` 和 `Undone` 的参数。</target>
-      </trans-unit>
-      <trans-unit id="InboxTriageItem">
-        <source>One message, ticket or request waiting in an `InboxTriage`. Its fields can change in place (it raises `PropertyChanged`); the block sets `Labels`, `Assignee`, `SnoozedUntil` and `IsUnread` as people triage.</source>
-        <target>在 `InboxTriage` 中等待处理的一条消息、工单或请求。它的字段可以直接改变（会触发 `PropertyChanged`）；处理时区块会设置 `Labels`、`Assignee`、`SnoozedUntil` 和 `IsUnread`。</target>
-      </trans-unit>
-      <trans-unit id="InboxTriageItem.PropertyChanged">
-        <source>Raised when a property changes.</source>
-        <target>属性改变时触发。</target>
-      </trans-unit>
-      <trans-unit id="InlineEdit.Labels">
-        <source>The text screen readers hear (save announcements, the save and cancel button names, help text); replace the object to localize it.</source>
-        <target>屏幕阅读器听到的文字（保存播报、保存和取消按钮的名称、帮助文字）；替换整个对象即可本地化。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceClient">
-        <source>Who an invoice of `InvoiceStudio` is billed to.</source>
-        <target>`InvoiceStudio` 发票的付款方。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceDraft">
-        <source>The invoice an `InvoiceStudio` sends: everything on the printed page.</source>
-        <target>`InvoiceStudio` 发送的发票：打印页上的全部内容。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceLineItem">
-        <source>One line of an invoice: what was sold, how many, at what unit price and tax rate. Edits made in the block write back to these objects, and changes made in code reach the block and the preview at once.</source>
-        <target>发票的一行：卖了什么、多少、单价和税率。区块中的编辑会写回这些对象，代码中的修改也会立即反映到区块和预览。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceLineItem.Description">
-        <source>What the line is for ("Brand workshop, half day").</source>
-        <target>这一行的内容（"Brand workshop, half day"）。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceLineItem.Quantity">
-        <source>How many units (hours, items); at least 0.</source>
-        <target>数量（小时、件数）；至少为 0。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceLineItem.TaxRate">
-        <source>The tax rate of the line as a share (0.08 = 8%).</source>
-        <target>这一行的税率，以比例表示（0.08 = 8%）。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceLineItem.UnitPrice">
-        <source>The price of one unit, before tax.</source>
-        <target>单价，不含税。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceStudio">
-        <source>An invoice editor with a live printed preview: choose the client and the payment terms, edit line items with quantity, unit price and tax rate, give a discount as a percentage or an amount, and write a note. The subtotal, discount, tax and total follow every keystroke, the sheet on the right shows the invoice as it will print, and Send checks the invoice and hands it to `SendAsync`. In a narrow block a switch shows the form or the preview.</source>
-        <target>带实时打印预览的发票编辑器：选择客户和付款期限，编辑包含数量、单价和税率的明细行，按百分比或金额给出折扣，并写一段备注。小计、折扣、税和合计随每次输入更新，右侧的纸张显示打印出来的样子，发送会先检查发票再交给 `SendAsync`。在窄区块中，切换开关显示表单或预览。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceStudio.Clients">
-        <source>The clients offered by the "Bill to" select.</source>
-        <target>"Bill to" 选择框提供的客户。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceStudio.CurrencySymbol">
-        <source>The symbol written before amounts ("$").</source>
-        <target>金额前面的货币符号（"$"）。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceStudio.DiscountKind">
-        <source>Whether the discount is a percentage or an amount (two-way).</source>
-        <target>折扣是百分比还是金额（双向）。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceStudio.DiscountValue">
-        <source>The discount: a percentage (0–100) or an amount, by `DiscountKind` (two-way).</source>
-        <target>折扣：按 `DiscountKind` 为百分比（0–100）或金额（双向）。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceStudio.InvoiceNumber">
-        <source>The invoice number (two-way).</source>
-        <target>发票号（双向）。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceStudio.InvoiceSent">
-        <source>Raised after `SendAsync` reports the invoice sent.</source>
-        <target>`SendAsync` 报告发票已发送后引发。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceStudio.IsPreviewShown">
-        <source>In a compact block, whether the preview is shown instead of the form (two-way).</source>
-        <target>在紧凑区块中，是否显示预览而不是表单（双向）。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceStudio.IssueDate">
-        <source>The date of issue; null uses today.</source>
-        <target>开票日期；为 null 时使用今天。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceStudio.Labels">
-        <source>The block's built-in text.</source>
-        <target>区块内置的文字。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceStudio.Notes">
-        <source>The note printed under the totals (two-way).</source>
-        <target>印在合计下方的备注（双向）。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceStudio.PaymentTerms">
-        <source>Days from issue until payment is due (two-way); 0 is due on receipt.</source>
-        <target>从开票到付款截止的天数（双向）；0 表示收到即付。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceStudio.SelectedClient">
-        <source>The client billed (two-way).</source>
-        <target>付款的客户（双向）。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceStudio.SendAsync">
-        <source>Delivers the invoice; return true when it was sent. Null marks it sent at once.</source>
-        <target>发送发票；发送成功时返回 true。为 null 时立即标记为已发送。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceStudio.SenderAddress">
-        <source>The sender's address and contact lines, one per line break.</source>
-        <target>开票方的地址和联系方式，每个换行一行。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceStudio.SenderName">
-        <source>Who sends the invoice, printed at the top of the sheet.</source>
-        <target>开票方，印在纸张顶部。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceStudio.State">
-        <source>Draft, sending or sent.</source>
-        <target>草稿、发送中或已发送。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceStudio.TaxRates">
-        <source>The tax rates a line can take, as shares (none, 5%, 8% and 20% by default).</source>
-        <target>明细行可选的税率，以比例表示（默认为无税、5%、8% 和 20%）。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceStudio.TermsOptions">
-        <source>The terms offered, in days (on receipt, 15, 30 and 45 by default).</source>
-        <target>可选的付款期限，以天计（默认为收到即付、15、30 和 45 天）。</target>
-      </trans-unit>
-      <trans-unit id="InvoiceStudio.Totals">
-        <source>The sums of the current lines and discount.</source>
-        <target>当前明细行和折扣的合计。</target>
-      </trans-unit>
       <trans-unit id="ISpeechAudio">
         <source>The playback of fetched speech, supplied by the app (an audio element, a platform player, or an adapter over `IAudioPlayer`). The `SpeechPlayer` drives it and reads `Position` on every frame while it plays, so its position is the player's clock. All calls come from the UI thread.</source>
         <target>由应用提供的已获取语音的播放（音频元素、平台播放器，或基于 `IAudioPlayer` 的适配器）。`SpeechPlayer` 驱动它，并在播放时每一帧读取 `Position`，所以它的位置就是播放器的时钟。所有调用都来自 UI 线程。</target>
@@ -16952,6 +16588,138 @@
         <source>Arguments of `StatusChanged`.</source>
         <target>`StatusChanged` 的参数。</target>
       </trans-unit>
+      <trans-unit id="ImageTrail">
+        <source>A surface that leaves a trail of pictures behind the pointer: every few dozen px of movement a picture pops in where the pointer is, tilted a little, rests for a moment and sinks away, cycling through `Sources`.</source>
+        <target>一块在指针后面留下一串图片的表面：指针每移动几十像素，就在指针所在处弹出一张略微倾斜的图片，停留片刻后下沉消失，依次循环 `Sources` 中的图片。</target>
+      </trans-unit>
+      <trans-unit id="ImageTrail.ImageCornerRadius">
+        <source>The corner radius of every picture.</source>
+        <target>每张图片的圆角。</target>
+      </trans-unit>
+      <trans-unit id="ImageTrail.ImageSize">
+        <source>The longer side of each picture on the trail, in px.</source>
+        <target>轨迹上每张图片较长一边的长度，单位为 px。</target>
+      </trans-unit>
+      <trans-unit id="ImageTrail.Label">
+        <source>The accessible name of the surface.</source>
+        <target>表面的无障碍名称。</target>
+      </trans-unit>
+      <trans-unit id="ImageTrail.Lifetime">
+        <source>How long a picture rests on the trail before it sinks away.</source>
+        <target>图片在轨迹上停留多久后下沉消失。</target>
+      </trans-unit>
+      <trans-unit id="ImageTrail.MaxImages">
+        <source>The most pictures on the trail at once; the oldest gives way to a new one.</source>
+        <target>轨迹上同时最多显示的图片数；新图片出现时最早的一张让位。</target>
+      </trans-unit>
+      <trans-unit id="ImageTrail.Sources">
+        <source>The pictures the trail cycles through, in order.</source>
+        <target>轨迹按顺序循环使用的图片。</target>
+      </trans-unit>
+      <trans-unit id="ImageTrail.Spacing">
+        <source>How far the pointer travels between two pictures, in px.</source>
+        <target>两张图片之间指针移动的距离，单位为 px。</target>
+      </trans-unit>
+      <trans-unit id="ImportRecord">
+        <source>One row sent to `ImportBatchAction`.</source>
+        <target>发送给 `ImportBatchAction` 的一行数据。</target>
+      </trans-unit>
+      <trans-unit id="ImportTarget">
+        <source>A field the rows are imported into: how columns are recognised (header names, synonyms, values), how its values are checked and, when a safe correction exists, how they are cleaned up.</source>
+        <target>行数据要导入的一个字段：如何识别对应的列（表头名称、同义词、取值），如何检查它的值，以及在有安全修正时如何清理这些值。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard">
+        <source>A four step CSV import in one card: choose or drop a file and preview it, match every column to a field with a confidence for each automatic match, fix the cells with problems in place (or let "Clean up" apply the safe fixes) while the counts roll down, then import the good rows in batches and read the summary. Rows whose problems are not fixed are left out, not blocking, so the rest can be imported now. Describe the fields as `Targets` with their header names, validators and safe fixes; send each batch to your server with `ImportBatchAction` and read the totals in `Completed`. With no action set the import is simulated.</source>
+        <target>在一张卡片里完成的四步 CSV 导入：选择或拖入文件并预览，把每一列匹配到字段（每个自动匹配都给出置信度），就地修正有问题的单元格（或让 "Clean up" 应用安全修正），同时计数滚动减少，最后分批导入无问题的行并查看汇总。问题未修正的行会被跳过而不会阻塞，其余行可以立即导入。用 `Targets` 描述字段，包括表头名称、校验器和安全修正；用 `ImportBatchAction` 把每一批发送到你的服务器，并在 `Completed` 中读取总数。未设置动作时导入为模拟。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.BatchImported">
+        <source>Raised after each batch was imported.</source>
+        <target>每一批导入完成后触发。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.BatchSize">
+        <source>Rows per batch (5; at least 1).</source>
+        <target>每批的行数（5；至少为 1）。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.CompactWidth">
+        <source>Below this width of the card the step bar shows only its marks and mapping rows stack (520).</source>
+        <target>卡片窄于此宽度时，步骤条只显示标记，映射行改为上下排列（520）。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.Completed">
+        <source>Raised once every batch is done, with the totals.</source>
+        <target>所有批次完成后触发一次，并带上总数。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.CompletedCommand">
+        <source>Run with the `ImportWizardCompletedEventArgs` once every batch is done.</source>
+        <target>所有批次完成后，以 `ImportWizardCompletedEventArgs` 为参数执行。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.ExistingKeys">
+        <source>Values of the key field (`IsKey`) that already exist; matching rows count as updates. Compared trimmed. Null with the default `Targets` uses the sample's four existing emails.</source>
+        <target>键字段（`IsKey`）中已经存在的值；匹配的行计为更新。比较时去掉首尾空格。为 null 且使用默认 `Targets` 时，采用样例中已存在的四个邮箱。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.Failed">
+        <source>Raised when `ImportBatchAction` threw; the import can be tried again.</source>
+        <target>`ImportBatchAction` 抛出异常时触发；可以重试导入。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.FileLoaded">
+        <source>Raised when a file was read and can be mapped.</source>
+        <target>文件已读取并可以开始映射时触发。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.FileName">
+        <source>The loaded file's name; null before a file is loaded.</source>
+        <target>已加载文件的名称；加载文件之前为 null。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.ImportBatchAction">
+        <source>Imports one batch of rows: awaited for each batch with a token that Cancel, starting over and the card leaving the window cancel. An exception stops the import, shows the message with a retry and raises `Failed`. Null simulates the import (about 388ms per batch).</source>
+        <target>导入一批行：每一批都会被等待，并传入一个令牌，点击取消、重新开始或卡片离开窗口时会取消它。抛出异常会停止导入，显示消息和重试按钮，并触发 `Failed`。为 null 时模拟导入（每批约 388ms）。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.Labels">
+        <source>Every word the card shows or announces.</source>
+        <target>卡片显示或播报的所有文字。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.MaxRows">
+        <source>The most data rows a file may have (5,000); a larger file is refused with a message.</source>
+        <target>一个文件最多允许的数据行数（5,000）；更大的文件会被拒绝并给出提示。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.Noun">
+        <source>The word for one record in the copy ("contact").</source>
+        <target>文案中表示一条记录的词（"contact"）。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.PluralNoun">
+        <source>The word for several records in the copy ("contacts").</source>
+        <target>文案中表示多条记录的词（"contacts"）。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.RowCount">
+        <source>How many data rows the loaded file has (0 before one is loaded).</source>
+        <target>已加载文件的数据行数（加载文件之前为 0）。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.SampleCsv">
+        <source>The text "Try a sample file" loads; null hides the button. Defaults to a sample customer list.</source>
+        <target>"Try a sample file" 加载的文本；为 null 时隐藏该按钮。默认是一份客户名单样例。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.SampleFileName">
+        <source>The file name shown for the sample file.</source>
+        <target>样例文件显示的文件名。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.SaveSkippedRowsAction">
+        <source>Saves the CSV of the rows that were left out: returns true when it was saved. Null asks for a place with the window's save dialog.</source>
+        <target>保存被跳过的行的 CSV：保存成功时返回 true。为 null 时用窗口的保存对话框选择位置。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.Step">
+        <source>The step shown.</source>
+        <target>当前显示的步骤。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.StepChanged">
+        <source>Raised when another step is shown.</source>
+        <target>显示另一个步骤时触发。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizard.Targets">
+        <source>The fields to import into, in the order the review table shows them. Null uses a contact schema (name, email, company, role, phone, country, plan). Changing it starts over.</source>
+        <target>要导入的字段，顺序即检查表格中的列顺序。为 null 时使用联系人字段（姓名、邮箱、公司、角色、电话、国家、套餐）。修改它会重新开始。</target>
+      </trans-unit>
+      <trans-unit id="ImportWizardCompletedEventArgs">
+        <source>Arguments of `Completed` (also the parameter of `CompletedCommand`).</source>
+        <target>`Completed` 的参数（也是 `CompletedCommand` 的参数）。</target>
+      </trans-unit>
       <trans-unit id="InViewTitle">
         <source>A section title that reveals itself when 45% of it scrolls into view (Arc InViewTitle, P18 + P20): opacity leads, the blur clears next and the movement settles last, so the title is readable before it fully arrives. Titles already scrolled past show at once. With `IsReplayEnabled` it hides again (a quick fade with no stagger) when it leaves and replays on every entry. Reduced motion shows the title without movement, blur or masks. Drawn as one control: no per-word controls.</source>
         <target>当其 45% 滚动进入视野时自行显现的章节标题（Arc InViewTitle，P18 + P20）：不透明度先行，模糊随后消退，位移最后收尾，因此标题在完全到位之前即可阅读。已滚过的标题会立即显示。设置 `IsReplayEnabled` 后，标题离开时会再次隐藏（快速淡出，无错开），并在每次进入时重新播放。减少动效时标题直接显示，不带位移、模糊或遮罩。它作为一个控件绘制：没有逐词控件。</target>
@@ -17011,6 +16779,126 @@
       <trans-unit id="InViewTitle.Variant">
         <source>How the title reveals itself (Arc `variant`, blur by default).</source>
         <target>标题的显现方式（Arc `variant`，默认为模糊）。</target>
+      </trans-unit>
+      <trans-unit id="InboxSidebar">
+        <source>The navigation of a mail app, built on `Sidebar`: a rail toggle and Compose on top, the folders with their unread counts, the labels with colored dots under a heading that folds (with a "New label" row), and the storage meter and the signed-in account at the bottom. It collapses to a 64px icon rail where the folder icons, the label dots, Compose's pencil and the avatar stay and counts become dots; the width springs. Counts above 999 read "999+". Without `Folders` and `MailLabels` it shows an invented mailbox.</source>
+        <target>邮件应用的导航，基于 `Sidebar` 构建：顶部是图标栏切换按钮和写邮件按钮，下面是带未读数的文件夹、在可折叠标题下带彩色圆点的标签（最后有一行“New label”），底部是存储空间条和登录的账号。它可收起为 64px 的图标栏，文件夹图标、标签圆点、写邮件按钮的笔和头像都会保留，计数变成圆点；宽度以弹簧变化。超过 999 的计数显示为“999+”。没有 `Folders` 和 `MailLabels` 时显示一个虚构的邮箱。</target>
+      </trans-unit>
+      <trans-unit id="InboxSidebar.AccountEmail">
+        <source>The signed-in address in the footer.</source>
+        <target>底部显示的登录邮箱地址。</target>
+      </trans-unit>
+      <trans-unit id="InboxSidebar.AccountName">
+        <source>The signed-in person's name in the footer (also the avatar's initials).</source>
+        <target>底部显示的登录者姓名（也用作头像的首字母）。</target>
+      </trans-unit>
+      <trans-unit id="InboxSidebar.CanCreateLabels">
+        <source>Whether the labels end with a "New label" row.</source>
+        <target>标签列表最后是否有一行“New label”。</target>
+      </trans-unit>
+      <trans-unit id="InboxSidebar.ComposeCommand">
+        <source>Runs when Compose is pressed.</source>
+        <target>按下写邮件按钮时执行。</target>
+      </trans-unit>
+      <trans-unit id="InboxSidebar.ComposeRequested">
+        <source>Raised when Compose is pressed (after `ComposeCommand`).</source>
+        <target>按下写邮件按钮时引发（在 `ComposeCommand` 之后）。</target>
+      </trans-unit>
+      <trans-unit id="InboxSidebar.CreateLabelRequested">
+        <source>Raised by the "New label" row: ask for a name and add an `InboxSidebarLabel`.</source>
+        <target>由“New label”一行引发：请用户输入名称，然后添加一个 `InboxSidebarLabel`。</target>
+      </trans-unit>
+      <trans-unit id="InboxSidebar.IsCollapsed">
+        <source>Whether the sidebar is the icon rail (two-way).</source>
+        <target>侧边栏是否为图标栏（双向）。</target>
+      </trans-unit>
+      <trans-unit id="InboxSidebar.ItemInvoked">
+        <source>Raised when a folder or label is chosen (it becomes `SelectedKey`), also when it already was open.</source>
+        <target>选择文件夹或标签时引发（它成为 `SelectedKey`），即使它已经打开也会引发。</target>
+      </trans-unit>
+      <trans-unit id="InboxSidebar.Labels">
+        <source>The built-in text; replace the whole object to localize the sidebar.</source>
+        <target>内置文字；替换整个对象即可本地化侧边栏。</target>
+      </trans-unit>
+      <trans-unit id="InboxSidebar.MailboxName">
+        <source>The mailbox name beside the rail toggle.</source>
+        <target>图标栏切换按钮旁的邮箱名称。</target>
+      </trans-unit>
+      <trans-unit id="InboxSidebar.ResizeMode">
+        <source>How the width change reaches the page beside it: Overlay (default) or Push.</source>
+        <target>宽度变化如何影响旁边的页面：Overlay（默认）或 Push。</target>
+      </trans-unit>
+      <trans-unit id="InboxSidebar.SelectedKey">
+        <source>The key of the open folder or label (two-way); bind it to your route.</source>
+        <target>打开的文件夹或标签的键（双向）；可绑定到你的路由。</target>
+      </trans-unit>
+      <trans-unit id="InboxSidebar.SelectionChanged">
+        <source>Raised when `SelectedKey` changes, whether a folder or label was chosen or the key was set in code or through a binding. Choosing the folder that is already open raises `ItemInvoked` only.</source>
+        <target>`SelectedKey` 改变时触发，无论是选择了文件夹或标签，还是在代码中或通过绑定设置了键。选择已经打开的文件夹只会触发 `ItemInvoked`。</target>
+      </trans-unit>
+      <trans-unit id="InboxSidebar.StorageTotal">
+        <source>Storage available, in gigabytes; 0 hides the meter.</source>
+        <target>可用的存储空间，单位为 GB；为 0 时隐藏存储空间条。</target>
+      </trans-unit>
+      <trans-unit id="InboxSidebar.StorageUsed">
+        <source>Storage used, in gigabytes.</source>
+        <target>已用的存储空间，单位为 GB。</target>
+      </trans-unit>
+      <trans-unit id="InboxTriage">
+        <source>An inbox built for getting through it fast: swipe a row right to archive or left to snooze or assign, or keep your hands on the keys (J / K to move, E archive, S snooze, A assign, L label, Z undo). A counter rolls down as the inbox empties, a bar fills with what is done, every action can be undone from the bar at the bottom, and an empty inbox says so. Triaged items leave `Items` (and come back on undo); `Triaged` and `Undone` report each step so your server can follow. An inbox that is empty when it first loads shows a sample.</source>
+        <target>一个为快速处理而做的收件箱：向右滑动一行即可归档，向左滑动可稍后提醒或分配，也可以不离开键盘（J / K 移动，E 归档，S 稍后提醒，A 分配，L 标签，Z 撤销）。收件箱变空时计数向下滚动，进度条显示已完成的部分，每个操作都能在底部的条上撤销，清空时会明确告诉你。处理过的项目离开 `Items`（撤销时回来）；`Triaged` 和 `Undone` 报告每一步，便于服务器同步。首次加载时收件箱为空，会显示一组示例。</target>
+      </trans-unit>
+      <trans-unit id="InboxTriage.CurrentItem">
+        <source>The item the keyboard acts on (two-way through `MoveTo`); null when the inbox is empty.</source>
+        <target>键盘操作的项目（通过 `MoveTo` 双向）；收件箱为空时为 null。</target>
+      </trans-unit>
+      <trans-unit id="InboxTriage.Handled">
+        <source>Items triaged since the block loaded (undo takes one back).</source>
+        <target>区块加载以来处理过的项目数（撤销会减一）。</target>
+      </trans-unit>
+      <trans-unit id="InboxTriage.Remaining">
+        <source>Items still to triage.</source>
+        <target>还需要处理的项目数。</target>
+      </trans-unit>
+      <trans-unit id="InboxTriage.ShowsShortcuts">
+        <source>Whether the row of key hints shows under the header (default true).</source>
+        <target>标题下方是否显示按键提示（默认 true）。</target>
+      </trans-unit>
+      <trans-unit id="InboxTriage.SnoozeFor">
+        <source>When snoozed items come back, from now; null means tomorrow at 9:00.</source>
+        <target>稍后提醒的项目从现在起多久后回来；null 表示明天 9:00。</target>
+      </trans-unit>
+      <trans-unit id="InboxTriage.Title">
+        <source>The heading ("Inbox").</source>
+        <target>标题（“Inbox”）。</target>
+      </trans-unit>
+      <trans-unit id="InboxTriage.Triaged">
+        <source>Raised after an item was archived, snoozed, assigned or labelled.</source>
+        <target>项目被归档、稍后提醒、分配或加标签后触发。</target>
+      </trans-unit>
+      <trans-unit id="InboxTriage.UndoDuration">
+        <source>How long the undo bar stays after an action (6 s); zero keeps it until the next action.</source>
+        <target>操作后撤销条停留多久（6 秒）；为零时一直保留到下一个操作。</target>
+      </trans-unit>
+      <trans-unit id="InboxTriage.Undone">
+        <source>Raised after an action was undone; `Action` is the action taken back.</source>
+        <target>操作被撤销后触发；`Action` 是被撤回的操作。</target>
+      </trans-unit>
+      <trans-unit id="InboxTriage.UsesSampleData">
+        <source>Whether an inbox that is empty when it first loads gets the sample items, teammates and labels (default true).</source>
+        <target>首次加载时收件箱为空是否得到示例项目、同事和标签（默认 true）。</target>
+      </trans-unit>
+      <trans-unit id="InboxTriageEventArgs">
+        <source>Arguments of `Triaged` and `Undone`.</source>
+        <target>`Triaged` 和 `Undone` 的参数。</target>
+      </trans-unit>
+      <trans-unit id="InboxTriageItem">
+        <source>One message, ticket or request waiting in an `InboxTriage`. Its fields can change in place (it raises `PropertyChanged`); the block sets `Labels`, `Assignee`, `SnoozedUntil` and `IsUnread` as people triage.</source>
+        <target>在 `InboxTriage` 中等待处理的一条消息、工单或请求。它的字段可以直接改变（会触发 `PropertyChanged`）；处理时区块会设置 `Labels`、`Assignee`、`SnoozedUntil` 和 `IsUnread`。</target>
+      </trans-unit>
+      <trans-unit id="InboxTriageItem.PropertyChanged">
+        <source>Raised when a property changes.</source>
+        <target>属性改变时触发。</target>
       </trans-unit>
       <trans-unit id="IncidentTone">
         <source>The colour of an incident update's dot in the timeline (the newest update is filled, older ones are hollow).</source>
@@ -17103,6 +16991,10 @@
       <trans-unit id="InlineEdit.Label">
         <source>Accessible name, for example "Project name".</source>
         <target>无障碍名称，例如“Project name”。</target>
+      </trans-unit>
+      <trans-unit id="InlineEdit.Labels">
+        <source>The text screen readers hear (save announcements, the save and cancel button names, help text); replace the object to localize it.</source>
+        <target>屏幕阅读器听到的文字（保存播报、保存和取消按钮的名称、帮助文字）；替换整个对象即可本地化。</target>
       </trans-unit>
       <trans-unit id="InlineEdit.Phase">
         <source>Where the control is in its save cycle.</source>
@@ -17739,6 +17631,114 @@
       <trans-unit id="InvitePeopleSendRequest">
         <source>What `SendAction` receives: the invites that were just added to the pending list.</source>
         <target>`SendAction` 收到的内容：刚刚添加到待接受列表中的邀请。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceClient">
+        <source>Who an invoice of `InvoiceStudio` is billed to.</source>
+        <target>`InvoiceStudio` 发票的付款方。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceDraft">
+        <source>The invoice an `InvoiceStudio` sends: everything on the printed page.</source>
+        <target>`InvoiceStudio` 发送的发票：打印页上的全部内容。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceLineItem">
+        <source>One line of an invoice: what was sold, how many, at what unit price and tax rate. Edits made in the block write back to these objects, and changes made in code reach the block and the preview at once.</source>
+        <target>发票的一行：卖了什么、多少、单价和税率。区块中的编辑会写回这些对象，代码中的修改也会立即反映到区块和预览。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceLineItem.Description">
+        <source>What the line is for ("Brand workshop, half day").</source>
+        <target>这一行的内容（"Brand workshop, half day"）。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceLineItem.Quantity">
+        <source>How many units (hours, items); at least 0.</source>
+        <target>数量（小时、件数）；至少为 0。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceLineItem.TaxRate">
+        <source>The tax rate of the line as a share (0.08 = 8%).</source>
+        <target>这一行的税率，以比例表示（0.08 = 8%）。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceLineItem.UnitPrice">
+        <source>The price of one unit, before tax.</source>
+        <target>单价，不含税。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceStudio">
+        <source>An invoice editor with a live printed preview: choose the client and the payment terms, edit line items with quantity, unit price and tax rate, give a discount as a percentage or an amount, and write a note. The subtotal, discount, tax and total follow every keystroke, the sheet on the right shows the invoice as it will print, and Send checks the invoice and hands it to `SendAsync`. In a narrow block a switch shows the form or the preview.</source>
+        <target>带实时打印预览的发票编辑器：选择客户和付款期限，编辑包含数量、单价和税率的明细行，按百分比或金额给出折扣，并写一段备注。小计、折扣、税和合计随每次输入更新，右侧的纸张显示打印出来的样子，发送会先检查发票再交给 `SendAsync`。在窄区块中，切换开关显示表单或预览。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceStudio.Clients">
+        <source>The clients offered by the "Bill to" select.</source>
+        <target>"Bill to" 选择框提供的客户。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceStudio.CurrencySymbol">
+        <source>The symbol written before amounts ("$").</source>
+        <target>金额前面的货币符号（"$"）。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceStudio.DiscountKind">
+        <source>Whether the discount is a percentage or an amount (two-way).</source>
+        <target>折扣是百分比还是金额（双向）。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceStudio.DiscountValue">
+        <source>The discount: a percentage (0–100) or an amount, by `DiscountKind` (two-way).</source>
+        <target>折扣：按 `DiscountKind` 为百分比（0–100）或金额（双向）。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceStudio.InvoiceNumber">
+        <source>The invoice number (two-way).</source>
+        <target>发票号（双向）。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceStudio.InvoiceSent">
+        <source>Raised after `SendAsync` reports the invoice sent.</source>
+        <target>`SendAsync` 报告发票已发送后引发。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceStudio.IsPreviewShown">
+        <source>In a compact block, whether the preview is shown instead of the form (two-way).</source>
+        <target>在紧凑区块中，是否显示预览而不是表单（双向）。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceStudio.IssueDate">
+        <source>The date of issue; null uses today.</source>
+        <target>开票日期；为 null 时使用今天。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceStudio.Labels">
+        <source>The block's built-in text.</source>
+        <target>区块内置的文字。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceStudio.Notes">
+        <source>The note printed under the totals (two-way).</source>
+        <target>印在合计下方的备注（双向）。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceStudio.PaymentTerms">
+        <source>Days from issue until payment is due (two-way); 0 is due on receipt.</source>
+        <target>从开票到付款截止的天数（双向）；0 表示收到即付。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceStudio.SelectedClient">
+        <source>The client billed (two-way).</source>
+        <target>付款的客户（双向）。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceStudio.SendAsync">
+        <source>Delivers the invoice; return true when it was sent. Null marks it sent at once.</source>
+        <target>发送发票；发送成功时返回 true。为 null 时立即标记为已发送。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceStudio.SenderAddress">
+        <source>The sender's address and contact lines, one per line break.</source>
+        <target>开票方的地址和联系方式，每个换行一行。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceStudio.SenderName">
+        <source>Who sends the invoice, printed at the top of the sheet.</source>
+        <target>开票方，印在纸张顶部。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceStudio.State">
+        <source>Draft, sending or sent.</source>
+        <target>草稿、发送中或已发送。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceStudio.TaxRates">
+        <source>The tax rates a line can take, as shares (none, 5%, 8% and 20% by default).</source>
+        <target>明细行可选的税率，以比例表示（默认为无税、5%、8% 和 20%）。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceStudio.TermsOptions">
+        <source>The terms offered, in days (on receipt, 15, 30 and 45 by default).</source>
+        <target>可选的付款期限，以天计（默认为收到即付、15、30 和 45 天）。</target>
+      </trans-unit>
+      <trans-unit id="InvoiceStudio.Totals">
+        <source>The sums of the current lines and discount.</source>
+        <target>当前明细行和折扣的合计。</target>
       </trans-unit>
       <trans-unit id="JourneyFlow">
         <source>A journey as a Sankey chart: stages left to right, the people at each step as bars and the flows between steps as ribbons, with the people who leave below the main path and the goal in green. Point at a step or a flow to trace that cohort through the whole journey (where they came from, where they went) with a tooltip; click a step to keep it traced and read its details in the side panel (where people came from and went next); switch segments (channels, cohorts) and every bar, ribbon and count morphs to the new numbers. Under the chart, a "Flow table" lists every flow.</source>
@@ -20408,13 +20408,13 @@
         <source>The control's screen reader name while the row moves ("Pause logo motion").</source>
         <target>移动时控件的屏幕阅读器名称（"Pause logo motion"）。</target>
       </trans-unit>
-      <trans-unit id="LogoMarquee.PausedAnnouncement">
-        <source>What a screen reader hears when the row pauses ("Motion paused").</source>
-        <target>暂停时屏幕阅读器听到的内容（"Motion paused"）。</target>
-      </trans-unit>
       <trans-unit id="LogoMarquee.PauseLabel">
         <source>The control's text while the row moves ("Pause").</source>
         <target>移动时控件的文字（"Pause"）。</target>
+      </trans-unit>
+      <trans-unit id="LogoMarquee.PausedAnnouncement">
+        <source>What a screen reader hears when the row pauses ("Motion paused").</source>
+        <target>暂停时屏幕阅读器听到的内容（"Motion paused"）。</target>
       </trans-unit>
       <trans-unit id="LogoMarquee.PlayActionName">
         <source>The control's screen reader name while the row is paused ("Play logo motion").</source>
@@ -20836,13 +20836,13 @@
         <source>Raised when a server left the list after its removal was confirmed, or by `RemoveServer`.</source>
         <target>有服务器在确认移除后，或通过 `RemoveServer` 离开列表时引发。</target>
       </trans-unit>
-      <trans-unit id="McpServers.Servers">
-        <source>The servers, in display order. Default: a fresh copy of `Servers` per block. The block adds and removes servers on this list (when it is not read-only) and follows its changes when it raises them.</source>
-        <target>服务器，按显示顺序排列。默认：每个区块各有一份 `Servers` 的新副本。区块会在这个列表上添加和移除服务器（列表不是只读时），并在列表报告变化时跟随它。</target>
-      </trans-unit>
       <trans-unit id="McpServers.ServerToggled">
         <source>Raised when a server's switch turned it on or off.</source>
         <target>服务器的开关将它打开或关闭时引发。</target>
+      </trans-unit>
+      <trans-unit id="McpServers.Servers">
+        <source>The servers, in display order. Default: a fresh copy of `Servers` per block. The block adds and removes servers on this list (when it is not read-only) and follows its changes when it raises them.</source>
+        <target>服务器，按显示顺序排列。默认：每个区块各有一份 `Servers` 的新副本。区块会在这个列表上添加和移除服务器（列表不是只读时），并在列表报告变化时跟随它。</target>
       </trans-unit>
       <trans-unit id="McpServers.SimulatedConnectDuration">
         <source>How long a simulated connection takes when `ConnectAsync` is null (1.2 s).</source>
@@ -21564,6 +21564,86 @@
         <source>Arguments of `ScrubChanged`: the inspected day, or none.</source>
         <target>`ScrubChanged` 的参数：正在查看的日期，或无。</target>
       </trans-unit>
+      <trans-unit id="MetricTicker">
+        <source>A strip of live metrics. In `Scroll` the metrics run past in one line like a stock ticker, with faded edges; pointing at the strip or focusing in it holds the line, and a pause button stops it for good (moving content needs a way to stop it). In `Roll`, or under reduced motion, the metrics sit in even columns. Either way each value rolls digit by digit when it updates, the change since the previous value shows with an arrow in the success or danger color, and the cell flashes that tint once.</source>
+        <target>一条实时指标带。在 `Scroll` 模式下，指标像股票行情一样排成一行滚动经过，两端渐隐；指针指向或焦点位于其中时这一行会停住，暂停按钮可以让它一直停下（移动的内容需要有办法停止）。在 `Roll` 模式下，或在减少动效时，指标排成等宽的列。无论哪种方式，每个值在更新时都会逐位滚动，与上一个值相比的变化以箭头和成功色或危险色显示，单元格也会以该色调闪烁一次。</target>
+      </trans-unit>
+      <trans-unit id="MetricTicker.IsPauseButtonVisible">
+        <source>Shows the pause button while the line scrolls (default true). Hide it only when the app offers its own way to stop the line.</source>
+        <target>在这一行滚动时显示暂停按钮（默认 true）。只有当应用提供了自己的停止方式时才隐藏它。</target>
+      </trans-unit>
+      <trans-unit id="MetricTicker.IsPaused">
+        <source>Stops the scrolling line where it is; the pause button and the Space key on it toggle it. Values still update.</source>
+        <target>让滚动的这一行停在原处；暂停按钮以及在其上按空格键可以切换它。值仍会更新。</target>
+      </trans-unit>
+      <trans-unit id="MetricTicker.ItemsSource">
+        <source>The metrics from a view model; when set it replaces `Items`.</source>
+        <target>来自视图模型的指标；设置后将取代 `Items`。</target>
+      </trans-unit>
+      <trans-unit id="MetricTicker.Label">
+        <source>The accessible name of the ticker (default "Live metrics").</source>
+        <target>行情带的无障碍名称（默认 "Live metrics"）。</target>
+      </trans-unit>
+      <trans-unit id="MetricTicker.Mode">
+        <source>A scrolling line (default) or columns that stay put.</source>
+        <target>滚动的一行（默认）或固定不动的列。</target>
+      </trans-unit>
+      <trans-unit id="MetricTicker.PauseLabel">
+        <source>The pause button's name and tooltip while the line moves.</source>
+        <target>这一行移动时暂停按钮的名称和工具提示。</target>
+      </trans-unit>
+      <trans-unit id="MetricTicker.PausesOnHover">
+        <source>Holds the line while the pointer is over it or focus is in it (default true).</source>
+        <target>指针悬停在其上或焦点位于其中时让这一行停住（默认 true）。</target>
+      </trans-unit>
+      <trans-unit id="MetricTicker.PlayLabel">
+        <source>The pause button's name and tooltip while the line is paused.</source>
+        <target>这一行暂停时暂停按钮的名称和工具提示。</target>
+      </trans-unit>
+      <trans-unit id="MetricTicker.Speed">
+        <source>How fast the line scrolls, in pixels per second (0 to 400, default 40).</source>
+        <target>这一行滚动的速度，以像素每秒为单位（0 到 400，默认 40）。</target>
+      </trans-unit>
+      <trans-unit id="MetricTickerItem">
+        <source>One metric of a `MetricTicker`: a label and a live value. Each time `Value` changes the ticker rolls the digits and shows the change since the previous value, colored by whether it went the good way.</source>
+        <target>`MetricTicker` 的一个指标：一个标签和一个实时值。每次 `Value` 变化时，行情带会滚动数字，并显示与上一个值相比的变化，颜色取决于变化方向是否向好。</target>
+      </trans-unit>
+      <trans-unit id="MetricTickerItem.Change">
+        <source>The last change of `Value` (new minus previous); NaN until the value has changed once.</source>
+        <target>`Value` 的最近一次变化（新值减去旧值）；在值第一次变化之前为 NaN。</target>
+      </trans-unit>
+      <trans-unit id="MetricTickerItem.ChangeFormat">
+        <source>How the change since the previous value is shown (percent by default).</source>
+        <target>与上一个值相比的变化的显示方式（默认为百分比）。</target>
+      </trans-unit>
+      <trans-unit id="MetricTickerItem.Decimals">
+        <source>Digits after the decimal point (0 to 6).</source>
+        <target>小数点后的位数（0 到 6）。</target>
+      </trans-unit>
+      <trans-unit id="MetricTickerItem.IsHigherBetter">
+        <source>True (default) when a rise is good news (shown in the success color); false for metrics such as latency or errors.</source>
+        <target>为 true（默认）时表示上升是好消息（以成功色显示）；对于延迟或错误数等指标设为 false。</target>
+      </trans-unit>
+      <trans-unit id="MetricTickerItem.Label">
+        <source>The metric's name ("Requests / s").</source>
+        <target>指标的名称（"Requests / s"）。</target>
+      </trans-unit>
+      <trans-unit id="MetricTickerItem.Prefix">
+        <source>Text before the value, such as "$".</source>
+        <target>值前面的文本，例如 "$"。</target>
+      </trans-unit>
+      <trans-unit id="MetricTickerItem.PreviousValue">
+        <source>The value before the last change; NaN until the value has changed once.</source>
+        <target>最近一次变化之前的值；在值第一次变化之前为 NaN。</target>
+      </trans-unit>
+      <trans-unit id="MetricTickerItem.Suffix">
+        <source>Text after the value, such as " ms" or "%".</source>
+        <target>值后面的文本，例如 " ms" 或 "%"。</target>
+      </trans-unit>
+      <trans-unit id="MetricTickerItem.Value">
+        <source>The current value; set it as new readings arrive. The first value set is the starting point, later ones are changes.</source>
+        <target>当前值；有新读数时设置它。第一次设置的值是起点，之后的值才算作变化。</target>
+      </trans-unit>
       <trans-unit id="MetricsDashboard">
         <source>A compact product analytics overview: a header with a range switch (7D / 30D / 90D) and an Export button, a row of metric tabs (total and change for the range; the selected one drives the chart), an inspectable area chart that can overlay the previous period, and two ranked lists. Totals and list values count to their new numbers when the range changes, the chart cross-fades, the range thumb and the tab underline glide. Long ranges are drawn as weekly points. Fill `Metrics`, `PrimaryItems` and `SecondaryItems` from code or bind the `*Source` properties.</source>
         <target>紧凑的产品分析概览：顶部是带范围切换（7D / 30D / 90D）和 Export 按钮的标题，下面是一排指标标签（显示该范围的总数和变化，选中的标签决定图表内容），一个可查看细节的面积图（可叠加上一周期），以及两个排名列表。范围改变时，总数和列表的值会计数到新的数字，图表交叉淡入淡出，范围滑块和标签下划线平滑滑动。较长的范围按每周一个点绘制。可在代码中填充 `Metrics`、`PrimaryItems` 和 `SecondaryItems`，也可以绑定 `*Source` 属性。</target>
@@ -21815,86 +21895,6 @@
       <trans-unit id="MetricsDashboardPointEventArgs">
         <source>Arguments of `MetricsDashboard.PointInspected`: a point of the chart is being inspected (pointer or keys).</source>
         <target>`MetricsDashboard.PointInspected` 的参数：图表上的一个点正在被查看（通过指针或按键）。</target>
-      </trans-unit>
-      <trans-unit id="MetricTicker">
-        <source>A strip of live metrics. In `Scroll` the metrics run past in one line like a stock ticker, with faded edges; pointing at the strip or focusing in it holds the line, and a pause button stops it for good (moving content needs a way to stop it). In `Roll`, or under reduced motion, the metrics sit in even columns. Either way each value rolls digit by digit when it updates, the change since the previous value shows with an arrow in the success or danger color, and the cell flashes that tint once.</source>
-        <target>一条实时指标带。在 `Scroll` 模式下，指标像股票行情一样排成一行滚动经过，两端渐隐；指针指向或焦点位于其中时这一行会停住，暂停按钮可以让它一直停下（移动的内容需要有办法停止）。在 `Roll` 模式下，或在减少动效时，指标排成等宽的列。无论哪种方式，每个值在更新时都会逐位滚动，与上一个值相比的变化以箭头和成功色或危险色显示，单元格也会以该色调闪烁一次。</target>
-      </trans-unit>
-      <trans-unit id="MetricTicker.IsPauseButtonVisible">
-        <source>Shows the pause button while the line scrolls (default true). Hide it only when the app offers its own way to stop the line.</source>
-        <target>在这一行滚动时显示暂停按钮（默认 true）。只有当应用提供了自己的停止方式时才隐藏它。</target>
-      </trans-unit>
-      <trans-unit id="MetricTicker.IsPaused">
-        <source>Stops the scrolling line where it is; the pause button and the Space key on it toggle it. Values still update.</source>
-        <target>让滚动的这一行停在原处；暂停按钮以及在其上按空格键可以切换它。值仍会更新。</target>
-      </trans-unit>
-      <trans-unit id="MetricTicker.ItemsSource">
-        <source>The metrics from a view model; when set it replaces `Items`.</source>
-        <target>来自视图模型的指标；设置后将取代 `Items`。</target>
-      </trans-unit>
-      <trans-unit id="MetricTicker.Label">
-        <source>The accessible name of the ticker (default "Live metrics").</source>
-        <target>行情带的无障碍名称（默认 "Live metrics"）。</target>
-      </trans-unit>
-      <trans-unit id="MetricTicker.Mode">
-        <source>A scrolling line (default) or columns that stay put.</source>
-        <target>滚动的一行（默认）或固定不动的列。</target>
-      </trans-unit>
-      <trans-unit id="MetricTicker.PauseLabel">
-        <source>The pause button's name and tooltip while the line moves.</source>
-        <target>这一行移动时暂停按钮的名称和工具提示。</target>
-      </trans-unit>
-      <trans-unit id="MetricTicker.PausesOnHover">
-        <source>Holds the line while the pointer is over it or focus is in it (default true).</source>
-        <target>指针悬停在其上或焦点位于其中时让这一行停住（默认 true）。</target>
-      </trans-unit>
-      <trans-unit id="MetricTicker.PlayLabel">
-        <source>The pause button's name and tooltip while the line is paused.</source>
-        <target>这一行暂停时暂停按钮的名称和工具提示。</target>
-      </trans-unit>
-      <trans-unit id="MetricTicker.Speed">
-        <source>How fast the line scrolls, in pixels per second (0 to 400, default 40).</source>
-        <target>这一行滚动的速度，以像素每秒为单位（0 到 400，默认 40）。</target>
-      </trans-unit>
-      <trans-unit id="MetricTickerItem">
-        <source>One metric of a `MetricTicker`: a label and a live value. Each time `Value` changes the ticker rolls the digits and shows the change since the previous value, colored by whether it went the good way.</source>
-        <target>`MetricTicker` 的一个指标：一个标签和一个实时值。每次 `Value` 变化时，行情带会滚动数字，并显示与上一个值相比的变化，颜色取决于变化方向是否向好。</target>
-      </trans-unit>
-      <trans-unit id="MetricTickerItem.Change">
-        <source>The last change of `Value` (new minus previous); NaN until the value has changed once.</source>
-        <target>`Value` 的最近一次变化（新值减去旧值）；在值第一次变化之前为 NaN。</target>
-      </trans-unit>
-      <trans-unit id="MetricTickerItem.ChangeFormat">
-        <source>How the change since the previous value is shown (percent by default).</source>
-        <target>与上一个值相比的变化的显示方式（默认为百分比）。</target>
-      </trans-unit>
-      <trans-unit id="MetricTickerItem.Decimals">
-        <source>Digits after the decimal point (0 to 6).</source>
-        <target>小数点后的位数（0 到 6）。</target>
-      </trans-unit>
-      <trans-unit id="MetricTickerItem.IsHigherBetter">
-        <source>True (default) when a rise is good news (shown in the success color); false for metrics such as latency or errors.</source>
-        <target>为 true（默认）时表示上升是好消息（以成功色显示）；对于延迟或错误数等指标设为 false。</target>
-      </trans-unit>
-      <trans-unit id="MetricTickerItem.Label">
-        <source>The metric's name ("Requests / s").</source>
-        <target>指标的名称（"Requests / s"）。</target>
-      </trans-unit>
-      <trans-unit id="MetricTickerItem.Prefix">
-        <source>Text before the value, such as "$".</source>
-        <target>值前面的文本，例如 "$"。</target>
-      </trans-unit>
-      <trans-unit id="MetricTickerItem.PreviousValue">
-        <source>The value before the last change; NaN until the value has changed once.</source>
-        <target>最近一次变化之前的值；在值第一次变化之前为 NaN。</target>
-      </trans-unit>
-      <trans-unit id="MetricTickerItem.Suffix">
-        <source>Text after the value, such as " ms" or "%".</source>
-        <target>值后面的文本，例如 " ms" 或 "%"。</target>
-      </trans-unit>
-      <trans-unit id="MetricTickerItem.Value">
-        <source>The current value; set it as new readings arrive. The first value set is the starting point, later ones are changes.</source>
-        <target>当前值；有新读数时设置它。第一次设置的值是起点，之后的值才算作变化。</target>
       </trans-unit>
       <trans-unit id="MixtureOfExperts">
         <source>An animated explainer of a sparse mixture-of-experts layer. Tokens enter one at a time; a router scores every expert (a small bar each), the token travels to its top-k experts, which light up in a first and second choice color and count it, and their outputs merge into the token's output chip. Experts have a capacity: a full expert skips the token, and a token whose every choice is full passes through unchanged. The header switches between top 1 and top 2 and shows the parameters that run per token; a load balance bar sits under the stage. Pointing at, focusing or pinning a token or an expert freezes the story on it and shows its route or its load. The routing is computed from the tokens' scores (or stable scores derived from their text); the numbers are illustrative.</source>
@@ -22244,13 +22244,13 @@
         <source>Raised when the person chooses a row of the sheet, even the one that is already selected.</source>
         <target>用户在面板中选择某一行时触发，即使该行已被选中。</target>
       </trans-unit>
-      <trans-unit id="MobilePicker.ItemsSource">
-        <source>The choices. While it is null, `Items` are the choices.</source>
-        <target>选项。为 null 时，`Items` 即为选项。</target>
-      </trans-unit>
       <trans-unit id="MobilePicker.ItemTemplate">
         <source>A template that builds the value at the row's end and each row of the sheet; it wins over `DisplayMemberBinding`.</source>
         <target>构建行末值以及面板中每一行的模板；它优先于 `DisplayMemberBinding`。</target>
+      </trans-unit>
+      <trans-unit id="MobilePicker.ItemsSource">
+        <source>The choices. While it is null, `Items` are the choices.</source>
+        <target>选项。为 null 时，`Items` 即为选项。</target>
       </trans-unit>
       <trans-unit id="MobilePicker.PlaceholderText">
         <source>The text at the row's end while nothing is selected: "Not set".</source>
@@ -22776,6 +22776,10 @@
         <source>Arguments of `ViewChanged`.</source>
         <target>`ViewChanged` 的参数。</target>
       </trans-unit>
+      <trans-unit id="ModelLoadFailedEventArgs">
+        <source>Data of `LoadFailed`.</source>
+        <target>`LoadFailed` 的数据。</target>
+      </trans-unit>
       <trans-unit id="ModelPicker">
         <source>Chooses a model and its reasoning effort from one compact pill. The pill shows the current choice; its menu lists a few featured models with a one-line note each, an effort setting, and every other model grouped by provider. Under the pill a summary shows what the model can hold and costs, and confirms each change for a moment. A composition of `ModelPill`, `ModelMenu` and `ModelSummary`: the catalog, the selection and the effort are properties, so bind them or read them back from the events. The pill opens on a pointer press or on Enter, Space and ArrowDown; the menu has a featured list, an Effort row and a More models row that open submenus (or pages in a narrow window); choosing closes the menu and returns focus to the pill; the effort moves to the nearest level a new model offers. Set `IsSummaryVisible` to false for the pill alone (a toolbar, a header). Screen readers hear a polite announcement after each change ("Now using Aurora Prime 3, medium effort"); the visible confirmation under the summary stays for `NoticeDuration`.</source>
         <target>从一个紧凑的胶囊中选择模型及其推理强度。胶囊显示当前选择；其菜单列出几个精选模型（每个附一行说明）、一项推理强度设置，以及按提供方分组的其他所有模型。胶囊下方的概览显示该模型可容纳的内容与费用，并在每次更改后短暂给出确认。它由 `ModelPill`、`ModelMenu` 和 `ModelSummary` 组合而成：目录、选择和推理强度都是属性，因此可以绑定它们，或从事件中读回。胶囊在指针按下，或按 Enter、Space 与 ArrowDown 时打开菜单；菜单包含精选列表、Effort 行和 More models 行，它们会打开子菜单（窗口较窄时改为页面）；选择后菜单关闭，焦点回到胶囊；推理强度会移到新模型所提供的最接近的一档。把 `IsSummaryVisible` 设为 false，就只剩胶囊（用于工具栏或标题栏）。每次更改后，屏幕阅读器会听到一条礼貌式播报（"Now using Aurora Prime 3, medium effort"）；概览下方的确认提示会保留 `NoticeDuration` 的时长。</target>
@@ -22887,6 +22891,82 @@
       <trans-unit id="ModelTrainingLabels">
         <source>Every word a `ModelTraining` shows or announces, in English by default (the playback buttons are named by `PlaybackLabels`). Replace the instance to translate or reword; texts with numbers are functions so the word order can change.</source>
         <target>`ModelTraining` 显示或朗读的每一个文字，默认为英文（播放按钮的名称由 `PlaybackLabels` 指定）。替换整个实例即可翻译或改写；包含数字的文字为函数，以便调整词序。</target>
+      </trans-unit>
+      <trans-unit id="ModelViewer">
+        <source>Shows one 3D model with everything a product view needs: studio lighting, a soft ground shadow, orbit / zoom / pan with the pointer, auto-rotation and a reset button. Give it a glTF file (`Source`, `LoadAsync`) or any object built in code (`Model`); it frames the model by itself.</source>
+        <target>展示一个 3D 模型，并备齐产品展示所需的一切：影棚布光、柔和的地面阴影、用指针环绕 / 缩放 / 平移、自动旋转和重置按钮。给它一个 glTF 文件（`Source`、`LoadAsync`）或任何用代码搭建的物体（`Model`）；它会自己为模型取景。</target>
+      </trans-unit>
+      <trans-unit id="ModelViewer.AutoRotate">
+        <source>True turns the model slowly about its vertical axis while nobody is dragging it. It stands still under reduced motion.</source>
+        <target>为 True 时，没有人拖动模型时它绕竖直轴缓慢旋转。减少动态效果时模型保持静止。</target>
+      </trans-unit>
+      <trans-unit id="ModelViewer.AutoRotateLabel">
+        <source>Accessible name and tooltip of the auto-rotate button; null (default) uses the built-in text in the app's language.</source>
+        <target>自动旋转按钮的无障碍名称和工具提示；null（默认）时使用应用语言下的内置文字。</target>
+      </trans-unit>
+      <trans-unit id="ModelViewer.AutoRotateSpeed">
+        <source>Auto-rotation speed in degrees per second (default 12: one turn in 30 seconds).</source>
+        <target>自动旋转的速度，单位是度每秒（默认 12：30 秒转一圈）。</target>
+      </trans-unit>
+      <trans-unit id="ModelViewer.CameraControlsEnabled">
+        <source>False fixes the camera: the pointer, wheel and arrow keys do nothing.</source>
+        <target>为 False 时相机固定：指针、滚轮和方向键都不起作用。</target>
+      </trans-unit>
+      <trans-unit id="ModelViewer.Environment">
+        <source>The surroundings that light the model and show in its reflections.</source>
+        <target>照亮模型并出现在其反射中的周围环境。</target>
+      </trans-unit>
+      <trans-unit id="ModelViewer.EnvironmentIntensity">
+        <source>Multiplies the environment's light.</source>
+        <target>环境光的倍数。</target>
+      </trans-unit>
+      <trans-unit id="ModelViewer.ErrorMessage">
+        <source>Why the last load failed, or null.</source>
+        <target>上一次加载失败的原因，或 null。</target>
+      </trans-unit>
+      <trans-unit id="ModelViewer.Exposure">
+        <source>Exposure multiplier applied before tone mapping.</source>
+        <target>色调映射之前应用的曝光倍数。</target>
+      </trans-unit>
+      <trans-unit id="ModelViewer.IsLoading">
+        <source>True while a file is being read.</source>
+        <target>正在读取文件时为 True。</target>
+      </trans-unit>
+      <trans-unit id="ModelViewer.LoadFailed">
+        <source>Raised when loading `Source` or a stream failed; `ErrorMessage` has the text.</source>
+        <target>加载 `Source` 或流失败时触发；`ErrorMessage` 里有说明文字。</target>
+      </trans-unit>
+      <trans-unit id="ModelViewer.Model">
+        <source>An object to show instead of a file: anything built with the engine. The viewer does not dispose it.</source>
+        <target>代替文件显示的对象：用引擎构建的任何对象。查看器不会释放它。</target>
+      </trans-unit>
+      <trans-unit id="ModelViewer.ModelLoaded">
+        <source>Raised when a model was loaded or set and is on screen.</source>
+        <target>模型已加载或已设置，并显示在屏幕上时触发。</target>
+      </trans-unit>
+      <trans-unit id="ModelViewer.ResetViewLabel">
+        <source>Accessible name and tooltip of the reset button; null (default) uses the built-in text in the app's language.</source>
+        <target>重置按钮的无障碍名称和工具提示；null（默认）时使用应用语言下的内置文字。</target>
+      </trans-unit>
+      <trans-unit id="ModelViewer.ShadowIntensity">
+        <source>Darkness of the shadow on the ground under the model, 0 (none) to 1.</source>
+        <target>模型下方地面阴影的深浅，从 0（无）到 1。</target>
+      </trans-unit>
+      <trans-unit id="ModelViewer.ShowToolbar">
+        <source>False hides the reset and auto-rotate buttons.</source>
+        <target>为 False 时隐藏重置和自动旋转按钮。</target>
+      </trans-unit>
+      <trans-unit id="ModelViewer.Source">
+        <source>Where the glTF 2.0 model (`.gltf` or `.glb`) to show comes from: a file path, an `avares://` resource or an `http(s)://` address. Loading runs off the UI thread.</source>
+        <target>要显示的 glTF 2.0 模型（`.gltf` 或 `.glb`）的来源：文件路径、`avares://` 资源或 `http(s)://` 地址。加载在 UI 线程之外进行。</target>
+      </trans-unit>
+      <trans-unit id="ModelViewer.ToneMapping">
+        <source>How bright values are compressed into the displayable range.</source>
+        <target>明亮的数值如何压缩到可显示的范围内。</target>
+      </trans-unit>
+      <trans-unit id="ModelViewer.UseRenderThread">
+        <source>True draws the model on a render thread where the viewport can (see `UseRenderThread`); set it before the viewer joins a window.</source>
+        <target>为 true 时，在视口支持的情况下用渲染线程绘制模型（见 `UseRenderThread`）；请在查看器加入窗口之前设置。</target>
       </trans-unit>
       <trans-unit id="MoneyInput">
         <source>Arc money input: a currency amount field. Digits group as they are typed without moving the caret, the missing cents wait as faint ghosts so the amount never changes width when it settles, long amounts scale down to fit instead of scrolling, and quick add chips and arrow keys roll the digits. A currency menu switches the currency and keeps the major amount. `Value` is the amount in major units (12.5 for $12.50); `MinorUnits` gives the integer minor units Arc reports.</source>
@@ -24652,6 +24732,126 @@
         <source>How `NumberFilterBox` compares a value with its target.</source>
         <target>`NumberFilterBox` 如何把值与目标值比较。</target>
       </trans-unit>
+      <trans-unit id="OnScreenKeyboard">
+        <source>An on-screen keyboard for touch screens without a physical keyboard (kiosks, touch panels, industrial HMIs). It shows a built-in layout (`Preset`: QWERTY, a number pad or a PIN pad) or your own `Layout`, and types into the text input that has focus in the same window (Arc `Input`, `Textarea`, `NumberField`, an Avalonia `TextBox`...) or into `Target`. Text goes through Avalonia's text input event, so the text box inserts it at the caret and replaces a selection; Backspace, Enter, Tab and the arrows are sent as key presses. Keys never take focus. `ItemInvoked` is raised for every key and can be handled to take a key over.</source>
+        <target>供没有实体键盘的触摸屏使用的屏幕键盘（自助终端、触摸面板、工业 HMI）。它显示内置布局（`Preset`：QWERTY、数字键盘或 PIN 键盘）或你自己的 `Layout`，并将文本输入到同一窗口中获得焦点的文本输入控件（Arc `Input`、`Textarea`、`NumberField`、Avalonia `TextBox`……）或 `Target` 中。文本通过 Avalonia 的文本输入事件传递，因此文本框在光标处插入并替换选中内容；Backspace、Enter、Tab 和方向键作为按键发送。按键从不获得焦点。每次按键都会触发 `ItemInvoked`，可通过处理它来接管该按键。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.CapsLockOnText">
+        <source>Announced to screen readers when a double tap on Shift locks capitals.</source>
+        <target>双击 Shift 锁定大写时，向屏幕阅读器播报的文本。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.Culture">
+        <source>The culture used to put letters in upper case and for the number pads' decimal separator and minus sign; null uses the current culture.</source>
+        <target>用于将字母转为大写以及数字键盘小数分隔符和负号的区域性；为 null 时使用当前区域性。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.CurrentPage">
+        <source>The name of the page shown (letters, symbols...); null, or a name the layout does not have, shows its first page. Page keys change it.</source>
+        <target>显示的页面名称（字母、符号……）；为 null 或布局中不存在的名称时，显示其第一页。页面键会改变它。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.HideRequested">
+        <source>Raised when a `Hide` key is pressed. A keyboard opened by `OnScreenKeyboard.Popup` closes; a docked keyboard leaves hiding to you.</source>
+        <target>按下 `Hide` 键时触发。由 `OnScreenKeyboard.Popup` 打开的键盘会关闭；停靠的键盘则由你自行处理隐藏。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.ItemInvoked">
+        <source>Raised for every key press, and for every repeat of a held key, before the keyboard acts on it. Set `Handled` to true to take the key over: the keyboard then types nothing and leaves Shift and the page as they are.</source>
+        <target>每次按键以及按住某键的每次重复时触发，发生在键盘处理之前。将 `Handled` 设为 true 可接管该按键：此后键盘不输入任何内容，并保持 Shift 与页面状态不变。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.Layout">
+        <source>Your own layout (pages of rows of keys); when set it replaces `Preset`. The keyboard follows changes made to it.</source>
+        <target>你自己的布局（由按键行组成的页面）；设置后替代 `Preset`。对它的修改会被键盘跟随。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.Popup">
+        <source>Set on a text input (or any element that holds one): while it has focus, a keyboard of this kind opens under it and types into it. It closes when focus leaves, after Enter in a single-line text box, and on a `Hide` key; tapping the field opens it again. `None` (default) opens nothing unless `PopupLayout` is set.</source>
+        <target>设置在文本输入（或包含文本输入的任何元素）上：该元素获得焦点时，此类键盘会在其下方打开并向其输入。焦点离开时、单行文本框中按 Enter 后，以及按下 `Hide` 键时关闭；再次点击该字段会重新打开。`None`（默认）在未设置 `PopupLayout` 时不打开任何键盘。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.PopupLayout">
+        <source>Set on a text input: the layout of the keyboard that opens under it while it has focus (it overrides `Popup`).</source>
+        <target>设置在文本输入上：该文本输入获得焦点时在其下方打开的键盘布局（覆盖 `Popup`）。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.Preset">
+        <source>The built-in layout shown when `Layout` is null: QWERTY (default), a number pad (with or without a minus key) or a PIN pad.</source>
+        <target>`Layout` 为 null 时显示的内置布局：QWERTY（默认）、数字键盘（带或不带减号键）或 PIN 键盘。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.RepeatDelay">
+        <source>How long a repeating key (Backspace, the arrows) is held before it starts to repeat.</source>
+        <target>按住会重复的键（Backspace、方向键）在开始重复前需要按住的时长。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.RepeatInterval">
+        <source>The time between two repeats of a held key.</source>
+        <target>按住某键时两次重复之间的时间间隔。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.ShiftOffText">
+        <source>Announced to screen readers when the Shift key turns Shift or caps lock off.</source>
+        <target>Shift 键使 Shift 或大写锁定关闭时，向屏幕阅读器播报的文本。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.ShiftOnText">
+        <source>Announced to screen readers when Shift turns on for one key.</source>
+        <target>Shift 为下一个键开启时，向屏幕阅读器播报的文本。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.ShiftState">
+        <source>Shift: `Off`, `On` for the next key, or `Locked` (caps lock). The Shift key changes it: one tap turns it on, a double tap locks it.</source>
+        <target>Shift 状态：`Off`、为下一个键开启的 `On`，或 `Locked`（大写锁定）。Shift 键会改变它：单击开启，双击锁定。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.Target">
+        <source>The element that receives the text and key presses; null sends them to the element that has focus in the keyboard's window.</source>
+        <target>接收文本和按键的元素；为 null 时，将它们发送给键盘所在窗口中获得焦点的元素。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboard.TimeProvider">
+        <source>The clock of key repeat and of the Shift double tap. Tests pass a clock they move by hand.</source>
+        <target>按键重复和 Shift 双击所用的时钟。测试时传入由手动推进的时钟。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey">
+        <source>One key of an `OnScreenKeyboardLayout`: what it does (`Kind`), what it types (`Text`, `ShiftText`), how it looks (`Label`, `Glyph`, `Width`) and how screen readers name it. Its properties can be bound; the keyboard follows changes.</source>
+        <target>`OnScreenKeyboardLayout` 中的一个按键：它做什么（`Kind`）、输入什么（`Text`、`ShiftText`）、外观如何（`Label`、`Glyph`、`Width`）以及屏幕阅读器如何称呼它。它的属性可以绑定；键盘会跟随变化。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.AutomationName">
+        <source>The name screen readers use; null uses the label or the kind's name ("Backspace", "Shift", "Enter"...).</source>
+        <target>屏幕阅读器使用的名称；为 null 时使用标签或按键类型的名称（"Backspace"、"Shift"、"Enter"……）。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.Glyph">
+        <source>A 24×24 stroked glyph (Lucide path data) drawn instead of the label; null uses the kind's own glyph (Backspace, Enter, Shift, arrows...).</source>
+        <target>以 24×24 描边字形（Lucide 路径数据）代替标签绘制；为 null 时使用该按键类型自带的字形（Backspace、Enter、Shift、方向键……）。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.IsEnabled">
+        <source>Whether the key can be pressed. A disabled key is dimmed and does nothing.</source>
+        <target>按键能否被按下。禁用的按键会变暗且不起任何作用。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.IsRepeatable">
+        <source>Whether holding the key repeats it; null repeats Backspace and the arrow keys only.</source>
+        <target>按住该键是否重复它；为 null 时只重复 Backspace 和方向键。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.IsVisible">
+        <source>Whether the key is shown. A hidden key takes no room; the rest of its row closes up.</source>
+        <target>按键是否显示。隐藏的按键不占空间，同一行的其余按键会填补其空位。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.KeyCode">
+        <source>The key a `Key` key sends as a key press (for example `Escape`, `Delete` or `Home`).</source>
+        <target>`Key` 类按键发送的按键（例如 `Escape`、`Delete` 或 `Home`）。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.Kind">
+        <source>What the key does: type `Text`, a special key (Backspace, Enter, arrows...), Shift, switch page, and so on.</source>
+        <target>按键的作用：输入类型 `Text`、特殊键（Backspace、Enter、方向键……）、Shift、切换页面等。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.Label">
+        <source>The text shown on the key; null shows what the key types (upper case while shifted), or nothing for keys drawn with a glyph.</source>
+        <target>按键上显示的文本；为 null 时显示该按键输入的内容（按下 Shift 时为大写），以字形绘制的按键则不显示文本。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.ShiftText">
+        <source>The text typed while Shift or Caps lock is on; null types `Text` in upper case (in the keyboard's culture).</source>
+        <target>Shift 或大写锁定开启时输入的文本；为 null 时以大写形式输入 `Text`（使用键盘的区域性）。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.TargetPage">
+        <source>The `Name` a `Page` key switches to.</source>
+        <target>`Page` 键切换到的 `Name`。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.Text">
+        <source>The text a `Text` key types (one character or more). For a `Custom` key it identifies the key in `ItemInvoked`.</source>
+        <target>`Text` 键输入的文本（一个或多个字符）。对于 `Custom` 键，它在 `ItemInvoked` 中标识该键。</target>
+      </trans-unit>
+      <trans-unit id="OnScreenKeyboardKey.Width">
+        <source>The key's width relative to a standard key (1). A row's keys share the keyboard's width by these units.</source>
+        <target>按键相对标准键（1）的宽度。同一行的按键按这些单位均分键盘的宽度。</target>
+      </trans-unit>
       <trans-unit id="OnboardingChecklist">
         <source>Arc onboarding checklist: a getting started list for a new account or workspace. The ring and count follow every check, finished steps strike through and fold into a completed row that opens again, and the next step opens and takes focus. Use it for a short, one time setup of three to eight steps; use a stepper or a step form when the order is strict.</source>
         <target>Arc 新手引导清单：面向新账户或新工作区的入门列表。圆环和计数跟随每次勾选，完成的步骤划掉后收进可再次展开的“已完成”行，下一步自动展开并获得焦点。适用于三到八个步骤的一次性简短设置；顺序严格时请使用步骤条或分步表单。</target>
@@ -24855,126 +25055,6 @@
       <trans-unit id="OnboardingSurvey.QuestionChanged">
         <source>Raised after the question changes (also when the thank-you opens), with the old and the new index.</source>
         <target>问题改变后引发（打开感谢页时也会引发），带有旧索引和新索引。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboard">
-        <source>An on-screen keyboard for touch screens without a physical keyboard (kiosks, touch panels, industrial HMIs). It shows a built-in layout (`Preset`: QWERTY, a number pad or a PIN pad) or your own `Layout`, and types into the text input that has focus in the same window (Arc `Input`, `Textarea`, `NumberField`, an Avalonia `TextBox`...) or into `Target`. Text goes through Avalonia's text input event, so the text box inserts it at the caret and replaces a selection; Backspace, Enter, Tab and the arrows are sent as key presses. Keys never take focus. `ItemInvoked` is raised for every key and can be handled to take a key over.</source>
-        <target>供没有实体键盘的触摸屏使用的屏幕键盘（自助终端、触摸面板、工业 HMI）。它显示内置布局（`Preset`：QWERTY、数字键盘或 PIN 键盘）或你自己的 `Layout`，并将文本输入到同一窗口中获得焦点的文本输入控件（Arc `Input`、`Textarea`、`NumberField`、Avalonia `TextBox`……）或 `Target` 中。文本通过 Avalonia 的文本输入事件传递，因此文本框在光标处插入并替换选中内容；Backspace、Enter、Tab 和方向键作为按键发送。按键从不获得焦点。每次按键都会触发 `ItemInvoked`，可通过处理它来接管该按键。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboard.CapsLockOnText">
-        <source>Announced to screen readers when a double tap on Shift locks capitals.</source>
-        <target>双击 Shift 锁定大写时，向屏幕阅读器播报的文本。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboard.Culture">
-        <source>The culture used to put letters in upper case and for the number pads' decimal separator and minus sign; null uses the current culture.</source>
-        <target>用于将字母转为大写以及数字键盘小数分隔符和负号的区域性；为 null 时使用当前区域性。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboard.CurrentPage">
-        <source>The name of the page shown (letters, symbols...); null, or a name the layout does not have, shows its first page. Page keys change it.</source>
-        <target>显示的页面名称（字母、符号……）；为 null 或布局中不存在的名称时，显示其第一页。页面键会改变它。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboard.HideRequested">
-        <source>Raised when a `Hide` key is pressed. A keyboard opened by `OnScreenKeyboard.Popup` closes; a docked keyboard leaves hiding to you.</source>
-        <target>按下 `Hide` 键时触发。由 `OnScreenKeyboard.Popup` 打开的键盘会关闭；停靠的键盘则由你自行处理隐藏。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboard.ItemInvoked">
-        <source>Raised for every key press, and for every repeat of a held key, before the keyboard acts on it. Set `Handled` to true to take the key over: the keyboard then types nothing and leaves Shift and the page as they are.</source>
-        <target>每次按键以及按住某键的每次重复时触发，发生在键盘处理之前。将 `Handled` 设为 true 可接管该按键：此后键盘不输入任何内容，并保持 Shift 与页面状态不变。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboard.Layout">
-        <source>Your own layout (pages of rows of keys); when set it replaces `Preset`. The keyboard follows changes made to it.</source>
-        <target>你自己的布局（由按键行组成的页面）；设置后替代 `Preset`。对它的修改会被键盘跟随。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboard.Popup">
-        <source>Set on a text input (or any element that holds one): while it has focus, a keyboard of this kind opens under it and types into it. It closes when focus leaves, after Enter in a single-line text box, and on a `Hide` key; tapping the field opens it again. `None` (default) opens nothing unless `PopupLayout` is set.</source>
-        <target>设置在文本输入（或包含文本输入的任何元素）上：该元素获得焦点时，此类键盘会在其下方打开并向其输入。焦点离开时、单行文本框中按 Enter 后，以及按下 `Hide` 键时关闭；再次点击该字段会重新打开。`None`（默认）在未设置 `PopupLayout` 时不打开任何键盘。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboard.PopupLayout">
-        <source>Set on a text input: the layout of the keyboard that opens under it while it has focus (it overrides `Popup`).</source>
-        <target>设置在文本输入上：该文本输入获得焦点时在其下方打开的键盘布局（覆盖 `Popup`）。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboard.Preset">
-        <source>The built-in layout shown when `Layout` is null: QWERTY (default), a number pad (with or without a minus key) or a PIN pad.</source>
-        <target>`Layout` 为 null 时显示的内置布局：QWERTY（默认）、数字键盘（带或不带减号键）或 PIN 键盘。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboard.RepeatDelay">
-        <source>How long a repeating key (Backspace, the arrows) is held before it starts to repeat.</source>
-        <target>按住会重复的键（Backspace、方向键）在开始重复前需要按住的时长。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboard.RepeatInterval">
-        <source>The time between two repeats of a held key.</source>
-        <target>按住某键时两次重复之间的时间间隔。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboard.ShiftOffText">
-        <source>Announced to screen readers when the Shift key turns Shift or caps lock off.</source>
-        <target>Shift 键使 Shift 或大写锁定关闭时，向屏幕阅读器播报的文本。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboard.ShiftOnText">
-        <source>Announced to screen readers when Shift turns on for one key.</source>
-        <target>Shift 为下一个键开启时，向屏幕阅读器播报的文本。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboard.ShiftState">
-        <source>Shift: `Off`, `On` for the next key, or `Locked` (caps lock). The Shift key changes it: one tap turns it on, a double tap locks it.</source>
-        <target>Shift 状态：`Off`、为下一个键开启的 `On`，或 `Locked`（大写锁定）。Shift 键会改变它：单击开启，双击锁定。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboard.Target">
-        <source>The element that receives the text and key presses; null sends them to the element that has focus in the keyboard's window.</source>
-        <target>接收文本和按键的元素；为 null 时，将它们发送给键盘所在窗口中获得焦点的元素。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboard.TimeProvider">
-        <source>The clock of key repeat and of the Shift double tap. Tests pass a clock they move by hand.</source>
-        <target>按键重复和 Shift 双击所用的时钟。测试时传入由手动推进的时钟。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboardKey">
-        <source>One key of an `OnScreenKeyboardLayout`: what it does (`Kind`), what it types (`Text`, `ShiftText`), how it looks (`Label`, `Glyph`, `Width`) and how screen readers name it. Its properties can be bound; the keyboard follows changes.</source>
-        <target>`OnScreenKeyboardLayout` 中的一个按键：它做什么（`Kind`）、输入什么（`Text`、`ShiftText`）、外观如何（`Label`、`Glyph`、`Width`）以及屏幕阅读器如何称呼它。它的属性可以绑定；键盘会跟随变化。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboardKey.AutomationName">
-        <source>The name screen readers use; null uses the label or the kind's name ("Backspace", "Shift", "Enter"...).</source>
-        <target>屏幕阅读器使用的名称；为 null 时使用标签或按键类型的名称（"Backspace"、"Shift"、"Enter"……）。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboardKey.Glyph">
-        <source>A 24×24 stroked glyph (Lucide path data) drawn instead of the label; null uses the kind's own glyph (Backspace, Enter, Shift, arrows...).</source>
-        <target>以 24×24 描边字形（Lucide 路径数据）代替标签绘制；为 null 时使用该按键类型自带的字形（Backspace、Enter、Shift、方向键……）。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboardKey.IsEnabled">
-        <source>Whether the key can be pressed. A disabled key is dimmed and does nothing.</source>
-        <target>按键能否被按下。禁用的按键会变暗且不起任何作用。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboardKey.IsRepeatable">
-        <source>Whether holding the key repeats it; null repeats Backspace and the arrow keys only.</source>
-        <target>按住该键是否重复它；为 null 时只重复 Backspace 和方向键。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboardKey.IsVisible">
-        <source>Whether the key is shown. A hidden key takes no room; the rest of its row closes up.</source>
-        <target>按键是否显示。隐藏的按键不占空间，同一行的其余按键会填补其空位。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboardKey.KeyCode">
-        <source>The key a `Key` key sends as a key press (for example `Escape`, `Delete` or `Home`).</source>
-        <target>`Key` 类按键发送的按键（例如 `Escape`、`Delete` 或 `Home`）。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboardKey.Kind">
-        <source>What the key does: type `Text`, a special key (Backspace, Enter, arrows...), Shift, switch page, and so on.</source>
-        <target>按键的作用：输入类型 `Text`、特殊键（Backspace、Enter、方向键……）、Shift、切换页面等。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboardKey.Label">
-        <source>The text shown on the key; null shows what the key types (upper case while shifted), or nothing for keys drawn with a glyph.</source>
-        <target>按键上显示的文本；为 null 时显示该按键输入的内容（按下 Shift 时为大写），以字形绘制的按键则不显示文本。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboardKey.ShiftText">
-        <source>The text typed while Shift or Caps lock is on; null types `Text` in upper case (in the keyboard's culture).</source>
-        <target>Shift 或大写锁定开启时输入的文本；为 null 时以大写形式输入 `Text`（使用键盘的区域性）。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboardKey.TargetPage">
-        <source>The `Name` a `Page` key switches to.</source>
-        <target>`Page` 键切换到的 `Name`。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboardKey.Text">
-        <source>The text a `Text` key types (one character or more). For a `Custom` key it identifies the key in `ItemInvoked`.</source>
-        <target>`Text` 键输入的文本（一个或多个字符）。对于 `Custom` 键，它在 `ItemInvoked` 中标识该键。</target>
-      </trans-unit>
-      <trans-unit id="OnScreenKeyboardKey.Width">
-        <source>The key's width relative to a standard key (1). A row's keys share the keyboard's width by these units.</source>
-        <target>按键相对标准键（1）的宽度。同一行的按键按这些单位均分键盘的宽度。</target>
       </trans-unit>
       <trans-unit id="OrbitLogo">
         <source>One integration shown by `OrbitLogos`: a mark on a ring, plus the text its detail card shows.</source>
@@ -28568,13 +28648,13 @@
         <source>The end of the scale; null takes it from the data, rounded up.</source>
         <target>刻度的终点；null 时取自数据并向上取整。</target>
       </trans-unit>
-      <trans-unit id="RangeHistogramSlider.Minimum">
-        <source>The start of the scale; null takes it from the data, rounded down and never above 0.</source>
-        <target>刻度的起点；null 时取自数据并向下取整，且不大于 0。</target>
-      </trans-unit>
       <trans-unit id="RangeHistogramSlider.MinStepsBetweenThumbs">
         <source>The closest the two thumbs may sit, in steps.</source>
         <target>两个滑块之间的最小距离，以步长计。</target>
+      </trans-unit>
+      <trans-unit id="RangeHistogramSlider.Minimum">
+        <source>The start of the scale; null takes it from the data, rounded down and never above 0.</source>
+        <target>刻度的起点；null 时取自数据并向下取整，且不大于 0。</target>
       </trans-unit>
       <trans-unit id="RangeHistogramSlider.RangeChanged">
         <source>Raised on every change of the range, from a drag, a key or code.</source>
@@ -31800,38 +31880,6 @@
         <source>Defines the `ValueSelector` property.</source>
         <target>定义 `ValueSelector` 属性。</target>
       </trans-unit>
-      <trans-unit id="SelectionToolbar">
-        <source>A list or table with a floating bar for what is selected in it. Put the list in `Content` and bind `SelectedCount` to its selection: while anything is selected, a pill rises from the bottom edge with the count (its digits roll as it changes), "Select all" for the rest, the bulk actions and a clear button; it sinks away when the selection empties. Escape clears the selection from anywhere inside, the bar is one toolbar with the arrow keys moving between its buttons, and the count is read out as it changes. Below `CompactWidth` the actions keep only their icons, with tooltips.</source>
-        <target>带浮动栏的列表或表格，浮动栏用于其中选中的内容。把列表放进 `Content`，并把 `SelectedCount` 绑定到它的选择：只要有内容被选中，就有一条胶囊形的栏从底部边缘升起，显示数量（数字随变化滚动）、用于选中其余项目的“Select all”、批量操作和清除按钮；选择清空时它会落下消失。在控件内任意位置按 Esc 都会清除选择；这条栏是一个工具栏，方向键在其按钮之间移动；数量变化时会被读出。宽度小于 `CompactWidth` 时，操作只保留图标并显示提示。</target>
-      </trans-unit>
-      <trans-unit id="SelectionToolbar.ActionInvoked">
-        <source>Raised when an action is chosen, with the action and the selected count (after its command runs).</source>
-        <target>选择某个操作时引发，带有该操作和选中的数量（在其命令执行之后）。</target>
-      </trans-unit>
-      <trans-unit id="SelectionToolbar.Cleared">
-        <source>Raised when the clear button or Escape clears the selection (`SelectedCount` is already 0): deselect your items.</source>
-        <target>清除按钮或 Esc 清除选择时引发（此时 `SelectedCount` 已为 0）：请取消你的项目的选择。</target>
-      </trans-unit>
-      <trans-unit id="SelectionToolbar.CompactWidth">
-        <source>Below this width the actions show their icons only (set by the theme from the token).</source>
-        <target>宽度小于此值时，操作只显示图标（由主题根据令牌设置）。</target>
-      </trans-unit>
-      <trans-unit id="SelectionToolbar.Labels">
-        <source>The built-in text; replace the whole object to localize the bar.</source>
-        <target>内置文字；替换整个对象即可本地化这条栏。</target>
-      </trans-unit>
-      <trans-unit id="SelectionToolbar.SelectAllRequested">
-        <source>Raised by "Select all": select every item, then set `SelectedCount`.</source>
-        <target>由“Select all”引发：选中所有项目，然后设置 `SelectedCount`。</target>
-      </trans-unit>
-      <trans-unit id="SelectionToolbar.SelectedCount">
-        <source>How many items are selected (two-way); the bar shows while it is above zero. Clearing sets it to 0.</source>
-        <target>选中的项目数（双向）；大于零时显示这条栏。清除时设为 0。</target>
-      </trans-unit>
-      <trans-unit id="SelectionToolbar.TotalCount">
-        <source>How many items there are; "Select all" shows while fewer are selected. Zero hides it.</source>
-        <target>项目总数；选中的较少时显示“Select all”。为 0 时隐藏它。</target>
-      </trans-unit>
       <trans-unit id="SelectItem">
         <source>Declares one option of a `Select`, `Combobox`, `MultiSelect`, `MorphSelect` or `ChipGroup` inline in XAML: `&lt;arc:SelectItem Content="United States" Value="us" /&gt;`. The owning control draws the option itself (virtualized and filtered without containers), so this element only carries data; set `IsEnabled` to false for an option that can be seen but not picked.</source>
         <target>在 XAML 中以内联方式声明 `Select`、`Combobox`、`MultiSelect`、`MorphSelect` 或 `ChipGroup` 的一个选项：`&lt;arc:SelectItem Content="United States" Value="us" /&gt;`。所属控件自行绘制选项（虚拟化且过滤时无需容器），因此此元素只承载数据；若选项需要可见但不可选，请将 `IsEnabled` 设为 false。</target>
@@ -31863,6 +31911,38 @@
       <trans-unit id="SelectOption">
         <source>A plain option record for `ItemsSource` lists that every select in this category understands without selectors: `new SelectOption("us", "United States")`.</source>
         <target>供 `ItemsSource` 列表使用的普通选项记录，该分类中的所有选择框无需选择器即可识别：`new SelectOption("us", "United States")`。</target>
+      </trans-unit>
+      <trans-unit id="SelectionToolbar">
+        <source>A list or table with a floating bar for what is selected in it. Put the list in `Content` and bind `SelectedCount` to its selection: while anything is selected, a pill rises from the bottom edge with the count (its digits roll as it changes), "Select all" for the rest, the bulk actions and a clear button; it sinks away when the selection empties. Escape clears the selection from anywhere inside, the bar is one toolbar with the arrow keys moving between its buttons, and the count is read out as it changes. Below `CompactWidth` the actions keep only their icons, with tooltips.</source>
+        <target>带浮动栏的列表或表格，浮动栏用于其中选中的内容。把列表放进 `Content`，并把 `SelectedCount` 绑定到它的选择：只要有内容被选中，就有一条胶囊形的栏从底部边缘升起，显示数量（数字随变化滚动）、用于选中其余项目的“Select all”、批量操作和清除按钮；选择清空时它会落下消失。在控件内任意位置按 Esc 都会清除选择；这条栏是一个工具栏，方向键在其按钮之间移动；数量变化时会被读出。宽度小于 `CompactWidth` 时，操作只保留图标并显示提示。</target>
+      </trans-unit>
+      <trans-unit id="SelectionToolbar.ActionInvoked">
+        <source>Raised when an action is chosen, with the action and the selected count (after its command runs).</source>
+        <target>选择某个操作时引发，带有该操作和选中的数量（在其命令执行之后）。</target>
+      </trans-unit>
+      <trans-unit id="SelectionToolbar.Cleared">
+        <source>Raised when the clear button or Escape clears the selection (`SelectedCount` is already 0): deselect your items.</source>
+        <target>清除按钮或 Esc 清除选择时引发（此时 `SelectedCount` 已为 0）：请取消你的项目的选择。</target>
+      </trans-unit>
+      <trans-unit id="SelectionToolbar.CompactWidth">
+        <source>Below this width the actions show their icons only (set by the theme from the token).</source>
+        <target>宽度小于此值时，操作只显示图标（由主题根据令牌设置）。</target>
+      </trans-unit>
+      <trans-unit id="SelectionToolbar.Labels">
+        <source>The built-in text; replace the whole object to localize the bar.</source>
+        <target>内置文字；替换整个对象即可本地化这条栏。</target>
+      </trans-unit>
+      <trans-unit id="SelectionToolbar.SelectAllRequested">
+        <source>Raised by "Select all": select every item, then set `SelectedCount`.</source>
+        <target>由“Select all”引发：选中所有项目，然后设置 `SelectedCount`。</target>
+      </trans-unit>
+      <trans-unit id="SelectionToolbar.SelectedCount">
+        <source>How many items are selected (two-way); the bar shows while it is above zero. Clearing sets it to 0.</source>
+        <target>选中的项目数（双向）；大于零时显示这条栏。清除时设为 0。</target>
+      </trans-unit>
+      <trans-unit id="SelectionToolbar.TotalCount">
+        <source>How many items there are; "Select all" shows while fewer are selected. Zero hides it.</source>
+        <target>项目总数；选中的较少时显示“Select all”。为 0 时隐藏它。</target>
       </trans-unit>
       <trans-unit id="SemanticZoom">
         <source>An organization map you can zoom into without losing your place: teams hold project cards, projects hold task blocks, tasks open into their details and checklist. Each zoom level shows different information (team leads and counts, then project titles and health, then task titles and due dates, then the task's summary, assignee and checklist), not the same picture larger. Scroll or pinch to zoom about the pointer, drag to pan, click anything to fly into it; the breadcrumbs, the details panel and the screen-reader text follow whatever is under the center of the view. A minimap, zoom buttons and a guided tour sit on the map; ticking a checklist item updates the task and every total above it.</source>
@@ -34728,13 +34808,13 @@
         <source>The last hour of the working day (18).</source>
         <target>工作日结束的小时（18）。</target>
       </trans-unit>
-      <trans-unit id="SmartScheduler.Days">
-        <source>How many days the week shows (5).</source>
-        <target>一周显示多少天（5）。</target>
-      </trans-unit>
       <trans-unit id="SmartScheduler.DayStartHour">
         <source>The first hour of the working day (9).</source>
         <target>工作日开始的小时（9）。</target>
+      </trans-unit>
+      <trans-unit id="SmartScheduler.Days">
+        <source>How many days the week shows (5).</source>
+        <target>一周显示多少天（5）。</target>
       </trans-unit>
       <trans-unit id="SmartScheduler.DurationMinutes">
         <source>The meeting's length in minutes (two-way); a length named in the limits ("45 min") overrides it.</source>
@@ -39576,13 +39656,13 @@
         <source>Raised when the person turns two-factor sign-in on, with the method, the secret, the phone number and the backup codes.</source>
         <target>用户开启两步验证登录时引发，带有方式、密钥、手机号码和备用码。</target>
       </trans-unit>
-      <trans-unit id="TwoFactorSetup.Issuer">
-        <source>The service name shown in the authenticator app and written into the QR code.</source>
-        <target>在验证器应用中显示并写入二维码的服务名称。</target>
-      </trans-unit>
       <trans-unit id="TwoFactorSetup.IsTextMessageAvailable">
         <source>Whether text messages are offered beside the authenticator app.</source>
         <target>除验证器应用外是否还提供短信。</target>
+      </trans-unit>
+      <trans-unit id="TwoFactorSetup.Issuer">
+        <source>The service name shown in the authenticator app and written into the QR code.</source>
+        <target>在验证器应用中显示并写入二维码的服务名称。</target>
       </trans-unit>
       <trans-unit id="TwoFactorSetup.Labels">
         <source>The built-in text; replace the whole object to localize the card.</source>
@@ -39744,13 +39824,13 @@
         <source>The parameter of `UndoCommand`.</source>
         <target>`UndoCommand` 的参数。</target>
       </trans-unit>
-      <trans-unit id="UndoToast.Undone">
-        <source>Raised when the action is undone.</source>
-        <target>撤销操作时触发。</target>
-      </trans-unit>
       <trans-unit id="UndoToast.UndoText">
         <source>The undo button's label.</source>
         <target>撤销按钮的文字。</target>
+      </trans-unit>
+      <trans-unit id="UndoToast.Undone">
+        <source>Raised when the action is undone.</source>
+        <target>撤销操作时触发。</target>
       </trans-unit>
       <trans-unit id="UndoToastClosedEventArgs">
         <source>Arguments of `Closed`.</source>
@@ -41176,6 +41256,90 @@
         <source>Defines the `Text` property.</source>
         <target>定义 `Text` 属性。</target>
       </trans-unit>
+      <trans-unit id="Viewport3D">
+        <source>Draws a `Scene` from a `Camera` inside the Avalonia composition tree: other controls can sit on top of it, and it can be clipped, transformed and faded. Has no chrome of its own.</source>
+        <target>在 Avalonia 合成树内部从 `Camera` 的视角绘制 `Scene`：其他控件可以叠在它上面，它也可以被裁剪、变换和淡化。它本身没有任何外观。</target>
+      </trans-unit>
+      <trans-unit id="Viewport3D.AutoAspect">
+        <source>True (default) keeps a perspective camera's aspect ratio equal to the viewport's.</source>
+        <target>为 True（默认）时，透视相机的宽高比始终与视口一致。</target>
+      </trans-unit>
+      <trans-unit id="Viewport3D.Camera">
+        <source>The camera to draw from.</source>
+        <target>绘制所用的相机。</target>
+      </trans-unit>
+      <trans-unit id="Viewport3D.CameraControls">
+        <source>Camera controls that receive this viewport's pointer, wheel and arrow-key input (orbit, zoom, pan), or null (default) for a viewport that does not react to input. The viewport advances them every frame and keeps drawing while they are still moving.</source>
+        <target>接收此视口的指针、滚轮和方向键输入（环绕、缩放、平移）的相机控制器；为 null（默认）时视口不响应输入。视口每帧推进控制器，并在它仍在运动时持续绘制。</target>
+      </trans-unit>
+      <trans-unit id="Viewport3D.Exposure">
+        <source>Exposure multiplier applied before tone mapping.</source>
+        <target>色调映射之前应用的曝光倍数。</target>
+      </trans-unit>
+      <trans-unit id="Viewport3D.FrameRendered">
+        <source>Raised on the UI thread after each frame was drawn, while the graphics context is still current.</source>
+        <target>每一帧绘制完成后在 UI 线程上触发，此时图形上下文仍是当前上下文。</target>
+      </trans-unit>
+      <trans-unit id="Viewport3D.FrameRendering">
+        <source>Raised on the UI thread before each frame is drawn: advance animations and move objects here.</source>
+        <target>每一帧绘制之前在 UI 线程上触发：在这里推进动画、移动物体。</target>
+      </trans-unit>
+      <trans-unit id="Viewport3D.IsRendererReady">
+        <source>True while the renderer exists (the control is in a window with a working graphics context).</source>
+        <target>渲染器存在时为 True（控件位于窗口中，且图形上下文可用）。</target>
+      </trans-unit>
+      <trans-unit id="Viewport3D.Presentation">
+        <source>How the pictures reach the screen; `Bitmap` is the slower fallback used when Avalonia renders in software, and the way used in the browser.</source>
+        <target>画面以什么方式到达屏幕；`Bitmap` 是 Avalonia 用软件渲染时走的较慢的退路，也是浏览器里使用的方式。</target>
+      </trans-unit>
+      <trans-unit id="Viewport3D.RenderMode">
+        <source>When the viewport draws: on demand (default) or on every display frame.</source>
+        <target>视口何时绘制：按需（默认），或每个显示帧都绘制。</target>
+      </trans-unit>
+      <trans-unit id="Viewport3D.RendererError">
+        <source>Why the renderer could not be created or draw, or null.</source>
+        <target>渲染器无法创建或无法绘制的原因，或 null。</target>
+      </trans-unit>
+      <trans-unit id="Viewport3D.RendererLost">
+        <source>Raised when the renderer is gone: the control left the window or the graphics context was lost.</source>
+        <target>渲染器不再存在时触发：控件离开了窗口，或图形上下文丢失。</target>
+      </trans-unit>
+      <trans-unit id="Viewport3D.RendererReady">
+        <source>Raised when the renderer was created (GPU resources may be created from here on).</source>
+        <target>渲染器创建完成时触发（从这时起可以创建 GPU 资源）。</target>
+      </trans-unit>
+      <trans-unit id="Viewport3D.Samples">
+        <source>Samples per pixel of multisample anti-aliasing; 0 uses the theme's value, 1 turns it off.</source>
+        <target>多重采样抗锯齿的每像素采样数；0 使用主题的值，1 关闭抗锯齿。</target>
+      </trans-unit>
+      <trans-unit id="Viewport3D.Scene">
+        <source>The scene to draw.</source>
+        <target>要绘制的场景。</target>
+      </trans-unit>
+      <trans-unit id="Viewport3D.Shadows">
+        <source>False turns all shadows off.</source>
+        <target>为 False 时关闭所有阴影。</target>
+      </trans-unit>
+      <trans-unit id="Viewport3D.StageBrush">
+        <source>The backdrop behind the scene: a solid color brush, or null (default) for a transparent viewport that shows what is behind it. A scene background takes precedence.</source>
+        <target>场景后面的背景：纯色画刷，或 null（默认）表示视口透明，显示它后面的内容。场景自己的背景优先。</target>
+      </trans-unit>
+      <trans-unit id="Viewport3D.Statistics">
+        <source>What the last frame cost: objects, draw calls, triangles, CPU time.</source>
+        <target>上一帧的开销：对象数、绘制调用数、三角形数和 CPU 时间。</target>
+      </trans-unit>
+      <trans-unit id="Viewport3D.ToneMapping">
+        <source>How bright scene colors are compressed into the displayable range. Default `Neutral`, which keeps base colors true.</source>
+        <target>明亮的场景颜色如何压缩到可显示的范围内。默认是 `Neutral`，它保持基础颜色不失真。</target>
+      </trans-unit>
+      <trans-unit id="Viewport3D.UseRenderThread">
+        <source>True draws on a render thread of the viewport's own where it can: the UI thread then only prepares each frame (animation, culling, sorting) and the graphics driver's work happens beside it. It applies when the viewport owns its OpenGL context (`SharedSurface` and `Bitmap`) and is read when the viewport joins a window; with `SharedContext` the context belongs to Avalonia's renderer and the setting has no effect. `IsRenderThreadActive` says whether it is in use.</source>
+        <target>为 true 时，在可行的情况下用视口自己的渲染线程绘制：UI 线程只准备每一帧（动画、剔除、排序），显卡驱动的工作在旁边的线程上进行。它在视口自己拥有 OpenGL 上下文时生效（`SharedSurface` 和 `Bitmap`），并在视口加入窗口时读取；`SharedContext` 下上下文属于 Avalonia 的渲染器，设置无效。`IsRenderThreadActive` 说明它是否在用。</target>
+      </trans-unit>
+      <trans-unit id="Viewport3DFrameEventArgs">
+        <source>Data of `FrameRendering` and `FrameRendered`.</source>
+        <target>`FrameRendering` 和 `FrameRendered` 的数据。</target>
+      </trans-unit>
       <trans-unit id="VoiceControls">
         <source>The call bar of a voice conversation (Arc Voice orb, design reference): a pill that shows one "Start voice chat" button before a session and, during one, a mute toggle, the elapsed time and a red end button. The pill's width springs between the two and the groups cross with a short scale-and-blur swap.</source>
         <target>语音对话的通话栏（Arc Voice 光球，设计参考）：一个胶囊形控件，会话开始前只显示一个 "Start voice chat" 按钮；会话期间则显示静音开关、已用时间和一个红色结束按钮。胶囊的宽度在两种状态之间以弹簧动画过渡，两组内容以短暂的缩放加模糊切换。</target>
@@ -42288,30 +42452,6 @@
         <source>Any object the app wants to keep with the calendar.</source>
         <target>应用希望与该日历一同保存的任意对象。</target>
       </trans-unit>
-      <trans-unit id="WindowCaptionButtons">
-        <source>Minimize, maximize / restore and close for a window whose content reaches the top (an `ArcWindow` with `IsTitleBarVisible="False"`), placed wherever the app draws its own header. The buttons drive the window they are in and follow it: maximize shows restore while the window is maximized and is disabled while the window cannot grow (`CanResize` or `CanMaximize` false), minimize while `CanMinimize` is false; with `UnavailableCaptionButtons` set to `Hide` they are hidden instead. On Windows they tell the system what they are, so the maximize button opens Snap Layouts. `TitleBar` draws its own caption buttons with this control; show one set per window.</source>
-        <target>内容延伸到顶部的窗口（`IsTitleBarVisible="False"` 的 `ArcWindow`）所用的最小化、最大化 / 还原和关闭按钮，可放在应用自己绘制的页头中的任意位置。按钮控制所在的窗口并跟随其状态：窗口最大化时最大化按钮显示为还原，窗口不能放大时（`CanResize` 或 `CanMaximize` 为 false）最大化按钮禁用，`CanMinimize` 为 false 时最小化按钮禁用；`UnavailableCaptionButtons` 设为 `Hide` 时改为隐藏。在 Windows 上，它们会告诉系统自己是什么按钮，因此最大化按钮会打开贴靠布局。`TitleBar` 也用这个控件绘制自己的标题栏按钮；每个窗口只显示一组。</target>
-      </trans-unit>
-      <trans-unit id="WindowCaptionButtons.IsPreview">
-        <source>True draws the buttons without driving the window: they minimize, maximize and close nothing and the system does not treat them as caption buttons. For previews, such as a mock-up of a window inside a page. False by default.</source>
-        <target>为 True 时只绘制按钮而不控制窗口：它们不会最小化、最大化或关闭任何窗口，系统也不会把它们当作标题栏按钮。用于预览，例如页面中的窗口示意图。默认为 False。</target>
-      </trans-unit>
-      <trans-unit id="WindowCaptionButtons.ShowCloseButton">
-        <source>Shows the close button. True by default.</source>
-        <target>显示关闭按钮。默认为 True。</target>
-      </trans-unit>
-      <trans-unit id="WindowCaptionButtons.ShowMaximizeButton">
-        <source>Shows the maximize / restore button. True by default.</source>
-        <target>显示最大化 / 还原按钮。默认为 True。</target>
-      </trans-unit>
-      <trans-unit id="WindowCaptionButtons.ShowMinimizeButton">
-        <source>Shows the minimize button. True by default.</source>
-        <target>显示最小化按钮。默认为 True。</target>
-      </trans-unit>
-      <trans-unit id="WindowCaptionButtons.UnavailableCaptionButtons">
-        <source>What minimize and maximize show while the window does not allow them (`CanMinimize`, or `CanResize` and `CanMaximize`, false): `Disable` (the default) keeps them disabled, `Hide` hides them. Inherited, so it can be set on the window (`ArcWindow`) or a `TitleBar`.</source>
-        <target>窗口不允许最小化或最大化时（`CanMinimize` 为 false，或 `CanResize`、`CanMaximize` 为 false），最小化和最大化按钮如何显示：`Disable`（默认）保持禁用，`Hide` 隐藏它们。此值可继承，因此可以设在窗口（`ArcWindow`）或 `TitleBar` 上。</target>
-      </trans-unit>
       <trans-unit id="WindRoseBin">
         <source>One speed bin of a `WindRoseChart`: a band of each petal, from its minimum up to the next bin's minimum.</source>
         <target>`WindRoseChart` 的一个风速分级：每个花瓣上的一段，从其最小值到下一分级的最小值。</target>
@@ -42419,6 +42559,30 @@
       <trans-unit id="WindRoseSector">
         <source>A direction sector of a `WindRoseChart` as drawn: what the tooltip, the reading and the events report.</source>
         <target>`WindRoseChart` 的一个方向扇区（按绘制后的样子）：提示、读数和事件所报告的内容。</target>
+      </trans-unit>
+      <trans-unit id="WindowCaptionButtons">
+        <source>Minimize, maximize / restore and close for a window whose content reaches the top (an `ArcWindow` with `IsTitleBarVisible="False"`), placed wherever the app draws its own header. The buttons drive the window they are in and follow it: maximize shows restore while the window is maximized and is disabled while the window cannot grow (`CanResize` or `CanMaximize` false), minimize while `CanMinimize` is false; with `UnavailableCaptionButtons` set to `Hide` they are hidden instead. On Windows they tell the system what they are, so the maximize button opens Snap Layouts. `TitleBar` draws its own caption buttons with this control; show one set per window.</source>
+        <target>内容延伸到顶部的窗口（`IsTitleBarVisible="False"` 的 `ArcWindow`）所用的最小化、最大化 / 还原和关闭按钮，可放在应用自己绘制的页头中的任意位置。按钮控制所在的窗口并跟随其状态：窗口最大化时最大化按钮显示为还原，窗口不能放大时（`CanResize` 或 `CanMaximize` 为 false）最大化按钮禁用，`CanMinimize` 为 false 时最小化按钮禁用；`UnavailableCaptionButtons` 设为 `Hide` 时改为隐藏。在 Windows 上，它们会告诉系统自己是什么按钮，因此最大化按钮会打开贴靠布局。`TitleBar` 也用这个控件绘制自己的标题栏按钮；每个窗口只显示一组。</target>
+      </trans-unit>
+      <trans-unit id="WindowCaptionButtons.IsPreview">
+        <source>True draws the buttons without driving the window: they minimize, maximize and close nothing and the system does not treat them as caption buttons. For previews, such as a mock-up of a window inside a page. False by default.</source>
+        <target>为 True 时只绘制按钮而不控制窗口：它们不会最小化、最大化或关闭任何窗口，系统也不会把它们当作标题栏按钮。用于预览，例如页面中的窗口示意图。默认为 False。</target>
+      </trans-unit>
+      <trans-unit id="WindowCaptionButtons.ShowCloseButton">
+        <source>Shows the close button. True by default.</source>
+        <target>显示关闭按钮。默认为 True。</target>
+      </trans-unit>
+      <trans-unit id="WindowCaptionButtons.ShowMaximizeButton">
+        <source>Shows the maximize / restore button. True by default.</source>
+        <target>显示最大化 / 还原按钮。默认为 True。</target>
+      </trans-unit>
+      <trans-unit id="WindowCaptionButtons.ShowMinimizeButton">
+        <source>Shows the minimize button. True by default.</source>
+        <target>显示最小化按钮。默认为 True。</target>
+      </trans-unit>
+      <trans-unit id="WindowCaptionButtons.UnavailableCaptionButtons">
+        <source>What minimize and maximize show while the window does not allow them (`CanMinimize`, or `CanResize` and `CanMaximize`, false): `Disable` (the default) keeps them disabled, `Hide` hides them. Inherited, so it can be set on the window (`ArcWindow`) or a `TitleBar`.</source>
+        <target>窗口不允许最小化或最大化时（`CanMinimize` 为 false，或 `CanResize`、`CanMaximize` 为 false），最小化和最大化按钮如何显示：`Disable`（默认）保持禁用，`Hide` 隐藏它们。此值可继承，因此可以设在窗口（`ArcWindow`）或 `TitleBar` 上。</target>
       </trans-unit>
       <trans-unit id="WindowRange">
         <source>A time window over a live area chart. Drag either edge of the frame to resize the window, drag inside it to pan and flick it to let it coast, or press anywhere else on the chart to glide the window there. The chart outside the window fades back, the part inside stays in full color, and the start, length and end readouts roll to their new values. New `Data` morphs the chart in place, and with `IsLive` a dot pulses on the latest point.</source>
