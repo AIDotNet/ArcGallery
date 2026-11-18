@@ -6908,6 +6908,10 @@
         <source>Visible label above the trigger; also the accessible name.</source>
         <target>觸發器上方的可見標籤；同時是協助工具名稱。</target>
       </trans-unit>
+      <trans-unit id="Cascader.LabelFontWeight">
+        <source>Font weight of the visible field label. Set it on a container to apply it to the Arc field labels inside, or on a single field. Null uses the label's theme weight. This property only styles the label text.</source>
+        <target>可見欄位標籤的字重。設定在容器上時套用至容器內的 Arc 欄位，也可個別設定在一個欄位上。Null 使用主題字重。此屬性只影響標籤文字。</target>
+      </trans-unit>
       <trans-unit id="Cascader.LabelPlacement">
         <source>Where the label sits: Top (default) or Left of the editor. Inherited from `arc:Field.LabelPlacement` on a container.</source>
         <target>標籤的位置：Top（預設）或編輯器左側（Left）。繼承自容器上的 `arc:Field.LabelPlacement`。</target>
@@ -8743,6 +8747,10 @@
       <trans-unit id="Combobox.Label">
         <source>Visible label above the field; also names the field and its list.</source>
         <target>欄位上方的可見標籤；同時為欄位及其清單命名。</target>
+      </trans-unit>
+      <trans-unit id="Combobox.LabelFontWeight">
+        <source>Font weight of the visible field label. Set it on a container to apply it to the Arc field labels inside, or on a single field. Null uses the label's theme weight. This property only styles the label text.</source>
+        <target>可見欄位標籤的字重。設定在容器上時套用至容器內的 Arc 欄位，也可個別設定在一個欄位上。Null 使用主題字重。此屬性只影響標籤文字。</target>
       </trans-unit>
       <trans-unit id="Combobox.LabelPlacement">
         <source>Where the label sits: Top (default) or Left of the editor. Inherited from `arc:Field.LabelPlacement` on a container.</source>
@@ -11540,6 +11548,10 @@
         <source>Accessible name of the trigger and the panel (Arc: "Date range"); shown above when `IsLabelVisible`.</source>
         <target>觸發器與面板的無障礙名稱（Arc：「Date range」）；當 `IsLabelVisible` 為 true 時顯示於上方。</target>
       </trans-unit>
+      <trans-unit id="DateRangePicker.LabelFontWeight">
+        <source>Font weight of the visible field label. Set it on a container to apply it to the Arc field labels inside, or on a single field. Null uses the label's theme weight. This property only styles the label text.</source>
+        <target>可見欄位標籤的字重。設定在容器上時套用至容器內的 Arc 欄位，也可個別設定在一個欄位上。Null 使用主題字重。此屬性只影響標籤文字。</target>
+      </trans-unit>
       <trans-unit id="DateRangePicker.LabelPlacement">
         <source>Where the label sits: Top (default) or Left of the editor. Inherited from `arc:Field.LabelPlacement` on a container.</source>
         <target>標籤的位置：Top（預設）或編輯器左側（Left）。繼承自容器上的 `arc:Field.LabelPlacement`。</target>
@@ -14288,6 +14300,10 @@
         <source>The visible label (Arc: required). Also the accessible name of the content.</source>
         <target>可見標籤（Arc 中為必填）；同時是內容的無障礙名稱。</target>
       </trans-unit>
+      <trans-unit id="Field.LabelFontWeight">
+        <source>Font weight of the visible field label. Set it on a container to apply it to the Arc field labels inside, or on a single field. Null uses the label's theme weight. This property only styles the label text.</source>
+        <target>可見欄位標籤的字重。設定在容器上時套用至容器內的 Arc 欄位，也可個別設定在一個欄位上。Null 使用主題字重。此屬性只影響標籤文字。</target>
+      </trans-unit>
       <trans-unit id="Field.LabelPlacement">
         <source>Where the label sits: Top (default, above the editor) or Left (in a column to the left of the editor, centred on a field of the same `Size`, with the description and error under the editor). Inherited: set it on a panel to lay out every Arc field inside (`arc:Field.LabelPlacement="Left"`), or on one field. A field inside a `FormItem` leaves its label to the item, and a field that is part of another control's template follows only a value set on itself.</source>
         <target>標籤的位置：Top（預設，在編輯器上方）或 Left（在編輯器左側的一欄，依同一 `Size` 的欄位垂直置中，說明與錯誤仍在編輯器下方）。可繼承：設定在面板上時面板內的每個 Arc 欄位都會採用（`arc:Field.LabelPlacement="Left"`），也可以只設定在一個欄位上。`FormItem` 內的欄位把標籤交給表單項目；屬於其他控制項範本的欄位只採用設定在它自身上的值。</target>
@@ -14327,6 +14343,10 @@
       <trans-unit id="FieldTextBox.Label">
         <source>The visible label above the frame; also the accessible name.</source>
         <target>外框上方的可見標籤，同時作為無障礙名稱。</target>
+      </trans-unit>
+      <trans-unit id="FieldTextBox.LabelFontWeight">
+        <source>Font weight of the visible field label. Set it on a container to apply it to the Arc field labels inside, or on a single field. Null uses the label's theme weight. This property only styles the label text.</source>
+        <target>可見欄位標籤的字重。設定在容器上時套用至容器內的 Arc 欄位，也可個別設定在一個欄位上。Null 使用主題字重。此屬性只影響標籤文字。</target>
       </trans-unit>
       <trans-unit id="FieldTextBox.LabelPlacement">
         <source>Where the label sits: Top (default) or Left of the frame. Inherited from `arc:Field.LabelPlacement` on a container.</source>
@@ -23552,6 +23572,10 @@
         <source>Visible label of the trigger; also its accessible name.</source>
         <target>觸發器的可見標籤，同時也是其無障礙名稱。</target>
       </trans-unit>
+      <trans-unit id="MorphSelect.LabelFontWeight">
+        <source>Font weight of the visible field label. Set it on a container to apply it to the Arc field labels inside, or on a single field. Null uses the label's theme weight. This property only styles the label text.</source>
+        <target>可見欄位標籤的字重。設定在容器上時套用至容器內的 Arc 欄位，也可個別設定在一個欄位上。Null 使用主題字重。此屬性只影響標籤文字。</target>
+      </trans-unit>
       <trans-unit id="MorphSelect.LabelPlacement">
         <source>Where the label sits: Top (default) or Left of the editor. Inherited from `arc:Field.LabelPlacement` on a container.</source>
         <target>標籤的位置：Top（預設）或編輯器左側（Left）。繼承自容器上的 `arc:Field.LabelPlacement`。</target>
@@ -24035,6 +24059,10 @@
       <trans-unit id="MultiSelect.Label">
         <source>Visible label of the control; also its accessible name.</source>
         <target>控制項的可見標籤，同時也是其無障礙名稱。</target>
+      </trans-unit>
+      <trans-unit id="MultiSelect.LabelFontWeight">
+        <source>Font weight of the visible field label. Set it on a container to apply it to the Arc field labels inside, or on a single field. Null uses the label's theme weight. This property only styles the label text.</source>
+        <target>可見欄位標籤的字重。設定在容器上時套用至容器內的 Arc 欄位，也可個別設定在一個欄位上。Null 使用主題字重。此屬性只影響標籤文字。</target>
       </trans-unit>
       <trans-unit id="MultiSelect.LabelPlacement">
         <source>Where the label sits: Top (default) or Left of the editor. Inherited from `arc:Field.LabelPlacement` on a container.</source>
@@ -31848,6 +31876,10 @@
         <source>Defines the `Label` property.</source>
         <target>定義 `Label` 屬性。</target>
       </trans-unit>
+      <trans-unit id="Select.LabelFontWeight">
+        <source>Font weight of the visible field label. Set it on a container to apply it to the Arc field labels inside, or on a single field. Null uses the label's theme weight. This property only styles the label text.</source>
+        <target>可見欄位標籤的字重。設定在容器上時套用至容器內的 Arc 欄位，也可個別設定在一個欄位上。Null 使用主題字重。此屬性只影響標籤文字。</target>
+      </trans-unit>
       <trans-unit id="Select.LabelPlacement">
         <source>Where the label sits: Top (default) or Left of the editor. Inherited from `arc:Field.LabelPlacement` on a container.</source>
         <target>標籤的位置：Top（預設）或編輯器左側（Left）。繼承自容器上的 `arc:Field.LabelPlacement`。</target>
@@ -32963,6 +32995,10 @@
       <trans-unit id="ShortcutRecorder.Label">
         <source>The field label (Arc: required); also the start of the recorder's accessible name.</source>
         <target>欄位標籤（Arc 中必填）；同時作為錄入器無障礙名稱的開頭。</target>
+      </trans-unit>
+      <trans-unit id="ShortcutRecorder.LabelFontWeight">
+        <source>Font weight of the visible field label. Set it on a container to apply it to the Arc field labels inside, or on a single field. Null uses the label's theme weight. This property only styles the label text.</source>
+        <target>可見欄位標籤的字重。設定在容器上時套用至容器內的 Arc 欄位，也可個別設定在一個欄位上。Null 使用主題字重。此屬性只影響標籤文字。</target>
       </trans-unit>
       <trans-unit id="ShortcutRecorder.Placeholder">
         <source>Shown while there is no shortcut.</source>
@@ -36600,6 +36636,10 @@
         <source>The visible label (Arc: required). Also the accessible name of the editor.</source>
         <target>可見標籤（Arc：必填），同時也是編輯器的無障礙名稱。</target>
       </trans-unit>
+      <trans-unit id="TagInput.LabelFontWeight">
+        <source>Font weight of the visible field label. Set it on a container to apply it to the Arc field labels inside, or on a single field. Null uses the label's theme weight. This property only styles the label text.</source>
+        <target>可見欄位標籤的字重。設定在容器上時套用至容器內的 Arc 欄位，也可個別設定在一個欄位上。Null 使用主題字重。此屬性只影響標籤文字。</target>
+      </trans-unit>
       <trans-unit id="TagInput.LabelPlacement">
         <source>Where the label sits: Top (default) or Left of the editor. Inherited from `arc:Field.LabelPlacement` on a container.</source>
         <target>標籤的位置：Top（預設）或編輯器左側（Left）。繼承自容器上的 `arc:Field.LabelPlacement`。</target>
@@ -37791,6 +37831,10 @@
       <trans-unit id="TimePicker.Label">
         <source>The visible label above the trigger (Arc: required).</source>
         <target>觸發器上方的可見標籤（Arc：必填）。</target>
+      </trans-unit>
+      <trans-unit id="TimePicker.LabelFontWeight">
+        <source>Font weight of the visible field label. Set it on a container to apply it to the Arc field labels inside, or on a single field. Null uses the label's theme weight. This property only styles the label text.</source>
+        <target>可見欄位標籤的字重。設定在容器上時套用至容器內的 Arc 欄位，也可個別設定在一個欄位上。Null 使用主題字重。此屬性只影響標籤文字。</target>
       </trans-unit>
       <trans-unit id="TimePicker.LabelPlacement">
         <source>Where the label sits: Top (default) or Left of the editor. Inherited from `arc:Field.LabelPlacement` on a container.</source>
@@ -39155,6 +39199,10 @@
       <trans-unit id="TreeSelect.Label">
         <source>Visible label above the trigger; also the accessible name.</source>
         <target>觸發器上方的可見標籤；也是協助工具名稱。</target>
+      </trans-unit>
+      <trans-unit id="TreeSelect.LabelFontWeight">
+        <source>Font weight of the visible field label. Set it on a container to apply it to the Arc field labels inside, or on a single field. Null uses the label's theme weight. This property only styles the label text.</source>
+        <target>可見欄位標籤的字重。設定在容器上時套用至容器內的 Arc 欄位，也可個別設定在一個欄位上。Null 使用主題字重。此屬性只影響標籤文字。</target>
       </trans-unit>
       <trans-unit id="TreeSelect.LabelPlacement">
         <source>Where the label sits: Top (default) or Left of the editor. Inherited from `arc:Field.LabelPlacement` on a container.</source>

@@ -1,7 +1,7 @@
 ---
 title: 組合方塊
 summary: 無需離開欄位即可搜尋並從清單中選取。
-source-hash: 34a9c5cd6333
+source-hash: 52f92876b66e
 ---
 
 <Demo name="Searchable" />
@@ -152,6 +152,8 @@ combo.FilterPredicate = (item, query) =>
 ```
 
 ### 清除與焦點
+
+點擊箭頭可開啟或關閉清單。透過箭頭開啟清單時，焦點會移到搜尋輸入框。
 
 `Clear()` 會清除選取內容與查詢字詞，使用者按下清除按鈕時也會執行同樣的操作。使用 `FocusInput()` 把焦點移到欄位上，並開啟清單，效果與使用者以 Tab 切換到欄位時相同。
 

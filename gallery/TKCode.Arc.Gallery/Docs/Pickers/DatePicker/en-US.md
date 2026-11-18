@@ -134,6 +134,8 @@ month. In `en-US` a date shows as `Oct 20, 2026`; in `zh-CN` it shows as `2026å¹
 format for every user, such as the ISO form in an export screen. The pattern does not change the calendar's names, and
 the typed text is parsed with the same pattern first.
 
+The built-in placeholder, clear button, and calendar status follow the Arc language and update when `ArcLanguage.Set(...)` is called. Set the text properties to supply your own wording.
+
 <Demo name="CulturesAndFormats" />
 
 Parsing tries three things in order: the display pattern, the culture's own date patterns, and then a lenient parse of

@@ -137,6 +137,8 @@ public partial class ProfileViewModel : ObservableValidator
   this reason.
 - Compiled bindings need `x:DataType` on the view (the examples here leave it out for brevity).
 
+Set `LabelFontWeight="SemiBold"` on a field or `arc:Field.LabelFontWeight="SemiBold"` on a container. An individual field can override the inherited value. Leave it unset to use the theme’s label weight.
+
 ### Validation timing
 
 Good forms check each rule at the moment the person can act on it. A rule that fires too early reads as blame; one

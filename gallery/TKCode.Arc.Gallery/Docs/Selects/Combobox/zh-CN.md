@@ -1,7 +1,7 @@
 ---
 title: 组合框
 summary: 无需离开字段即可搜索并从列表中选择。
-source-hash: 34a9c5cd6333
+source-hash: 52f92876b66e
 ---
 
 <Demo name="Searchable" />
@@ -152,6 +152,8 @@ combo.FilterPredicate = (item, query) =>
 ```
 
 ### 清除与焦点
+
+点击箭头可打开或关闭列表。通过箭头打开列表时，焦点会移到搜索输入框。
 
 `Clear()` 会清除选择和查询词，人们按下清除按钮时也会执行同样的操作。使用 `FocusInput()` 把焦点移到字段上，并打开列表，效果与人们用 Tab 切换到字段时相同。
 

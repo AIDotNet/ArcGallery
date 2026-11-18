@@ -53,6 +53,11 @@ public sealed class GalleryTheme
 
     public void SetMotion(Control owner, ArcMotionLevel level)
     {
+        // A demo can set its own ArcMotion.Level. The theme level also caps those demos at the Gallery setting.
+        if (ArcThemeManager.Current is { } manager && manager.State.MotionLevel != level)
+        {
+            manager.Apply(t => t.MotionLevel(level));
+        }
         MotionLevel = level;
         ArcMotion.SetLevel(owner, level);
         Changed?.Invoke();

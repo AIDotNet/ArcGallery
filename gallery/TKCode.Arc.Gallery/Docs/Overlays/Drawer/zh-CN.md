@@ -1,7 +1,7 @@
 ---
 title: 抽屉
 summary: 从窗口边缘滑入的模态面板，用于围绕当前视图的专注工作，例如筛选或查看一条记录。
-source-hash: 6a337c4fb375
+source-hash: 85869c8ac1be
 ---
 
 <Demo name="Sides" />
@@ -91,6 +91,8 @@ source-hash: 6a337c4fb375
     </arc:Drawer.HeaderContent>
 </arc:Drawer>
 ```
+
+要全局调整默认标题区和正文的间距，覆盖 `DrawerSurface` 的 `SectionPadding` 和 `NarrowSectionPadding` token。只调整一个抽屉时，可以给它的 `DrawerSurface` 模板内的 `Border#PART_DefaultHeader` 设置 `Padding`，或给 `StackPanel#PART_BodyContent` 设置 `Margin`。也要覆盖窄屏布局时，在选择器中使用 `DrawerSurface:narrow`。
 
 ### 长内容
 

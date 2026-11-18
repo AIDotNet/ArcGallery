@@ -1,7 +1,7 @@
 ---
 title: 日期選擇器
 summary: 日期欄位：可直接輸入日期，也可從日曆彈出層中選擇，標籤與錯誤列與其他欄位一致。
-source-hash: 50a443bb105e
+source-hash: deded7ac40f9
 ---
 
 <Demo name="DateField" />
@@ -93,6 +93,8 @@ picker.SelectedDateChanged += (_, e) =>
 `Culture` 控制解析、行事曆的月份與星期名稱，以及預設的顯示方式。未設定時，使用目前的 UI 地區設定。預設顯示為該地區設定下的長日期（不含星期），月份使用縮寫。在 `en-US` 中，日期顯示為 `Oct 20, 2026`；在 `zh-CN` 中，顯示為 `2026年10月20日`。
 
 `DisplayFormat` 接受 .NET 日期格式字串，並以它取代顯示值的預設格式。當業務要求所有使用者都使用固定格式時使用它，例如匯出頁面中的 ISO 格式。該格式不會改變行事曆中的名稱，輸入的文字會先以同一格式解析。
+
+內建的預留位置文字、清除按鈕和行事曆狀態會跟隨 Arc 語言，並在呼叫 `ArcLanguage.Set(...)` 時更新。可透過對應的文字屬性提供自己的文案。
 
 <Demo name="CulturesAndFormats" />
 

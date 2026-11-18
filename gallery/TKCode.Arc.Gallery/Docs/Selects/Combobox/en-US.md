@@ -185,6 +185,8 @@ appears.
 
 ### Clearing and focus
 
+Click the chevron to open or close the list. Opening it this way also focuses the search input.
+
 `Clear()` removes the selection and the query, and the clear button does the same when a person presses it. Focus goes
 to the field with `FocusInput()`, which opens the list, as it does when a person tabs into the field.
 

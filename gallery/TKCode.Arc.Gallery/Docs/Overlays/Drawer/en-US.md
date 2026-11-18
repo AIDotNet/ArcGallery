@@ -118,6 +118,8 @@ When you hide or replace the header, give the person a way out: a button with `a
 </arc:Drawer>
 ```
 
+To change the default header and body spacing across the app, override the `DrawerSurface` tokens `SectionPadding` and `NarrowSectionPadding`. For one drawer, style `Border#PART_DefaultHeader` (`Padding`) or `StackPanel#PART_BodyContent` (`Margin`) inside its `DrawerSurface` template. Include `DrawerSurface:narrow` in the selector if you also want to override the narrow layout.
+
 ### Long content
 
 The body scrolls while the header stays in place. Put the full content in the drawer; there is no need to size it.

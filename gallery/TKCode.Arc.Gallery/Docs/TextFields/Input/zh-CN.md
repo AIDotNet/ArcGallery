@@ -1,7 +1,7 @@
 ---
 title: 输入框
 summary: 用于输入简短文本的文本框，自带标签、帮助文字与错误提示行。
-source-hash: 9dd855c1cdbe
+source-hash: 9fc207893694
 ---
 
 <Demo name="Playground" />
@@ -111,6 +111,8 @@ public partial class ProfileViewModel : ObservableValidator
 - `UpdateSourceTrigger=LostFocus` 在用户离开字段时才把邮箱写回视图模型，因此格式错误在输入完成后出现，而不是在敲下第一个字符时。辅助文字需要随输入变化的值（例如字符计数）保留默认的 `PropertyChanged`。
 - 只保留一个校验来源。视图模型校验 DataAnnotations 特性、而 Avalonia 自带的 DataAnnotations 插件也检查同一组特性时，每条规则会执行两次；Avalonia 的 MVVM 应用模板正是因此移除了该插件。
 - 编译绑定需要在视图上设置 `x:DataType`（为简洁起见，这里的示例省略了它）。
+
+在字段上设置 `LabelFontWeight="SemiBold"`，或在容器上设置 `arc:Field.LabelFontWeight="SemiBold"`。单个字段可覆盖继承值。未设置时沿用主题的标签字重。
 
 ### 校验时机
 

@@ -1,7 +1,7 @@
 ---
 title: 輸入框
 summary: 用於輸入簡短文字的文字方塊，內建標籤、說明文字與錯誤提示列。
-source-hash: 9dd855c1cdbe
+source-hash: 9fc207893694
 ---
 
 <Demo name="Playground" />
@@ -111,6 +111,8 @@ public partial class ProfileViewModel : ObservableValidator
 - `UpdateSourceTrigger=LostFocus` 在使用者離開欄位時才把電子郵件寫回檢視模型，因此格式錯誤會在輸入完成後出現，而不是在按下第一個字元時。輔助文字需要隨輸入變化的值（例如字元計數）保留預設的 `PropertyChanged`。
 - 只保留一個驗證來源。檢視模型驗證 DataAnnotations 屬性、而 Avalonia 內建的 DataAnnotations 外掛程式也檢查同一組屬性時，每條規則會執行兩次；Avalonia 的 MVVM 應用程式範本正是因此移除了該外掛程式。
 - 編譯繫結需要在檢視上設定 `x:DataType`（為求簡潔，這裡的範例省略了它）。
+
+在欄位上設定 `LabelFontWeight="SemiBold"`，或在容器上設定 `arc:Field.LabelFontWeight="SemiBold"`。單一欄位可覆寫繼承值。未設定時沿用主題的標籤字重。
 
 ### 驗證時機
 

@@ -1,7 +1,7 @@
 ---
 title: 抽屜
 summary: 從視窗邊緣滑入的強制回應面板，用於圍繞目前檢視的專注工作，例如篩選或查看一筆記錄。
-source-hash: 6a337c4fb375
+source-hash: 85869c8ac1be
 ---
 
 <Demo name="Sides" />
@@ -91,6 +91,8 @@ source-hash: 6a337c4fb375
     </arc:Drawer.HeaderContent>
 </arc:Drawer>
 ```
+
+要全域調整預設標題區和內文的間距，覆寫 `DrawerSurface` 的 `SectionPadding` 和 `NarrowSectionPadding` token。只調整一個抽屜時，可以給它的 `DrawerSurface` 範本內的 `Border#PART_DefaultHeader` 設定 `Padding`，或給 `StackPanel#PART_BodyContent` 設定 `Margin`。也要覆寫窄螢幕版面時，在選擇器中使用 `DrawerSurface:narrow`。
 
 ### 長內容
 
