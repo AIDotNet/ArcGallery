@@ -1,0 +1,66 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.FeedbackMorphPreviewDemo">
+    <!--
+        A release note with the feedback button above it. The two switches below pick which way the panel grows (down from
+        a button at the top, up from a button at the bottom) and whether the made-up send (1.1 s) succeeds or fails.
+    -->
+    <StackPanel Spacing="16" MaxWidth="720" HorizontalAlignment="Stretch">
+        <Border Height="400"
+                Background="{arc:ArcDesignTokenResource Surface}"
+                BorderBrush="{arc:ArcDesignTokenResource Border}"
+                BorderThickness="{arc:ArcDesignTokenResource EdgeThickness}"
+                CornerRadius="{arc:ArcDesignTokenResource RadiusStep24}"
+                ClipToBounds="True">
+            <Panel>
+                <StackPanel Margin="24,76" Spacing="12" VerticalAlignment="Center">
+                    <TextBlock Text="Release notes now group fixes by area"
+                               MaxWidth="404"
+                               HorizontalAlignment="Left"
+                               TextWrapping="Wrap"
+                               FontFamily="{arc:ArcDesignTokenResource DisplayFontFamily}"
+                               FontSize="20"
+                               FontWeight="Medium"
+                               LetterSpacing="-0.6"
+                               LineHeight="22"
+                               Foreground="{arc:ArcDesignTokenResource Foreground}" />
+                    <TextBlock Text="Each release lists its changes under the part of the product they touch, so you can skip straight to the screens you use every day."
+                               MaxWidth="460"
+                               HorizontalAlignment="Left"
+                               TextWrapping="Wrap"
+                               FontSize="13"
+                               LineHeight="18"
+                               Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+                    <TextBlock Text="Older notes keep their original order. Switch to the flat list from the menu at the top if you prefer it."
+                               MaxWidth="460"
+                               HorizontalAlignment="Left"
+                               TextWrapping="Wrap"
+                               FontSize="13"
+                               LineHeight="18"
+                               Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+                </StackPanel>
+                <arc:FeedbackMorph x:Name="Morph"
+                                   Title="How do release notes read?"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Top"
+                                   Margin="16" />
+            </Panel>
+        </Border>
+        <WrapPanel HorizontalAlignment="Center" ItemSpacing="12" LineSpacing="8">
+            <arc:SegmentedControl x:Name="Direction"
+                                  SelectedValue="down"
+                                  SelectionChanged="OnDirectionChanged"
+                                  AutomationProperties.Name="Panel direction">
+                <arc:SegmentedOption Value="down" Label="Opens down" />
+                <arc:SegmentedOption Value="up" Label="Opens up" />
+            </arc:SegmentedControl>
+            <arc:SegmentedControl x:Name="Result"
+                                  SelectedValue="ok"
+                                  AutomationProperties.Name="Send result">
+                <arc:SegmentedOption Value="ok" Label="Send succeeds" />
+                <arc:SegmentedOption Value="fail" Label="Send fails" />
+            </arc:SegmentedControl>
+        </WrapPanel>
+    </StackPanel>
+</UserControl>

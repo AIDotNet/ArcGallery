@@ -7036,6 +7036,58 @@
         <source>Every word a `CatchUp` shows or reads out, with English defaults. Assign a new instance to `Labels`.</source>
         <target>`CatchUp` 显示或读出的所有文字，默认为英文。给 `Labels` 赋一个新实例即可修改。</target>
       </trans-unit>
+      <trans-unit id="CelebrateButton">
+        <source>A button for moments worth celebrating (publishing, finishing setup, a first payment). A press runs `Action`: while its task runs a spinner and `PendingLabel` show; when it succeeds confetti bursts from the button's edges, the button kicks, the label morphs into a check with `SuccessLabel` and the width springs to fit; if it throws, `ErrorLabel` shows without a burst. After `ResetAfter` the button returns to rest. `Status` can also be set from outside (a form submit elsewhere): moving it to `Success` plays the burst.</source>
+        <target>为值得庆祝的时刻准备的按钮（发布、完成设置、第一笔付款）。按下会运行 `Action`：任务运行期间显示转圈和 `PendingLabel`；成功时彩纸从按钮边缘迸发，按钮轻轻一弹，标签变成对勾和 `SuccessLabel`，宽度以弹簧过渡到合适尺寸；抛出异常时显示 `ErrorLabel`，不放彩纸。经过 `ResetAfter` 后按钮回到静止。`Status` 也可以从外部设置（例如别处的表单提交）：改为 `Success` 会播放迸发。</target>
+      </trans-unit>
+      <trans-unit id="CelebrateButton.Action">
+        <source>The work a press runs. While its task runs the button shows the spinner and `PendingLabel`; when it completes the confetti bursts and `SuccessLabel` shows; when it throws `ErrorLabel` shows. Null goes straight to success. `Command` and `Click` still run first on every accepted press.</source>
+        <target>按下时运行的工作。任务运行期间按钮显示转圈和 `PendingLabel`；完成时彩纸迸发并显示 `SuccessLabel`；抛出异常时显示 `ErrorLabel`。为 null 时直接进入成功。每次被接受的按压，`Command` 和 `Click` 仍然先执行。</target>
+      </trans-unit>
+      <trans-unit id="CelebrateButton.ConfettiColors">
+        <source>The confetti colors, picked evenly. Null (the default) uses the accent in three tones, a sunny yellow and a little of the foreground ink, read from the theme at the moment of the burst, so the confetti follows the accent and appearance.</source>
+        <target>彩纸的颜色，各色均匀选取。为 null（默认）时使用三种色调的强调色、一点明亮的黄色和少量前景墨色，在迸发时从主题读取，因此彩纸跟随强调色与外观。</target>
+      </trans-unit>
+      <trans-unit id="CelebrateButton.Cooldown">
+        <source>The shortest time between two bursts (1.2 s); a success sooner after the last burst shows no confetti.</source>
+        <target>两次迸发之间的最短间隔（1.2 秒）；距上次迸发不到这个时长的成功不放彩纸。</target>
+      </trans-unit>
+      <trans-unit id="CelebrateButton.ErrorLabel">
+        <source>Shown after a failure, and announced. A press then runs the action again.</source>
+        <target>失败后显示并播报。之后再按一次会重新运行工作。</target>
+      </trans-unit>
+      <trans-unit id="CelebrateButton.ParticleCount">
+        <source>Pieces per burst (44). At most 180 pieces fly at once; a burst over that cap launches only what fits.</source>
+        <target>每次迸发的彩纸片数（44）。同时最多飞 180 片；超出上限的迸发只放出容得下的部分。</target>
+      </trans-unit>
+      <trans-unit id="CelebrateButton.PendingLabel">
+        <source>Shown beside the spinner while the action runs. Null (the default) repeats the button's text content.</source>
+        <target>工作运行期间显示在转圈旁边。为 null（默认）时沿用按钮的文字内容。</target>
+      </trans-unit>
+      <trans-unit id="CelebrateButton.ResetAfter">
+        <source>How long the success or error state stays before the button returns to rest (2.4 s). Zero or less stays.</source>
+        <target>成功或错误状态保持多久后回到静止（2.4 秒）。为零或负数时一直保持。</target>
+      </trans-unit>
+      <trans-unit id="CelebrateButton.Status">
+        <source>Where the button is in its cycle. Set it to drive the button from outside (moving to `Success` plays the burst); the button updates it as its own action runs and when it resets.</source>
+        <target>按钮处于周期中的哪个阶段。设置它可以从外部驱动按钮（改为 `Success` 会播放迸发）；按钮运行自己的工作和复位时也会更新它。</target>
+      </trans-unit>
+      <trans-unit id="CelebrateButton.StatusChanged">
+        <source>Raised on every change of `Status`, including the automatic return to rest.</source>
+        <target>`Status` 每次变化时触发，包括自动回到静止。</target>
+      </trans-unit>
+      <trans-unit id="CelebrateButton.SuccessLabel">
+        <source>Shown beside the check after a success, and announced.</source>
+        <target>成功后显示在对勾旁边，并会播报。</target>
+      </trans-unit>
+      <trans-unit id="CelebrateButtonStatus">
+        <source>Where a `CelebrateButton` is in its press, work and celebrate cycle.</source>
+        <target>`CelebrateButton` 在按下、工作与庆祝周期中所处的阶段。</target>
+      </trans-unit>
+      <trans-unit id="CelebrateButtonStatusChangedEventArgs">
+        <source>Arguments of `StatusChanged`.</source>
+        <target>`StatusChanged` 的参数。</target>
+      </trans-unit>
       <trans-unit id="ChangelogFeed">
         <source>Release notes you can filter, open in place and scroll through month by month: chips by kind of change, a month bar that follows the scroll and jumps on a press, rows that open into details and media, and a pill that turns into an email field and then a confirmation. Zero configuration shows original sample notes of an invented product.</source>
         <target>可筛选、可就地展开、可按月滚动浏览的发布说明：按变更类型筛选的标签、跟随滚动并可点击跳转的月份栏、展开后显示详情和媒体的行，以及先变成邮箱输入框再变成确认的胶囊。无需配置即可显示一个虚构产品的原创示例说明。</target>
@@ -8263,6 +8315,182 @@
       <trans-unit id="CodeBlock.SourceCodeLabel">
         <source>Header text shown when `FileName` is empty (default "Source code").</source>
         <target>`FileName` 为空时显示的标题文字（默认 “源代码”）。</target>
+      </trans-unit>
+      <trans-unit id="CodeMagicMove">
+        <source>A code block that moves between versions of a snippet: words that stay glide to their new line and column, removed words fade and lift out, and new code types in behind an accent caret while the block grows or shrinks to the new line count. Step dots, the arrow keys and a sideways drag walk a tutorial or changelog through each change.</source>
+        <target>在一段代码的各个版本之间移动的代码块：留下的词滑到新的行和列，删除的词淡出并上浮，新代码在强调色光标后输入，同时代码块按新的行数变高或变矮。步骤圆点、方向键和横向拖动带着教程或更新日志走过每一处改动。</target>
+      </trans-unit>
+      <trans-unit id="CodeMagicMove.AccentBrush">
+        <source>The color of the caret, the changed line bands and the current step dot (the accent by default).</source>
+        <target>光标、改动行底带和当前步骤圆点的颜色（默认是强调色）。</target>
+      </trans-unit>
+      <trans-unit id="CodeMagicMove.AddedLines">
+        <source>How many lines the step shown added to the one before it (blank lines not counted).</source>
+        <target>当前步骤比上一步增加的行数（不计空行）。</target>
+      </trans-unit>
+      <trans-unit id="CodeMagicMove.AutoPlay">
+        <source>Whether the walkthrough moves through the steps by itself, looping from the last back to the first.</source>
+        <target>演练是否自己依次走过各个步骤，并从最后一步循环回第一步。</target>
+      </trans-unit>
+      <trans-unit id="CodeMagicMove.CurrentFileName">
+        <source>The file name in the header: the step's own, or `FileName`.</source>
+        <target>页头中的文件名：步骤自己的，或 `FileName`。</target>
+      </trans-unit>
+      <trans-unit id="CodeMagicMove.CurrentStep">
+        <source>The step shown (null without steps).</source>
+        <target>当前显示的步骤（没有步骤时为 null）。</target>
+      </trans-unit>
+      <trans-unit id="CodeMagicMove.FileName">
+        <source>The file name in the header when a step has none of its own.</source>
+        <target>步骤没有自己的文件名时，页头显示的文件名。</target>
+      </trans-unit>
+      <trans-unit id="CodeMagicMove.Interval">
+        <source>How long autoplay rests on a step before it moves on; the current dot fills meanwhile.</source>
+        <target>自动播放在一步上停留多久再前进；期间当前圆点逐渐填满。</target>
+      </trans-unit>
+      <trans-unit id="CodeMagicMove.IsMoving">
+        <source>Whether a move is under way (or being dragged).</source>
+        <target>是否正在移动（或正在被拖动）。</target>
+      </trans-unit>
+      <trans-unit id="CodeMagicMove.IsPaused">
+        <source>Holds autoplay. The pause button sets it, and so does stepping or dragging; play clears it.</source>
+        <target>暂停自动播放。暂停按钮会设置它，切换步骤或拖动也会；播放会清除它。</target>
+      </trans-unit>
+      <trans-unit id="CodeMagicMove.IsPlaying">
+        <source>Whether autoplay is running: `AutoPlay` on, not paused, and motion allowed.</source>
+        <target>自动播放是否在运行：`AutoPlay` 开启、没有暂停且允许动效。</target>
+      </trans-unit>
+      <trans-unit id="CodeMagicMove.Label">
+        <source>The accessible name of the walkthrough; the code area adds the step position to it.</source>
+        <target>演练的无障碍名称；代码区会在它后面加上步骤位置。</target>
+      </trans-unit>
+      <trans-unit id="CodeMagicMove.Language">
+        <source>The language used to color the code, as in a `CodeBlock`; colors need `UseArcHighlighting()`.</source>
+        <target>给代码着色所用的语言，与 `CodeBlock` 相同；颜色需要 `UseArcHighlighting()`。</target>
+      </trans-unit>
+      <trans-unit id="CodeMagicMove.RemovedLines">
+        <source>How many lines the step shown removed from the one before it.</source>
+        <target>当前步骤比上一步删除的行数。</target>
+      </trans-unit>
+      <trans-unit id="CodeMagicMove.Speed">
+        <source>Multiplies the pace of every move. At 1 a typical move takes about a second, longer when there is much to type.</source>
+        <target>让每次移动的节奏成倍变化。为 1 时一次典型的移动大约一秒，要输入的内容多时会更久。</target>
+      </trans-unit>
+      <trans-unit id="CodeMagicMove.Value">
+        <source>The index of the step shown. Setting it moves to that step.</source>
+        <target>当前显示的步骤序号。设置它就会移动到那一步。</target>
+      </trans-unit>
+      <trans-unit id="CodeMagicMove.ValueChanged">
+        <source>Raised when a move starts toward a different step, or when a drag commits to one.</source>
+        <target>移动开始朝向另一步时，或拖动确认到另一步时触发。</target>
+      </trans-unit>
+      <trans-unit id="CodeMagicMoveStep">
+        <source>One version of the snippet in a `CodeMagicMove`, with the caption shown under the code.</source>
+        <target>`CodeMagicMove` 中这段代码的一个版本，带有显示在代码下方的说明。</target>
+      </trans-unit>
+      <trans-unit id="CodeMagicMoveStep.Code">
+        <source>The code of this version. Tabs become two spaces; leading blank lines and the indentation all lines share are removed.</source>
+        <target>这个版本的代码。制表符变成两个空格；开头的空行和所有行共有的缩进会被去掉。</target>
+      </trans-unit>
+      <trans-unit id="CodeMagicMoveStep.Description">
+        <source>An optional sentence under the title.</source>
+        <target>标题下方可选的一句话。</target>
+      </trans-unit>
+      <trans-unit id="CodeMagicMoveStep.FileName">
+        <source>The file name in the header for this step; null uses `FileName`.</source>
+        <target>这一步在页头中的文件名；为 null 时使用 `FileName`。</target>
+      </trans-unit>
+      <trans-unit id="CodeMagicMoveStep.Title">
+        <source>The step's title, shown under the code and in the step dot's name.</source>
+        <target>步骤的标题，显示在代码下方，也用于步骤圆点的名称。</target>
+      </trans-unit>
+      <trans-unit id="CodeMagicMoveValueChangedEventArgs">
+        <source>Arguments of `ValueChanged`.</source>
+        <target>`ValueChanged` 的参数。</target>
+      </trans-unit>
+      <trans-unit id="CodeReview">
+        <source>A pull request review in one card: the title, author and branches with an Approve button; file tabs with their open conversations and an "n/5 viewed" progress; for the chosen file its path, diffstat and a Viewed checkbox over a syntax tinted unified diff. Hover a line, or focus its number, and an add-comment mark appears on the gutter's edge; press it to write a comment, optionally with a suggested change. Threads hang in the flow under their line with Apply, Reply and Resolve; resolved threads fold to one line, an applied suggestion rewrites the diff in place, and Approve sends the review with the comments added meanwhile, then turns into Approved. Load `Pull`, `Files` and `Threads` from your git provider and send the review with `SubmitReviewAction`; everything else happens in the card. With no data it shows a sample review.</source>
+        <target>单张卡片内的拉取请求评审：标题、作者与分支以及 Approve 按钮；带有未解决讨论数的文件标签和 "n/5 viewed" 进度；所选文件的路径、增删统计和 Viewed 复选框，下面是语法着色的统一差异。指针移到某一行或聚焦其行号时，行号边缘会出现添加评论标记；按下它即可写评论，还可以附带修改建议。讨论挂在所在行下方的文档流中，带有 Apply、Reply 和 Resolve；已解决的讨论折叠成一行，应用的建议会就地改写差异，Approve 会连同期间新增的评论一起发送评审，然后变为 Approved。从你的 git 服务加载 `Pull`、`Files` 和 `Threads`，用 `SubmitReviewAction` 发送评审；其余操作都在卡片里完成。没有数据时显示一个示例评审。</target>
+      </trans-unit>
+      <trans-unit id="CodeReview.ApprovalWithdrawn">
+        <source>Raised when Undo withdraws the approval.</source>
+        <target>Undo 撤回批准时触发。</target>
+      </trans-unit>
+      <trans-unit id="CodeReview.CommentAdded">
+        <source>Raised when the reviewer adds a comment on a line; the new thread is pending until the review is approved.</source>
+        <target>评审者在某一行添加评论时触发；新讨论在评审被批准前处于待发送状态。</target>
+      </trans-unit>
+      <trans-unit id="CodeReview.CompactWidth">
+        <source>Below this card width the header stacks, the progress moves above the tabs and one line-number column remains (560).</source>
+        <target>卡片宽度低于此值时，页头纵向排列，进度移到标签上方，行号只剩一列（560）。</target>
+      </trans-unit>
+      <trans-unit id="CodeReview.Files">
+        <source>The changed files, one tab each in this order. Null shows the sample's five files. Changing it starts the review over (viewed marks and open boxes are cleared).</source>
+        <target>改动的文件，按此顺序每个文件一个标签。为 null 时显示示例的五个文件。更改它会重新开始评审（清除已查看标记和打开的评论框）。</target>
+      </trans-unit>
+      <trans-unit id="CodeReview.IsApproved">
+        <source>Whether the review has been approved (Undo withdraws it).</source>
+        <target>评审是否已被批准（Undo 可撤回）。</target>
+      </trans-unit>
+      <trans-unit id="CodeReview.Labels">
+        <source>Every word the card shows or announces.</source>
+        <target>卡片显示或播报的所有文字。</target>
+      </trans-unit>
+      <trans-unit id="CodeReview.Pull">
+        <source>The pull request: title, number, author, branches and commit count. Null shows the sample pull request.</source>
+        <target>拉取请求：标题、编号、作者、分支和提交数。为 null 时显示示例拉取请求。</target>
+      </trans-unit>
+      <trans-unit id="CodeReview.ReplyPosted">
+        <source>Raised when a reply is posted in a thread.</source>
+        <target>在讨论中发出回复时触发。</target>
+      </trans-unit>
+      <trans-unit id="CodeReview.ResolvedChanged">
+        <source>Raised when a conversation is resolved or reopened (applying a suggestion resolves its thread).</source>
+        <target>讨论被解决或重新打开时触发（应用建议会解决其讨论）。</target>
+      </trans-unit>
+      <trans-unit id="CodeReview.ReviewSubmitted">
+        <source>Raised after the approval was sent.</source>
+        <target>批准发送成功后触发。</target>
+      </trans-unit>
+      <trans-unit id="CodeReview.SelectedFileId">
+        <source>The id of the file shown. Null (the default) shows the first file with an open conversation, or the first file. Two-way: choosing a tab writes it.</source>
+        <target>所显示文件的 id。为 null（默认）时显示第一个有未解决讨论的文件，否则显示第一个文件。双向：选择标签会写入它。</target>
+      </trans-unit>
+      <trans-unit id="CodeReview.SelectionChanged">
+        <source>Raised when another file is shown.</source>
+        <target>显示另一个文件时触发。</target>
+      </trans-unit>
+      <trans-unit id="CodeReview.SubmitReviewAction">
+        <source>Sends the approval with the comments added during the review. While the task runs the button shows progress; an exception shows "Try again" (and announces it). Null simulates a short submit.</source>
+        <target>发送批准以及评审期间新增的评论。任务运行期间按钮显示进度；抛出异常时显示 "Try again"（并进行播报）。为 null 时模拟一次短暂的发送。</target>
+      </trans-unit>
+      <trans-unit id="CodeReview.SuggestionApplied">
+        <source>Raised after a suggestion is applied, with the file's new diff; commit the change on your server.</source>
+        <target>应用建议后触发，并带有文件的新差异；请在你的服务器上提交这次改动。</target>
+      </trans-unit>
+      <trans-unit id="CodeReview.Threads">
+        <source>The existing conversations, each under a line of a file. The card updates them as the reviewer replies, resolves and applies suggestions, and adds the threads it starts. Null shows the sample's two threads.</source>
+        <target>已有的讨论，每个都挂在某个文件的某一行下方。卡片会随着评审者回复、解决和应用建议而更新它们，并加入它新开始的讨论。为 null 时显示示例的两个讨论。</target>
+      </trans-unit>
+      <trans-unit id="CodeReview.ViewedChanged">
+        <source>Raised when a file is marked viewed or not viewed.</source>
+        <target>文件被标记为已查看或未查看时触发。</target>
+      </trans-unit>
+      <trans-unit id="CodeReview.ViewedCount">
+        <source>How many files are marked viewed.</source>
+        <target>已标记为已查看的文件数。</target>
+      </trans-unit>
+      <trans-unit id="CodeReview.Viewer">
+        <source>The person reviewing: new comments and replies are written as them. Null uses the sample's reviewer.</source>
+        <target>正在评审的人：新评论和回复都以此人的身份发出。为 null 时使用示例中的评审者。</target>
+      </trans-unit>
+      <trans-unit id="CodeReviewFile">
+        <source>A changed file: one tab of a `CodeReview`.</source>
+        <target>一个改动的文件：`CodeReview` 的一个标签。</target>
+      </trans-unit>
+      <trans-unit id="CodeReviewThread">
+        <source>A conversation anchored under a line of a file. `CodeReview` keeps it up to date: replies are appended to `Comments`, and `IsResolved`, `IsSuggestionApplied` and `IsPending` follow what the reviewer does.</source>
+        <target>挂在文件某一行下方的讨论。`CodeReview` 会保持它最新：回复会追加到 `Comments`，`IsResolved`、`IsSuggestionApplied` 和 `IsPending` 会跟随评审者的操作变化。</target>
       </trans-unit>
       <trans-unit id="CodeSuggestion">
         <source>An AI code edit suggestion in a small editor panel, like an inline edit in an AI code editor. The header shows the model's mark, the instruction and the model; the panel shows a file tab with its language mark, a running +/− count, and the code with each proposed change as an inline diff hunk: removed lines tinted red with a minus, new lines tinted green with a plus. New lines stream in, then every hunk gets Reject and Accept under it, and the footer offers Reject all and Accept all (Cmd or Ctrl + Enter). Accepting a hunk folds its removed lines away and settles the new lines into the file; rejecting folds the new lines away and restores the original. Give it the file in `Code`, the changes in `Hunks` and set `Status`; write the file in `Resolved` (or progressively in `DecisionMade`): the control never writes anything itself. With no code and no hunks it shows an empty file, or plays a `Simulation` you pass in, which reviews itself and replays until someone touches it.</source>
@@ -14247,6 +14475,110 @@
       <trans-unit id="FeedbackBoard.VoteChanged">
         <source>Raised when the viewer adds or takes back a vote.</source>
         <target>访客投票或撤回投票时触发。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph">
+        <source>A feedback button that becomes a small form and then a thank-you, in one shape. The button springs open into a panel with a question, a row of mood faces and a note; `SubmitHandler` receives what was sent while the send button spins, and the panel folds into a thank-you pill that turns back into the button after `ResetAfter`. A failed send keeps the panel open with an error and the draft intact. Escape, the close button, a press outside or tabbing away fold the panel and keep the draft.</source>
+        <target>一个反馈按钮，在同一个形状中变成小表单，再变成致谢。按钮弹开成一块面板，里面有问题、一排心情表情和一段留言；发送按钮转圈时由 `SubmitHandler` 接收所发送的内容，随后面板收成致谢胶囊，`ResetAfter` 之后再变回按钮。发送失败时面板保持打开，显示错误并完整保留草稿。Escape、关闭按钮、在外面按下指针或用 Tab 离开都会收起面板并保留草稿。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.Align">
+        <source>Which horizontal point of the button the panel stays anchored to (Center by default).</source>
+        <target>面板锚定在按钮水平方向上的哪个位置（默认 Center）。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.CaptionHint">
+        <source>The caption under the faces until one is hovered or picked.</source>
+        <target>在悬停或选择表情之前，表情下方的说明文字。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.CloseLabel">
+        <source>The close button's accessible name.</source>
+        <target>关闭按钮的无障碍名称。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.EmptyHint">
+        <source>Shown beside the send button and announced when there is nothing to send yet.</source>
+        <target>还没有可发送的内容时，显示在发送按钮旁并播报的提示。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.ErrorMessage">
+        <source>Shown beside the send button and announced when a send failed.</source>
+        <target>发送失败时，显示在发送按钮旁并播报的文字。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.IsOpen">
+        <source>Whether the panel is open (the button when false). Setting it opens or folds the panel.</source>
+        <target>面板是否打开（为 false 时是按钮）。设置它会打开或收起面板。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.Label">
+        <source>The button's text and accessible name.</source>
+        <target>按钮的文字和无障碍名称。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.MaxLength">
+        <source>The note's character limit (the status line counts down to it).</source>
+        <target>留言的字数上限（状态行倒数到它）。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.Message">
+        <source>The note's text. Kept when the panel closes; cleared after a successful send.</source>
+        <target>留言的文字。面板关闭时保留；发送成功后清空。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.Moods">
+        <source>The mood scale, from unhappy to happy (five read best, three or more work); null uses five built-in faces (`CreateDefaults`).</source>
+        <target>心情量表，从不满意到满意（五个最好读，三个以上都可以）；为 null 时使用五个内置表情（`CreateDefaults`）。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.MoodsLabel">
+        <source>The accessible name of the row of faces.</source>
+        <target>这一排表情的无障碍名称。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.Placeholder">
+        <source>The note's prompt while no face is picked (a picked face shows its own `Prompt`).</source>
+        <target>未选表情时留言中的提示（选了表情时显示它自己的 `Prompt`）。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.RemainingLabel">
+        <source>The word after the remaining-characters count in the status line ("480 left").</source>
+        <target>状态行中剩余字数后面的词（"480 left"）。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.ResetAfter">
+        <source>How long the thank-you pill stays before it folds back into the button.</source>
+        <target>致谢胶囊停留多久后收回成按钮。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.SelectedMood">
+        <source>The picked mood, null when none. Kept when the panel closes; cleared after a successful send.</source>
+        <target>所选的心情，未选时为 null。面板关闭时保留；发送成功后清空。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.SelectionChanged">
+        <source>Raised when `SelectedMood` changes, from code or by the person. Bubbles.</source>
+        <target>`SelectedMood` 变化时触发，无论来自代码还是用户。冒泡。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.SendLabel">
+        <source>The send button's text.</source>
+        <target>发送按钮的文字。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.SendingLabel">
+        <source>The send button's text while `SubmitHandler` runs, also announced.</source>
+        <target>`SubmitHandler` 运行期间发送按钮的文字，也会播报。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.Side">
+        <source>Whether the panel grows down from the button (Bottom, the default) or up from it (Top).</source>
+        <target>面板从按钮向下长（Bottom，默认）还是向上长（Top）。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.State">
+        <source>Where the control is in its open, send and thank-you cycle.</source>
+        <target>控件在打开、发送、致谢这一循环中所处的位置。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.StateChanged">
+        <source>Raised whenever `State` changes, with the exception when a send failed. Bubbles.</source>
+        <target>`State` 每次变化时触发，发送失败时附带异常。冒泡。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.SubmitHandler">
+        <source>Receives each submission. While its task runs the send button spins and the note is read-only; when it completes the thank-you pill shows, and when it throws the panel stays open with `ErrorMessage` and the draft. The token is cancelled when the panel is closed meanwhile. Null accepts every submission at once.</source>
+        <target>接收每次提交。任务运行期间发送按钮转圈、留言只读；任务完成后显示致谢胶囊，抛出异常时面板保持打开并显示 `ErrorMessage` 和草稿。在此期间关闭面板会取消令牌。为 null 时立即接受每次提交。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.Submitted">
+        <source>Raised after a submission was accepted (after `SubmitHandler` finished). Bubbles.</source>
+        <target>一次提交被接受后（`SubmitHandler` 完成后）触发。冒泡。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.SuccessLabel">
+        <source>The words of the thank-you pill, also announced after a successful send.</source>
+        <target>致谢胶囊上的文字，发送成功后也会播报。</target>
+      </trans-unit>
+      <trans-unit id="FeedbackMorph.Title">
+        <source>The question at the top of the panel; also the panel's accessible name.</source>
+        <target>面板顶部的问题；也是面板的无障碍名称。</target>
       </trans-unit>
       <trans-unit id="FeedbackRatingChangedEventArgs">
         <source>Arguments of `RatingChanged`.</source>

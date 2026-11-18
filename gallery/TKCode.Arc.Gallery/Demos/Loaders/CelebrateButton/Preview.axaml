@@ -1,0 +1,15 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.CelebrateButtonPreviewDemo">
+    <!-- One button in the middle of the stage, with room above and beside it for the confetti. The made-up release takes
+         0.9 s; the button returns to rest 2.4 s after it succeeds. Press it, or focus it and press Enter or Space. -->
+    <Panel MinHeight="400" ClipToBounds="True">
+        <arc:CelebrateButton x:Name="Ship"
+                             Content="Ship release"
+                             PendingLabel="Shipping"
+                             SuccessLabel="Shipped"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center" />
+    </Panel>
+</UserControl>

@@ -1,0 +1,8 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.CodeReviewPreviewDemo">
+    <!-- No data set: a sample pull request with five files, a resolved thread and an open one with a suggestion.
+         Every action is local and the approval is simulated. -->
+    <arc:CodeReview Margin="0,12" />
+</UserControl>

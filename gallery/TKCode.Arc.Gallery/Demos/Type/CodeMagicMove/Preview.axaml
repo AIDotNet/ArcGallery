@@ -1,0 +1,11 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.CodeMagicMovePreviewDemo">
+    <!-- A four step tutorial that plays by itself. Hover to hold it; arrow keys, the dots or a sideways drag step through. -->
+    <arc:CodeMagicMove x:Name="Walkthrough"
+                       FileName="theme-toggle.tsx"
+                       Language="tsx"
+                       Label="Building a theme toggle"
+                       MaxWidth="680" />
+</UserControl>
