@@ -37,6 +37,7 @@ public sealed class AndroidApp : AvaloniaAndroidApplication<App>
                    .WithInterFont()
                    .WithArcFonts()
                    .WithArcPixelFonts()
+                   .WithCjkFont()
                    .UseArc(arc => arc
                        .UseLanguages(GalleryLanguages.Initial([CultureInfo.CurrentUICulture.Name]), GalleryLanguages.Tags)
                        .UseArcControls()

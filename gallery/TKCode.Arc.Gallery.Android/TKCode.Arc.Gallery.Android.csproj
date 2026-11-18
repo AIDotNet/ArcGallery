@@ -38,6 +38,10 @@
     <ItemGroup>
         <AvaloniaResource Include="../TKCode.Arc.Gallery.Browser/wwwroot/friends/*.png" Link="Friends/%(Filename)%(Extension)" />
     </ItemGroup>
+    <!-- The Chinese font (CjkFont.cs): the same file as the browser host's. -->
+    <ItemGroup>
+        <AvaloniaResource Include="../TKCode.Arc.Gallery.Browser/wwwroot/fonts/NotoSansSC-Subset.otf" Link="Fonts/NotoSansSC-Subset.otf" />
+    </ItemGroup>
     <!-- No screenshots or page text assemblies (35 MB): SiteFiles fetches them from the site. -->
     <!-- Release signing: with -p:ArcApk=true and the ARC_ANDROID_KEYSTORE* variables set (gallery-android.yml) the APK is signed
          with that key; without them a debug key signs it, which installs the same way but is not a key to publish updates with. -->
