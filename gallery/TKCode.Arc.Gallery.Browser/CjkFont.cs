@@ -3,7 +3,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.InteropServices.JavaScript;
 using System.Threading.Tasks;
-using Avalonia;
 using Avalonia.Media;
 using Avalonia.Media.Fonts;
 
@@ -77,25 +76,4 @@ internal sealed partial class CjkFontCollection : FontCollectionBase
     /// <summary>The bytes <see cref="FetchAhead"/> received, or none when it received nothing.</summary>
     [JSImport("takeFile", "arc-lazy")]
     private static partial byte[] TakeFetched(string path);
-}
-
-public static class CjkFontAppBuilderExtensions
-{
-    /// <summary>
-    /// Adds the Chinese font as the fallback for Han and CJK punctuation: text in Inter or Geist that has no glyph for a
-    /// character asks it. Pair it with <c>WithArcFonts()</c>.
-    /// </summary>
-    public static AppBuilder WithCjkFont(this AppBuilder builder) => builder
-        .ConfigureFonts(fontManager => fontManager.AddFontCollection(new CjkFontCollection()))
-        .With(new FontManagerOptions
-        {
-            FontFallbacks =
-            [
-                new FontFallback
-                {
-                    FontFamily = new FontFamily(CjkFontCollection.Family),
-                    UnicodeRange = UnicodeRange.Parse("U+2010-2027,U+2030-205E,U+2E80-2FDF,U+3000-303F,U+3400-4DBF,U+4E00-9FFF,U+F900-FAFF,U+FF00-FFEF")
-                }
-            ]
-        });
 }

@@ -81,7 +81,7 @@ internal sealed partial class Program
                   .WithInterFont()
                   .WithArcFonts()
                   .WithArcPixelFonts()
-                  .WithCjkFont()
+                  .WithBrowserFonts()
                   .UseArc(arc => arc
                       .UseLanguages(GalleryLanguages.Initial(BrowserLanguageStore.Preferred()), GalleryLanguages.Tags)
                       .UseArcControls()

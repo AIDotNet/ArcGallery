@@ -4,8 +4,8 @@ using System.Text;
 namespace TKCode.Arc.Tests.Gallery;
 
 /// <summary>
-/// The Chinese font of the WebAssembly host (gallery/TKCode.Arc.Gallery.Browser/wwwroot/fonts): a browser has no system fonts
-/// for Skia, so a character the font lacks is drawn as a box.
+/// The Chinese and emoji fonts of the WebAssembly host (gallery/TKCode.Arc.Gallery.Browser/wwwroot/fonts): a browser has no system
+/// fonts for Skia, so a character the fonts lack is drawn as a box.
 /// </summary>
 public class GalleryBrowserFontTests
 {
@@ -34,6 +34,42 @@ public class GalleryBrowserFontTests
         // Run: /tmp/ftvenv/bin/python tools/fonts/subset-noto-sans-sc.py (see the script for the setup)
         missing.ShouldBeEmpty("characters the browser font lacks (a box in the WebAssembly host); run tools/fonts/subset-noto-sans-sc.py:\n" +
                               string.Join("\n", missing.Select(m => $"{(char)m.Key} U+{m.Key:X4} in {m.Value}")));
+    }
+
+    [Fact]
+    public void Every_Emoji_The_Gallery_Draws_Is_In_The_Browser_Emoji_Font()
+    {
+        var font = File.ReadAllBytes(Path.Combine(RepositoryPaths.Gallery, "gallery", "TKCode.Arc.Gallery.Browser", "wwwroot", "fonts", "NotoEmoji-Subset.ttf"));
+        var covered = Codepoints(font);
+        covered.ShouldContain(0x1F44D, "the font has no emoji at all");
+
+        // The demos' data and the libraries' pickers: a reaction is a string in C# or AXAML, so look at the code as well as the texts.
+        var missing = new SortedDictionary<int, string>();
+        foreach (var folder in new[] { Path.Combine(RepositoryPaths.Gallery, "gallery"), Path.Combine(RepositoryPaths.Arc, "src") })
+        {
+            foreach (var path in Directory.EnumerateFiles(folder, "*", SearchOption.AllDirectories))
+            {
+                var normalized = path.Replace('\\', '/');
+                if (normalized.Contains("/obj/") || normalized.Contains("/bin/") || normalized.Contains("/GeneratedFiles/") ||
+                    !(path.EndsWith(".cs", StringComparison.Ordinal) || path.EndsWith(".axaml", StringComparison.Ordinal) ||
+                      path.EndsWith(".md", StringComparison.Ordinal) || path.EndsWith(".xlf", StringComparison.Ordinal)))
+                {
+                    continue;
+                }
+                var text = File.ReadAllText(path, Encoding.UTF8);
+                for (var i = 0; i < text.Length; i += char.IsSurrogatePair(text, i) ? 2 : 1)
+                {
+                    var code = char.ConvertToUtf32(text, i);
+                    // The emoji blocks of the supplementary planes, which no other font of the host has.
+                    if (code is >= 0x1F1E6 and <= 0x1F64F or >= 0x1F680 and <= 0x1F6FF or >= 0x1F900 and <= 0x1F9FF && !covered.Contains(code))
+                    {
+                        missing.TryAdd(code, Path.GetFileName(path));
+                    }
+                }
+            }
+        }
+        missing.ShouldBeEmpty("emoji the browser font lacks (a box in the WebAssembly host); run tools/fonts/subset-noto-emoji.py:\n" +
+                              string.Join("\n", missing.Select(m => $"{char.ConvertFromUtf32(m.Key)} U+{m.Key:X} in {m.Value}")));
     }
 
     /// <summary>The Markdown and XLIFF texts of the gallery, A2UI Chat and the libraries, the catalogs that hold Chinese titles and A2UI Chat's interface strings.</summary>
