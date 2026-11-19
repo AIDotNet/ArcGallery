@@ -5,6 +5,8 @@ summary: "Show a glTF model, or one built in code, on a lit stage with a ground 
 
 <Demo name="Preview" />
 
+The preview loads Dafeiyu from a bundled GLB with embedded textures. Drag to turn the character, scroll to zoom, or use the toolbar to auto-rotate and reset the view.
+
 ## When to use
 
 - Product pages, asset browsers and previews of generated or uploaded models: one object that people turn and inspect.
@@ -35,7 +37,9 @@ The viewer frames whatever it is given: it puts the ground under the model, aims
 `Source` takes the path of a glTF 2.0 file (`.gltf` or `.glb`), an `avares://` resource of the app, or an `http://` or `https://` address; buffers and images next to a `.gltf` are fetched from the same place. The model is read off the UI thread; `IsLoading` is true and a spinner shows meanwhile. A model from the web is downloaded each time `Source` is set: the viewer keeps no cache. `LoadAsync` reads a stream instead, for example a file the user picked. A `.gltf` loaded from a stream cannot reach its external files: use a `.glb` or data URIs.
 
 ```xml
-<arc:ModelViewer x:Name="Viewer" Height="360" AutoRotate="True" />
+<arc:ModelViewer x:Name="Viewer" Height="360"
+                 Source="avares://MyApp/Assets/Dafeiyu.glb"
+                 ToneMapping="None" />
 ```
 
 ```csharp
@@ -63,7 +67,7 @@ Viewer.LoadFailed += (_, e) => Log(e.Exception.Message);
 
 ### From code
 
-`Model` shows any object built with the engine in place of a file: a single mesh or a whole group. The viewer does not dispose an object it was given. The Preview at the top of this page is built this way.
+`Model` shows any object built with the engine in place of a file: a single mesh or a whole group. The viewer does not dispose an object it was given.
 
 ```csharp
 using TKCode.Arc.Graphics3D;
@@ -74,6 +78,8 @@ Viewer.Model = new Mesh(
 ```
 
 Numbers carry over from three.js: the same units, the same light intensities and the same camera conventions (right-handed, Y up, the field of view in degrees).
+
+<Demo name="FromCode" />
 
 ### Lighting, rotation and shadow
 

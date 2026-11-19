@@ -2,8 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
              x:Class="TKCode.Arc.Gallery.Demos.ModelViewerPreviewDemo">
-    <!-- The model is built in the code-behind and set as Model; a glTF file would go in Source instead.
-         Drag to orbit, scroll to zoom, drag with the right button to pan; the buttons in the corner turn and reset. -->
-    <arc:ModelViewer x:Name="Viewer" MaxWidth="720" Height="380"
-                     AutomationProperties.Name="An orange knot on a metal stand" />
+    <arc:ModelViewer x:Name="Viewer" MaxWidth="720" Height="540"
+                     Source="avares://TKCode.Arc.Gallery/Assets/Graphics3D/Dafeiyu.glb"
+                     Environment="None" ToneMapping="None"
+                     AutomationProperties.Name="Dafeiyu, a whale-themed character" />
 </UserControl>

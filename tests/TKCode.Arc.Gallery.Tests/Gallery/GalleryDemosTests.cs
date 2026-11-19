@@ -9,6 +9,7 @@ using Avalonia.Headless.XUnit;
 using Avalonia.Input;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
+using TKCode.Arc.Graphics3D;
 using TKCode.Arc.Localization;
 
 namespace TKCode.Arc.Tests.Gallery;
@@ -50,6 +51,32 @@ public class GalleryDemosTests
     }
 
     private static List<GalleryDemoView> Demos(Visual root) => root.GetVisualDescendants().OfType<GalleryDemoView>().ToList();
+
+    [AvaloniaFact]
+    public void Model_Viewer_Preview_Loads_Its_Bundled_Character()
+    {
+        var demo = GalleryDemos.Get("ModelViewer.Preview").ShouldNotBeNull().Create().ShouldBeAssignableTo<UserControl>();
+        var viewer = demo.FindControl<ModelViewer>("Viewer").ShouldNotBeNull();
+        var loaded = false;
+        Exception? failure = null;
+        viewer.ModelLoaded += (_, _) => loaded = true;
+        viewer.LoadFailed += (_, args) => failure = args.Exception;
+
+        var window = TestHelpers.Show(demo);
+        try
+        {
+            TestHelpers.PumpUntil(() => loaded || failure is not null, 8000).ShouldBeTrue();
+            failure.ShouldBeNull();
+            viewer.IsLoading.ShouldBeFalse();
+            var face = viewer.Scene.Find("Face and cheek volume").ShouldBeOfType<Mesh>();
+            face.Material.ShouldBeOfType<BasicMaterial>().Map.ShouldNotBeNull();
+            viewer.Scene.Find("Curved whale tail and paired flukes").ShouldBeOfType<Mesh>();
+        }
+        finally
+        {
+            window.Close();
+        }
+    }
 
     [AvaloniaFact]
     public void Every_Demo_Renders_And_Has_Its_Files()

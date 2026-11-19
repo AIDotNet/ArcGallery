@@ -1,10 +1,12 @@
 ---
 title: 模型檢視器
 summary: "在帶有地面陰影的打光舞台上展示 glTF 模型或以程式碼建立的模型：可以環繞、縮放和平移，讓它緩慢轉動，並重設檢視。"
-source-hash: 136b004e082d
+source-hash: bf441c3ba1c2
 ---
 
 <Demo name="Preview" />
+
+預覽從應用程式內建的 GLB 載入大肥魚，紋理也包含在檔案中。拖曳角色可旋轉，捲動可縮放，也可用工具列自動旋轉或重設視角。
 
 ## 何時使用
 
@@ -36,7 +38,9 @@ AppBuilder.Configure<App>()
 `Source` 接受 glTF 2.0 檔案（`.gltf` 或 `.glb`）的路徑、應用程式的 `avares://` 資源，或 `http://`、`https://` 位址；`.gltf` 旁邊的緩衝區和圖片會從同一個位置取得。模型在 UI 執行緒之外讀取；讀取期間 `IsLoading` 為 true，並顯示載入指示器。來自網路的模型在每次設定 `Source` 時都會重新下載：檢視器不做快取。`LoadAsync` 則從資料流讀取，例如使用者選取的檔案。從資料流載入的 `.gltf` 找不到它的外部檔案：請用 `.glb` 或 data URI。
 
 ```xml
-<arc:ModelViewer x:Name="Viewer" Height="360" AutoRotate="True" />
+<arc:ModelViewer x:Name="Viewer" Height="360"
+                 Source="avares://MyApp/Assets/Dafeiyu.glb"
+                 ToneMapping="None" />
 ```
 
 ```csharp
@@ -64,7 +68,7 @@ Viewer.LoadFailed += (_, e) => Log(e.Exception.Message);
 
 ### 來自程式碼
 
-`Model` 顯示任何用引擎建立的物件來取代檔案：單一網格或一整個群組。檢視器不會釋放交給它的物件。本頁頂端的預覽就是這樣建立的。
+`Model` 顯示任何用引擎建立的物件來取代檔案：單一網格或一整個群組。檢視器不會釋放交給它的物件。
 
 ```csharp
 using TKCode.Arc.Graphics3D;
@@ -75,6 +79,8 @@ Viewer.Model = new Mesh(
 ```
 
 three.js 裡的數值可以直接沿用：單位相同，燈光強度相同，攝影機慣例也相同（右手座標系、Y 軸朝上、視野以角度表示）。
+
+<Demo name="FromCode" />
 
 ### 燈光、旋轉與陰影
 
