@@ -17,6 +17,7 @@ public class GallerySiteTests
     [
         new GalleryReleaseAsset($"TKCode.Arc.Gallery-{version}-osx-arm64.dmg", new Uri("https://example.test/mac.dmg"), 75 * 1024 * 1024),
         new GalleryReleaseAsset($"TKCode.Arc.Gallery-{version}-win-x64.exe", new Uri("https://example.test/win.exe"), 170 * 1024 * 1024),
+        new GalleryReleaseAsset($"TKCode.Arc.Gallery-{version}-win-x64.zip", new Uri("https://example.test/win.zip"), 115 * 1024 * 1024),
         new GalleryReleaseAsset($"TKCode.Arc.Gallery-{version}-android.apk", new Uri("https://example.test/gallery.apk"), 90 * 1024 * 1024)
     ]);
 
@@ -154,7 +155,7 @@ public class GallerySiteTests
                 Dispatcher.UIThread.RunJobs();
                 window.UpdateLayout();
             }
-            section.UrlOf("win-x64").ToString().ShouldBe("https://example.test/win.exe");
+            section.UrlOf("win-x64").ToString().ShouldBe("https://example.test/win.zip");
             // A release without a file for that system opens the release's page.
             section.UrlOf("linux-x64").ToString().ShouldBe("https://example.test/release");
         }, os: GalleryClientOs.Windows);

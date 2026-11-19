@@ -23,6 +23,7 @@ on:
     paths:
       - tools/macos/**
       - .github/workflows/gallery-macos.yml
+      - gallery/TKCode.Arc.Gallery.Desktop/**
 
 concurrency:
   group: gallery-macos-${{ github.ref }}
@@ -63,7 +64,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Both architectures are built on the arm64 runner; self-contained publish cross-compiles.
+        # Xcode on the arm64 runner provides the linkers for both target architectures.
         rid: [osx-arm64, osx-x64]
     steps:
       - uses: actions/checkout@v7
@@ -73,7 +74,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           repository: AIDotNet/TKCode.Arc
-          ref: ${{ inputs.arc_ref || inputs.tag || (startsWith(github.ref, 'refs/tags/') && github.ref_name) || 'main' }}
+          ref: ${{ inputs.arc_ref || (startsWith(github.ref, 'refs/tags/') && github.ref_name) || 'main' }}
           path: arc
 
       - uses: actions/setup-dotnet@v6
@@ -128,12 +129,11 @@ jobs:
           fi
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
-      # Single file keeps Contents/MacOS free of managed .dll files, which codesign would treat as unsigned nested code.
-      - name: Publish
+      - name: Publish Native AOT
         run: >
           dotnet publish gallery/TKCode.Arc.Gallery.Desktop
           -c Release -f net10.0 -r ${{ matrix.rid }}
-          --self-contained true -p:PublishSingleFile=true
+          --self-contained true -p:PublishAot=true -p:CopyOutputSymbolsToPublishDirectory=false
           -o "$RUNNER_TEMP/publish/${{ matrix.rid }}"
 
       - name: Create app bundle

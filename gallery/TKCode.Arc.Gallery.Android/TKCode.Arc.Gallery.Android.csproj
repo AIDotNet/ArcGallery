@@ -2,7 +2,7 @@
     <!-- The Android app: the gallery in one view (like the browser host), installed from an APK that GitHub Releases carries.
          Needs the .NET android workload and a JDK; it is not in ArcGallery.slnx, so a machine without them still builds the rest.
            dotnet build gallery/TKCode.Arc.Gallery.Android -c Debug                      debug-signed APK, runs on a device or emulator
-           dotnet publish gallery/TKCode.Arc.Gallery.Android -c Release -p:ArcApk=true   release APK (.github/workflows/gallery-android.yml) -->
+           dotnet publish gallery/TKCode.Arc.Gallery.Android -c Release -r android-arm64 -p:ArcApk=true   release APK (.github/workflows/gallery-android.yml) -->
     <PropertyGroup>
         <TargetFramework>net11.0-android</TargetFramework>
         <OutputType>Exe</OutputType>
@@ -21,6 +21,10 @@
         <RuntimeIdentifiers>android-arm64</RuntimeIdentifiers>
         <RuntimeIdentifiers Condition="'$(ArcAndroidEmulator)' == 'true'">android-arm64;android-x64</RuntimeIdentifiers>
         <AndroidPackageFormat>apk</AndroidPackageFormat>
+        <PublishAot Condition="'$(PublishAot)' == '' And '$(_IsPublishing)' == 'true'">true</PublishAot>
+        <EnablePreviewFeatures Condition="'$(PublishAot)' == 'true'">true</EnablePreviewFeatures>
+        <!-- The .NET 11 RC SDK's optimized publish can skip the Avalonia XAML resources. -->
+        <UseOptimizedPublish>false</UseOptimizedPublish>
         <!-- The gallery is trimming safe (AGENTS.md), so the linker may remove everything unused, not only what the SDK allows. -->
         <TrimMode>full</TrimMode>
     </PropertyGroup>

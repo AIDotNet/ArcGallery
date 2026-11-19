@@ -1407,8 +1407,8 @@
     </unit>
     <unit id="HomeWebNoteText">
       <segment>
-        <source>Avalonia renders this page in WebAssembly and the .NET code is interpreted, so startup and motion here do not represent the desktop app.</source>
-        <target state="translated">这个页面由 Avalonia 在 WebAssembly 中渲染，.NET 代码以解释方式运行，启动和动画的表现都不代表桌面应用。</target>
+        <source>Avalonia renders this page in your browser using WebAssembly. The browser environment affects startup and motion.</source>
+        <target state="translated">Avalonia 在浏览器中通过 WebAssembly 渲染此页面。浏览器环境会影响启动与动效表现。</target>
       </segment>
     </unit>
     <unit id="HomeStreamMarkText">
@@ -1557,8 +1557,8 @@
     </unit>
     <unit id="DownloadNote">
       <segment>
-        <source>All packages are published on GitHub Releases; the macOS app is signed and notarized.</source>
-        <target state="translated">所有安装包都发布在 GitHub Releases，macOS 版已签名和公证。</target>
+        <source>Extract the Windows or Linux archive before running the app. The macOS app is signed and notarized.</source>
+        <target state="translated">请先解压 Windows 或 Linux 下载包，再运行应用。macOS 版已签名和公证。</target>
       </segment>
     </unit>
     <unit id="DownloadAll">
@@ -1641,8 +1641,8 @@
     </unit>
     <unit id="CompareRuntimeWeb">
       <segment>
-        <source>.NET code interpreted in WebAssembly</source>
-        <target state="translated">.NET 代码在 WebAssembly 中解释执行</target>
+        <source>.NET in the browser’s WebAssembly runtime</source>
+        <target state="translated">.NET 在浏览器的 WebAssembly 运行时中执行</target>
       </segment>
     </unit>
     <unit id="CompareRuntimeDesktop">

@@ -9,6 +9,7 @@ ARG NGINX_VERSION=1.26.3
 FROM ${BUILDER_IMAGE} AS build
 # Passed to the publish when set; empty keeps the version pinned in arc/Directory.Packages.props.
 ARG STREAMMARK_VERSION=
+ARG ARC_WASM_AOT=true
 # python3 is needed by WasmBuildNative (Emscripten); brotli and gzip compress the output below.
 RUN apt-get update \
     && apt-get install -y --no-install-recommends python3 brotli gzip \
@@ -29,9 +30,9 @@ RUN dotnet --info && dotnet workload install wasm-tools
 COPY . .
 # Directory.Build.props would find ./arc by itself; the variable says so explicitly.
 ENV ARC_ROOT=/src/arc/
-# Trimmed and interpreted, like the gallery's site.
+# Compile the trimmed app to WebAssembly ahead of time. ARC_WASM_AOT=false uses the interpreter.
 RUN dotnet publish a2ui/TKCode.Arc.A2UI.Chat.Browser/TKCode.Arc.A2UI.Chat.Browser.csproj \
-        -c Release -o /app \
+        -c Release -p:ArcAot=${ARC_WASM_AOT} -o /app \
         ${STREAMMARK_VERSION:+-p:StreamMarkVersion=${STREAMMARK_VERSION}}
 # The policy allows the one inline script, the import map the publish wrote into index.html, by its hash (it changes with every build).
 RUN python3 -c "import re,hashlib,base64;h=open('/app/wwwroot/index.html',encoding='utf-8',newline='').read();m=re.findall(r'<script type=\"importmap\">(.*?)</script>',h,re.S);assert len(m)==1,'expected one import map';open('/app/importmap.sha256','w').write('sha256-'+base64.b64encode(hashlib.sha256(m[0].encode()).digest()).decode())" \

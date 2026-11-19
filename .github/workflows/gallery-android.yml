@@ -102,7 +102,7 @@ jobs:
             echo "::warning::ANDROID_KEYSTORE_BASE64 is not set: the APK is signed with a debug key"
           fi
 
-      - name: Publish
+      - name: Publish Native AOT
         env:
           ARC_ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ARC_ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
@@ -110,7 +110,8 @@ jobs:
           VERSION: ${{ steps.version.outputs.version }}
         run: >
           dotnet publish gallery/TKCode.Arc.Gallery.Android
-          -c Release -p:ArcApk=true
+          -c Release -r android-arm64 -p:ArcApk=true
+          -p:PublishAot=true -p:EnablePreviewFeatures=true
           -p:ApplicationDisplayVersion="$VERSION"
           -p:ApplicationVersion="${{ github.run_number }}"
           -o publish/android

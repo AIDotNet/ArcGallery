@@ -10,6 +10,10 @@
         <OverrideHtmlAssetPlaceholders>true</OverrideHtmlAssetPlaceholders>
         <WasmBuildNative>true</WasmBuildNative>
         <PublishTrimmed Condition="'$(PublishTrimmed)' == '' And '$(_IsPublishing)' == 'true'">true</PublishTrimmed>
+        <!-- Use the same AOT and interpreter fallback configuration as the Gallery browser host. -->
+        <RunAOTCompilation Condition="'$(RunAOTCompilation)' == '' And '$(ArcAot)' != 'false' And ('$(_IsPublishing)' == 'true' Or '$(_WasmIsPublishing)' == 'true') And '$(PublishTrimmed)' == 'true' And '$(Configuration)' == 'Release'">true</RunAOTCompilation>
+        <WasmDedup Condition="'$(RunAOTCompilation)' == 'true' And '$(WasmDedup)' == ''">false</WasmDedup>
+        <WasmStripILAfterAOT Condition="'$(RunAOTCompilation)' == 'true' And '$(WasmStripILAfterAOT)' == ''">false</WasmStripILAfterAOT>
         <!-- Browser storage uses JSImport. -->
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <!-- TKCode.Arc's code highlighting (TextMate) links Oniguruma statically. The Onigwrap package only has WebAssembly archives for

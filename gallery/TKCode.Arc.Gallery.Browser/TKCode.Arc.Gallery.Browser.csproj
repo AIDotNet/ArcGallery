@@ -14,15 +14,14 @@
         <!-- Publishing trims the app with ILLink; builds and dotnet run do not. -p:PublishTrimmed=false publishes untrimmed; the
              boot-list pruning below then applies instead. -->
         <PublishTrimmed Condition="'$(PublishTrimmed)' == '' And '$(_IsPublishing)' == 'true'">true</PublishTrimmed>
-        <!-- Off by default since 2026-11-04: with AOT, switching pages froze the site. -p:ArcAot=true publishes with it (a Release
-             publish then compiles the .NET code ahead of time to WebAssembly; the SDK allows it only for a trimmed publish;
-             the wasm-tools workload brings the compiler). Measured 2026-10-30 on .NET 11 in headless Edge with the CPU four times
-             slower than an M5: opening the Changelog guide (StreamMark parsing and laying out a long document) kept the main thread
-             busy about 3.7 s interpreted and 1.2 to 1.35 s compiled. Builds and dotnet run stay interpreted; -p:ArcAot=false publishes
-             interpreted. The compiling happens in the SDK's nested publish build, which clears _IsPublishing and passes it on as
-             _WasmIsPublishing. The 0.3.0-preview.5 build that crashed at startup ("memory access out of bounds", 2026-10-24) was the
-             AtomUI one; the .NET 11 build without AtomUI starts and walks the pages. -->
-        <RunAOTCompilation Condition="'$(RunAOTCompilation)' == '' And '$(ArcAot)' == 'true' And ('$(_IsPublishing)' == 'true' Or '$(_WasmIsPublishing)' == 'true') And '$(PublishTrimmed)' == 'true' And '$(Configuration)' == 'Release'">true</RunAOTCompilation>
+        <!-- Release publishes compile every assembly to WebAssembly. Builds and dotnet run remain interpreted;
+             -p:ArcAot=false uses the interpreter in a publish too. The nested publish uses _WasmIsPublishing. -->
+        <RunAOTCompilation Condition="'$(RunAOTCompilation)' == '' And '$(ArcAot)' != 'false' And ('$(_IsPublishing)' == 'true' Or '$(_WasmIsPublishing)' == 'true') And '$(PublishTrimmed)' == 'true' And '$(Configuration)' == 'Release'">true</RunAOTCompilation>
+        <!-- With the pinned .NET 11 toolchain, generic deduplication traps on AssemblyLoadContext startup. IL stripping also
+             leaves the interpreter unable to run a module initializer. Keep all assemblies in the AOT startup set. -->
+        <WasmDedup Condition="'$(RunAOTCompilation)' == 'true' And '$(WasmDedup)' == ''">false</WasmDedup>
+        <WasmStripILAfterAOT Condition="'$(RunAOTCompilation)' == 'true' And '$(WasmStripILAfterAOT)' == ''">false</WasmStripILAfterAOT>
+        <ArcSpecialOnDemand Condition="'$(RunAOTCompilation)' == 'true' And '$(ArcSpecialOnDemand)' == ''">false</ArcSpecialOnDemand>
         <!-- Publishing also shrinks the boot list (ArcWasmUnusedAssembly and ArcWasmLazyAssembly below); builds and dotnet run keep
              everything. -p:ArcWasmPrune=false publishes with everything, -p:ArcWasmPrune=true shrinks a build as well. -->
         <ArcWasmPrune Condition="'$(ArcWasmPrune)' == ''">$(_IsPublishing)</ArcWasmPrune>
@@ -56,22 +55,8 @@
         <StaticWebAssetFingerprintPattern Include="JS" Pattern="*.js" Expression="#[.{fingerprint}]!" />
     </ItemGroup>
 
-    <!-- Compiled ahead of time, these would make half of the native code (Blocks 61 MB of objects, Special 31, the Gallery's pages and
-         demos 26; all of the rest 114) for UI that is built once when its page opens. They stay interpreted, like the whole app
-         before; the controls, Avalonia, Skia, StreamMark and the runtime are compiled. Measured 2026-10-30 (brotli, headless Edge,
-         CPU four times slower): startup download 14.4 MB interpreted, 22.0 MB like this, 29.0 MB with everything compiled; opening
-         the Changelog guide 3.7 s / 1.0 s / 1.2 s of main-thread work, opening the Blocks section 2.5 s / 2.0 s / 2.0 s. The SDK's item
-         for assemblies "too big to compile" (WasmApp.Common.targets) is internal, so check it after a .NET update: if it disappears,
-         everything is compiled again and the startup download grows. -p:ArcAotEverything=true compiles these too. -->
-    <ItemGroup Condition="'$(ArcAotEverything)' != 'true'">
-        <_AOT_InternalForceInterpretAssemblies Include="TKCode.Arc.Blocks.dll;TKCode.Arc.Special.dll;TKCode.Arc.Gallery.dll" />
-    </ItemGroup>
-
-    <!-- The Special components are left out of the boot list of a trimmed publish and loaded when the first Special page opens
-         (GalleryModules in the gallery, BrowserAssemblyLoader here): 1.3 MB less to download at startup (brotli, measured
-         2026-10-30). The runtime's own lazy loading keeps the file trimmed with the app, fingerprinted and compressed, and with
-         AOT the SDK adds the runtime option that lets compiled code meet an assembly that arrives later. Blocks cannot follow:
-         the top bar and the home page are blocks. -p:ArcSpecialOnDemand=false keeps Special in the boot list. -->
+    <!-- An interpreted, trimmed publish can load the Special assembly when the first Special page opens
+         (GalleryModules and BrowserAssemblyLoader). The top bar and home page use Blocks at startup. -->
     <ItemGroup Condition="'$(PublishTrimmed)' == 'true' And '$(ArcSpecialOnDemand)' != 'false'">
         <BlazorWebAssemblyLazyLoad Include="TKCode.Arc.Special.wasm" />
         <RuntimeHostConfigurationOption Include="Arc.Gallery.SpecialOnDemand" Value="true" />

@@ -197,7 +197,7 @@ def pack_patches(meshes):
     return atlas, np.asarray(positions)
 
 
-def write_glb(path, meshes):
+def write_glb(path, meshes, animate):
     atlas, origins = pack_patches(meshes)
     buffer = bytearray()
     document = {'asset': {'version': '2.0', 'generator': 'ArcGallery Dafeiyu'},
@@ -213,10 +213,10 @@ def write_glb(path, meshes):
         buffer.extend(b'\0' * (-len(buffer) % 4))
         return len(document['bufferViews']) - 1
 
-    def accessor(data, components, kind, target, limits=False):
+    def accessor(data, components, kind, target=None, limits=False):
         entry = {'bufferView': store(data.tobytes(), target), 'componentType': components, 'count': len(data), 'type': kind}
         if limits:
-            entry |= {'min': data.min(axis=0).tolist(), 'max': data.max(axis=0).tolist()}
+            entry |= {'min': np.atleast_1d(data.min(axis=0)).tolist(), 'max': np.atleast_1d(data.max(axis=0)).tolist()}
         document['accessors'].append(entry)
         return len(document['accessors']) - 1
 
@@ -242,6 +242,7 @@ def write_glb(path, meshes):
     document['textures'] = [{'source': 0, 'sampler': 0}]
     document['materials'] = [{'name': 'Painted character colors', 'extensions': {'KHR_materials_unlit': {}},
                               'pbrMetallicRoughness': {'baseColorTexture': {'index': 0}, 'metallicFactor': 0}}]
+    animate(document, accessor)
     document['buffers'] = [{'byteLength': len(buffer)}]
     header = json.dumps(document, separators=(',', ':')).encode('utf-8')
     header += b' ' * (-len(header) % 4)

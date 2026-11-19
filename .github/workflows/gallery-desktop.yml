@@ -24,6 +24,7 @@ on:
   pull_request:
     paths:
       - .github/workflows/gallery-desktop.yml
+      - gallery/TKCode.Arc.Gallery.Desktop/**
 
 concurrency:
   group: gallery-desktop-${{ github.ref }}-${{ inputs.tag }}
@@ -73,6 +74,10 @@ jobs:
           global-json-file: global.json
           dotnet-version: 10.0.x
 
+      - name: Install Native AOT toolchain
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y clang zlib1g-dev
+
       - uses: actions/cache@v6
         with:
           path: ~/.nuget/packages
@@ -89,29 +94,33 @@ jobs:
           fi
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
-      # Single file with the native libraries (Skia, HarfBuzz, ...) bundled: one file to download and run.
-      - name: Publish
+      - name: Publish Native AOT
         run: >
           dotnet publish gallery/TKCode.Arc.Gallery.Desktop
           -c Release -f net10.0 -r ${{ matrix.rid }}
-          --self-contained true
-          -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
+          --self-contained true -p:PublishAot=true -p:CopyOutputSymbolsToPublishDirectory=false
           -o publish/${{ matrix.rid }}
 
-      - name: Package
+      # Keep the runtime's native libraries next to the AOT executable, in the layout dotnet publish produced.
+      - name: Package Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        env:
+          RID: ${{ matrix.rid }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          New-Item -ItemType Directory -Force dist | Out-Null
+          Compress-Archive -Path "publish/$env:RID/*" -DestinationPath "dist/TKCode.Arc.Gallery-$($env:VERSION)-$($env:RID).zip"
+
+      - name: Package Linux
+        if: runner.os == 'Linux'
         env:
           RID: ${{ matrix.rid }}
           VERSION: ${{ steps.version.outputs.version }}
         run: |
           mkdir -p dist
-          name="TKCode.Arc.Gallery-$VERSION-$RID"
-          if [[ "$RID" == win-* ]]; then
-            cp "publish/$RID/TKCode.Arc.Gallery.Desktop.exe" "dist/$name.exe"
-          else
-            chmod +x "publish/$RID/TKCode.Arc.Gallery.Desktop"
-            tar -czf "dist/$name.tar.gz" -C "publish/$RID" TKCode.Arc.Gallery.Desktop
-          fi
-          ls -l dist
+          chmod +x "publish/$RID/TKCode.Arc.Gallery.Desktop"
+          tar -czf "dist/TKCode.Arc.Gallery-$VERSION-$RID.tar.gz" -C "publish/$RID" .
 
       - uses: actions/upload-artifact@v7
         with:

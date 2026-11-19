@@ -1173,7 +1173,7 @@
     </unit>
     <unit id="HomeWebNoteText">
       <segment>
-        <source>Avalonia renders this page in WebAssembly and the .NET code is interpreted, so startup and motion here do not represent the desktop app.</source>
+        <source>Avalonia renders this page in your browser using WebAssembly. The browser environment affects startup and motion.</source>
       </segment>
     </unit>
     <unit id="HomeStreamMarkText">
@@ -1298,7 +1298,7 @@
     </unit>
     <unit id="DownloadNote">
       <segment>
-        <source>All packages are published on GitHub Releases; the macOS app is signed and notarized.</source>
+        <source>Extract the Windows or Linux archive before running the app. The macOS app is signed and notarized.</source>
       </segment>
     </unit>
     <unit id="DownloadAll">
@@ -1368,7 +1368,7 @@
     </unit>
     <unit id="CompareRuntimeWeb">
       <segment>
-        <source>.NET code interpreted in WebAssembly</source>
+        <source>.NET in the browser’s WebAssembly runtime</source>
       </segment>
     </unit>
     <unit id="CompareRuntimeDesktop">

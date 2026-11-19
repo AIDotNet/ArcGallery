@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Wraps a `dotnet publish -r osx-<arch> --self-contained -p:PublishSingleFile=true` output into an unsigned macOS .app.
+# Wraps a Native AOT `dotnet publish -r osx-<arch>` output into an unsigned macOS .app.
 #
 #   tools/macos/bundle.sh <publish-dir> <output-dir>
 #
@@ -63,7 +63,7 @@ while IFS= read -r -d '' f; do
     esac
 done < <(find "$app/Contents/MacOS" -type f -print0)
 if [[ -n "$stray" ]]; then
-    printf 'error: Contents/MacOS must contain only Mach-O files (publish with -p:PublishSingleFile=true); found:\n%s' "$stray" >&2
+    printf 'error: Contents/MacOS must contain only Mach-O files (publish with Native AOT); found:\n%s' "$stray" >&2
     exit 1
 fi
 

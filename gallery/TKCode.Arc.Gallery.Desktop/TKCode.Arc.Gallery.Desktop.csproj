@@ -9,10 +9,11 @@
         <ApplicationManifest Condition="'$(OS)' == 'Windows_NT'"></ApplicationManifest>
         <!-- Icon of the Windows executable. The macOS bundle icon is Assets/AppIcon.icns (tools/macos/bundle.sh). -->
         <ApplicationIcon>Assets/AppIcon.ico</ApplicationIcon>
-        <!-- .NET SDK 11's optimized AOT publish runs PrepareResources before ResolveReferences, ahead of the target where
-             Avalonia 12.1 adds its !AvaloniaResources blob, so a -p:PublishAot=true publish embeds no compiled XAML and fails
-             at startup with "No precompiled XAML found". -->
+        <!-- Keep Avalonia's compiled resource blobs visible to the AOT linker. -->
         <UseOptimizedPublish>false</UseOptimizedPublish>
+        <PublishAot Condition="'$(PublishAot)' == '' And '$(_IsPublishing)' == 'true'">true</PublishAot>
+        <PublishReferencesDocumentationFiles>false</PublishReferencesDocumentationFiles>
+        <PublishReferencesSymbols>false</PublishReferencesSymbols>
         <!-- .NET 9+ marks the apphost CET-compatible (hardware shadow stacks), so the gallery would not start on Windows 10
              builds before 21H2 or without recent updates (#76). The gallery is a demo app, so it opts out. -->
         <CETCompat>false</CETCompat>
@@ -44,4 +45,12 @@
     <ItemGroup>
         <AvaloniaResource Include="../TKCode.Arc.Gallery.Browser/wwwroot/friends/*.png" Link="Friends/%(Filename)%(Extension)" />
     </ItemGroup>
+    <!-- The media project references copy all RIDs to the build. An archive or signed app needs only its own RID. -->
+    <Target Name="FilterNativeAssetsForPublish" AfterTargets="ComputeFilesToPublish" Condition="'$(RuntimeIdentifier)' != ''">
+        <ItemGroup>
+            <_OtherRuntimeFiles Include="@(ResolvedFileToPublish)"
+                Condition="$([System.String]::Copy('%(ResolvedFileToPublish.RelativePath)').Replace('\', '/').StartsWith('runtimes/')) And !$([System.String]::Copy('%(ResolvedFileToPublish.RelativePath)').Replace('\', '/').StartsWith('runtimes/$(RuntimeIdentifier)/'))" />
+            <ResolvedFileToPublish Remove="@(_OtherRuntimeFiles)" />
+        </ItemGroup>
+    </Target>
 </Project>

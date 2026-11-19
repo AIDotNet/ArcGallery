@@ -11,12 +11,13 @@ ARG NGINX_VERSION=1.26.3
 FROM ${BUILDER_IMAGE} AS build
 # Passed to the publish when set; empty keeps the version pinned in arc/Directory.Packages.props.
 ARG STREAMMARK_VERSION=
+ARG ARC_WASM_AOT=true
 # python3 is needed by WasmBuildNative (Emscripten); brotli and gzip compress the output below.
 RUN apt-get update \
     && apt-get install -y --no-install-recommends python3 brotli gzip \
     && rm -rf /var/lib/apt/lists/*
 WORKDIR /src
-# The SDK is the one global.json pins (11.0.100-rc.2). The .NET 10 runtime is needed too: gallery/TKCode.Arc.Gallery.Llms (run below) targets net10.0.
+# The SDK is the one global.json pins; the .NET 10 runtime is also needed for gallery/TKCode.Arc.Gallery.Llms (run below).
 COPY global.json .
 RUN curl -sSL https://dot.net/v1/dotnet-install.sh -o /tmp/dotnet-install.sh \
     && bash /tmp/dotnet-install.sh --jsonfile global.json --install-dir /opt/dotnet \
@@ -33,9 +34,9 @@ COPY . .
 ENV ARC_ROOT=/src/arc/
 # pdf.js is not committed: the viewer's renderer in a browser, fetched here with its checksum checked (TKCode.Arc.Pdf.Browser).
 RUN bash arc/tools/pdf/sync-pdfjs.sh
-# Trimmed and interpreted: compiling ahead of time to WebAssembly froze the site on page switches, so it is off (-p:ArcAot=true turns it on).
+# Compile the trimmed app to WebAssembly ahead of time. ARC_WASM_AOT=false uses the interpreter.
 RUN dotnet publish gallery/TKCode.Arc.Gallery.Browser/TKCode.Arc.Gallery.Browser.csproj \
-        -c Release -o /app \
+        -c Release -p:ArcAot=${ARC_WASM_AOT} -o /app \
         ${STREAMMARK_VERSION:+-p:StreamMarkVersion=${STREAMMARK_VERSION}}
 # The files for AI assistants next to the app: llms.txt, llms-full.txt, every docs page as Markdown (English, zh-CN, zh-TW)
 # and the agent skill, with links on the site's fixed address (gallery/TKCode.Arc.Gallery.Llms).

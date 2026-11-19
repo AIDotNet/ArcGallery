@@ -5,7 +5,7 @@ summary: "Show a glTF model, or one built in code, on a lit stage with a ground 
 
 <Demo name="Preview" />
 
-The preview loads Dafeiyu from a bundled GLB with embedded textures. Drag to turn the character, scroll to zoom, or use the toolbar to auto-rotate and reset the view.
+The bundled GLB includes Dafeiyu's textures and three animations. The preview plays Idle by default. Choose Swim to see the tail, hair ornament and body move as she floats, Wave to see her raise a hand, or Still to inspect the rest pose. The animation stops when the preview scrolls out of view or motion is reduced. Drag to orbit, scroll to zoom, or use the toolbar to auto-rotate and reset the view.
 
 ## When to use
 

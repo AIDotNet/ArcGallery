@@ -8,6 +8,7 @@
         <NoWarn>$(NoWarn);CS0436</NoWarn>
         <BuiltInComInteropSupport>false</BuiltInComInteropSupport>
         <UseOptimizedPublish>false</UseOptimizedPublish>
+        <PublishAot Condition="'$(PublishAot)' == '' And '$(_IsPublishing)' == 'true'">true</PublishAot>
         <CETCompat>false</CETCompat>
     </PropertyGroup>
     <ItemGroup>

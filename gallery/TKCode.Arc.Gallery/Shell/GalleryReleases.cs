@@ -11,9 +11,16 @@ public sealed record GalleryReleaseAsset(string Name, Uri Url, long Size);
 public sealed record GalleryRelease(string Version, Uri Url, IReadOnlyList<GalleryReleaseAsset> Assets)
 {
     /// <summary>The app's file for a runtime identifier (<c>osx-arm64</c>, <c>win-x64</c>, ...), or null.</summary>
-    public GalleryReleaseAsset? AssetFor(string runtime) =>
-        Assets.FirstOrDefault(asset => asset.Name.StartsWith("TKCode.Arc.Gallery-", StringComparison.Ordinal)
-                                       && asset.Name.Contains($"-{runtime}.", StringComparison.Ordinal));
+    public GalleryReleaseAsset? AssetFor(string runtime)
+    {
+        var suffix = $"-{runtime}.";
+        var files = Assets.Where(asset => asset.Name.StartsWith("TKCode.Arc.Gallery-", StringComparison.Ordinal)
+                                         && asset.Name.Contains(suffix, StringComparison.Ordinal));
+        // An existing tag can carry both the old single-file EXE and the Native AOT archive with its native libraries.
+        return runtime.StartsWith("win-", StringComparison.Ordinal)
+            ? files.FirstOrDefault(asset => asset.Name.EndsWith(suffix + "zip", StringComparison.Ordinal)) ?? files.FirstOrDefault()
+            : files.FirstOrDefault();
+    }
 
     /// <summary>Where to get this build's system: its file when the release has one, otherwise the release's page.</summary>
     public Uri DownloadUrl => AssetFor(RuntimeInformation.RuntimeIdentifier)?.Url ?? Url;

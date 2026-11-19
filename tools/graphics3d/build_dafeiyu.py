@@ -9,6 +9,7 @@ from scipy import ndimage
 from scipy.interpolate import LinearNDInterpolator, NearestNDInterpolator
 
 from dafeiyu_mesh import HEIGHT, color, curve, extend, gaussian, loft, mix, polygon, relief, sample, sdf, smooth, write_glb
+from dafeiyu_motion import add_dafeiyu_motion
 
 
 class Reference:
@@ -593,7 +594,7 @@ def main():
     rear = Reference(sheet, 1208, 1824, [(351, 51), (75, 409), (496, 410), (491, 337)])
     meshes = head_and_hair(front, side, rear) + headwear(front, side, rear) + skirt_and_apron(front)
     meshes += bodice_and_limbs(front, side, rear) + legs_and_shoes(front, side, rear) + [whale_tail(front)]
-    write_glb(arguments.output, meshes)
+    write_glb(arguments.output, meshes, add_dafeiyu_motion)
     print(f'{arguments.output}: {len(meshes)} meshes; {sum(len(mesh.faces) for mesh in meshes):,} triangles; '
           f'{arguments.output.stat().st_size:,} bytes')
 

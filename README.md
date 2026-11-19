@@ -42,9 +42,14 @@ A full run of `TKCode.Arc.Gallery.Tests` takes several minutes; CI runs it. The 
 
 ## Releases
 
-The desktop app for Windows, macOS and Linux is attached to this repository's releases. Tag a release with the same `v*` version as
-TKCode.Arc: the workflows then build against that TKCode.Arc tag. The macOS build needs the signing secrets described in
-`tools/macos/README.md`.
+Windows x64, Linux x64 and both macOS architectures publish with Native AOT. Extract the Windows ZIP or Linux tar.gz and keep the
+native libraries beside the executable. The macOS DMG is signed and notarized; see `tools/macos/README.md` for the signing setup.
+The Android workflow publishes an arm64 APK with .NET for Android's experimental Native AOT runtime. Release publishes of both
+browser apps compile the managed assemblies to WebAssembly and retain the IL needed by the interpreter fallback. Pass
+`-p:ArcAot=false` to publish without AOT, or `--build-arg ARC_WASM_AOT=false` when building a Docker image.
+
+Tag a release with the same `v*` version as TKCode.Arc so the workflows build against the matching library tag. Existing release
+downloads are unchanged until rebuilt.
 
 ## License
 

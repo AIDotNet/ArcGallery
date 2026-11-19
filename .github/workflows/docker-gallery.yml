@@ -29,8 +29,7 @@ jobs:
   image:
     name: Build and push the Gallery image
     runs-on: ubuntu-latest
-    # The publish compiles the .NET code ahead of time to WebAssembly (about 11 minutes on an M5, more on a runner).
-    timeout-minutes: 90
+    timeout-minutes: 120
     permissions:
       contents: read
       packages: write
@@ -104,7 +103,7 @@ jobs:
           IMAGE="ghcr.io/aidotnet/arcgallery:sha-${GITHUB_SHA::7}"
           docker pull "$IMAGE"
           docker run -d --name gallery -p 8080:80 "$IMAGE"
-          for i in $(seq 1 30); do curl -sf http://127.0.0.1:8080/ > /dev/null && break; sleep 1; done
+          for _ in $(seq 1 30); do curl -sf http://127.0.0.1:8080/ > /dev/null && break; sleep 1; done
           WASM=$(docker exec gallery sh -c 'cd /usr/share/nginx/html/_framework && ls *.wasm | grep -E "\.[0-9a-z]{8,}\.wasm$" | head -1')
           echo "fingerprinted wasm: $WASM"
           curl -sfI -H 'Accept-Encoding: br' "http://127.0.0.1:8080/_framework/$WASM" | tee wasm.headers

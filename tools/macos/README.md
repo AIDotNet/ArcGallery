@@ -6,12 +6,12 @@ The scripts here do the work, so the same flow runs locally.
 
 | File | Purpose |
 |---|---|
-| `bundle.sh` | `dotnet publish` output (single file) to an unsigned `.app` with `Info.plist` and the app icon (`gallery/TKCode.Arc.Gallery.Desktop/Assets/AppIcon.icns`). |
+| `bundle.sh` | Native AOT `dotnet publish` output to an unsigned `.app` with `Info.plist` and the app icon (`gallery/TKCode.Arc.Gallery.Desktop/Assets/AppIcon.icns`). |
 | `sign-notarize.sh` | Signs every Mach-O file and the bundle (hardened runtime), builds and signs the `.dmg`, notarizes and staples it. |
-| `Entitlements.plist` | Hardened runtime exceptions a self-contained .NET app needs (JIT, executable memory). |
+| `Entitlements.plist` | Hardened runtime library validation exception for the bundled native libraries. |
 
-The app is published as a single file on purpose: `codesign` treats every file in `Contents/MacOS` as nested code, so
-loose managed `.dll` files would each need their own signature. `bundle.sh` fails if anything but Mach-O files is left there.
+Native AOT emits one executable for the managed app. Platform native libraries are kept beside the executable or under
+`runtimes/osx-<arch>/native` and signed alongside it. `bundle.sh` fails if anything but Mach-O files is left in `Contents/MacOS`.
 
 ## Parameters
 
@@ -60,7 +60,7 @@ Ad-hoc signing (`-`) exercises the whole script without a certificate or notariz
 
 ```bash
 dotnet publish gallery/TKCode.Arc.Gallery.Desktop -c Release -f net10.0 -r osx-arm64 \
-    --self-contained true -p:PublishSingleFile=true -o /tmp/arc-publish
+    --self-contained true -p:PublishAot=true -p:CopyOutputSymbolsToPublishDirectory=false -o /tmp/arc-publish
 app="$(tools/macos/bundle.sh /tmp/arc-publish /tmp/arc-app | tail -n 1)"
 MACOS_SIGNING_IDENTITY=- tools/macos/sign-notarize.sh "$app" /tmp/arc-app/Gallery.dmg
 ```
