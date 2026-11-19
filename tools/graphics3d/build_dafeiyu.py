@@ -8,7 +8,7 @@ from PIL import Image
 from scipy import ndimage
 from scipy.interpolate import LinearNDInterpolator, NearestNDInterpolator
 
-from dafeiyu_mesh import HEIGHT, color, curve, extend, gaussian, loft, mix, polygon, relief, sample, smooth, write_glb
+from dafeiyu_mesh import HEIGHT, color, curve, extend, gaussian, loft, mix, polygon, relief, sample, sdf, smooth, write_glb
 
 
 class Reference:
@@ -90,6 +90,17 @@ def headdress_mask(front):
     return outline & ndimage.binary_fill_holes(ndimage.binary_dilation(white, iterations=2))
 
 
+def fin_bow_axis(x):
+    return 221 + .42 * (np.abs(x - 314) - 154)
+
+
+def headdress_axis(x, y):
+    crown = curve(y, [(54, 171), (78, 177), (103, 191), (129, 210), (160, 229), (189, 239)])
+    crown += .045 * np.abs(x - 314)
+    at_bows = smooth(165, 220, y) * smooth(100, 152, np.abs(x - 314))
+    return crown + (fin_bow_axis(x) - crown) * at_bows
+
+
 def fin_bow_masks(front):
     outlines = [
         ('Left fin bow', '127,218 143,216 154,224 163,226 173,222 181,228 183,247 174,259 159,264 '
@@ -113,8 +124,11 @@ def head_and_hair(front, side, rear):
         return (blue - red > 49) & (green - red > 13) & (blue - green > 25) & (blue > 94)
 
     rows, cols = np.indices(mane.shape)
-    cloth = headdress_mask(front)
-    ribbons = np.logical_or.reduce([mask for _, mask in fin_bow_masks(front)])
+    lace_seam = curve(cols, [(128, 243), (150, 225), (169, 199), (190, 170), (216, 141), (245, 116),
+                             (275, 102), (313, 92), (350, 97), (380, 111), (410, 130), (433, 155),
+                             (450, 183), (466, 210), (482, 230), (512, 247), (548, 253)])
+    crown_seam = sdf(rows >= lace_seam, 2)
+    mane &= crown_seam > -14
     hair_color = hair_pigment(front.rgb)
     ribbon_region = (rows >= 212) & (rows <= 274) & ((cols < 159) | (cols > 448))
     front_area = mane & hair_color & ~ribbon_region & front.area(
@@ -165,13 +179,23 @@ def head_and_hair(front, side, rear):
         far = curve(y, [(88, 257), (109, 307), (155, 349), (228, 392), (313, 390), (353, 415), (397, 456),
                         (443, 488), (494, 462), (541, 445), (586, 415), (626, 350), (672, 266), (705, 219)])
         axis = near + (far - near) * (.28 + .24 * smooth(322, 465, y))
-        crown_rim = curve(y, [(88, 248), (116, 263), (152, 281), (192, 297), (228, 303)])
         crown_falloff = smooth(.36, .92, np.abs(transverse)) * (1 - smooth(216, 324, y))
+        crown_rim = curve(y, [(88, 248), (116, 263), (152, 281), (192, 297), (228, 303)])
         axis += np.maximum(0, crown_rim - axis) * crown_falloff
+        seam_distance = sample(crown_seam, x, y)
+        lace_contact = (1 - smooth(-10, 16, seam_distance)) * (1 - smooth(221, 257, y))
+        axis += (headdress_axis(x, y) - axis) * lace_contact
+        volume *= 1 - .91 * lace_contact
         section = np.sin((x + (25 + .16 * np.abs(x - 313)) * np.sin(y / 49)) / 22)
         groove = (3 + 10 * smooth(280, 452, y)) * section * (1 - smooth(642, 687, y))
         gap = 100 * gaussian(x, y, 317, 533, 79, 45)
-        return axis - np.maximum(6, axis - near + groove) * volume, axis + np.maximum(8, far - axis + groove - gap) * volume
+        front_depth = axis - np.maximum(6, axis - near + groove) * volume
+        back_depth = axis + np.maximum(8, far - axis + groove - gap) * volume
+        under_fringe = smooth(0, 13, seam_distance) * smooth(0, 9, distance) * (1 - smooth(238, 273, y))
+        bow_clearance = smooth(118, 143, np.abs(x - 314)) * smooth(205, 220, y)
+        under_fringe *= 1 - bow_clearance
+        fringe_join = curve(y, [(106, 143), (146, 116), (187, 104), (230, 102), (264, 115)])
+        return front_depth - under_fringe * np.maximum(0, front_depth - fringe_join), back_depth
 
     def mane_paint(x, y, distance, depth, is_rear):
         rear_x = 288 - (x - 314) * .92
@@ -295,16 +319,12 @@ def headwear(front, side, rear):
     back_band, back_confidence = lace_palette(rear, back_fabric)
     side_band, side_confidence = lace_palette(side, side_fabric)
 
-    def band_axis(x, y):
-        center = curve(y, [(54, 171), (78, 177), (103, 191), (129, 210), (160, 229), (189, 239), (224, 244)])
-        return center + .045 * np.abs(x - 314)
-
     def band_sculpt(x, y, distance):
-        axis = band_axis(x, y)
-        folds = 3 * np.sin(x / 7.5 + y / 12)
+        axis = headdress_axis(x, y)
+        folds = 1.4 * np.sin(x / 7.5 + y / 12)
         width = fullness(distance, 13)
-        front_span = curve(y, [(54, 44), (89, 51), (135, 45), (173, 34), (217, 22)])
-        back_span = curve(y, [(54, 43), (89, 50), (135, 40), (173, 30), (217, 22)])
+        front_span = curve(y, [(54, 29), (89, 34), (135, 30), (173, 23), (217, 15)])
+        back_span = curve(y, [(54, 28), (89, 33), (135, 27), (173, 20), (217, 15)])
         return axis - (front_span + folds) * width, axis + (back_span + folds) * width
 
     def band_paint(x, y, distance, depth, is_rear):
@@ -317,7 +337,7 @@ def headwear(front, side, rear):
         front_facing, side_facing = projection_facing(depth)
         rim = 1 - smooth(0, 10, distance)
         fold = .5 + .5 * np.cos(x / 7.5 + y / 12 + depth / 19)
-        fabric_color = mix(np.array([251, 247, 252]), np.array([203, 198, 226]), (.22 + .61 * rim) * fold)
+        fabric_color = mix(np.array([251, 247, 252]), np.array([203, 198, 226]), (.22 + .4 * rim) * fold)
         profile_coverage = .75 * sample(side_confidence, depth, y) * smooth(.18, .8, side_facing) * (1 - rim)
         profile = mix(fabric_color, color(side_band, depth, y), profile_coverage)
         coverage = (1 - rim) * smooth(.22, .62, front_facing) * smooth(.08, .73, sample(confidence, chart_x, y))
@@ -340,7 +360,7 @@ def headwear(front, side, rear):
                             lambda x, y, root=root_x, sign=direction: 235 + 1.13 * (x - root) * sign + .20 * (y - 255),
                             lambda x, y, root=root_x: 13 + 13 * gaussian(x, y, root, 268, 35, 39), 18, step=3))
     for name, mask in fin_bow_masks(front):
-        meshes.append(plate(name, front.rgb, mask, lambda x, y: 221 + .42 * (np.abs(x - 314) - 154), 26, 15,
+        meshes.append(plate(name, front.rgb, mask, lambda x, y: fin_bow_axis(x), 26, 15,
                             step=2.5, smoothing=.65))
     return meshes
 
