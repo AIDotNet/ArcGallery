@@ -28612,6 +28612,18 @@
         <source>One update of an incident.</source>
         <target>事件的一則更新。</target>
       </trans-unit>
+      <trans-unit id="QuickAccessToolBar">
+        <source>A row of small commands that stays visible whichever tab is selected (Save, Undo, Redo, and the commands the user pins). Place it in an `ArcWindow` title bar (`TitleBar.LeftContent`), above or below the `Ribbon`, and link it with `Ribbon`. `Items` are the toolbar's own commands (ribbon buttons, shown small). `Keys` lists the ribbon commands pinned to it by their `QuickAccessKey`: each shows as a small copy that runs the ribbon command (opens its menu, flips its toggle) and follows its icon and enabled state. The user pins and unpins commands from a command's context menu or from the customize button at the end of the toolbar; save `Keys` to keep the choice (it is an observable list).</source>
+        <target>一排小號命令，不論選取哪個索引標籤都保持可見（儲存、復原、重做，以及使用者釘選的命令）。把它放在 `ArcWindow` 的標題列（`TitleBar.LeftContent`）、`Ribbon` 的上方或下方，並用 `Ribbon` 連結功能區。`Items` 是工具列自己的命令（功能區按鈕，以小號顯示）。`Keys` 依 `QuickAccessKey` 列出釘選到這裡的功能區命令：每個都顯示為一個小號副本，它執行功能區中的原命令（開啟其選單、切換其開關），並跟隨原命令的圖示和啟用狀態。使用者可以從命令的右鍵選單或工具列末端的自訂按鈕釘選和取消釘選命令；儲存 `Keys` 即可記住使用者的選擇（它是可觀察的清單）。</target>
+      </trans-unit>
+      <trans-unit id="QuickAccessToolBar.IsCustomizeButtonVisible">
+        <source>Shows the button at the end of the toolbar that lists the ribbon's commands to pin or unpin (default true).</source>
+        <target>顯示工具列末端的按鈕，它列出可以釘選或取消釘選的功能區命令（預設 true）。</target>
+      </trans-unit>
+      <trans-unit id="QuickAccessToolBar.Ribbon">
+        <source>The ribbon whose commands can be pinned here (and whose commands are offered in the customize menu).</source>
+        <target>其命令可以釘選到這裡的功能區（自訂選單也列出它的命令）。</target>
+      </trans-unit>
       <trans-unit id="RaceBarChart">
         <source>A ranking that changes over time: bars slide past each other as their values climb, and a timeline plays, pauses or scrubs the periods. Every bar shows its name and value, so hue is never the only cue. Space or Enter plays or pauses, ← / → step a period, ↑ / ↓ read the bars by rank, Home / End go to the first and last period, Escape clears the reading. Under reduced motion nothing plays by itself and periods change without interpolation.</source>
         <target>隨時間變化的排名：數值上升時長條彼此超越，時間軸可以播放、暫停或拖曳瀏覽各個時期。每個長條都顯示名稱和數值，因此色相不是唯一的線索。Space 或 Enter 播放或暫停，← / → 逐步切換時期，↑ / ↓ 依名次讀取長條，Home / End 前往第一個和最後一個時期，Escape 清除讀數。減少動態時不會自動播放，時期切換也沒有內插。</target>
@@ -30699,6 +30711,170 @@
       <trans-unit id="RevenueSeriesChangedEventArgs">
         <source>Arguments of `SeriesVisibilityChanged`.</source>
         <target>`SeriesVisibilityChanged` 的參數。</target>
+      </trans-unit>
+      <trans-unit id="Ribbon">
+        <source>An Office-style ribbon: a row of tabs over the selected tab's groups of commands. Each `RibbonTab` holds `RibbonGroup`s; each group holds commands (`RibbonButton`, `RibbonToggleButton`, `RibbonDropDownButton`, `RibbonSplitButton`, `RibbonSeparator` or any control) laid out large, medium or small. When the ribbon is narrower than the groups, they shrink step by step and finally collapse into drop-downs, so every command stays reachable. The selected tab's header carries an accent underline that glides between tabs, and the new tab's groups fade in from the side of travel. Double-click a tab, press Ctrl+F1 or use the button at the end of the tab row to collapse the ribbon to its tab row (`IsMinimized`); a tab then opens its groups over the content until a command runs. Keyboard: ArrowLeft / ArrowRight, Home and End move between tabs (the tab row is one tab stop), ArrowDown enters the groups, ArrowLeft / ArrowRight move between commands and Escape returns to the tab. Every command run from the ribbon, from a collapsed group or from a linked `QuickAccessToolBar` is reported in `ItemInvoked`. Put app-level items (a File menu, a search box) in `LeftContent` and `RightContent`.</source>
+        <target>Office 式功能區：一列索引標籤，下方是選取索引標籤的命令群組。每個 `RibbonTab` 包含若干 `RibbonGroup`；每個群組包含命令（`RibbonButton`、`RibbonToggleButton`、`RibbonDropDownButton`、`RibbonSplitButton`、`RibbonSeparator` 或任意控制項），依大、中、小三種尺寸排列。功能區比群組窄時，群組逐級縮小，最後摺疊為下拉，所以每個命令都保持可用。選取索引標籤的標題下有一條強調色底線，在索引標籤之間滑動；新索引標籤的群組從移動方向一側淡入。按兩下索引標籤、按 Ctrl+F1 或使用索引標籤列末端的按鈕可以把功能區摺疊為只有索引標籤列（`IsMinimized`）；此時點按索引標籤會在內容上方開啟它的群組，直到執行了某個命令。鍵盤：ArrowLeft / ArrowRight、Home 和 End 在索引標籤之間移動（索引標籤列只佔一個 Tab 停駐點），ArrowDown 進入群組，ArrowLeft / ArrowRight 在命令之間移動，Escape 回到索引標籤。從功能區、摺疊的群組或連結的 `QuickAccessToolBar` 執行的每個命令都透過 `ItemInvoked` 回報。應用程式層級的內容（「檔案」選單、搜尋框）放在 `LeftContent` 和 `RightContent` 中。</target>
+      </trans-unit>
+      <trans-unit id="Ribbon.IsMinimized">
+        <source>Whether the ribbon is collapsed to its tab row (two-way). A tab then opens its groups in a pop-up.</source>
+        <target>功能區是否摺疊為只有索引標籤列（雙向）。此時點按索引標籤會在彈出層中開啟它的群組。</target>
+      </trans-unit>
+      <trans-unit id="Ribbon.ItemInvoked">
+        <source>Raised when the user runs a command: a ribbon button (after its own `Click` and `Command`), a row of a drop-down or split button's menu, or a command on a linked `QuickAccessToolBar`.</source>
+        <target>使用者執行命令時觸發：功能區按鈕（在其自身的 `Click` 和 `Command` 之後）、下拉按鈕或分割按鈕選單中的一列，或連結的 `QuickAccessToolBar` 上的命令。</target>
+      </trans-unit>
+      <trans-unit id="Ribbon.LeftContent">
+        <source>Content at the start of the tab row, before the tabs (a File menu, an app button).</source>
+        <target>索引標籤列開頭、索引標籤之前的內容（「檔案」選單、應用程式按鈕）。</target>
+      </trans-unit>
+      <trans-unit id="Ribbon.RightContent">
+        <source>Content at the end of the tab row, before the collapse button (a search box, a share button).</source>
+        <target>索引標籤列末端、摺疊按鈕之前的內容（搜尋框、分享按鈕）。</target>
+      </trans-unit>
+      <trans-unit id="Ribbon.SelectedIndex">
+        <source>Index of the selected tab in `Tabs` (two-way; -1 when there is no visible tab).</source>
+        <target>選取的索引標籤在 `Tabs` 中的索引（雙向；沒有可見索引標籤時為 -1）。</target>
+      </trans-unit>
+      <trans-unit id="Ribbon.SelectedTab">
+        <source>The selected tab (two-way).</source>
+        <target>選取的索引標籤（雙向）。</target>
+      </trans-unit>
+      <trans-unit id="Ribbon.SelectionChanged">
+        <source>Raised when the selected tab changes (by the user or in code).</source>
+        <target>選取的索引標籤變更時觸發（不論由使用者還是程式碼變更）。</target>
+      </trans-unit>
+      <trans-unit id="RibbonButton">
+        <source>A command of a `RibbonGroup`: an icon and a label laid out by `RibbonItemSize`. Large stacks a 24px icon over the label and takes the full height of the group; Medium puts a 16px icon beside the label; Small shows the icon alone. `Size` is the size the button asks for and `MinSize` the smallest it accepts: when the ribbon gets narrow its groups step down from Size toward MinSize (and finally collapse into a drop-down), and `EffectiveSize` says what the button shows now. The button runs `Command` and raises `Click` like any button, and the ribbon reports it in `ItemInvoked`. The tooltip shows the label, `Shortcut` and `Description` (set `arc:Tooltip.Tip` to replace it). A button with a `QuickAccessKey` can be added to a `QuickAccessToolBar` from its context menu.</source>
+        <target>`RibbonGroup` 中的一個命令：圖示和名稱依 `RibbonItemSize` 排列。Large 把 24px 圖示放在名稱上方並佔滿群組高度；Medium 把 16px 圖示放在名稱左側；Small 只顯示圖示。`Size` 是按鈕希望的尺寸，`MinSize` 是它接受的最小尺寸：功能區變窄時，群組把命令從 Size 逐級縮向 MinSize（最後摺疊為下拉），`EffectiveSize` 說明按鈕目前顯示的尺寸。按鈕像一般按鈕一樣執行 `Command` 並觸發 `Click`，功能區透過 `ItemInvoked` 回報它。工具提示顯示名稱、`Shortcut` 和 `Description`（設定 `arc:Tooltip.Tip` 可取代它）。設定了 `QuickAccessKey` 的按鈕可以從右鍵選單新增至 `QuickAccessToolBar`。</target>
+      </trans-unit>
+      <trans-unit id="RibbonButton.Description">
+        <source>A sentence for the tooltip that says what the command does.</source>
+        <target>工具提示中說明命令作用的一句話。</target>
+      </trans-unit>
+      <trans-unit id="RibbonButton.EffectiveSize">
+        <source>The size the button shows now: `Size`, made smaller by its group when the ribbon is narrow.</source>
+        <target>按鈕目前顯示的尺寸：`Size`，功能區較窄時由所在群組縮小。</target>
+      </trans-unit>
+      <trans-unit id="RibbonButton.Icon">
+        <source>The icon: a 24x24 Lucide `Geometry` (such as `{x:Static arc:ArcIcons.Copy}`, drawn as a stroke glyph) or any control.</source>
+        <target>圖示：24x24 的 Lucide `Geometry`（例如 `{x:Static arc:ArcIcons.Copy}`，以描邊圖示繪製）或任意控制項。</target>
+      </trans-unit>
+      <trans-unit id="RibbonButton.Label">
+        <source>The command's name: shown beside or under the icon, and as the tooltip title. Also the accessible name.</source>
+        <target>命令的名稱：顯示在圖示旁邊或下方，也是工具提示的標題和無障礙名稱。</target>
+      </trans-unit>
+      <trans-unit id="RibbonButton.MinSize">
+        <source>The smallest size the button takes when its group shrinks (default Small). A value above `Size` counts as Size.</source>
+        <target>群組縮小時按鈕能取的最小尺寸（預設 Small）。大於 `Size` 的值依 Size 處理。</target>
+      </trans-unit>
+      <trans-unit id="RibbonButton.QuickAccessKey">
+        <source>A key, unique in the ribbon, that lets a `QuickAccessToolBar` show this command (its `Keys` list these keys). Null (default): the command cannot be added.</source>
+        <target>在功能區中唯一的鍵，讓 `QuickAccessToolBar` 能顯示這個命令（它的 `Keys` 列出這些鍵）。為 null（預設）時命令不能被新增。</target>
+      </trans-unit>
+      <trans-unit id="RibbonButton.Shortcut">
+        <source>The keyboard shortcut shown in the tooltip, such as `Ctrl+C` (display only; bind the key yourself).</source>
+        <target>工具提示中顯示的快速鍵，例如 `Ctrl+C`（僅用於顯示；按鍵需要自行繫結）。</target>
+      </trans-unit>
+      <trans-unit id="RibbonButton.Size">
+        <source>The size the button asks for when there is room: Large (default), Medium or Small.</source>
+        <target>空間足夠時按鈕希望的尺寸：Large（預設）、Medium 或 Small。</target>
+      </trans-unit>
+      <trans-unit id="RibbonDropDownButton">
+        <source>A ribbon command that opens a menu (Arc `MenuEntry` rows, with submenus) instead of running a command: a chevron sits under the label of a large button and after the label of a medium or small one. The menu opens below the button; choosing a row raises the row's own `Click` and `Command`, and `ItemInvoked` with the row. Enter, Space, ArrowDown and F4 open the menu with the first row highlighted.</source>
+        <target>開啟選單（Arc 的 `MenuEntry` 列，支援子選單）而不是執行命令的功能區命令：大號按鈕的名稱下方、中小號按鈕的名稱後面有一個向下箭頭。選單在按鈕下方開啟；選擇一列會觸發該列自身的 `Click` 和 `Command`，並帶著該列觸發 `ItemInvoked`。Enter、Space、ArrowDown 和 F4 開啟選單並醒目提示第一列。</target>
+      </trans-unit>
+      <trans-unit id="RibbonDropDownButton.IsDropDownOpen">
+        <source>Whether the menu is open (two-way).</source>
+        <target>選單是否開啟（雙向）。</target>
+      </trans-unit>
+      <trans-unit id="RibbonDropDownButton.ItemTemplate">
+        <source>Template that renders each `ItemsSource` item as a row.</source>
+        <target>把每個 `ItemsSource` 項目轉譯為一列的範本。</target>
+      </trans-unit>
+      <trans-unit id="RibbonDropDownButton.ItemsSource">
+        <source>Data items shown as one menu row each; `ItemTemplate` renders them when set.</source>
+        <target>每項顯示為一個選單列的資料項目；設定了 `ItemTemplate` 時用它轉譯。</target>
+      </trans-unit>
+      <trans-unit id="RibbonGroup">
+        <source>A labelled group of commands on a `RibbonTab` (Clipboard, Font, Arrange). Commands are laid out in columns: a large `RibbonButton` takes a column of its own, medium and small ones stack three to a column, and a `RibbonSeparator` draws a line between columns. Any other control (an Arc `Select`, a `NumberField`) stacks like a medium command. When the ribbon gets too narrow its groups shrink one step at a time: large commands become medium, then everything becomes small (each command stops at its `MinSize`), and finally the group collapses into one button that shows the whole group in a drop-down. Groups with a higher `ReductionPriority` shrink first; groups of equal priority take turns from the right. `CanCollapse` keeps a group out of the last step. `IsLauncherVisible` adds the small button at the end of the header that opens the group's full dialog (`LauncherClick`, `LauncherCommand`).</source>
+        <target>`RibbonTab` 上一組具名的命令（剪貼簿、字型、排列）。命令依欄排列：大號 `RibbonButton` 獨佔一欄，中號和小號命令每欄疊放三個，`RibbonSeparator` 在欄之間畫一條線。其他控制項（Arc 的 `Select`、`NumberField`）依中號命令疊放。功能區太窄時，群組逐級縮小：大命令變成中號，然後全部變成小號（每個命令最小只縮到它的 `MinSize`），最後整個群組摺疊成一個按鈕，在下拉中顯示完整的群組。`ReductionPriority` 較高的群組先縮小；優先順序相同的群組從右往左輪流縮小。`CanCollapse` 讓群組不進入最後一級。`IsLauncherVisible` 在標題末端加一個小按鈕，用來開啟群組的完整對話方塊（`LauncherClick`、`LauncherCommand`）。</target>
+      </trans-unit>
+      <trans-unit id="RibbonGroup.CanCollapse">
+        <source>Whether the group may collapse into one button as the last step (default true).</source>
+        <target>作為最後一級，群組能否摺疊成一個按鈕（預設 true）。</target>
+      </trans-unit>
+      <trans-unit id="RibbonGroup.Header">
+        <source>The group's name, shown under its commands and on its button when it is collapsed.</source>
+        <target>群組的名稱，顯示在命令下方，群組摺疊後也顯示在其按鈕上。</target>
+      </trans-unit>
+      <trans-unit id="RibbonGroup.Icon">
+        <source>Icon of the button the group collapses into: a 24x24 Lucide `Geometry` or any control (default: an ellipsis).</source>
+        <target>群組摺疊成的按鈕的圖示：24x24 的 Lucide `Geometry` 或任意控制項（預設：省略號）。</target>
+      </trans-unit>
+      <trans-unit id="RibbonGroup.IsCollapsed">
+        <source>Whether the group is collapsed into one button now (the ribbon decides from the room it has).</source>
+        <target>群組目前是否摺疊成一個按鈕（由功能區依可用空間決定）。</target>
+      </trans-unit>
+      <trans-unit id="RibbonGroup.IsDropDownOpen">
+        <source>Whether the drop-down of a collapsed group is open (two-way; ignored while the group is not collapsed).</source>
+        <target>摺疊群組的下拉是否開啟（雙向；群組未摺疊時忽略）。</target>
+      </trans-unit>
+      <trans-unit id="RibbonGroup.IsLauncherVisible">
+        <source>Shows the launcher button at the end of the header, which opens more options of the group (default false).</source>
+        <target>在標題末端顯示啟動器按鈕，用來開啟群組的更多選項（預設 false）。</target>
+      </trans-unit>
+      <trans-unit id="RibbonGroup.LauncherClick">
+        <source>Raised when the launcher button is clicked.</source>
+        <target>點按啟動器按鈕時觸發。</target>
+      </trans-unit>
+      <trans-unit id="RibbonGroup.LauncherCommand">
+        <source>Command run by the launcher button.</source>
+        <target>啟動器按鈕執行的命令。</target>
+      </trans-unit>
+      <trans-unit id="RibbonGroup.LauncherCommandParameter">
+        <source>Parameter of `LauncherCommand`.</source>
+        <target>`LauncherCommand` 的參數。</target>
+      </trans-unit>
+      <trans-unit id="RibbonGroup.ReductionPriority">
+        <source>Order in which groups shrink when the ribbon is too narrow: a higher value shrinks (all the way) before a lower one. Groups of the same value (default 0) shrink in turns, from the right.</source>
+        <target>功能區太窄時群組縮小的順序：值較高的群組先（一直縮到底）縮小。值相同（預設 0）的群組從右往左輪流縮小。</target>
+      </trans-unit>
+      <trans-unit id="RibbonSeparator">
+        <source>A vertical line between commands of a `RibbonGroup`: it ends the current column, takes the full height of the group and starts a new column after it.</source>
+        <target>`RibbonGroup` 中命令之間的直線：它結束目前的欄，佔滿群組高度，並在其後開始新的一欄。</target>
+      </trans-unit>
+      <trans-unit id="RibbonSplitButton">
+        <source>A ribbon command with a default action and a menu of alternatives (Paste with Paste special, Export with its formats): the icon part runs `Command`, and the chevron part opens the menu. On a large button the chevron part is the label and chevron under the icon; on a medium or small one it is the chevron at the end. A divider between the parts shows while the pointer is over the button. Enter and Space run the action; ArrowDown and F4 open the menu.</source>
+        <target>帶預設操作和備選選單的功能區命令（貼上與選擇性貼上、匯出與其格式）：圖示部分執行 `Command`，箭頭部分開啟選單。大號按鈕的箭頭部分是圖示下方的名稱和箭頭；中小號按鈕的箭頭部分是末端的箭頭。指標停留在按鈕上時顯示兩部分之間的分隔線。Enter 和 Space 執行操作；ArrowDown 和 F4 開啟選單。</target>
+      </trans-unit>
+      <trans-unit id="RibbonTab">
+        <source>One tab of a `Ribbon`: a header in the tab row and the `RibbonGroup`s shown under it while the tab is selected. The groups sit side by side and shrink, step by step, when the ribbon is narrower than they are (see `ReductionPriority`). A tab with `IsContextual` is a tool tab that belongs to a selection (Table design, Node tools): its header is drawn in the accent. Show and hide it with `IsVisible`; when the selected tab is hidden the ribbon selects the first visible one.</source>
+        <target>`Ribbon` 的一個索引標籤：索引標籤列中的一個標題，以及選取時顯示在下方的 `RibbonGroup`。群組並排放置，功能區比它們窄時逐級縮小（見 `ReductionPriority`）。設定了 `IsContextual` 的索引標籤是屬於某個選取內容的工具索引標籤（表格設計、節點工具），它的標題以強調色顯示。用 `IsVisible` 顯示或隱藏它；選取的索引標籤被隱藏時，功能區選取第一個可見的索引標籤。</target>
+      </trans-unit>
+      <trans-unit id="RibbonTab.Header">
+        <source>The tab's name in the tab row.</source>
+        <target>索引標籤在索引標籤列中的名稱。</target>
+      </trans-unit>
+      <trans-unit id="RibbonTab.IsContextual">
+        <source>A tool tab that belongs to the current selection: its header is drawn in the accent (default false).</source>
+        <target>屬於目前選取內容的工具索引標籤：標題以強調色顯示（預設 false）。</target>
+      </trans-unit>
+      <trans-unit id="RibbonTab.IsSelected">
+        <source>Whether this is the ribbon's selected tab.</source>
+        <target>是否為功能區選取的索引標籤。</target>
+      </trans-unit>
+      <trans-unit id="RibbonToggleButton">
+        <source>A ribbon command that stays on or off (bold, word wrap, snap to grid): a click flips `IsChecked`, then runs the command like a `RibbonButton`. While it is on the button is filled with the accent and outlined.</source>
+        <target>保持開或關的功能區命令（粗體、自動換行、貼齊格線）：點按會切換 `IsChecked`，然後像 `RibbonButton` 一樣執行命令。開啟時按鈕以強調色填滿並帶外框。</target>
+      </trans-unit>
+      <trans-unit id="RibbonToggleButton.IsChecked">
+        <source>Whether the command is on (two-way).</source>
+        <target>命令是否開啟（雙向）。</target>
+      </trans-unit>
+      <trans-unit id="RibbonToggleButton.IsCheckedChanged">
+        <source>Raised when `IsChecked` changes, by a click or in code.</source>
+        <target>`IsChecked` 變更時觸發，不論由點按還是程式碼變更。</target>
       </trans-unit>
       <trans-unit id="RichTextEditor">
         <source>Arc's light rich text editor: Markdown shortcuts as you type, a floating selection toolbar that morphs into a link field, a slash menu for blocks, its own undo history, and HTML plus Markdown output. Blocks are paragraphs, three heading levels, nested bulleted and numbered lists, quotes, code blocks and dividers; inline marks are bold, italic, strikethrough, inline code and links. The `Docs` profile adds images and tables: `ImageSourceRequested` lets the host decide where a picked, pasted or dropped picture is kept, and `ImageLoading` lets it load the pictures itself.</source>

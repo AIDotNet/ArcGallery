@@ -1,0 +1,100 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.RibbonPreviewDemo">
+    <!-- A node editor's ribbon with a quick access toolbar above it. Narrow the window to watch the groups shrink, right-click
+         Cut, Copy or Node to pin it to the toolbar, and double-click a tab to collapse the ribbon. -->
+    <UserControl.Resources>
+        <!-- Lucide icons that are not in the Arc glyph subset. -->
+        <StreamGeometry x:Key="Scissors">M9 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z M8.12 8.12 12 12 M20 4 8.12 15.88 M14.8 14.8 20 20</StreamGeometry>
+        <StreamGeometry x:Key="Save">M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7 M7 3v4a1 1 0 0 0 1 1h7</StreamGeometry>
+        <StreamGeometry x:Key="SquarePlus">M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z M8 12h8 M12 8v8</StreamGeometry>
+        <StreamGeometry x:Key="Spline">M21 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z M7 19a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z M5 17A12 12 0 0 1 17 5</StreamGeometry>
+        <StreamGeometry x:Key="Network">M17 16h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1Z M3 16h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1Z M10 2h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1Z M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3 M12 12V8</StreamGeometry>
+    </UserControl.Resources>
+    <Border BorderBrush="{arc:ArcDesignTokenResource Border}"
+            BorderThickness="{arc:ArcDesignTokenResource EdgeThickness}"
+            CornerRadius="{arc:ArcDesignTokenResource RadiusPanel}"
+            Background="{arc:ArcDesignTokenResource Background}"
+            ClipToBounds="True">
+        <DockPanel>
+            <arc:QuickAccessToolBar x:Name="QuickAccess" DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="8,6,8,0">
+                <arc:RibbonButton Label="Save" Icon="{StaticResource Save}" Shortcut="Ctrl+S" />
+                <arc:RibbonButton Label="Undo" Icon="{x:Static arc:ArcIcons.Undo2}" Shortcut="Ctrl+Z" />
+                <arc:RibbonButton Label="Redo" Icon="{x:Static arc:ArcIcons.Redo2}" Shortcut="Ctrl+Y" />
+            </arc:QuickAccessToolBar>
+            <arc:Ribbon x:Name="MainRibbon" DockPanel.Dock="Top">
+                <arc:Ribbon.LeftContent>
+                    <arc:Button Content="File" Variant="Ghost" Size="Small" />
+                </arc:Ribbon.LeftContent>
+                <arc:RibbonTab Header="Home">
+                    <arc:RibbonGroup Header="Clipboard" Icon="{x:Static arc:ArcIcons.ClipboardPaste}">
+                        <arc:RibbonSplitButton Label="Paste" Icon="{x:Static arc:ArcIcons.ClipboardPaste}" Shortcut="Ctrl+V"
+                                               Description="Paste the copied nodes at the pointer." QuickAccessKey="paste">
+                            <arc:MenuEntry Header="Paste" />
+                            <arc:MenuEntry Header="Paste as reference" />
+                            <arc:MenuEntry Header="Paste style" />
+                        </arc:RibbonSplitButton>
+                        <arc:RibbonButton Label="Cut" Icon="{StaticResource Scissors}" Size="Medium" Shortcut="Ctrl+X" QuickAccessKey="cut" />
+                        <arc:RibbonButton Label="Copy" Icon="{x:Static arc:ArcIcons.Copy}" Size="Medium" Shortcut="Ctrl+C" QuickAccessKey="copy" />
+                        <arc:RibbonButton Label="Delete" Icon="{x:Static arc:ArcIcons.Trash2}" Size="Medium" Shortcut="Del" />
+                    </arc:RibbonGroup>
+                    <arc:RibbonGroup Header="Insert" Icon="{StaticResource SquarePlus}">
+                        <arc:RibbonButton Label="Node" Icon="{StaticResource SquarePlus}" QuickAccessKey="node"
+                                          Description="Add a node to the canvas." />
+                        <arc:RibbonButton Label="Connector" Icon="{StaticResource Spline}" />
+                        <arc:RibbonButton Label="Group" Icon="{x:Static arc:ArcIcons.Layers}" />
+                        <arc:RibbonSeparator />
+                        <arc:RibbonButton Label="Text" Icon="{x:Static arc:ArcIcons.Type}" Size="Medium" />
+                        <arc:RibbonButton Label="Image" Icon="{x:Static arc:ArcIcons.Image}" Size="Medium" />
+                        <arc:RibbonButton Label="Comment" Icon="{x:Static arc:ArcIcons.MessageSquare}" Size="Medium" />
+                    </arc:RibbonGroup>
+                    <arc:RibbonGroup Header="Style" Icon="{x:Static arc:ArcIcons.Palette}" IsLauncherVisible="True">
+                        <arc:RibbonDropDownButton Label="Theme" Icon="{x:Static arc:ArcIcons.Palette}">
+                            <arc:MenuEntry Header="Light" />
+                            <arc:MenuEntry Header="Dark" />
+                            <arc:MenuEntry Header="Blueprint" />
+                        </arc:RibbonDropDownButton>
+                        <arc:RibbonToggleButton Label="Bold" Icon="{x:Static arc:ArcIcons.Bold}" Size="Small" IsChecked="True" Shortcut="Ctrl+B" />
+                        <arc:RibbonToggleButton Label="Italic" Icon="{x:Static arc:ArcIcons.Italic}" Size="Small" Shortcut="Ctrl+I" />
+                        <arc:RibbonToggleButton Label="Underline" Icon="{x:Static arc:ArcIcons.Underline}" Size="Small" Shortcut="Ctrl+U" />
+                        <arc:RibbonButton Label="Fill" Icon="{x:Static arc:ArcIcons.Square}" Size="Medium" />
+                        <arc:RibbonButton Label="Outline" Icon="{x:Static arc:ArcIcons.PenLine}" Size="Medium" />
+                        <arc:RibbonButton Label="Effects" Icon="{x:Static arc:ArcIcons.Sparkles}" Size="Medium" />
+                    </arc:RibbonGroup>
+                    <arc:RibbonGroup Header="Arrange" Icon="{x:Static arc:ArcIcons.LayoutGrid}">
+                        <arc:RibbonButton Label="Auto layout" Icon="{StaticResource Network}" />
+                        <arc:RibbonDropDownButton Label="Align" Icon="{x:Static arc:ArcIcons.Columns2}" Size="Medium">
+                            <arc:MenuEntry Header="Align left" />
+                            <arc:MenuEntry Header="Align center" />
+                            <arc:MenuEntry Header="Align right" />
+                        </arc:RibbonDropDownButton>
+                        <arc:RibbonButton Label="Distribute" Icon="{x:Static arc:ArcIcons.Rows2}" Size="Medium" />
+                        <arc:RibbonButton Label="Bring forward" Icon="{x:Static arc:ArcIcons.Layers3}" Size="Medium" />
+                    </arc:RibbonGroup>
+                    <arc:RibbonGroup Header="Run" Icon="{x:Static arc:ArcIcons.Play}">
+                        <arc:RibbonButton Label="Run" Icon="{x:Static arc:ArcIcons.Play}" Shortcut="F5" QuickAccessKey="run" />
+                        <arc:RibbonButton Label="Debug" Icon="{x:Static arc:ArcIcons.Bug}" Shortcut="F6" />
+                    </arc:RibbonGroup>
+                </arc:RibbonTab>
+                <arc:RibbonTab Header="View">
+                    <arc:RibbonGroup Header="Zoom" Icon="{x:Static arc:ArcIcons.ZoomIn}">
+                        <arc:RibbonButton Label="Zoom in" Icon="{x:Static arc:ArcIcons.ZoomIn}" />
+                        <arc:RibbonButton Label="Zoom out" Icon="{x:Static arc:ArcIcons.ZoomOut}" />
+                        <arc:RibbonButton Label="Fit" Icon="{x:Static arc:ArcIcons.Search}" Size="Medium" />
+                    </arc:RibbonGroup>
+                    <arc:RibbonGroup Header="Show" Icon="{x:Static arc:ArcIcons.Eye}">
+                        <arc:RibbonToggleButton Label="Grid" Icon="{x:Static arc:ArcIcons.LayoutGrid}" Size="Medium" IsChecked="True" />
+                        <arc:RibbonToggleButton Label="Minimap" Icon="{x:Static arc:ArcIcons.Monitor}" Size="Medium" />
+                        <arc:RibbonToggleButton Label="Comments" Icon="{x:Static arc:ArcIcons.MessageSquare}" Size="Medium" IsChecked="True" />
+                    </arc:RibbonGroup>
+                </arc:RibbonTab>
+            </arc:Ribbon>
+            <TextBlock x:Name="Status"
+                       Margin="16,14,16,16"
+                       Text="Run a command."
+                       FontSize="{arc:ArcDesignTokenResource TypeSM}"
+                       Foreground="{arc:ArcDesignTokenResource TextMuted}" />
+        </DockPanel>
+    </Border>
+</UserControl>

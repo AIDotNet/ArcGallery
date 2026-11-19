@@ -1,0 +1,40 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.RibbonCommandKindsDemo">
+    <!-- A plain button runs its command, a toggle stays on or off, a drop-down opens a menu, and a split button does both:
+         its icon runs the default action and its chevron part opens the alternatives. -->
+    <arc:Ribbon>
+        <arc:RibbonTab Header="Home">
+            <arc:RibbonGroup Header="Buttons">
+                <arc:RibbonButton Label="Refresh" Icon="{x:Static arc:ArcIcons.RefreshCw}" Shortcut="F5"
+                                  Description="Reload the diagram from disk." />
+                <arc:RibbonToggleButton Label="Lock" Icon="{x:Static arc:ArcIcons.Lock}"
+                                        Description="Stop nodes from moving." />
+            </arc:RibbonGroup>
+            <arc:RibbonGroup Header="Menus">
+                <arc:RibbonDropDownButton Label="Export" Icon="{x:Static arc:ArcIcons.Download}">
+                    <arc:MenuEntry Header="PNG image" Icon="{x:Static arc:ArcIcons.Image}" />
+                    <arc:MenuEntry Header="SVG drawing" Icon="{x:Static arc:ArcIcons.FileCode}" />
+                    <arc:MenuEntrySeparator />
+                    <arc:MenuEntry Header="More formats">
+                        <arc:MenuEntry Header="PDF document" />
+                        <arc:MenuEntry Header="JSON model" />
+                    </arc:MenuEntry>
+                </arc:RibbonDropDownButton>
+                <arc:RibbonSplitButton Label="Paste" Icon="{x:Static arc:ArcIcons.ClipboardPaste}">
+                    <arc:MenuEntry Header="Paste as reference" />
+                    <arc:MenuEntry Header="Paste style" />
+                </arc:RibbonSplitButton>
+                <arc:RibbonSplitButton Label="Undo" Icon="{x:Static arc:ArcIcons.Undo2}" Size="Medium">
+                    <arc:MenuEntry Header="Undo move" />
+                    <arc:MenuEntry Header="Undo rename" />
+                </arc:RibbonSplitButton>
+                <arc:RibbonDropDownButton Label="Share" Icon="{x:Static arc:ArcIcons.Share2}" Size="Medium">
+                    <arc:MenuEntry Header="Copy link" Icon="{x:Static arc:ArcIcons.Link}" />
+                    <arc:MenuEntry Header="Email" Icon="{x:Static arc:ArcIcons.Mail}" />
+                </arc:RibbonDropDownButton>
+            </arc:RibbonGroup>
+        </arc:RibbonTab>
+    </arc:Ribbon>
+</UserControl>

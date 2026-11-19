@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.RibbonContextualDemo">
+    <!-- A tool tab that belongs to a selection: turn the switch on (as if a node were selected) and the "Node tools" tab
+         appears in the accent; turn it off while the tab is selected and the ribbon goes back to the first tab. -->
+    <StackPanel Spacing="12">
+        <arc:Switch x:Name="Selected" Content="A node is selected" />
+        <arc:Ribbon x:Name="MainRibbon">
+            <arc:RibbonTab Header="Home">
+                <arc:RibbonGroup Header="Insert">
+                    <arc:RibbonButton Label="Node" Icon="{x:Static arc:ArcIcons.Plus}" />
+                    <arc:RibbonButton Label="Comment" Icon="{x:Static arc:ArcIcons.MessageSquare}" />
+                </arc:RibbonGroup>
+            </arc:RibbonTab>
+            <arc:RibbonTab Header="View">
+                <arc:RibbonGroup Header="Zoom">
+                    <arc:RibbonButton Label="Zoom in" Icon="{x:Static arc:ArcIcons.ZoomIn}" />
+                    <arc:RibbonButton Label="Zoom out" Icon="{x:Static arc:ArcIcons.ZoomOut}" />
+                </arc:RibbonGroup>
+            </arc:RibbonTab>
+            <arc:RibbonTab x:Name="NodeTools" Header="Node tools" IsContextual="True" IsVisible="False">
+                <arc:RibbonGroup Header="Node">
+                    <arc:RibbonButton Label="Rename" Icon="{x:Static arc:ArcIcons.Pencil}" />
+                    <arc:RibbonButton Label="Settings" Icon="{x:Static arc:ArcIcons.Settings}" />
+                    <arc:RibbonButton Label="Delete" Icon="{x:Static arc:ArcIcons.Trash2}" />
+                </arc:RibbonGroup>
+            </arc:RibbonTab>
+        </arc:Ribbon>
+    </StackPanel>
+</UserControl>

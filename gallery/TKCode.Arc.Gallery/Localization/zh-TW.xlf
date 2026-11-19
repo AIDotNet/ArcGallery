@@ -115,6 +115,12 @@
         <target state="translated">停靠版面</target>
       </segment>
     </unit>
+    <unit id="Category_Ribbon">
+      <segment>
+        <source>Ribbon</source>
+        <target state="translated">功能區</target>
+      </segment>
+    </unit>
     <unit id="Category_Video">
       <segment>
         <source>Video</source>

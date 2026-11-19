@@ -90,6 +90,7 @@ public enum GalleryShellLangResourceKind
     Category_AdvancedCharts,
     Category_Workflow,
     Category_Dock,
+    Category_Ribbon,
     Category_Video,
     Category_Pdf,
     Category_Graphics3D,

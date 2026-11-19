@@ -1,0 +1,44 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.RibbonAdaptiveDemo">
+    <!-- Drag the slider to narrow the ribbon. Groups of equal priority shrink in turns from the right: large commands become
+         medium, then everything becomes small, and finally a group collapses into one button with a drop-down. "Clipboard"
+         has a higher ReductionPriority, so it gives up its room first; "Run" has CanCollapse="False". -->
+    <StackPanel Spacing="12">
+        <arc:Slider x:Name="WidthSlider" Label="Ribbon width" Minimum="240" Maximum="900" Value="900" MaxWidth="360"
+                    HorizontalAlignment="Left" />
+        <Border x:Name="Frame" Width="900" HorizontalAlignment="Left"
+                BorderBrush="{arc:ArcDesignTokenResource Border}"
+                BorderThickness="{arc:ArcDesignTokenResource EdgeThickness}"
+                CornerRadius="{arc:ArcDesignTokenResource RadiusControl}"
+                ClipToBounds="True">
+            <arc:Ribbon>
+                <arc:RibbonTab Header="Home">
+                    <arc:RibbonGroup Header="Clipboard" Icon="{x:Static arc:ArcIcons.ClipboardPaste}" ReductionPriority="1">
+                        <arc:RibbonButton Label="Paste" Icon="{x:Static arc:ArcIcons.ClipboardPaste}" />
+                        <arc:RibbonButton Label="Copy" Icon="{x:Static arc:ArcIcons.Copy}" Size="Medium" />
+                        <arc:RibbonButton Label="Delete" Icon="{x:Static arc:ArcIcons.Trash2}" Size="Medium" />
+                    </arc:RibbonGroup>
+                    <arc:RibbonGroup Header="Insert" Icon="{x:Static arc:ArcIcons.Plus}">
+                        <arc:RibbonButton Label="Node" Icon="{x:Static arc:ArcIcons.Plus}" />
+                        <arc:RibbonButton Label="Table" Icon="{x:Static arc:ArcIcons.Table}" />
+                        <arc:RibbonButton Label="Image" Icon="{x:Static arc:ArcIcons.Image}" />
+                        <arc:RibbonButton Label="Comment" Icon="{x:Static arc:ArcIcons.MessageSquare}" />
+                    </arc:RibbonGroup>
+                    <arc:RibbonGroup Header="Format" Icon="{x:Static arc:ArcIcons.Palette}">
+                        <arc:RibbonButton Label="Bold" Icon="{x:Static arc:ArcIcons.Bold}" Size="Medium" />
+                        <arc:RibbonButton Label="Italic" Icon="{x:Static arc:ArcIcons.Italic}" Size="Medium" />
+                        <arc:RibbonButton Label="Underline" Icon="{x:Static arc:ArcIcons.Underline}" Size="Medium" />
+                        <arc:RibbonButton Label="Highlight" Icon="{x:Static arc:ArcIcons.Highlighter}" Size="Medium" />
+                        <arc:RibbonButton Label="Clear formatting" Icon="{x:Static arc:ArcIcons.Eraser}" Size="Medium" />
+                    </arc:RibbonGroup>
+                    <arc:RibbonGroup Header="Run" Icon="{x:Static arc:ArcIcons.Play}" CanCollapse="False">
+                        <arc:RibbonButton Label="Run" Icon="{x:Static arc:ArcIcons.Play}" MinSize="Medium" />
+                        <arc:RibbonButton Label="Debug" Icon="{x:Static arc:ArcIcons.Bug}" />
+                    </arc:RibbonGroup>
+                </arc:RibbonTab>
+            </arc:Ribbon>
+        </Border>
+    </StackPanel>
+</UserControl>

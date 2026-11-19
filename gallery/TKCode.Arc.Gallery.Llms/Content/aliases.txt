@@ -95,6 +95,7 @@ RaceBarChart: bar chart race, racing bars, animated ranking, ranking over time, 
 WindRoseChart: wind rose, wind direction chart, rose diagram, polar stacked bar chart, wind speed distribution
 WorkflowCanvas: node editor, flow chart, pipeline diagram, DAG view
 DockLayout: docking panels, IDE layout, tool windows, docking manager
+Ribbon: Office ribbon, command bar, toolbar tabs, fluent ribbon, quick access toolbar, ribbon menu
 Viewport3D: 3D scene, 3D canvas, three.js, WebGL canvas, OpenGL control, scene renderer
 ModelViewer: 3D model viewer, glTF viewer, GLB viewer, product viewer, model-viewer, 3D preview
 Table: data table, list view with columns, grid view, sortable table

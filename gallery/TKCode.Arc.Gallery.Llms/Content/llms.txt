@@ -39,7 +39,7 @@ AppBuilder.Configure<App>()
 ArcTheme.Apply(t => t.Appearance(ArcAppearance.Dark).Accent(ArcAccentPreset.Violet));   // switch the theme at run time
 ```
 
-Controls, token resources and markup extensions share one XAML namespace: `xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"`, as in `<arc:Button Content="Save changes" />`. Other packages register inside the same callback: `TKCode.Arc.Blocks` (`UseArcBlocks()`), `TKCode.Arc.Special` (`UseArcSpecial()`, the AI components, illustrations and effects), `TKCode.Arc.Mobile` (`UseArcMobile()`, phone controls in their own XAML namespace `xmlns:arcm="https://github.com/AIDotNet/TKCode.Arc.Mobile"`: `<arcm:Button>`, `<arcm:Page>`), `TKCode.Arc.AdvancedCharts` (`UseArcAdvancedCharts()`, the DataGrid), `TKCode.Arc.Workflow` (`UseArcWorkflow()`), `TKCode.Arc.Dock` (`UseArcDock()`). Below, a component is in `TKCode.Arc` unless its group or line names another package.
+Controls, token resources and markup extensions share one XAML namespace: `xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"`, as in `<arc:Button Content="Save changes" />`. Other packages register inside the same callback: `TKCode.Arc.Blocks` (`UseArcBlocks()`), `TKCode.Arc.Special` (`UseArcSpecial()`, the AI components, illustrations and effects), `TKCode.Arc.Mobile` (`UseArcMobile()`, phone controls in their own XAML namespace `xmlns:arcm="https://github.com/AIDotNet/TKCode.Arc.Mobile"`: `<arcm:Button>`, `<arcm:Page>`), `TKCode.Arc.AdvancedCharts` (`UseArcAdvancedCharts()`, the DataGrid), `TKCode.Arc.Workflow` (`UseArcWorkflow()`), `TKCode.Arc.Dock` (`UseArcDock()`), `TKCode.Arc.Ribbon` (`UseArcRibbon()`). Below, a component is in `TKCode.Arc` unless its group or line names another package.
 
 ## Rules for agents
 

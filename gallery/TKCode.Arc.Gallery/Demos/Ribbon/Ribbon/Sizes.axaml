@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.RibbonSizesDemo">
+    <!-- The three sizes side by side: Large takes the full height of the group, Medium and Small stack three to a column. -->
+    <arc:Ribbon>
+        <arc:RibbonTab Header="Home">
+            <arc:RibbonGroup Header="Large">
+                <arc:RibbonButton Label="Paste" Icon="{x:Static arc:ArcIcons.ClipboardPaste}" />
+                <arc:RibbonButton Label="Share" Icon="{x:Static arc:ArcIcons.Share2}" />
+            </arc:RibbonGroup>
+            <arc:RibbonGroup Header="Medium">
+                <arc:RibbonButton Label="Copy" Icon="{x:Static arc:ArcIcons.Copy}" Size="Medium" />
+                <arc:RibbonButton Label="Rename" Icon="{x:Static arc:ArcIcons.Pencil}" Size="Medium" />
+                <arc:RibbonButton Label="Delete" Icon="{x:Static arc:ArcIcons.Trash2}" Size="Medium" />
+            </arc:RibbonGroup>
+            <arc:RibbonGroup Header="Small">
+                <arc:RibbonButton Label="Bold" Icon="{x:Static arc:ArcIcons.Bold}" Size="Small" />
+                <arc:RibbonButton Label="Italic" Icon="{x:Static arc:ArcIcons.Italic}" Size="Small" />
+                <arc:RibbonButton Label="Underline" Icon="{x:Static arc:ArcIcons.Underline}" Size="Small" />
+                <arc:RibbonButton Label="Strikethrough" Icon="{x:Static arc:ArcIcons.Strikethrough}" Size="Small" />
+                <arc:RibbonButton Label="Highlight" Icon="{x:Static arc:ArcIcons.Highlighter}" Size="Small" />
+                <arc:RibbonButton Label="Clear formatting" Icon="{x:Static arc:ArcIcons.Eraser}" Size="Small" />
+            </arc:RibbonGroup>
+            <arc:RibbonGroup Header="Mixed">
+                <arc:RibbonButton Label="Table" Icon="{x:Static arc:ArcIcons.Table}" />
+                <arc:RibbonSeparator />
+                <arc:RibbonButton Label="Link" Icon="{x:Static arc:ArcIcons.Link}" Size="Medium" />
+                <arc:RibbonButton Label="Bookmark" Icon="{x:Static arc:ArcIcons.Bookmark}" Size="Medium" />
+                <arc:RibbonButton Label="Code" Icon="{x:Static arc:ArcIcons.Code}" Size="Medium" />
+            </arc:RibbonGroup>
+        </arc:RibbonTab>
+    </arc:Ribbon>
+</UserControl>

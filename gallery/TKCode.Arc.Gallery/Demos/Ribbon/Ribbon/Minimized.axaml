@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.RibbonMinimizedDemo">
+    <!-- A collapsed ribbon shows only its tab row. Click a tab to open its groups over the content; running a command, a
+         click outside or Escape closes them. The button at the end of the row (or Ctrl+F1, or a double-click on a tab) pins
+         the ribbon open again. -->
+    <Border Height="220"
+            BorderBrush="{arc:ArcDesignTokenResource Border}"
+            BorderThickness="{arc:ArcDesignTokenResource EdgeThickness}"
+            CornerRadius="{arc:ArcDesignTokenResource RadiusControl}">
+        <DockPanel>
+            <arc:Ribbon DockPanel.Dock="Top" IsMinimized="True">
+                <arc:RibbonTab Header="Home">
+                    <arc:RibbonGroup Header="Clipboard">
+                        <arc:RibbonButton Label="Paste" Icon="{x:Static arc:ArcIcons.ClipboardPaste}" />
+                        <arc:RibbonButton Label="Copy" Icon="{x:Static arc:ArcIcons.Copy}" Size="Medium" />
+                        <arc:RibbonButton Label="Delete" Icon="{x:Static arc:ArcIcons.Trash2}" Size="Medium" />
+                    </arc:RibbonGroup>
+                    <arc:RibbonGroup Header="Insert">
+                        <arc:RibbonButton Label="Node" Icon="{x:Static arc:ArcIcons.Plus}" />
+                        <arc:RibbonButton Label="Comment" Icon="{x:Static arc:ArcIcons.MessageSquare}" />
+                    </arc:RibbonGroup>
+                </arc:RibbonTab>
+                <arc:RibbonTab Header="View">
+                    <arc:RibbonGroup Header="Zoom">
+                        <arc:RibbonButton Label="Zoom in" Icon="{x:Static arc:ArcIcons.ZoomIn}" />
+                        <arc:RibbonButton Label="Zoom out" Icon="{x:Static arc:ArcIcons.ZoomOut}" />
+                    </arc:RibbonGroup>
+                </arc:RibbonTab>
+            </arc:Ribbon>
+            <TextBlock Text="Canvas" HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Foreground="{arc:ArcDesignTokenResource TextMuted}" />
+        </DockPanel>
+    </Border>
+</UserControl>

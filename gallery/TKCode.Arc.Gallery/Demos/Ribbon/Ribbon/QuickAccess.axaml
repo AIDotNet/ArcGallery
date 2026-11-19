@@ -1,0 +1,41 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.RibbonQuickAccessDemo">
+    <!-- The toolbar's own commands (Save, Undo, Redo) come first, then the ribbon commands pinned by their QuickAccessKey.
+         Right-click a command to pin or unpin it, or open the chevron at the end of the toolbar. The list below shows Keys,
+         which an app saves to keep the choice. -->
+    <StackPanel Spacing="12">
+        <Border BorderBrush="{arc:ArcDesignTokenResource Border}"
+                BorderThickness="{arc:ArcDesignTokenResource EdgeThickness}"
+                CornerRadius="{arc:ArcDesignTokenResource RadiusControl}"
+                ClipToBounds="True">
+            <DockPanel>
+                <arc:QuickAccessToolBar x:Name="QuickAccess" DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="8,6,8,0">
+                    <arc:RibbonButton Label="Save" Icon="{x:Static arc:ArcIcons.Download}" Shortcut="Ctrl+S" />
+                    <arc:RibbonButton Label="Undo" Icon="{x:Static arc:ArcIcons.Undo2}" Shortcut="Ctrl+Z" />
+                    <arc:RibbonButton Label="Redo" Icon="{x:Static arc:ArcIcons.Redo2}" Shortcut="Ctrl+Y" />
+                </arc:QuickAccessToolBar>
+                <arc:Ribbon x:Name="MainRibbon">
+                    <arc:RibbonTab Header="Home">
+                        <arc:RibbonGroup Header="Edit">
+                            <arc:RibbonButton Label="Copy" Icon="{x:Static arc:ArcIcons.Copy}" QuickAccessKey="copy" />
+                            <arc:RibbonButton Label="Find" Icon="{x:Static arc:ArcIcons.Search}" QuickAccessKey="find" Shortcut="Ctrl+F" />
+                            <arc:RibbonToggleButton Label="Lock" Icon="{x:Static arc:ArcIcons.Lock}" QuickAccessKey="lock" />
+                        </arc:RibbonGroup>
+                        <arc:RibbonGroup Header="Share">
+                            <arc:RibbonDropDownButton Label="Export" Icon="{x:Static arc:ArcIcons.Share2}" QuickAccessKey="export">
+                                <arc:MenuEntry Header="PNG image" />
+                                <arc:MenuEntry Header="SVG drawing" />
+                            </arc:RibbonDropDownButton>
+                            <arc:RibbonButton Label="Send" Icon="{x:Static arc:ArcIcons.Send}" QuickAccessKey="send" />
+                        </arc:RibbonGroup>
+                    </arc:RibbonTab>
+                </arc:Ribbon>
+            </DockPanel>
+        </Border>
+        <TextBlock x:Name="KeysText"
+                   FontSize="{arc:ArcDesignTokenResource TypeSM}"
+                   Foreground="{arc:ArcDesignTokenResource TextMuted}" />
+    </StackPanel>
+</UserControl>

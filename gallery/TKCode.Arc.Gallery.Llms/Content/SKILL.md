@@ -84,8 +84,8 @@ ArcTheme.Apply(t => t.Appearance(ArcAppearance.Dark).Accent(ArcAccentPreset.Viol
 XAML uses `xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"` for controls, token resources and markup
 extensions. Blocks (`TKCode.Arc.Blocks`, `UseArcBlocks()`), the AI components, illustrations and effects
 (`TKCode.Arc.Special`, `UseArcSpecial()`), phone controls (`TKCode.Arc.Mobile`, `UseArcMobile()`), the DataGrid
-(`TKCode.Arc.AdvancedCharts`, `UseArcAdvancedCharts()`), the workflow canvas (`TKCode.Arc.Workflow`, `UseArcWorkflow()`)
-and the dock layout (`TKCode.Arc.Dock`, `UseArcDock()`) are separate packages, registered in the same `UseArc` callback. Full steps:
+(`TKCode.Arc.AdvancedCharts`, `UseArcAdvancedCharts()`), the workflow canvas (`TKCode.Arc.Workflow`, `UseArcWorkflow()`),
+the dock layout (`TKCode.Arc.Dock`, `UseArcDock()`) and the ribbon (`TKCode.Arc.Ribbon`, `UseArcRibbon()`) are separate packages, registered in the same `UseArc` callback. Full steps:
 {{base}}/docs/installation.md.
 
 Icons: Arc's built-in glyphs are `{x:Static arc:ArcIcons.Name}`. Any other Lucide icon comes from
@@ -187,6 +187,7 @@ declares transitions under `^:motion-full` and `^:motion-reduced` with `arc:ArcM
 | Values over time, categories, a share | `LineChart`, `BarChart`, `DonutChart`; a whole analytics page `MetricsDashboard` block |
 | Tasks on a board, a schedule | `KanbanBoard`, `GanttTimeline`, `WeekCalendar` blocks |
 | A node graph or pipeline | `WorkflowCanvas` (`TKCode.Arc.Workflow`); IDE-style panes `DockLayout` (`TKCode.Arc.Dock`) |
+| Many commands in tabs, Office-style | `Ribbon` with `RibbonTab`, `RibbonGroup` and `RibbonButton`; pinned commands `QuickAccessToolBar` (`TKCode.Arc.Ribbon`) |
 | A phone app | `arcm:Page` with `arcm:Navbar` and `arcm:Tabbar`, pages in `arcm:NavigationStack` (`TKCode.Arc.Mobile`, `xmlns:arcm`) |
 
 ## Reference files

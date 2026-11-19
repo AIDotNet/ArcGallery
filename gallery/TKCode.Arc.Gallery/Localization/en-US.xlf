@@ -96,6 +96,11 @@
         <source>Dock</source>
       </segment>
     </unit>
+    <unit id="Category_Ribbon">
+      <segment>
+        <source>Ribbon</source>
+      </segment>
+    </unit>
     <unit id="Category_Video">
       <segment>
         <source>Video</source>

@@ -155,6 +155,12 @@ public static partial class GalleryCatalog
                 "An IDE-style layout of tabbed panes in nested, resizable splits around a document area, with commands to move and dock panes, keyboard control, and layouts saved to JSON.",
                 IsArc: false, AddedOn: "2026-11-05"),
         ], IsArc: false),
+        new("Ribbon", "Ribbon", "功能区",
+        [
+            new("Ribbon", "Ribbon", "ribbon", 0,
+                "An Office-style ribbon: tabs over groups of large, medium and small commands that shrink step by step and collapse into drop-downs as the window narrows, with toggle, drop-down and split buttons, rich tooltips, a collapsible ribbon and a quick access toolbar.",
+                IsArc: false, AddedOn: "2026-11-19"),
+        ], IsArc: false),
         new("Video", "Video", "视频",
         [
             new("VideoPlayer", "Video player", "video-player", 0,
@@ -619,22 +625,25 @@ public static partial class GalleryCatalog
     /// <summary>The dock group (TKCode.Arc.Dock); listed after Workflow, not part of the Arc components.</summary>
     public static GalleryCategory Dock => Extras[2];
 
-    /// <summary>The video group (TKCode.Arc.Video); listed after Dock, not part of the Arc components.</summary>
-    public static GalleryCategory Video => Extras[3];
+    /// <summary>The ribbon group (TKCode.Arc.Ribbon); listed after Dock, not part of the Arc components.</summary>
+    public static GalleryCategory Ribbon => Extras[3];
+
+    /// <summary>The video group (TKCode.Arc.Video); listed after Ribbon, not part of the Arc components.</summary>
+    public static GalleryCategory Video => Extras[4];
 
     /// <summary>The PDF group (TKCode.Arc.Pdf); listed after Video, not part of the Arc components.</summary>
-    public static GalleryCategory Pdf => Extras[4];
+    public static GalleryCategory Pdf => Extras[5];
 
     /// <summary>The 3D group (TKCode.Arc.Graphics3D.Controls); listed after PDF, not part of the Arc components.</summary>
-    public static GalleryCategory Graphics3D => Extras[5];
+    public static GalleryCategory Graphics3D => Extras[6];
 
     /// <summary>The agents group (TKCode.Arc.A2UI); listed after 3D, not part of the Arc components.</summary>
-    public static GalleryCategory Agents => Extras[6];
+    public static GalleryCategory Agents => Extras[7];
 
-    /// <summary>The Components section of the sidebar: Arc's groups with Advanced charts, Workflow, Dock, Video, PDF, 3D and Agents after Charts, then the other extras.</summary>
+    /// <summary>The Components section of the sidebar: Arc's groups with Advanced charts, Workflow, Dock, Ribbon, Video, PDF, 3D and Agents after Charts, then the other extras.</summary>
     public static IEnumerable<GalleryCategory> AllCategories => s_allCategories ??=
-        Categories.SelectMany(c => c.Code == "Charts" ? new[] { c, AdvancedCharts, Workflow, Dock, Video, Pdf, Graphics3D, Agents } : new[] { c })
-                  .Concat(Extras.Where(e => !ReferenceEquals(e, AdvancedCharts) && !ReferenceEquals(e, Workflow) && !ReferenceEquals(e, Dock) && !ReferenceEquals(e, Video) && !ReferenceEquals(e, Pdf) && !ReferenceEquals(e, Graphics3D) && !ReferenceEquals(e, Agents)))
+        Categories.SelectMany(c => c.Code == "Charts" ? new[] { c, AdvancedCharts, Workflow, Dock, Ribbon, Video, Pdf, Graphics3D, Agents } : new[] { c })
+                  .Concat(Extras.Where(e => !ReferenceEquals(e, AdvancedCharts) && !ReferenceEquals(e, Workflow) && !ReferenceEquals(e, Dock) && !ReferenceEquals(e, Ribbon) && !ReferenceEquals(e, Video) && !ReferenceEquals(e, Pdf) && !ReferenceEquals(e, Graphics3D) && !ReferenceEquals(e, Agents)))
                   .ToArray();
 
     // The lists below are built once, when first read: they are read on every page opening. Not in field initializers, whose

@@ -8,7 +8,527 @@ All notable changes to TKCode.Arc, newest first. Versions follow [Semantic Versi
 between releases. The same list is kept in `CHANGELOG.md` in the repository.
 
 NuGet packages published with each release: `TKCode.Arc`, `TKCode.Arc.Core`, `TKCode.Arc.Foundation` (from 0.3.2), `TKCode.Arc.Fonts` and
-`TKCode.Arc.Icons.Lucide`, `TKCode.Arc.Blocks`, `TKCode.Arc.AdvancedCharts`, `TKCode.Arc.Special`, `TKCode.Arc.Workflow`, `TKCode.Arc.Dock` (from 0.4.0-preview.2), `TKCode.Arc.Themes.Pixel`, `TKCode.Arc.Themes.Corners`, `TKCode.Arc.Mobile`, `TKCode.Arc.Terminal`, `TKCode.Arc.Audio`, `TKCode.Arc.Audio.Native`, `TKCode.Arc.Audio.Browser`, `TKCode.Arc.Templates` (from 0.4.0-preview.6), `TKCode.Arc.Pdf`, `TKCode.Arc.Pdf.Native` and `TKCode.Arc.Pdf.Browser` (from 1.0.0), `TKCode.Arc.Video`, `TKCode.Arc.Video.Native` and `TKCode.Arc.Video.Browser` (from 1.1.0-preview.1).
+`TKCode.Arc.Icons.Lucide`, `TKCode.Arc.Blocks`, `TKCode.Arc.AdvancedCharts`, `TKCode.Arc.Special`, `TKCode.Arc.Workflow`, `TKCode.Arc.Dock` (from 0.4.0-preview.2), `TKCode.Arc.Themes.Pixel`, `TKCode.Arc.Themes.Corners`, `TKCode.Arc.Mobile`, `TKCode.Arc.Terminal`, `TKCode.Arc.Audio`, `TKCode.Arc.Audio.Native`, `TKCode.Arc.Audio.Browser`, `TKCode.Arc.Templates` (from 0.4.0-preview.6), `TKCode.Arc.Pdf`, `TKCode.Arc.Pdf.Native` and `TKCode.Arc.Pdf.Browser` (from 1.0.0), `TKCode.Arc.Video`, `TKCode.Arc.Video.Native` and `TKCode.Arc.Video.Browser` (from 1.1.0-preview.1), `TKCode.Arc.Markdown` and `TKCode.Arc.Highlighting` (from 1.1.1), `TKCode.Arc.Ribbon` (from 1.2.0). Also, as previews that follow the main version: `TKCode.Arc.Graphics3D`, `TKCode.Arc.Graphics3D.WebGpu`, `TKCode.Arc.Graphics3D.Controls` and `TKCode.Arc.Graphics3D.Browser` (from 1.2.0-preview.3).
+
+## 1.2.0 (2026-11-19)
+
+The stable release of everything shipped in `1.2.0-preview.1` to `1.2.0-preview.6`, plus two changes that ship here for
+the first time: the new `TKCode.Arc.Ribbon` package, an Office-style ribbon for command-heavy desktop apps
+([#166](https://github.com/AIDotNet/TKCode.Arc/issues/166)), and Avalonia 12.1.6. The previews bring a richer
+`TerminalView` and the fixes of the architecture review ([#157](https://github.com/AIDotNet/TKCode.Arc/issues/157)),
+public API tracking for every package, field label customization, `CodeMagicMove`, `CelebrateButton`, `FeedbackMorph`
+and the `CodeReview` block, and the 3D engine with `Viewport3D` and `ModelViewer` as preview packages
+(`TKCode.Arc.Graphics3D*`, whose API stays preview-grade). No public API is removed or renamed. Install it without
+`--prerelease`. The notes of each preview, with every detail and issue link, follow below.
+
+### Upgrading from 1.1.1
+
+- Set every `TKCode.Arc*` package to `1.2.0`. The packages need Avalonia 12.1.6 or a later 12.x.
+- `TKCode.Arc.Special` no longer brings StreamMark, Markdig or TextMate, and `TKCode.Arc.Blocks` no longer brings
+  TextMate (since `1.2.0-preview.1`). An app that shows colored code in blocks or special components adds
+  `TKCode.Arc.Highlighting` and calls `UseArcHighlighting()` inside `UseArc(...)`.
+
+### Changed
+
+- Avalonia 12.1.6 (was 12.1.5): the repository builds and tests against it, and the packages ask for
+  `[12.1.6, 13.0.0)`. It brings browser clipboard and safe-area fixes and native resource leak fixes.
+
+### Added
+
+- **Ribbon** (new package `TKCode.Arc.Ribbon`, `UseArcRibbon()`; issue #166): `Ribbon` holds `RibbonTab`s, each tab
+  holds `RibbonGroup`s, each group holds commands. `RibbonButton` lays out an icon and a label as `Large` (icon over
+  label, the full height of the group), `Medium` (icon beside label, three to a column) or `Small` (icon alone);
+  `RibbonToggleButton` stays on or off (`IsChecked`, `IsCheckedChanged`); `RibbonDropDownButton` opens a menu of Arc
+  `MenuEntry` rows (inline, or `ItemsSource` / `ItemTemplate`); `RibbonSplitButton` runs its default action from the
+  icon and opens its menu from the chevron part; `RibbonSeparator` starts a new column; any other control stacks like a
+  medium command. Tooltips show the label with `Shortcut` and `Description`.
+  - Adaptive groups: when the ribbon is narrower than its groups they shrink one step at a time (large to medium, then
+    everything small, then the whole group collapses into a button that shows it in a drop-down). Each command stops
+    at its `MinSize`; steps that would not save room are skipped; a higher `ReductionPriority` shrinks first and equal
+    groups take turns from the right; `CanCollapse="False"` keeps a group expanded. The layout depends only on the width.
+    Groups can show a launcher button (`IsLauncherVisible`, `LauncherClick`, `LauncherCommand`).
+  - The ribbon: `SelectedIndex` / `SelectedTab` with `SelectionChanged`, an accent underline that glides between tabs,
+    contextual tabs (`IsContextual`, hidden and shown with `IsVisible`), `LeftContent` / `RightContent` for a File menu or
+    a search box, and `IsMinimized` (the end button, Ctrl+F1 or a double-click on a tab) to collapse it to its tab row;
+    a tab then opens its groups in a pop-up until a command runs. `ItemInvoked` reports every command the user runs,
+    with the menu row when it came from a menu.
+  - `QuickAccessToolBar`: its own small commands (`Items`) and the ribbon commands pinned by their `QuickAccessKey`
+    (`Keys`, an observable list to save and restore). Users pin and unpin commands from a command's context menu (also
+    Shift+F10) or the toolbar's customize menu; a pinned copy runs the ribbon command and follows its icon and state.
+    Place it in an `ArcWindow` title bar or above or below the ribbon, and link it with `Ribbon`.
+  - Keyboard: the tab row is one tab stop (arrows, Home, End), ArrowDown enters the groups, arrows move between commands,
+    Escape returns to the tab. Built-in text in en-US, zh-CN and zh-TW. AOT and trimming safe, no reflection.
+  - Gallery: a new "Ribbon" group with seven examples.
+
+## 1.2.0-preview.6 (2026-11-19)
+
+This patch preview fixes a crash in `ModelViewer` when a model is replaced while the previous one is still loading.
+
+### Fixed
+
+- `ModelViewer` no longer throws `ObjectDisposedException` when a new `Source` or `Model` replaces a load that is still
+  running. The finished load used to read the token of the source that the replacement had already disposed
+  (`TKCode.Arc.Graphics3D.Controls`, preview).
+
+## 1.2.0-preview.5 (2026-11-19)
+
+This preview adds four components rebuilt after their Arc designs: `CodeMagicMove` (Special › Type), a code block that
+animates between versions of a snippet; `CelebrateButton` and `FeedbackMorph` (Special › Loaders), a confetti success
+button and a feedback button that morphs into a form; and the `CodeReview` block (Blocks › Developer), a pull request
+review in one card.
+
+### Added
+
+- `CelebrateButton` (`TKCode.Arc.Special`, Special › Loaders): an accent capsule for milestones. A press runs
+  `Action`; while its task runs a spinner and `PendingLabel` show, a success bursts confetti from the button's outline,
+  kicks the button and turns the label into a check with `SuccessLabel` while the width springs to fit, and a failure
+  shows `ErrorLabel` without a burst. Two-way `Status` (`CelebrateButtonStatus`) for driving it from outside,
+  `StatusChanged` (`CelebrateButtonStatusChangedEventArgs`), `ResetAfter` (2.4 s), `Cooldown` (1.2 s),
+  `ParticleCount` (44, at most 180 in the air), `ConfettiColors`, `Celebrate()` and `Reset()`. Reduced motion keeps
+  only a crossfade of the label; the confetti loop stops when the last piece fades.
+- `FeedbackMorph` (`TKCode.Arc.Special`, Special › Loaders): a feedback button that springs open into a small form (a question, five mood
+  faces, a note and a send button) and folds into a thank-you pill, all in one shape
+  ([ADR 0053](design/decisions/0053-code-and-feedback-design-reference.md),
+  [spec](design/components/special/loaders/feedback-morph.md)). `SubmitHandler` receives a `FeedbackMorphSubmission`
+  (mood and note); a failed send keeps the panel open with an error and the draft. `Side` and `Align` choose which way
+  the panel grows, `Moods` replaces the scale (`FeedbackMood`, `FeedbackMoodCollection`, `FeedbackFace`), and
+  `SelectedMood`, `Message` and `IsOpen` bind both ways, with `Submitted`, `StateChanged` and `SelectionChanged`.
+- `CodeMagicMove` (`TKCode.Arc.Special`, Special › Type): a code block that moves between versions of a snippet. Words that stay glide to
+  their new line and column, removed words fade and lift out, and new code types in behind an accent caret while the
+  block follows the new line count. Changed lines carry a band with an accent rule, the header counts added and removed
+  lines, and step dots, the arrow keys and a sideways drag (scrub, commit past a third or on a flick, otherwise rewind)
+  walk through `Steps` (`CodeMagicMoveStep`: `Code`, `Title`, `Description`, `FileName`). `Value` / `ValueChanged`,
+  `AutoPlay`, `Interval`, `Speed`, `IsPaused`, `Label` and `AccentBrush`; colors come from the highlighting package
+  (`UseArcHighlighting()`, `Language`). Reduced motion changes steps at once and keeps autoplay off (ADR 0053).
+- `CodeReview` (`TKCode.Arc.Blocks`, Blocks › Developer): a pull request review in one card. File
+  tabs track open conversations and what was viewed, a syntax-colored unified diff takes a comment on any line (with an
+  optional suggested change), threads fold to one line once resolved, suggestions are applied straight into the diff and
+  Approve sends the review with its pending comments, then turns into Approved (Undo withdraws it). Data types
+  `CodeReviewPullRequest`, `CodeReviewFile`, `CodeReviewDiffLine`, `CodeReviewThread`, `CodeReviewComment`,
+  `CodeReviewSuggestion`, `CodeReviewPerson`, `CodeReviewSubmission` and `CodeReviewLabels`; events report every
+  action. The diff is colored through the library's highlighting contract (install `UseArcHighlighting()`). Design
+  reference: Arc Code review ([ADR 0053](design/decisions/0053-code-and-feedback-design-reference.md)).
+
+## 1.2.0-preview.4 (2026-11-19)
+
+This preview adds field label customization and fixes picker localization, Combobox pointer interaction, and
+Drawer spacing. ArcGallery also applies the selected motion setting to demos that set their own motion level (#161).
+
+### Added
+
+- `Field.LabelFontWeight` sets the visible label's font weight on a field or on a container for its fields.
+  Per-field values override the inherited setting, and unset labels use the theme weight (#163).
+
+### Fixed
+
+- Clicking the Combobox chevron toggles the list and focuses the search input on open (#163).
+- DatePicker, Calendar, DateRangePicker and TimePicker use Arc language resources for their built-in text.
+  Changing the language updates existing controls and leaves app-supplied text in place (#165).
+- Drawer header and body spacing follows the narrow layout and its template margins can be overridden with styles (#164).
+
+## 1.2.0-preview.3 (2026-11-17)
+
+The third preview of 1.2 (1.2.0-preview.2 was never published) adds a 3D engine and its controls as four new preview packages that share the release version. Nothing changes in the other packages' API: they are republished at 1.2.0-preview.3 with the
+Terminal build fix of [#162](https://github.com/AIDotNet/TKCode.Arc/issues/162). 
+
+### Graphics3D (preview packages)
+
+`TKCode.Arc.Graphics3D`, `TKCode.Arc.Graphics3D.WebGpu`, `TKCode.Arc.Graphics3D.Controls` and `TKCode.Arc.Graphics3D.Browser` are previews released with the other packages; their API may change between previews without a deprecation period.
+
+- **`TKCode.Arc.Graphics3D` (new, preview)**: a 3D engine for .NET with no UI dependency, in the
+  namespace `TKCode.Arc.Graphics3D` ([ADR 0051](design/decisions/0051-graphics3d-package.md),
+  [architecture](design/architecture/graphics3d.md)). Scene graph (`Scene`, `Object3D`, `Mesh`, `InstancedMesh`,
+  `SkinnedMesh`, `Line`, `Points`, `Sprite`), geometries and curves, node-based materials (`BasicMaterial`,
+  `LambertMaterial`, `PhongMaterial`, `ToonMaterial`, `StandardMaterial`, `PhysicalMaterial`, `NodeMaterial`; graphs built
+  with `Shading.Sl`), lights with shadow maps, image-based lighting from HDR panoramas, the glTF material layers (clear coat, sheen, specular, transmission and
+  volume, iridescence, anisotropy), post-processing
+  (ambient occlusion, depth of field, outlines, bloom, vignette, grading, FXAA, and full-screen passes of your own built
+  from shader nodes: `PostPass`), tone mapping, fog, animation
+  (`AnimationMixer`), glTF 2.0 loading (`GltfLoader`) with built-in PNG, JPEG, Radiance HDR and KTX2 (Basis Universal ETC1S and UASTC, decoded
+  to RGBA) decoders, Draco and meshopt decompression in managed code (`DracoDecoder`, `MeshoptDecoder`, `Ktx2Decoder`) and animation of material, light
+  and camera properties (`KHR_animation_pointer`), ray casting with a
+  BVH (`Raycaster`), `OrbitControls`, helper objects, an optional render thread (`ThreadedGraphicsDevice`: the calling thread records each
+  frame and a thread that owns the context plays it back), and a renderer over a WebGPU-shaped hardware interface with an OpenGL
+  ES 3.0 / OpenGL 3.3 backend. It is not covered by the deprecation rule: its API may change
+  between previews.
+- **`TKCode.Arc.Graphics3D.WebGpu` (new, preview)**: `WgpuDevice`, a `GraphicsDevice` over
+  [wgpu-native](https://github.com/gfx-rs/wgpu-native) (Metal, Vulkan, Direct3D 12), with compute shaders
+  ([architecture, section 12](design/architecture/graphics3d.md)). The native library is not in the package: pass the
+  path of `libwgpu_native` (v29) to `WgpuDevice.Create`. It draws the same pictures as the OpenGL device from the same
+  shader text. Verified off-screen on macOS (Metal) and in a Linux container (Vulkan on Mesa's software rasterizer);
+  in a window it shows through `Viewport3D.DeviceFactory` (read back into a bitmap), tried on macOS (Metal) and on
+  Windows (Vulkan, an NVIDIA card). On wgpu's OpenGL ES backend multisampled targets and viewport changes inside a pass
+  come out wrong, and Direct3D 12 has not been run.
+- **`TKCode.Arc.Graphics3D` hardware interface, added for it**: `ShaderLanguage.Glsl450`, `BufferUsage.Storage`,
+  `DeviceCapabilities.ComputeShaders` / `MaxComputeWorkGroupSize` / `MaxComputeWorkGroups` / `MaxStorageBuffers`,
+  `GraphicsDevice.CreateComputeProgram` / `SetStorageBuffer` / `DispatchCompute` / `ReadBuffer` (they throw
+  `NotSupportedException` on the OpenGL device, which has no compute stage), `GraphicsDevice.SupportsVertexFormat`, and
+  `GpuCompute`, which runs a GLSL kernel over arrays on the GPU (buffers in, buffers out).
+- **`TKCode.Arc.Graphics3D.Controls` (new, preview)**: `Viewport3D`, which draws a scene inside the
+  Avalonia composition tree and renders on demand, and `ModelViewer`, which shows a glTF file or any object with studio
+  lighting, a ground shadow, orbit controls, auto-rotation and a reset button; register them with `UseArcGraphics3D()`. On macOS it works under
+  Avalonia's default Metal renderer (its own OpenGL context, pictures handed over as IOSurfaces); elsewhere it uses
+  `OpenGlControlBase`. Where neither works (software rendering) it falls back to an off-screen context of its own and a
+  bitmap; `Viewport3D.Presentation` says which way is in use. `UseRenderThread` moves the drawing to a render thread where the
+  viewport owns its context, and `DeviceFactory` lets it draw with a device of the application's choice (the WebGPU
+  backend, for example), read back into a bitmap. `ModelViewer`'s built-in text is in en-US, zh-CN and zh-TW, and its `Source` takes a file path, an `avares://`
+  resource or an `http(s)://` address.
+  Verified on macOS, on Windows (one machine with an NVIDIA card: ANGLE / Direct3D 11, the software mode, the driver's
+  OpenGL through WGL, and WebGPU over Vulkan) and on Linux (X11 with Mesa's software OpenGL, in a container); real Linux
+  GPU drivers, Wayland and other Windows graphics hardware are untested.
+- **`TKCode.Arc.Graphics3D.Browser` (new, preview)**: `Viewport3D` and `ModelViewer` in the browser
+  (WebAssembly). Avalonia.Browser shares neither its WebGL context nor textures and `OpenGlControlBase` never starts
+  there, so the viewport draws in a WebGL 2 context of its own on a canvas that is never shown, and presents the picture
+  as a bitmap (`Viewport3D.Presentation` reads `Bitmap`): one read-back per drawn frame. A browser app references the
+  package and adds `UseArcGraphics3DBrowser()` to `UseArc(...)`; its project file needs nothing else. Without the
+  package `RendererError` says what is missing. Verified in headless Chromium with software WebGL only; real graphics
+  hardware, Firefox and Safari are untested.
+- `TKCode.Arc.Graphics3D`: the OpenGL backend declares a delegate for every native signature shape it calls
+  (`GlSignatures`), which the WebAssembly build needs to make its interpreter-to-native trampolines; without them the
+  first `glClearColor` ends the program in the browser. `GlDevice` reports ETC2, S3TC and ASTC support from WebGL's own
+  extension names under WebGL 2 (ETC2 is not mandatory there).
+
+## 1.2.0-preview.1 (2026-11-17)
+
+The first preview of 1.2: the fixes from the architecture review
+([#157](https://github.com/AIDotNet/TKCode.Arc/issues/157)) and a richer `TerminalView`.
+
+- **Terminal.** `TerminalView` draws the rest of what the terminal core already captures: bold and italic faces, every
+  underline style, grapheme clusters and emoji, box drawing and Powerline glyphs, and a blinking cursor
+  ([#139](https://github.com/AIDotNet/TKCode.Arc/issues/139)–[#143](https://github.com/AIDotNet/TKCode.Arc/issues/143)).
+  Hosts can add their own drawing and glyphs.
+- **Dependencies.** `TKCode.Arc.Special` no longer pulls in StreamMark, Markdig or TextMate, and `TKCode.Arc.Blocks` no
+  longer pulls in TextMate. Call `UseArcHighlighting()` yourself to keep colored code.
+- **Backends.** The audio, video and PDF backends can be enabled from `UseArc(...)`, and controls follow a backend
+  that arrives late, as a browser's `UseAsync()` can.
+- **New helpers.** Fonts can be registered from `UseArc(...)`; Core adds `ArcColor` and `ArcFormatting.Bytes`.
+- **Public API is tracked.** Every package's public API is now listed in `PublicAPI.Shipped.txt` /
+  `PublicAPI.Unshipped.txt` and checked at build time.
+
+Nothing is removed and no signature changes. Some defaults do change:
+- `UseArcSpecial()` / `UseArcBlocks()` no longer enable highlighting;
+- `TerminalView` looks different, and its default font starts with Geist Mono.
+
+See Changed for both. Install it with `--version 1.2.0-preview.1` (or `--prerelease`).
+
+### Added
+
+- `ArcColor` (Core: `Lerp`, `LerpOklab`, `WithOpacity`) and `ArcFormatting.Bytes` ("512 B", "19 KB", "2.4 MB",
+  "1.5 GB"). These are the shared helpers that controls used to write for themselves
+  ([#148](https://github.com/AIDotNet/TKCode.Arc/issues/148)). The activity components' byte sizes now come from
+  `ArcFormatting.Bytes`, which also shows gigabytes; before, sizes over 1 GB read in MB.
+- `UseArcFonts()` and `UseArcPixelFonts()` (TKCode.Arc.Fonts) register Geist, Geist Mono and the pixel fonts from
+  `UseArc(...)`, the same as `WithArcFonts()` / `WithArcPixelFonts()`; calling both is harmless. TKCode.Arc.Fonts now
+  references TKCode.Arc.Foundation ([#151](https://github.com/AIDotNet/TKCode.Arc/issues/151)).
+- **Backends follow late arrivals** ([#149](https://github.com/AIDotNet/TKCode.Arc/issues/149)):
+  - `ArcAudio.BackendChanged` and `ArcPdf.BackendChanged` join `ArcVideo.BackendChanged`. All three are raised once per
+    change, and setting the same backend again raises nothing.
+  - `VideoPlayer` and `MediaPlayer` replace their player when the process backend changes, for example when a browser's
+    `UseAsync()` finishes after they were created. `MediaPlayer` does so only when its `AudioBackend` is not set.
+  - `PdfViewer` and the attached `Pdf.Source` open the source again when it failed with `BackendUnavailable`.
+- **`UseArc(...)` entries for the platform backends** ([#149](https://github.com/AIDotNet/TKCode.Arc/issues/149),
+  [#151](https://github.com/AIDotNet/TKCode.Arc/issues/151)):
+  - `UseArcAudioNative()`, `UseArcAudioBrowser()`, `UseArcVideoNative()`, `UseArcVideoBrowser()`, `UseArcPdfNative()`
+    and `UseArcPdfBrowser(assetsUrl)` enable the backend when the app starts and show up in `ArcRuntime.Packages`.
+  - The Video and Pdf ones also enable `UseArcVideo()` / `UseArcPdf()`.
+  - The browser ones start loading without waiting; the controls move over when the backend arrives.
+  - The static `Use()` / `UseAsync()` methods stay as they are.
+  - `TKCode.Arc.Audio.Native` and `TKCode.Arc.Audio.Browser` now reference `TKCode.Arc.Foundation` for this.
+- **`TKCode.Arc.Terminal`, text** ([#139](https://github.com/AIDotNet/TKCode.Arc/issues/139)): SGR 1 and 3 draw with the
+  family's bold, italic and bold-italic faces, or synthesized ones when it has none; a fallback font is asked for the
+  same style. New `TerminalView` properties: `FontWeight`, `BoldFontWeight` (default `Bold`; below `SemiBold` it is not
+  emboldened), `LineHeight` (default 1), `BoldIsBright` (default `false`) and `TextBlink` (default `true`: SGR 5 and 6
+  text blinks while it is on screen).
+- **`TKCode.Arc.Terminal`, decorations** ([#140](https://github.com/AIDotNet/TKCode.Arc/issues/140)): single, double,
+  curly, dotted and dashed underlines in the SGR 58 color or the foreground, strikethrough and overline. `CellMetrics`
+  gains `UnderlinePosition`, `StrikethroughPosition`, `StrikethroughThickness` and `BoxThickness`, as init-only
+  properties, so its constructor is unchanged. `TerminalView.HoveredLink` and `LinkForeground` underline the link under
+  the pointer, with a double line where the text is already underlined.
+- **`TKCode.Arc.Terminal`, clusters** ([#141](https://github.com/AIDotNet/TKCode.Arc/issues/141)): combining marks, ZWJ
+  sequences, flags, skin tones and keycaps are shaped with HarfBuzz and stay on the grid. VS15 and VS16 pick text or
+  emoji presentation. Emoji are drawn from the platform's color emoji font, or from `EmojiFontFamily`, and scaled to fit
+  their cells. ASCII text is not shaped.
+- **`TKCode.Arc.Terminal`, custom glyphs** ([#142](https://github.com/AIDotNet/TKCode.Arc/issues/142)): box drawing,
+  block elements, shades, braille and Powerline separators are drawn by the view in whole device pixels, so lines meet
+  across cells with any font. `CustomGlyphs` (default `true`) switches this off. `TerminalBuiltInGlyphs` is public.
+- **`TKCode.Arc.Terminal`, cursor and contrast** ([#143](https://github.com/AIDotNet/TKCode.Arc/issues/143)):
+  - `CursorBlink` (`Program` by default: the cursor blinks when the program asks) and `CursorBlinkInterval` (600 ms).
+    The cursor blinks only while the view has focus, and typing or new output shows it again.
+  - `UnfocusedCursorStyle` (`Hollow`, `None` or `Same`) and `CursorBarWidth` (in DIP).
+  - `CursorTextColor`, and a cursor that would disappear on the cell's background takes the cell's foreground.
+  - A cursor on a wide character covers both of its cells.
+  - `MinimumContrastRatio` (default 1, which turns it off; VS Code uses 4.5) adjusts text that falls below the ratio.
+    Box drawing, block, braille, Powerline, emoji and invisible cells are left alone.
+- **`TKCode.Arc.Terminal`, extension points**:
+  - `TerminalView.Layers` takes `ITerminalRenderLayer`s, drawn below the text, above it, or above the cursor
+    (`TerminalLayerPlacement`). Use them for selection, search highlights or command marks. They get a
+    `TerminalRenderContext` that gives cell bounds and the colors the view uses for each cell.
+  - `TerminalView.GlyphProviders` takes `ITerminalGlyphProvider`s, which draw code points of your choice (icon sets, more
+    symbol ranges) as `TerminalGlyph` shapes, ahead of the built-in glyphs.
+  - `TerminalView.CellBounds` and `CellAt` convert between cells and DIP coordinates.
+  - `TerminalColorMath` has the WCAG luminance and contrast math, mixing, and the contrast adjustment.
+
+### Changed
+
+- `TerminalView` faint text (SGR 2) is now mixed halfway towards the cell's background. It used to be darkened, which
+  made it darker than normal text on light themes.
+- `TerminalView` defaults that change how a terminal looks. To get the earlier look back:
+  - set `UnfocusedCursorStyle="Same"` to stop drawing a hollow cursor while the view does not have focus;
+  - set `CursorBlink="Never"` and `TextBlink="False"` to stop blinking;
+  - set `CustomGlyphs="False"` to take box drawing and block characters from the font again.
+- `TerminalView`'s default `FontFamily` starts with Geist Mono (`fonts:GeistMono#Geist Mono`), Arc's code font, when the
+  app registers it with `WithArcFonts()` or `UseArcFonts()`; otherwise it is the same list as before
+  ([#150](https://github.com/AIDotNet/TKCode.Arc/issues/150)). Set `FontFamily` to keep the old look.
+- `ArcPdfNative.Use()` no longer waits for PDFium to start while it holds its lock. A second caller waits for the same
+  start, and the three native packages share one way of finding their library under `runtimes/<rid>/native`
+  ([#149](https://github.com/AIDotNet/TKCode.Arc/issues/149)).
+- **Dependencies** ([#147](https://github.com/AIDotNet/TKCode.Arc/issues/147)): `TKCode.Arc.Special` no longer depends
+  on `TKCode.Arc.Markdown` or `TKCode.Arc.Highlighting`, and `TKCode.Arc.Blocks` no longer depends on
+  `TKCode.Arc.Highlighting`. An app that uses Special no longer carries StreamMark, Markdig or TextMate; one that uses
+  Blocks no longer carries TextMate. The Special components that show code (AskYourData, CodeSuggestion, DesignToCode,
+  InstallSnippet) and the AI and support blocks color it through the same highlighter as `CodeBlock`, which
+  `UseArcHighlighting()` installs. **To keep colored code**, add `TKCode.Arc.Highlighting` and call
+  `UseArcHighlighting()` in `UseArc(...)`: `UseArcSpecial()` and `UseArcBlocks()` no longer enable it, and without it
+  that code is plain text. `UseArcBlocks()` still enables `UseArcMarkdown()`.
+
+## 1.1.1 (2026-11-17)
+
+The stable release of everything shipped in `1.1.1-preview.1` to `1.1.1-preview.5`, plus one change that ships here
+for the first time: Markdown and code highlighting leave the main package
+([#132](https://github.com/AIDotNet/TKCode.Arc/issues/132), ADR 0050). `TKCode.Arc` no longer depends on StreamMark,
+Markdig, TextMateSharp, its grammars or the native Oniguruma library, which made up about 8.5 MiB of a trimmed app that
+used none of them. **This is a breaking change inside 1.x**, made on purpose (see Upgrading from 1.1.0); apart from it
+nothing is removed, and the members that no longer apply stay as `[Obsolete]` (see Deprecated). The previews also bring
+`MonthCalendar`, `SlideToConfirm`, `WindowRange` and `CursorTrailDraw`, left-hand field labels, a long-press edit menu
+for Arc Mobile text fields, `TerminalView` on iOS and Android, and rebuilt `KeycapKeyboard`, `PrizeWheel`,
+`BranchGraph`, `SandText`, `SplitBar` and `TocProgress`. Install it without `--prerelease`. The notes of each preview,
+with every detail and issue link, follow below.
+
+### Upgrading from 1.1.0
+
+- **Markdown and highlighting (breaking)**: `Markdown`, `MarkdownHighlightPlugin`, `ChatThread` and `ChatComposer` (and
+  their tokens) moved to the new `TKCode.Arc.Markdown` assembly. Their names, the `TKCode.Arc` namespace, the `arc:` XAML
+  namespace, properties, events and token names are unchanged, but code built against an earlier `TKCode.Arc` has to be
+  rebuilt. Without `UseArcHighlighting()`, `CodeBlock`, the `RichTextEditor` code blocks and Markdown's fenced code show
+  plain text.
+  - An app that uses `Markdown`, `ChatThread` or `ChatComposer`: add `TKCode.Arc.Markdown` and call `UseArcMarkdown()`.
+  - An app that wants colored code in `CodeBlock`, the rich text editor or Markdown: add `TKCode.Arc.Highlighting` and
+    call `UseArcHighlighting()`.
+  - An app that uses `TKCode.Arc.Blocks`, `TKCode.Arc.Special` or `TKCode.Arc.A2UI` needs no change: these packages
+    depend on both new packages, and `UseArcBlocks()`, `UseArcSpecial()` and `UseArcA2UI()` enable them.
+
+  ```csharp
+  AppBuilder.Configure<App>()
+      .UsePlatformDetect()
+      .UseArc(arc => arc.UseArcControls()
+                        .UseArcMarkdown()        // Markdown, ChatThread, ChatComposer
+                        .UseArcHighlighting());  // colored code
+  ```
+
+- **Packages**: `TKCode.Arc.Markdown` and `TKCode.Arc.Highlighting` are new on NuGet. All packages
+  are still released on one version; keep them on the same one.
+- **Blocks catalog**: the groups follow uiarc.dev's. There is a new Agents group, and the whole-page blocks moved to the
+  Screens groups (`BlockCatalog.ScreenGroups`), so code that filters `BlockCatalog.Blocks` by a group code may need the
+  new codes. Class names, namespaces and packages are unchanged.
+- **Look and behavior changes you may notice**: `KeycapKeyboard` is a typing board with a text area (`ShowsText="False"`
+  hides it); `PrizeWheel` shows a reward panel (`IsPanelVisible="False"` for the wheel alone) and spins by flick or hold
+  instead of a click on its face; `BranchGraph` is a merge strategy preview; `SandText` is a falling-sand headline that
+  fills its width; `SplitBar` and `TocProgress` follow their Arc designs (`TocProgress` shows the minutes left;
+  `ShowsTimeLeft="False"` brings the percentage back).
+- **Arc Mobile languages**: `TKCode.Arc.Mobile` now has a language catalog (`TextEditMenuLangResourceKind`, en-US, zh-CN,
+  zh-TW). An app that enables `UseArcMobile()` and lists another language in `UseLanguages` gets the startup error that
+  lists missing text; keep to those three languages until the package ships that language.
+- **Deprecated members** keep working; move to the new names when convenient (see Deprecated).
+
+### Added
+
+- **`TKCode.Arc.Markdown`** (new package): `Markdown`, `MarkdownHighlightPlugin`, `ChatThread` and `ChatComposer`, moved
+  here from `TKCode.Arc` with their tokens and themes. Register with `UseArcMarkdown()`. It depends on StreamMark, not
+  on TextMate.
+- **`TKCode.Arc.Highlighting`** (new package): the TextMate highlighting of `CodeBlock`, the `RichTextEditor` code
+  blocks and Markdown's fenced code, in Arc's role palette as before. Register with `UseArcHighlighting()`. The MSBuild
+  property `ArcHighlightLanguages` keeps only the grammars a trimmed publish lists, for example
+  `<ArcHighlightLanguages>csharp;json;xml</ArcHighlightLanguages>`; an unknown name warns (ARCH001). With `csharp;json`
+  the grammars assembly goes from 6.7 MB to 0.7 MB. It applies wherever ILLink trims (PublishTrimmed, WebAssembly), not
+  to Native AOT.
+- **`TKCode.Arc`**: `LabelPlacement` and `LabelWidth` on the standalone fields, and the inherited attached properties
+  `Field.LabelPlacement` / `Field.LabelWidth`, put the label in a column left of the frame
+  ([#131](https://github.com/AIDotNet/TKCode.Arc/issues/131)); `UnavailableCaptionButtons="Hide"` on `ArcWindow`,
+  `TitleBar` and `WindowCaptionButtons` hides the caption buttons a window cannot use
+  ([#130](https://github.com/AIDotNet/TKCode.Arc/issues/130)), and `TitleBar` gains `ShowMinimizeButton`,
+  `ShowMaximizeButton` and `ShowCloseButton`; `UserMenu.StatusLabel`, `ThemeLabel`, `SignOutLabel` and `SigningOutLabel`;
+  `ColorPicker.TriggerChipPart`, `TriggerNamePart` and `TriggerHexPart`.
+- **`TKCode.Arc.Blocks`**: `MonthCalendar` (Screens › Calendars), a calendar app screen around a month;
+  `BlockCatalog.ScreenGroups` and the `Agents` group.
+- **`TKCode.Arc.Special`**: `SlideToConfirm` (Loaders), a slider you drag to the end to confirm an action; `WindowRange`
+  (Sliders), a movable window over a live area chart; `CursorTrailDraw` (Cursor), a sketching whiteboard; the new members
+  of the rebuilt `KeycapKeyboard`, `PrizeWheel`, `BranchGraph`, `SandText`, `SplitBar` and `TocProgress`.
+- **`TKCode.Arc.Mobile`**: `TextEditMenu`, the long-press edit menu (Cut, Copy, Paste, Select All) of `TextField`,
+  `Searchbar` and any `TextBox` ([#137](https://github.com/AIDotNet/TKCode.Arc/issues/137)).
+- **`TKCode.Arc.Terminal`**: libghostty-vt for Android (arm64, x64, arm; API 29 and later) and iOS, so `TerminalView`
+  runs on phones, with or without NativeAOT ([#136](https://github.com/AIDotNet/TKCode.Arc/issues/136)).
+- **Gallery** ([AIDotNet/ArcGallery](https://github.com/AIDotNet/ArcGallery)): docs and demos for every new component in
+  English, 简体中文 and 繁體中文.
+
+### Changed
+
+- **Breaking:** `Markdown`, `MarkdownToken`, `MarkdownHighlightPlugin`, `ChatThread`, `ChatThreadToken`,
+  `ChatComposer` and `ChatComposerToken` are in the `TKCode.Arc.Markdown` assembly, and highlighting needs
+  `TKCode.Arc.Highlighting` (see Upgrading from 1.1.0). A highlighter that is enabled after a `CodeBlock` was created
+  colors it on its next change.
+- `TKCode.Arc.Blocks`, `TKCode.Arc.Special` and `TKCode.Arc.A2UI` depend on both new packages, so they look and behave
+  as before.
+- `KeycapKeyboard`, `PrizeWheel`, `BranchGraph`, `SandText`, `SplitBar` and `TocProgress` were rebuilt after their Arc
+  designs; the Blocks catalog groups and source folders follow uiarc.dev's sidebar (details in `1.1.1-preview.1`).
+
+### Fixed
+
+- `TextField` and `Searchbar` (`TKCode.Arc.Mobile`) had no long-press menu, so on a phone there was no way to paste
+  into them ([#137](https://github.com/AIDotNet/TKCode.Arc/issues/137)).
+- `TerminalView` on Android: the default font list falls through to monospace, and the cell metrics follow the screen's
+  scaling ([#136](https://github.com/AIDotNet/TKCode.Arc/issues/136)).
+- `DataGrid`: the filter row's gutter follows a light/dark switch at run time
+  ([#135](https://github.com/AIDotNet/TKCode.Arc/issues/135)).
+- `ExpandableCard` no longer cuts its shadow off at the card's edge
+  ([#129](https://github.com/AIDotNet/TKCode.Arc/issues/129)).
+- `UserMenu` follows the app's language ([#123](https://github.com/AIDotNet/TKCode.Arc/issues/123)).
+- `ColorPicker`: an empty label no longer reserves a blank line, and the morphing header folds back onto the actual
+  trigger.
+- Video on Android (`TKCode.Arc.Video.Native`): a Java exception from the platform puts the player in `Failed` instead of
+  closing the app.
+- Charts: a `LineChart` narrower than its tooltip no longer throws; `DonutChart` and `BarChart` in a `Card` no longer
+  clip their large numbers.
+
+### Deprecated
+
+Nothing is removed. Each of these keeps working, is marked `[Obsolete]` and stays for at least two stable releases; it can
+only be deleted in a new major version.
+
+- **`SandText.Trigger`**: use `IsDigEnabled`.
+- **`SandText.Drift`, `Duration`, `Distance` and `MaxGrains`**: no longer change anything; use `DigRadius` and
+  `GrainSize`.
+- **`BranchGraph.IsNewestFirst`**: no longer has an effect, the newest commit is always on top. Remove it.
+- **`BranchGraphLabels.Ready`, `Drawing`, `Paused`, `Done`, `Speed`, `ReadyCaption`, `FirstCaption`, `CommitCaption`,
+  `BranchCaption`, `MergeCaption`, `TagCaption` and `DoneCaption`**: no longer shown; use `BeforeSummary`,
+  `MergeSummary`, `RebaseSummary` and `SquashSummary`.
+
+### Known limitations
+
+- `TKCode.Arc.Mobile.iOS` (the iOS edit actions for Avalonia text boxes) is not on NuGet yet, because CI does not pack
+  iOS projects; reference the project for now.
+
+## 1.1.1-preview.5 (2026-11-16)
+
+Mobile text fields get a long-press edit menu: `TextField` and `Searchbar` (`TKCode.Arc.Mobile`) now offer Cut, Copy,
+Paste and Select All, so text can be pasted on a phone ([#137](https://github.com/AIDotNet/TKCode.Arc/issues/137)).
+`TKCode.Arc.Terminal` now runs on iOS and Android ([#136](https://github.com/AIDotNet/TKCode.Arc/issues/136)). Nothing is
+removed and the API of existing members is unchanged. Install it with `--version 1.1.1-preview.5` (or `--prerelease`).
+
+### Added
+
+- `TextEditMenu` (`TKCode.Arc.Mobile`): the long-press edit menu of a text field, a row of Cut, Copy, Paste and Select
+  All above the text ([#137](https://github.com/AIDotNet/TKCode.Arc/issues/137)). It derives from Avalonia's
+  `PopupFlyoutBase`, so set it as the `ContextFlyout` of any `TextBox` to give it the menu. It shows only the actions
+  that apply (no Cut or Copy without a selection or in a password box, no Cut or Paste when read only, no Select All
+  once all is selected), opens without taking focus so the soft keyboard stays up, and closes on a tap outside, on
+  typing and when the field loses focus. Its text comes from the new `TextEditMenuLangResourceKind` catalog (en-US,
+  zh-CN, zh-TW), and its geometry from `TextEditMenuToken`. `TextEditMenu.Platform` (an `ITextEditMenuPlatform`) lets a
+  platform package show the system's own edit menu in its place.
+- `TKCode.Arc.Terminal` carries libghostty-vt for Android (arm64, x64, arm; API 29 and later) and iOS (a dynamic
+  `ghostty-vt.xcframework` for devices and the simulator), so `TerminalView` runs on phones, with or without NativeAOT
+  ([#136](https://github.com/AIDotNet/TKCode.Arc/issues/136)). No build targets are needed: NuGet picks
+  `runtimes/android-*` for the Android RIDs, and the iOS SDK embeds the xcframework from the package.
+- `TKCode.Arc.Mobile.iOS` (new project, `net10.0-ios` and `net11.0-ios`; not on NuGet in this preview, because CI does
+  not pack iOS projects yet: reference the project for now): the iOS edit actions for Avalonia text boxes
+  ([#137](https://github.com/AIDotNet/TKCode.Arc/issues/137)). Avalonia.iOS 12.1.5 does not implement `cut:`, `copy:`,
+  `paste:` and `selectAll:`, so the keyboard's "Paste from …" suggestion did nothing. Derive the app delegate from
+  `ArcAppDelegate<App>` (in place of `AvaloniaAppDelegate<App>`) and those actions reach the focused `TextBox`, the
+  suggestion pastes, and on iOS 16 and later a long press on a `TextField` opens the system edit menu above the text.
+  Paste reads the pasteboard inside the system's paste action, so iOS does not ask "Allow Paste?". An app that keeps
+  its own delegate base forwards to `ArcIosTextEditing`. Android needs no package: Avalonia.Android already handles the
+  keyboard's paste, and the Arc menu shows there.
+
+### Fixed
+
+- `TextField` and `Searchbar` (`TKCode.Arc.Mobile`) had no long-press menu, so on a phone there was no way to paste
+  into them ([#137](https://github.com/AIDotNet/TKCode.Arc/issues/137)). Avalonia's `TextBox` shows its `ContextFlyout`
+  on a long press and from the selection handles, but the theme set none. It now sets a `TextEditMenu`; a long press
+  opens it above the field at the finger, also in a field nobody has typed in yet. A `ContextFlyout` or `ContextMenu`
+  you set on the field still replaces it.
+- `TerminalView` on Android: an unknown font family resolved to Roboto instead of a miss, so the default family list
+  stopped at "Menlo"; a substituted face now counts as a miss and the list falls through to monospace. Cell metrics are
+  recomputed on attach and when the scaling changes (phones report it after the first measure, which left the grid at
+  1x) ([#136](https://github.com/AIDotNet/TKCode.Arc/issues/136)).
+
+### Migration
+
+- `TKCode.Arc.Mobile` now has a language catalog, `TextEditMenuLangResourceKind`, with en-US, zh-CN and zh-TW text. An
+  app that enables `UseArcMobile()` and lists another language in `UseLanguages` gets the startup error that lists
+  missing text, as it already does with the catalogs of the other Arc packages; keep to those three languages until the
+  package ships that language.
+
+## 1.1.1-preview.4 (2026-11-16)
+
+Standalone Arc fields can put their label on the left: `LabelPlacement="Left"` and `LabelWidth` on the field, or
+`arc:Field.LabelPlacement` / `arc:Field.LabelWidth` on a container ([#131](https://github.com/AIDotNet/TKCode.Arc/issues/131)).
+Nothing is removed and the default (label on top) is unchanged. Install it with `--version 1.1.1-preview.4` (or `--prerelease`).
+
+### Added
+
+- `Field.LabelPlacement` and `Field.LabelWidth` (`TKCode.Arc`): inherited attached properties, also exposed as
+  `LabelPlacement` / `LabelWidth` on `Field`, `Input`, `Textarea`, `PasswordField`, `PasswordStrength`, `SearchField`,
+  `NumberField`, `MoneyInput`, `PhoneInput`, the pickers (`DatePicker`, `DateRangePicker`, `TimePicker`), `TagInput`,
+  `Select`, `Combobox`, `MultiSelect`, `TreeSelect`, `Cascader` and `MorphSelect` ([#131](https://github.com/AIDotNet/TKCode.Arc/issues/131)).
+  With `Left`, the label sits in a column left of the frame, vertically centred on the frame height of the field's `Size`
+  (36, 44 or 50 px), and the description and error rows stay under the frame. `LabelWidth` fixes the column; `NaN`
+  (the default) gives every field under the element that sets the placement (or the width, or `Grid.IsSharedSizeScope`)
+  one column as wide as its widest label, capped at 240 px (`Form`'s `AutoLabelMaxWidth`), after which labels wrap.
+  A field inside a `FormItem` keeps leaving its label to the item, and `FormItem` now also follows an inherited
+  `Field.LabelPlacement="Left"`. A field inside another control's template ignores an inherited value, and the
+  `ColorPicker` keeps its label on top.
+
+## 1.1.1-preview.3 (2026-11-16)
+
+A fix for `DataGrid` (`TKCode.Arc.AdvancedCharts`): the filter row's gutter now follows a light/dark switch at run time
+([#135](https://github.com/AIDotNet/TKCode.Arc/issues/135)). Nothing is added or removed and the API is unchanged.
+Install it with `--version 1.1.1-preview.3` (or `--prerelease`).
+
+### Fixed
+
+- `DataGrid`: the gutter cell of the filter row (below the select-all box, where the clear-filters button sits) kept the
+  previous theme's surface after a light/dark switch at run time while no filter was active ([#135](https://github.com/AIDotNet/TKCode.Arc/issues/135)).
+  The gutter paints its own background, and with the clear button hidden nothing asked it to repaint. A palette change
+  now repaints it, and the header, filter and totals rows repaint their own surface as well.
+
+## 1.1.1-preview.2 (2026-11-15)
+
+New component: `SlideToConfirm` (`TKCode.Arc.Special`, Special › Loaders), a slider you drag to the end to confirm an action.
+`ArcWindow`, `TitleBar` and `WindowCaptionButtons` can hide the caption buttons a window cannot use with
+`UnavailableCaptionButtons="Hide"` ([#130](https://github.com/AIDotNet/TKCode.Arc/issues/130)), and `ExpandableCard` no longer
+cuts its shadow off at the card's edge ([#129](https://github.com/AIDotNet/TKCode.Arc/issues/129)). Nothing is removed and
+the default behavior of existing controls is unchanged. Install it with `--version 1.1.1-preview.2` (or `--prerelease`).
+
+### Added
+
+- `SlideToConfirm` (TKCode.Arc.Special, gallery: Special › Loaders): a slider you drag to the end to confirm an action.
+  A liquid fill trails the thumb and necks down when the thumb pulls ahead, the track swells around the pressed thumb,
+  an early release springs back, and a confirm draws the track into the thumb, shows a spinner while `ConfirmAction`
+  runs and turns the arrow into a check. `Label`, `PendingLabel`, `ConfirmedLabel`, `ErrorLabel`, `ConfirmAction`,
+  `Threshold` (0.9), `ResetAfter`, `IsHintEnabled`, `AccentBrush`, read-only `State` (`SlideToConfirmState`) and
+  `Progress`; events `Confirmed` and `StateChanged` (`SlideToConfirmStateChangedEventArgs`); `Confirm()` and `Reset()`.
+  Arrow, Page, Home and End keys move the thumb, holding Space or Enter glides it to the end. The track is 56 px tall
+  below 360 px of width and 64 px from there.
+- `UnavailableCaptionButtons` (`UnavailableCaptionButtonMode`: `Disable`, `Hide`) on `ArcWindow`, `TitleBar` and
+  `WindowCaptionButtons` (issue #130): `Hide` hides minimize while `CanMinimize` is false and maximize while `CanResize`
+  or `CanMaximize` is false, instead of disabling them. `Disable` (the default) keeps today's behavior. The property is
+  inherited, so `UnavailableCaptionButtons="Hide"` on the window reaches its title bar; the macOS traffic lights stay
+  the system's. `TitleBar` also gains `ShowMinimizeButton`, `ShowMaximizeButton` and `ShowCloseButton`.
+
+### Fixed
+
+- `ExpandableCard` no longer cuts its shadow off at the card's edge ([#129](https://github.com/AIDotNet/TKCode.Arc/issues/129)): the clip that keeps the header and details
+  inside the rounded corners sat on the border that draws the shadow, which left straight vertical edges beside the
+  corners. The clip now sits on an inner border.
 
 ## 1.1.1-preview.1 (2026-11-14)
 
