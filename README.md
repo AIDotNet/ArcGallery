@@ -49,7 +49,8 @@ Windows x64, Linux x64 and both macOS architectures publish with Native AOT. Ext
 native libraries beside the executable. The macOS DMG is signed and notarized; see `tools/macos/README.md` for the signing setup.
 The Android workflow publishes an arm64 APK with .NET for Android's experimental Native AOT runtime. Release publishes of both
 browser apps compile the managed assemblies to WebAssembly and retain the IL needed by the interpreter fallback. Pass
-`-p:ArcAot=false` to publish without AOT, or `--build-arg ARC_WASM_AOT=false` when building a Docker image.
+`-p:ArcAot=false` to publish without AOT. The Gallery Docker image uses the interpreter by default. To enable AOT for that image,
+select `wasm_aot` when running the **Docker gallery** workflow manually or pass `--build-arg ARC_WASM_AOT=true` to Docker.
 
 Tag a release with the same `v*` version as TKCode.Arc so the workflows build against the matching library tag. Existing release
 downloads are unchanged until rebuilt.

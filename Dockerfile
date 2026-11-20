@@ -9,7 +9,6 @@ ARG RUNTIME_BASE=alpine:3.21
 ARG NGINX_VERSION=1.26.3
 
 FROM ${BUILDER_IMAGE} AS build
-ARG ARC_WASM_AOT=true
 # python3 is needed by WasmBuildNative (Emscripten); brotli and gzip compress the output below.
 RUN apt-get update \
     && apt-get install -y --no-install-recommends python3 brotli gzip \
@@ -32,7 +31,8 @@ COPY . .
 ENV ARC_ROOT=/src/arc/
 # pdf.js is not committed: the viewer's renderer in a browser, fetched here with its checksum checked (TKCode.Arc.Pdf.Browser).
 RUN bash arc/tools/pdf/sync-pdfjs.sh
-# Compile the trimmed app to WebAssembly ahead of time. ARC_WASM_AOT=false uses the interpreter.
+# The image uses a trimmed, interpreted publish by default. Opt in to WebAssembly AOT with ARC_WASM_AOT=true.
+ARG ARC_WASM_AOT=false
 RUN dotnet publish gallery/TKCode.Arc.Gallery.Browser/TKCode.Arc.Gallery.Browser.csproj \
         -c Release -p:ArcAot=${ARC_WASM_AOT} -o /app
 # The files for AI assistants next to the app: llms.txt, llms-full.txt, every docs page as Markdown (English, zh-CN, zh-TW)

@@ -13,6 +13,10 @@ on:
         description: TKCode.Arc branch, tag or commit to build against (empty = main)
         type: string
         default: ""
+      wasm_aot:
+        description: Enable WebAssembly AOT for the Gallery image
+        type: boolean
+        default: false
 
 concurrency:
   group: docker-gallery-${{ github.ref }}
@@ -65,6 +69,8 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
+          build-args: |
+            ARC_WASM_AOT=${{ inputs.wasm_aot && 'true' || 'false' }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
