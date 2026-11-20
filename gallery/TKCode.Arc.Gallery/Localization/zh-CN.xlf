@@ -1419,8 +1419,8 @@
     </unit>
     <unit id="StreamMarkPoint1">
       <segment>
-        <source>Stable blocks are parsed once; only the tail is parsed again</source>
-        <target state="translated">已稳定的块只解析一次，只重解析末尾</target>
+        <source>Reuses completed blocks, list items and table rows as text arrives</source>
+        <target state="translated">文字到达时复用已完成的区块、列表项和表格行</target>
       </segment>
     </unit>
     <unit id="StreamMarkPoint2">
@@ -1491,8 +1491,8 @@
     </unit>
     <unit id="StreamReplyBody">
       <segment>
-        <source>**Streaming** keeps the document stable while text arrives: finished blocks are never parsed again, only the last one grows.</source>
-        <target state="translated">**流式渲染**让文档在文字到来时保持稳定：写完的块不再解析，只有最后一块在增长。</target>
+        <source>**Streaming** keeps the document stable as text arrives. The parser commits complete lines and reuses finished blocks, list items and table rows.</source>
+        <target state="translated">**流式渲染**在文字陆续到达时保持文档稳定。解析器确认每个完整行后，会复用已完成的区块、列表项和表格行。</target>
       </segment>
     </unit>
     <unit id="StreamReplyTableStep">
@@ -1521,8 +1521,8 @@
     </unit>
     <unit id="StreamReplyOutro">
       <segment>
-        <source>Selection works across messages, and a long transcript stays [virtualized](https://github.com/AtomUICommunity/StreamMark).</source>
-        <target state="translated">选择可以跨消息，长对话也保持[虚拟化](https://github.com/AtomUICommunity/StreamMark)。</target>
+        <source>Selection works across messages, and a long transcript stays [virtualized](https://github.com/AIDotNet/TKCode.Arc/tree/main/docs/streammark).</source>
+        <target state="translated">选择可以跨消息，长对话也保持[虚拟化](https://github.com/AIDotNet/TKCode.Arc/tree/main/docs/streammark)。</target>
       </segment>
     </unit>
     <unit id="HomeAtlasFilter">
@@ -1761,8 +1761,8 @@
     </unit>
     <unit id="StreamMarkBadge">
       <segment>
-        <source>TKCode.StreamMark · {0}</source>
-        <target state="translated">TKCode.StreamMark · {0}</target>
+        <source>Part of TKCode.Arc · {0}</source>
+        <target state="translated">随 TKCode.Arc 发布 · {0}</target>
       </segment>
     </unit>
     <unit id="StreamMarkTitle">
@@ -1773,8 +1773,8 @@
     </unit>
     <unit id="StreamMarkSubtitle">
       <segment>
-        <source>High-performance streaming Markdown for Avalonia, built for AI chat clients. Native, with no WebView, and safe for NativeAOT.</source>
-        <target state="translated">面向 Avalonia 的高性能流式 Markdown，专为 AI 对话客户端打造。原生绘制，不用 WebView，支持 NativeAOT。</target>
+        <source>StreamMark ships with TKCode.Arc. It parses AI replies incrementally and draws Markdown directly in Avalonia without a WebView.</source>
+        <target state="translated">StreamMark 随 TKCode.Arc 发布。它增量解析 AI 回复，直接用 Avalonia 绘制 Markdown，无需 WebView。</target>
       </segment>
     </unit>
     <unit id="StreamMarkGitHub">
@@ -1809,8 +1809,8 @@
     </unit>
     <unit id="StreamMarkFeatureStreamingText">
       <segment>
-        <source>Stable blocks are frozen and parsed once; only the tail is parsed again. Unfinished bold, code and links are healed as they arrive.</source>
-        <target state="translated">稳定的块被冻结，只解析一次，只重解析末尾。未写完的粗体、代码和链接会在到来时自动补全。</target>
+        <source>The incremental parser reuses completed blocks and only rolls back the last partial line. Unfinished bold text, code and links render as they arrive.</source>
+        <target state="translated">增量解析器复用已完成的区块，只回退末尾尚未完整的一行。未闭合的粗体、代码和链接也会随文字到达而显示。</target>
       </segment>
     </unit>
     <unit id="StreamMarkFeatureNative">
@@ -1855,16 +1855,10 @@
         <target state="translated">安装包</target>
       </segment>
     </unit>
-    <unit id="StreamMarkPackageCore">
+    <unit id="StreamMarkPackageRenderer">
       <segment>
-        <source>The streaming engine, with no UI dependency</source>
-        <target state="translated">流式引擎，不依赖 UI</target>
-      </segment>
-    </unit>
-    <unit id="StreamMarkPackageAvalonia">
-      <segment>
-        <source>Avalonia controls and the default theme</source>
-        <target state="translated">Avalonia 控件和默认主题</target>
+        <source>The incremental Markdown parser, Avalonia controls and default theme</source>
+        <target state="translated">增量 Markdown 解析器、Avalonia 控件和默认主题</target>
       </segment>
     </unit>
     <unit id="StreamMarkPackageTextMate">

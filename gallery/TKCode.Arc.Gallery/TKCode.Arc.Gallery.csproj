@@ -9,6 +9,7 @@
     <ItemGroup>
         <ProjectReference Include="$(ArcRoot)src/TKCode.Arc/TKCode.Arc.csproj" />
         <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Markdown/TKCode.Arc.Markdown.csproj" />
+        <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.StreamMark/TKCode.Arc.StreamMark.csproj" />
         <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Highlighting/TKCode.Arc.Highlighting.csproj" />
         <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Blocks/TKCode.Arc.Blocks.csproj" />
         <ProjectReference Include="$(ArcRoot)src/TKCode.Arc.Mobile/TKCode.Arc.Mobile.csproj" />
@@ -30,6 +31,15 @@
                           ReferenceOutputAssembly="false"
                           PrivateAssets="all" />
     </ItemGroup>
+
+    <!-- The StreamMark package ships with Arc. Use the checkout's version on the site and in its install command. -->
+    <Target Name="GenerateGalleryBuildInfo" BeforeTargets="CoreCompile">
+        <WriteLinesToFile File="$(IntermediateOutputPath)GalleryBuildInfo.g.cs" Overwrite="true" WriteOnlyWhenDifferent="true"
+                          Lines="namespace TKCode.Arc.Gallery%3B internal static class GalleryBuildInfo { internal const string ArcVersion = &quot;$(ArcVersion)&quot;%3B }" />
+        <ItemGroup>
+            <Compile Include="$(IntermediateOutputPath)GalleryBuildInfo.g.cs" />
+        </ItemGroup>
+    </Target>
 
     <!-- The brand logo (Shell/GalleryBrand.cs). -->
     <ItemGroup>

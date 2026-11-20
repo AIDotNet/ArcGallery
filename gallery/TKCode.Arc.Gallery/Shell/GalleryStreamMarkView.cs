@@ -10,19 +10,21 @@ namespace TKCode.Arc.Gallery.Shell;
 
 /// <summary>
 /// The StreamMark product page (<c>/streammark</c>): what it is, a reply streaming live, what it does, and its packages.
-/// StreamMark is a product of its own, in its own repository; Arc's <see cref="Markdown"/> control is built on it.
+/// StreamMark ships with Arc, and its rendering engine powers Arc's <see cref="Markdown"/> control.
 /// </summary>
 internal sealed class GalleryStreamMarkView : UserControl
 {
-    public static Uri RepositoryUrl { get; } = new("https://github.com/AtomUICommunity/StreamMark");
+    private const string PackageName = "TKCode.Arc.StreamMark";
+
+    public const string InstallCommand = $"dotnet add package {PackageName} --version {GalleryBuildInfo.ArcVersion}";
+    public static Uri RepositoryUrl { get; } = new("https://github.com/AIDotNet/TKCode.Arc/tree/main/docs/streammark");
 
     private static readonly (string Package, GalleryShellLangResourceKind Text)[] s_packages =
     [
-        ("TKCode.StreamMark.Avalonia", GalleryShellLangResourceKind.StreamMarkPackageAvalonia),
-        ("TKCode.StreamMark.Core", GalleryShellLangResourceKind.StreamMarkPackageCore),
-        ("TKCode.StreamMark.Highlighting.TextMate", GalleryShellLangResourceKind.StreamMarkPackageTextMate),
-        ("TKCode.StreamMark.RaTeX", GalleryShellLangResourceKind.StreamMarkPackageRaTeX),
-        ("TKCode.StreamMark.Mermaid", GalleryShellLangResourceKind.StreamMarkPackageMermaid)
+        (PackageName, GalleryShellLangResourceKind.StreamMarkPackageRenderer),
+        (PackageName + ".TextMate", GalleryShellLangResourceKind.StreamMarkPackageTextMate),
+        (PackageName + ".RaTeX", GalleryShellLangResourceKind.StreamMarkPackageRaTeX),
+        (PackageName + ".Mermaid", GalleryShellLangResourceKind.StreamMarkPackageMermaid)
     ];
 
     private static readonly (Geometry Glyph, GalleryShellLangResourceKind Title, GalleryShellLangResourceKind Text)[] s_features =
@@ -59,14 +61,14 @@ internal sealed class GalleryStreamMarkView : UserControl
     private Control BuildHero(GalleryShell shell)
     {
         var badge = new Badge { Tone = BadgeTone.Info, HorizontalAlignment = HorizontalAlignment.Left };
-        GalleryText.BindFormat(badge, ContentControl.ContentProperty, GalleryShellLangResourceKind.StreamMarkBadge, GallerySite.StreamMarkVersion);
+        GalleryText.BindFormat(badge, ContentControl.ContentProperty, GalleryShellLangResourceKind.StreamMarkBadge, GalleryBuildInfo.ArcVersion);
         var title = GallerySite.Reveal(GalleryShellLangResourceKind.StreamMarkTitle, TextLevel.H1);
         var subtitle = GallerySite.Text(GalleryShellLangResourceKind.StreamMarkSubtitle, ArcDesignTokenKind.TextSecondary, 17);
         var content = new StackPanel { Spacing = 18, MaxWidth = 760, HorizontalAlignment = HorizontalAlignment.Left };
         content.Children.Add(badge);
         content.Children.Add(title);
         content.Children.Add(subtitle);
-        content.Children.Add(GallerySite.Install("dotnet add package TKCode.StreamMark.Avalonia"));
+        content.Children.Add(GallerySite.Install(InstallCommand));
         content.Children.Add(GallerySite.Actions(
             GallerySite.Action(GalleryShellLangResourceKind.StreamMarkGitHub, ButtonVariant.Primary, () => GallerySite.Open(this, RepositoryUrl), ArcIcons.ArrowUpRight),
             GallerySite.Action(GalleryShellLangResourceKind.StreamMarkInArc, ButtonVariant.Secondary,

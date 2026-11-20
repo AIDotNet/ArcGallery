@@ -11,10 +11,6 @@ on:
     paths: ["a2ui/**", ".github/workflows/docker-a2ui.yml"]
   workflow_dispatch:
     inputs:
-      streammark_version:
-        description: StreamMark version to build against (empty = the version pinned in TKCode.Arc's Directory.Packages.props)
-        type: string
-        default: ""
       arc_ref:
         description: TKCode.Arc branch, tag or commit to build against (empty = main)
         type: string
@@ -74,8 +70,6 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          build-args: |
-            STREAMMARK_VERSION=${{ inputs.streammark_version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 

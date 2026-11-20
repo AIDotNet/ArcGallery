@@ -9,8 +9,6 @@ ARG RUNTIME_BASE=alpine:3.21
 ARG NGINX_VERSION=1.26.3
 
 FROM ${BUILDER_IMAGE} AS build
-# Passed to the publish when set; empty keeps the version pinned in arc/Directory.Packages.props.
-ARG STREAMMARK_VERSION=
 ARG ARC_WASM_AOT=true
 # python3 is needed by WasmBuildNative (Emscripten); brotli and gzip compress the output below.
 RUN apt-get update \
@@ -36,8 +34,7 @@ ENV ARC_ROOT=/src/arc/
 RUN bash arc/tools/pdf/sync-pdfjs.sh
 # Compile the trimmed app to WebAssembly ahead of time. ARC_WASM_AOT=false uses the interpreter.
 RUN dotnet publish gallery/TKCode.Arc.Gallery.Browser/TKCode.Arc.Gallery.Browser.csproj \
-        -c Release -p:ArcAot=${ARC_WASM_AOT} -o /app \
-        ${STREAMMARK_VERSION:+-p:StreamMarkVersion=${STREAMMARK_VERSION}}
+        -c Release -p:ArcAot=${ARC_WASM_AOT} -o /app
 # The files for AI assistants next to the app: llms.txt, llms-full.txt, every docs page as Markdown (English, zh-CN, zh-TW)
 # and the agent skill, with links on the site's fixed address (gallery/TKCode.Arc.Gallery.Llms).
 RUN dotnet run --project gallery/TKCode.Arc.Gallery.Llms -c Release -- /app/wwwroot --base-url https://docs.tkcode.si

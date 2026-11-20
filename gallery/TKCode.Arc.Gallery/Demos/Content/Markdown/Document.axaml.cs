@@ -11,8 +11,8 @@ public partial class MarkdownDocumentDemo : UserControl
         Document.Text = """
             # Release notes
 
-            Arc **0.4** brings a `Markdown` control rendered by *StreamMark*. Code is highlighted with TextMate grammars and
-            painted in Arc's own syntax palette, so a fenced block reads like a [CodeBlock](https://uiarc.dev/components/code-block).
+            Arc's `Markdown` control uses *StreamMark*. Its incremental parser reuses completed sections as text arrives.
+            TextMate highlights fenced code in Arc's syntax palette, just like a [CodeBlock](https://uiarc.dev/components/code-block).
 
             ## What changed
 
@@ -21,8 +21,8 @@ public partial class MarkdownDocumentDemo : UserControl
               - Unknown languages stay plain text.
             - Light, dark and the accent switch live.
 
-            1. Add the package.
-            2. Call `UseArcControls()` in `UseArc(...)`.
+            1. Add `TKCode.Arc.Markdown`.
+            2. Call `UseArcMarkdown()` in `UseArc(...)`.
             3. Drop `<arc:Markdown Text="..." />` into a view.
 
             - [x] Static documents
@@ -67,7 +67,7 @@ public partial class MarkdownDocumentDemo : UserControl
             ```
 
             ```bash
-            dotnet add package TKCode.Arc
+            dotnet add package TKCode.Arc.Markdown
             dotnet run --project src/App
             ```
             """;

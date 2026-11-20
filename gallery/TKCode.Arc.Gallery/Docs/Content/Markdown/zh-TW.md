@@ -1,7 +1,7 @@
 ---
 title: Markdown
 summary: 以 Arc 的風格渲染 Markdown 文件與串流回覆，程式碼區塊使用 Arc 的語法配色高亮。
-source-hash: c95c3e1a15c7
+source-hash: b4966dc54b46
 ---
 
 <Demo name="Document" />
@@ -38,9 +38,11 @@ AppBuilder.Configure<App>()
 ```xml
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:arc="https://github.com/AIDotNet/TKCode.Arc">
-    <arc:Markdown Text="## 版本說明&#10;&#10;Arc **0.4** 新增 `Markdown`。" />
+    <arc:Markdown Text="## 版本說明&#10;&#10;匯出頁面新增了**篩選功能**。" />
 </UserControl>
 ```
+
+自 Arc `1.3.0-preview.4` 起，`TKCode.Arc.StreamMark` 渲染器使用自己的增量剖析器，無需 Markdig。`TKCode.Arc.Markdown` 會帶入它，同一種註冊方式適用於靜態文件和串流內容。
 
 `Markdown` 衍生自 Avalonia 的 `TemplatedControl`。它的範本是包裹 StreamMark `MarkdownView` 的外框，解析與版面配置由該檢視完成。Arc 透過該檢視的 `Md.*` 資源提供顏色、字型和圓角，因此文件會跟隨主題範圍、明暗模式和強調色。由於文件是一個檢視而不是文字區塊，它可以像任何文件一樣選取、複製和換行，並隨內容增長。
 
@@ -92,6 +94,8 @@ public sealed partial class ReleaseNotesViewModel : ObservableObject
 ### 串流回覆
 
 每個資料區塊抵達時呼叫 `Append`，回覆結束時呼叫 `Complete`。文字會依節奏顯示，新詞在文件末尾淡入。`IsStreaming` 在節奏化的待顯示內容全部呈現之前保持為 `true`，因此狀態列可以顯示「正在輸出」，直到回覆完全顯示在螢幕上，而不是直到最後一個資料區塊抵達。
+
+回覆增長時，增量剖析器會保留已完成的區塊、清單項目和表格列。連結或註腳的定義即使稍後才抵達，也能在串流結束時完成解析。
 
 <Demo name="StreamedReply" />
 
@@ -169,6 +173,24 @@ markdown.Services = new MarkdownServices
 StreamMark 服務決定文件如何解析以及程式碼區塊如何表現。控制項依以下順序選取服務：自身的 `Services` 屬性，然後是祖先透過 `MarkdownServices.SetServices` 設定的服務，最後是 `Markdown.DefaultServices`。在視窗或頁面上設定服務，可以讓檢視中的每個文件使用相同的外掛。外掛可以改變 Markdown 方言，因此修改服務會重新解析靜態文字。
 
 `Markdown.DefaultServices` 使用 `MarkdownHighlightPlugin` 高亮程式碼，複製程式碼但不提供下載，並把長程式碼區塊摺疊為 12 行。
+
+### 數學公式、圖表和自訂語法
+
+使用 1.3 預覽版時，加入 `TKCode.Arc.StreamMark.RaTeX` 來渲染 LaTeX 公式，加入 `TKCode.Arc.StreamMark.Mermaid` 來渲染 Mermaid 程式碼區塊。請和 `TKCode.Arc.Markdown` 使用相同版本。RaTeX 隨套件提供 Windows、macOS 和 Linux 的原生程式庫。加入外掛時可保留預設外掛和程式碼區塊選項：
+
+```csharp
+using StreamMark.Avalonia.Extensions;
+using StreamMark.Mermaid;
+using StreamMark.RaTeX;
+
+markdown.Services = new MarkdownServices
+{
+    Plugins = [..Markdown.DefaultServices.Plugins, new RaTeXPlugin(), new MermaidPlugin()],
+    CodeBlocks = Markdown.DefaultServices.CodeBlocks,
+};
+```
+
+若要在 `1.3.0-preview.4` 擴充剖析語法，請在外掛的 `Configure` 方法中使用 `builder.Profile.AddBlockRule(...)` 或 `builder.Profile.AddInlineRule(...)` 註冊規則。這兩個方法取代了 Markdig 擴充介面。
 
 ### 範例：支援聊天中的助理回覆
 

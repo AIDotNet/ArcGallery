@@ -1,7 +1,7 @@
 ---
 title: 聊天会话
 summary: 带分组消息、表情回应、已读回执、输入状态以及带附件输入区的聊天会话。
-source-hash: d982eaa97654
+source-hash: 3f98ff86b9d1
 ---
 
 <Demo name="SupportConversation" />
@@ -215,6 +215,8 @@ thread.ReactionToggled += (_, e) =>
 ### 流式输出回复
 
 分段到达的回复先以空文本添加，随着片段到达由 `AppendToMessage` 填充，并由 `CompleteMessage` 关闭。每次调用在没有消息拥有该 id 时返回 `false`，因此已被移除的消息所迟到的片段不会产生任何作用。`IsMessageStreaming` 表示某条回复是否仍处于打开状态。
+
+从 Arc `1.3.0-preview.4` 起，StreamMark 会在片段到达时复用已完成的 Markdown 区块。气泡增长时不必为每个片段启动一次消息行的动画，继续调用 `AppendToMessage` 和 `CompleteMessage` 即可。
 
 <Demo name="StreamingMarkdownReply" />
 

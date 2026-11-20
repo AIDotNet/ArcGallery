@@ -253,6 +253,9 @@ A reply that arrives in pieces is added with no text, filled by `AppendToMessage
 `CompleteMessage`. Each call returns `false` when no message has the id, so a late chunk for a removed message does nothing.
 `IsMessageStreaming` reports whether a reply is open.
 
+From Arc `1.3.0-preview.4`, StreamMark reuses completed Markdown blocks as chunks arrive. The bubble can grow
+without starting a row animation for each chunk. The same `AppendToMessage` and `CompleteMessage` calls still apply.
+
 <Demo name="StreamingMarkdownReply" />
 
 ```csharp

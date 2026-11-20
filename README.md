@@ -4,7 +4,8 @@ The gallery and documentation site of [TKCode.Arc](https://github.com/AIDotNet/T
 Avalonia: live examples for every component and block, the docs pages in English, 简体中文 and 繁體中文, and the desktop and
 WebAssembly hosts that show them. It is published at **[docs.tkcode.si](https://docs.tkcode.si/)**.
 
-The libraries themselves live in TKCode.Arc. This repository builds against a checkout of it.
+The libraries themselves live in TKCode.Arc. This repository builds against a checkout of it, including the StreamMark
+engine that renders the docs and streamed replies.
 
 ## Layout
 
@@ -23,7 +24,8 @@ The libraries themselves live in TKCode.Arc. This repository builds against a ch
 
 ## Building
 
-The .NET 11 SDK (see `global.json`) and the .NET 10 runtime are needed. The libraries come from a TKCode.Arc checkout, found in this order:
+The .NET 11 SDK (see `global.json`) and the .NET 10 runtime are needed. Use TKCode.Arc `v1.3.0-preview.4` or a newer
+checkout with the incremental Markdown parser. The checkout is found in this order:
 
 1. `-p:ArcRoot=<path>` on the command line,
 2. the `ARC_ROOT` environment variable,
@@ -39,6 +41,7 @@ dotnet test tests/TKCode.Arc.Gallery.Tests --filter "FullyQualifiedName~GalleryD
 
 A full run of `TKCode.Arc.Gallery.Tests` takes several minutes; CI runs it. The package versions are TKCode.Arc's
 (`Directory.Packages.props` imports its file), so the two repositories always build with the same dependencies.
+StreamMark ships with Arc; use the `arc_ref` workflow input to select the checkout for both.
 
 ## Releases
 

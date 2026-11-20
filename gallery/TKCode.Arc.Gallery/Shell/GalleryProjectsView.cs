@@ -29,13 +29,18 @@ internal sealed class GalleryProjectsView : UserControl
     public static IReadOnlyList<GalleryProject> Projects { get; } =
     [
         new("StreamMark", GalleryShellLangResourceKind.ProjectKindMarkdown, GalleryShellLangResourceKind.HomeStreamMarkText,
-            GallerySite.StreamMarkVersion, true, "MIT", GalleryStreamMarkView.RepositoryUrl,
+            GalleryBuildInfo.ArcVersion, !GalleryBuildInfo.ArcVersion.Contains('-'), "MIT", GalleryStreamMarkView.RepositoryUrl,
             [GalleryShellLangResourceKind.StreamMarkPoint1, GalleryShellLangResourceKind.StreamMarkPoint2, GalleryShellLangResourceKind.StreamMarkPoint3],
             """
-            markdown.Append(chunk);   // as tokens arrive
-            markdown.Complete();      // when the reply ends
+            using StreamMark.Avalonia;
+            using StreamMark.Avalonia.Extensions;
+
+            var stream = MarkdownServices.Default.CreateStream();
+            var view = new MarkdownView { Stream = stream };
+            stream.Push(chunk);  // as tokens arrive
+            stream.Complete();   // when the reply ends
             """,
-            "dotnet add package TKCode.StreamMark.Avalonia"),
+            GalleryStreamMarkView.InstallCommand),
         new("Jaunt", GalleryShellLangResourceKind.ProjectKindScript, GalleryShellLangResourceKind.ProjectJauntText,
             "0.1.0-alpha.1", false, "MIT", new Uri("https://github.com/AIDotNet/Jaunt"),
             [GalleryShellLangResourceKind.ProjectJauntPoint1, GalleryShellLangResourceKind.ProjectJauntPoint2, GalleryShellLangResourceKind.ProjectJauntPoint3, GalleryShellLangResourceKind.ProjectJauntPoint4],

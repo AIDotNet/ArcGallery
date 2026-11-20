@@ -1,7 +1,7 @@
 ---
 title: 聊天對話
 summary: 帶分組訊息、表情回應、已讀回執、輸入狀態以及附帶附件輸入區的聊天對話。
-source-hash: d982eaa97654
+source-hash: 3f98ff86b9d1
 ---
 
 <Demo name="SupportConversation" />
@@ -215,6 +215,8 @@ thread.ReactionToggled += (_, e) =>
 ### 串流回覆
 
 分段抵達的回覆會先以空文字加入，隨著片段抵達由 `AppendToMessage` 填入，最後由 `CompleteMessage` 關閉。每次呼叫在沒有訊息擁有該 id 時回傳 `false`，因此已被移除之訊息遲到的片段不會產生任何作用。`IsMessageStreaming` 表示某則回覆是否仍處於開啟狀態。
+
+自 Arc `1.3.0-preview.4` 起，StreamMark 會在片段抵達時重複使用已完成的 Markdown 區塊。對話泡泡增長時不必為每個片段啟動一次訊息列的動畫，繼續呼叫 `AppendToMessage` 和 `CompleteMessage` 即可。
 
 <Demo name="StreamingMarkdownReply" />
 

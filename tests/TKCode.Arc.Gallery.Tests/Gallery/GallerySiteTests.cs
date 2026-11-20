@@ -1,4 +1,5 @@
 using System.Text.Json;
+using TKCode.Arc.Gallery;
 using TKCode.Arc.Gallery.Localization;
 using TKCode.Arc.Gallery.Shell;
 using TKCode.Arc.Motion;
@@ -255,6 +256,12 @@ public class GallerySiteTests
         WithShell(GalleryHostKind.Web, 1280, (_, window) =>
         {
             var page = window.GetVisualDescendants().OfType<GalleryStreamMarkView>().Single();
+            var labels = page.GetVisualDescendants().OfType<TextBlock>().Select(label => label.Text).ToArray();
+            labels.ShouldContain("TKCode.Arc.StreamMark");
+            labels.ShouldContain("TKCode.Arc.StreamMark.TextMate");
+            labels.ShouldContain("TKCode.Arc.StreamMark.RaTeX");
+            labels.ShouldContain("TKCode.Arc.StreamMark.Mermaid");
+            labels.ShouldContain($"$ dotnet add package TKCode.Arc.StreamMark --version {GalleryBuildInfo.ArcVersion}");
             page.Stage.Finish();
             page.Stage.Message.Stream.ShouldNotBeNull();
         }, GalleryRoute.StreamMark);

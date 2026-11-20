@@ -10,6 +10,37 @@ between releases. The same list is kept in `CHANGELOG.md` in the repository.
 NuGet packages published with each release: `TKCode.Arc`, `TKCode.Arc.Core`, `TKCode.Arc.Foundation` (from 0.3.2), `TKCode.Arc.Fonts` and
 `TKCode.Arc.Icons.Lucide`, `TKCode.Arc.Blocks`, `TKCode.Arc.AdvancedCharts`, `TKCode.Arc.Special`, `TKCode.Arc.Workflow`, `TKCode.Arc.Dock` (from 0.4.0-preview.2), `TKCode.Arc.Themes.Pixel`, `TKCode.Arc.Themes.Corners`, `TKCode.Arc.Mobile`, `TKCode.Arc.Terminal`, `TKCode.Arc.Audio`, `TKCode.Arc.Audio.Native`, `TKCode.Arc.Audio.Browser`, `TKCode.Arc.Templates` (from 0.4.0-preview.6), `TKCode.Arc.Pdf`, `TKCode.Arc.Pdf.Native` and `TKCode.Arc.Pdf.Browser` (from 1.0.0), `TKCode.Arc.Video`, `TKCode.Arc.Video.Native` and `TKCode.Arc.Video.Browser` (from 1.1.0-preview.1), `TKCode.Arc.Markdown` and `TKCode.Arc.Highlighting` (from 1.1.1), `TKCode.Arc.Ribbon` (from 1.2.0). Also, as previews that follow the main version: `TKCode.Arc.Graphics3D`, `TKCode.Arc.Graphics3D.WebGpu`, `TKCode.Arc.Graphics3D.Controls` and `TKCode.Arc.Graphics3D.Browser` (from 1.2.0-preview.3).
 
+## 1.3.0-preview.4 (2026-11-20)
+
+StreamMark now parses Markdown incrementally without Markdig. It commits completed lines, reuses finished blocks,
+list items and table rows, and resolves late link and footnote definitions without parsing the entire reply again.
+`Markdown` and `ChatThread` keep their existing streaming APIs. This release batches UI updates and reduces work on
+highlighting, layout and bubble resizing during fast streams.
+
+Plugins that used Markdig hooks in `1.3.0-preview.3` can register `IBlockSyntaxRule` and `IInlineSyntaxRule` with
+`MarkdownProfileBuilder.AddBlockRule` and `AddInlineRule`. For a complete document, use `MarkdownParser.Parse`.
+
+## 1.3.0-preview.3 (2026-11-19)
+
+StreamMark moves into the TKCode.Arc repository. Its four packages share the Arc version; the `StreamMark.*`
+C# namespaces stay the same. TextMateSharp and its grammars update to 2.0.5, and Mermaider updates to 0.17.0.
+
+### Migrate existing StreamMark references
+
+Apps using only `TKCode.Arc.Markdown` or `TKCode.Arc.Highlighting` get the new dependencies on upgrade. Replace any
+direct references to the old packages. The packages contain types with the same names, so remove the old references
+before adding the new ones.
+
+| Old package | New package |
+|---|---|
+| `TKCode.StreamMark.Core` and `TKCode.StreamMark.Avalonia` | `TKCode.Arc.StreamMark` |
+| `TKCode.StreamMark.Highlighting.TextMate` | `TKCode.Arc.StreamMark.TextMate` |
+| `TKCode.StreamMark.RaTeX` | `TKCode.Arc.StreamMark.RaTeX` |
+| `TKCode.StreamMark.Mermaid` | `TKCode.Arc.StreamMark.Mermaid` |
+
+If XAML names the assembly, change `assembly=StreamMark.Avalonia` to `assembly=TKCode.Arc.StreamMark`.
+`TKCode.StreamMark.Theme.AtomUI` has no replacement; use `MarkdownResourceAlias` to map the `Md.*` resources to your theme.
+
 ## 1.2.0 (2026-11-19)
 
 The stable release of everything shipped in `1.2.0-preview.1` to `1.2.0-preview.6`, plus two changes that ship here for

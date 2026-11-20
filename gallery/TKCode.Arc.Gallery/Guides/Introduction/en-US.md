@@ -110,6 +110,7 @@ as small, fast-starting single files.
 | `TKCode.Arc` | The components (`UseArcControls()`), including `CodeBlock`. Brings in `TKCode.Arc.Core`. | NuGet |
 | `TKCode.Arc.Markdown` | The streaming `Markdown` control, `ChatThread` and `ChatComposer` (`UseArcMarkdown()`). Brings in StreamMark. | NuGet |
 | `TKCode.Arc.Highlighting` | TextMate syntax highlighting for `CodeBlock`, the rich text editor and Markdown (`UseArcHighlighting()`); without it code is plain. | NuGet |
+| `TKCode.Arc.StreamMark` | Standalone Avalonia Markdown renderer and incremental parser, published with Arc since `1.3.0-preview.3`. | NuGet |
 | `TKCode.Arc.Core` | ArcDesign tokens and palette, the spring motion engine, shared primitives, 187 built-in Lucide glyphs. Brings in `TKCode.Arc.Foundation`. | NuGet |
 | `TKCode.Arc.Foundation` | The theme, token, language and package runtime (`UseArc(...)`, `ArcTheme`, `ArcLanguage`) and its source generator. | NuGet (0.4 and later) |
 | `TKCode.Arc.Fonts` | Geist and Geist Mono (`WithArcFonts()`). | NuGet |
@@ -127,8 +128,9 @@ as small, fast-starting single files.
   other UI framework dependency.
 - **Platforms**: desktop on Windows, macOS and Linux. The gallery also runs in the browser through its WebAssembly
   host.
-- **Rendering of text and code**: Markdown and syntax highlighting use StreamMark, which the `TKCode.Arc.Markdown` and
-  `TKCode.Arc.Highlighting` packages bring in; `TKCode.Arc` itself does not depend on it.
+- **Rendering of text and code**: `TKCode.Arc.Markdown` renders documents and chat messages with StreamMark, and
+  `TKCode.Arc.Highlighting` adds TextMate syntax colors. `TKCode.Arc` itself does not depend on either package.
+  Starting with `1.3.0-preview.4`, StreamMark parses Markdown incrementally without Markdig.
 
 ## Using this gallery
 
@@ -154,7 +156,7 @@ major version, and the **Changelog** lists them with each release. Keep the Arc 
 ## License
 
 TKCode.Arc is released under the MIT license. It ports Arc (MIT) and uses Lucide (ISC), the Geist fonts (OFL),
-StreamMark, TextMateSharp, Oniguruma and Markdig. Every package in the dependency chain, Avalonia included, is under a
+StreamMark, TextMateSharp and Oniguruma. Every package in the dependency chain, Avalonia included, is under a
 permissive license, so closed-source applications can ship Arc in a single file or a NativeAOT build.
 `THIRD-PARTY-NOTICES.md` in the repository lists them all.
 

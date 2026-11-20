@@ -21,9 +21,6 @@ internal static class GallerySite
     /// <summary>Below this width a page uses the phone's spacing.</summary>
     public const double PhoneWidth = 640;
 
-    /// <summary>The package version of TKCode.StreamMark.* (<c>StreamMarkVersion</c> in Directory.Packages.props).</summary>
-    public const string StreamMarkVersion = "0.1.2";
-
     /// <summary>A label that follows the language.</summary>
     public static TextBlock Text(GalleryShellLangResourceKind kind, ArcDesignTokenKind color = ArcDesignTokenKind.Foreground, double size = 14,
                                  FontWeight weight = FontWeight.Normal)

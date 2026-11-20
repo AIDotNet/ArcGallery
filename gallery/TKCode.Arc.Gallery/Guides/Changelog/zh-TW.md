@@ -1,6 +1,6 @@
 ---
 title: 更新日誌
-source-hash: ed17223aef6a
+source-hash: 4272dcadd00e
 ---
 
 # 更新日誌
@@ -8,6 +8,29 @@ source-hash: ed17223aef6a
 TKCode.Arc 的所有重要變更，最新的在前。版本遵循[語意化版本](https://semver.org/)。從 1.0.0 起，破壞性 API 變更只在新的主版本中出現；更早的 `-preview` 版本在各發行版本之間可能變更 API。同一份清單也保存在儲存庫的 `CHANGELOG.md` 中。
 
 每次發行附帶的 NuGet 套件：`TKCode.Arc`、`TKCode.Arc.Core`、`TKCode.Arc.Foundation`（0.3.2 起）、`TKCode.Arc.Fonts` 、`TKCode.Arc.Icons.Lucide`、`TKCode.Arc.Blocks`、`TKCode.Arc.AdvancedCharts` 、`TKCode.Arc.Special`、`TKCode.Arc.Workflow`、`TKCode.Arc.Dock`（0.4.0-preview.2 起）、`TKCode.Arc.Themes.Pixel`、`TKCode.Arc.Themes.Corners`、`TKCode.Arc.Mobile`、`TKCode.Arc.Terminal`、`TKCode.Arc.Audio`、`TKCode.Arc.Audio.Native`、`TKCode.Arc.Audio.Browser`、`TKCode.Arc.Templates`（0.4.0-preview.6 起）、`TKCode.Arc.Pdf`、`TKCode.Arc.Pdf.Native` 和 `TKCode.Arc.Pdf.Browser`（1.0.0 起），`TKCode.Arc.Video`、`TKCode.Arc.Video.Native` 和 `TKCode.Arc.Video.Browser`（1.1.0-preview.1 起），`TKCode.Arc.Markdown` 和 `TKCode.Arc.Highlighting`（1.1.1 起），`TKCode.Arc.Ribbon`（1.2.0 起）。此外還有跟隨主版本發行的預覽套件：`TKCode.Arc.Graphics3D`、`TKCode.Arc.Graphics3D.WebGpu`、`TKCode.Arc.Graphics3D.Controls` 和 `TKCode.Arc.Graphics3D.Browser`（1.2.0-preview.3 起）。
+
+## 1.3.0-preview.4（2026-11-20）
+
+StreamMark 改用自己的增量 Markdown 剖析器，移除了 Markdig 相依性。它逐行處理完整內容，重複使用已完成的區塊、清單項目和表格列，並能解析稍後抵達的連結與註腳定義，無需從頭讀取整則回覆。`Markdown` 和 `ChatThread` 的串流 API 用法不變。這次更新也合併了介面更新，減少高速串流時語法醒目提示、版面配置與對話框調整大小所需的處理量。
+
+如果外掛在 `1.3.0-preview.3` 使用了 Markdig 擴充介面，可改用 `MarkdownProfileBuilder.AddBlockRule` 和 `AddInlineRule`，分別註冊 `IBlockSyntaxRule` 和 `IInlineSyntaxRule`。一次剖析完整文件時可用 `MarkdownParser.Parse`。
+
+## 1.3.0-preview.3（2026-11-19）
+
+StreamMark 併入 TKCode.Arc 儲存庫，四個套件和 Arc 共用版本號。C# 命名空間仍為 `StreamMark.*`。TextMateSharp 與其語法套件升級至 2.0.5，Mermaider 升級至 0.17.0。
+
+### 移轉現有 StreamMark 參考
+
+只使用 `TKCode.Arc.Markdown` 或 `TKCode.Arc.Highlighting` 的應用程式在升級時會自動取得新相依套件。如果直接參考了舊套件，請依下表替換。新舊套件包含同名型別，加入新套件前請先移除舊參考。
+
+| 舊套件 | 新套件 |
+|---|---|
+| `TKCode.StreamMark.Core` 和 `TKCode.StreamMark.Avalonia` | `TKCode.Arc.StreamMark` |
+| `TKCode.StreamMark.Highlighting.TextMate` | `TKCode.Arc.StreamMark.TextMate` |
+| `TKCode.StreamMark.RaTeX` | `TKCode.Arc.StreamMark.RaTeX` |
+| `TKCode.StreamMark.Mermaid` | `TKCode.Arc.StreamMark.Mermaid` |
+
+如果 XAML 指定了組件，請把 `assembly=StreamMark.Avalonia` 改成 `assembly=TKCode.Arc.StreamMark`。`TKCode.StreamMark.Theme.AtomUI` 沒有替代套件；可用 `MarkdownResourceAlias` 將 `Md.*` 資源對應至自己的佈景主題。
 
 ## 1.2.0（2026-11-19）
 

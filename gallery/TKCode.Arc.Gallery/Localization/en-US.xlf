@@ -1183,7 +1183,7 @@
     </unit>
     <unit id="StreamMarkPoint1">
       <segment>
-        <source>Stable blocks are parsed once; only the tail is parsed again</source>
+        <source>Reuses completed blocks, list items and table rows as text arrives</source>
       </segment>
     </unit>
     <unit id="StreamMarkPoint2">
@@ -1243,7 +1243,7 @@
     </unit>
     <unit id="StreamReplyBody">
       <segment>
-        <source>**Streaming** keeps the document stable while text arrives: finished blocks are never parsed again, only the last one grows.</source>
+        <source>**Streaming** keeps the document stable as text arrives. The parser commits complete lines and reuses finished blocks, list items and table rows.</source>
       </segment>
     </unit>
     <unit id="StreamReplyTableStep">
@@ -1268,7 +1268,7 @@
     </unit>
     <unit id="StreamReplyOutro">
       <segment>
-        <source>Selection works across messages, and a long transcript stays [virtualized](https://github.com/AtomUICommunity/StreamMark).</source>
+        <source>Selection works across messages, and a long transcript stays [virtualized](https://github.com/AIDotNet/TKCode.Arc/tree/main/docs/streammark).</source>
       </segment>
     </unit>
     <unit id="HomeAtlasFilter">
@@ -1468,7 +1468,7 @@
     </unit>
     <unit id="StreamMarkBadge">
       <segment>
-        <source>TKCode.StreamMark · {0}</source>
+        <source>Part of TKCode.Arc · {0}</source>
       </segment>
     </unit>
     <unit id="StreamMarkTitle">
@@ -1478,7 +1478,7 @@
     </unit>
     <unit id="StreamMarkSubtitle">
       <segment>
-        <source>High-performance streaming Markdown for Avalonia, built for AI chat clients. Native, with no WebView, and safe for NativeAOT.</source>
+        <source>StreamMark ships with TKCode.Arc. It parses AI replies incrementally and draws Markdown directly in Avalonia without a WebView.</source>
       </segment>
     </unit>
     <unit id="StreamMarkGitHub">
@@ -1508,7 +1508,7 @@
     </unit>
     <unit id="StreamMarkFeatureStreamingText">
       <segment>
-        <source>Stable blocks are frozen and parsed once; only the tail is parsed again. Unfinished bold, code and links are healed as they arrive.</source>
+        <source>The incremental parser reuses completed blocks and only rolls back the last partial line. Unfinished bold text, code and links render as they arrive.</source>
       </segment>
     </unit>
     <unit id="StreamMarkFeatureNative">
@@ -1546,14 +1546,9 @@
         <source>Packages</source>
       </segment>
     </unit>
-    <unit id="StreamMarkPackageCore">
+    <unit id="StreamMarkPackageRenderer">
       <segment>
-        <source>The streaming engine, with no UI dependency</source>
-      </segment>
-    </unit>
-    <unit id="StreamMarkPackageAvalonia">
-      <segment>
-        <source>Avalonia controls and the default theme</source>
+        <source>The incremental Markdown parser, Avalonia controls and default theme</source>
       </segment>
     </unit>
     <unit id="StreamMarkPackageTextMate">

@@ -1,7 +1,7 @@
 ---
 title: Markdown
 summary: 以 Arc 的风格渲染 Markdown 文档与流式回复，代码块使用 Arc 的语法配色高亮。
-source-hash: c95c3e1a15c7
+source-hash: b4966dc54b46
 ---
 
 <Demo name="Document" />
@@ -38,9 +38,11 @@ AppBuilder.Configure<App>()
 ```xml
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:arc="https://github.com/AIDotNet/TKCode.Arc">
-    <arc:Markdown Text="## 发布说明&#10;&#10;Arc **0.4** 新增 `Markdown`。" />
+    <arc:Markdown Text="## 发布说明&#10;&#10;导出页面新增了**筛选功能**。" />
 </UserControl>
 ```
+
+从 Arc `1.3.0-preview.4` 起，`TKCode.Arc.StreamMark` 渲染器使用自己的增量解析器，无需 Markdig。`TKCode.Arc.Markdown` 会引入它，同一种注册方式适用于静态文档和流式内容。
 
 `Markdown` 派生自 Avalonia 的 `TemplatedControl`。它的模板是包裹 StreamMark `MarkdownView` 的外框，解析与布局由该视图完成。Arc 通过该视图的 `Md.*` 资源提供颜色、字体和圆角，因此文档会跟随主题范围、明暗模式和强调色。由于文档是一个视图而不是文本块，它可以像任何文档一样选中、复制和换行，并随内容增长。
 
@@ -92,6 +94,8 @@ public sealed partial class ReleaseNotesViewModel : ObservableObject
 ### 流式回复
 
 每个数据块到达时调用 `Append`，回复结束时调用 `Complete`。文字会按节奏显示，新词在文档末尾淡入。`IsStreaming` 在节奏化的待显示内容全部呈现之前保持为 `true`，因此状态行可以显示“正在输出”，直到回复完全显示在屏幕上，而不是直到最后一个数据块到达。
+
+回复增长时，增量解析器会保留已完成的区块、列表项和表格行。链接或脚注的定义即使晚到，也能在流结束时解析。
 
 <Demo name="StreamedReply" />
 
@@ -169,6 +173,24 @@ markdown.Services = new MarkdownServices
 StreamMark 服务决定文档如何解析以及代码块如何表现。控件按以下顺序选取服务：自身的 `Services` 属性，然后是祖先通过 `MarkdownServices.SetServices` 设置的服务，最后是 `Markdown.DefaultServices`。在窗口或页面上设置服务，可以让视图中的每个文档使用相同的插件。插件可以改变 Markdown 方言，因此修改服务会重新解析静态文本。
 
 `Markdown.DefaultServices` 使用 `MarkdownHighlightPlugin` 高亮代码，复制代码但不提供下载，并把长代码块折叠为 12 行。
+
+### 数学公式、图表和自定义语法
+
+使用 1.3 预览版时，添加 `TKCode.Arc.StreamMark.RaTeX` 来渲染 LaTeX 公式，添加 `TKCode.Arc.StreamMark.Mermaid` 来渲染 Mermaid 代码块。请与 `TKCode.Arc.Markdown` 使用相同版本。RaTeX 随包提供 Windows、macOS 和 Linux 的原生库。添加插件时可保留默认插件和代码块选项：
+
+```csharp
+using StreamMark.Avalonia.Extensions;
+using StreamMark.Mermaid;
+using StreamMark.RaTeX;
+
+markdown.Services = new MarkdownServices
+{
+    Plugins = [..Markdown.DefaultServices.Plugins, new RaTeXPlugin(), new MermaidPlugin()],
+    CodeBlocks = Markdown.DefaultServices.CodeBlocks,
+};
+```
+
+若要在 `1.3.0-preview.4` 中扩展解析语法，请在插件的 `Configure` 方法中使用 `builder.Profile.AddBlockRule(...)` 或 `builder.Profile.AddInlineRule(...)` 注册规则。这两个方法替代了 Markdig 扩展接口。
 
 ### 示例：支持聊天中的助手回复
 

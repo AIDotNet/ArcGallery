@@ -1,6 +1,6 @@
 ---
 title: 安装
-source-hash: 548cabdaeab4
+source-hash: 96c2af7f8bf2
 ---
 
 # 安装
@@ -12,11 +12,11 @@ source-hash: 548cabdaeab4
 | 项目 | 版本 | 说明 |
 |---|---|---|
 | .NET | `net10.0` 或 `net11.0` | 这些包同时面向两个目标框架。 |
-| Avalonia | `12.1.5` 或更高的 12.x | 包的依赖为 `[12.1.5, 13.0.0)`：构建时所用的版本或任何更高的 Avalonia 12 版本。 |
+| Avalonia | `12.1.6` 或更高的 12.x | 包的依赖为 `[12.1.6, 13.0.0)`：构建时所用的版本或任何更高的 Avalonia 12 版本。 |
 | TKCode.Arc.Foundation | 与 Arc 相同 | MIT；主题、令牌、语言与包注册的运行时，随 `TKCode.Arc` 一起引入。 |
 | 字体（可选） | `Avalonia.Fonts.Inter` | Arc 的正文使用 Inter；Geist 来自 `TKCode.Arc.Fonts`。 |
 
-Arc 接受 Avalonia 12.1.5 及任何更高的 12.x 版本，因此你可以在 12 版本内升级 Avalonia，无需等待 Arc 发布新版。除 Avalonia 之外，每个 Arc 包只依赖 Arc 自己的 MIT 包。请让应用中的所有 Avalonia 包使用同一个版本；版本混用会导致还原警告，并在运行时出现样式缺失或类型加载错误。
+Arc 接受 Avalonia 12.1.6 及任何更高的 12.x 版本，因此你可以在 12 版本内升级 Avalonia，无需等待 Arc 发布新版。请让应用中的所有 Avalonia 包使用同一个版本；版本混用会导致还原警告，并在运行时出现样式缺失或类型加载错误。
 
 ## 从模板开始
 
@@ -38,7 +38,7 @@ dotnet run
 dotnet add package TKCode.Arc --version 1.2.0
 dotnet add package TKCode.Arc.Fonts --version 1.2.0           # 可选：Geist 与 Geist Mono
 dotnet add package TKCode.Arc.Icons.Lucide --version 1.2.0    # 可选：完整的 Lucide 图标集
-dotnet add package Avalonia.Fonts.Inter --version 12.1.5                 # 可选：正文使用的 Inter
+dotnet add package Avalonia.Fonts.Inter --version 12.1.6                 # 可选：正文使用的 Inter
 ```
 
 `TKCode.Arc` 会引入 `TKCode.Arc.Core` 和 `TKCode.Arc.Foundation`。`Markdown` 与 `ChatThread` 在 `TKCode.Arc.Markdown` 中（`UseArcMarkdown()`），`CodeBlock`、富文本编辑器和 Markdown 的代码着色需要 `TKCode.Arc.Highlighting`（`UseArcHighlighting()`）；这两个包会引入 StreamMark。如果你的解决方案使用集中式包管理，请把版本号一次性添加到 `Directory.Packages.props` 中，并让项目文件不包含版本号：
@@ -48,11 +48,22 @@ dotnet add package Avalonia.Fonts.Inter --version 12.1.5                 # 可�
     <PackageVersion Include="TKCode.Arc" Version="1.2.0" />
     <PackageVersion Include="TKCode.Arc.Fonts" Version="1.2.0" />
     <PackageVersion Include="TKCode.Arc.Icons.Lucide" Version="1.2.0" />
-    <PackageVersion Include="Avalonia.Fonts.Inter" Version="12.1.5" />
+    <PackageVersion Include="Avalonia.Fonts.Inter" Version="12.1.6" />
 </ItemGroup>
 ```
 
 请让所有 Arc 包保持同一版本。它们一起发布，并遵循语义化版本：破坏性 API 变更只在新的主版本中出现。
+
+### 试用增量 Markdown 解析器
+
+上面的命令安装正式版。要试用增量解析器，请把所有 `TKCode.Arc*` 包统一为 `1.3.0-preview.4`。添加 Markdown 包；如果需要语法高亮，再添加高亮包：
+
+```bash
+dotnet add package TKCode.Arc.Markdown --version 1.3.0-preview.4
+dotnet add package TKCode.Arc.Highlighting --version 1.3.0-preview.4
+```
+
+`UseArcMarkdown()` 和 `UseArcHighlighting()` 的用法不变。如果项目直接引用了 `TKCode.StreamMark.*` 包，请移除旧引用，改用对应的 `TKCode.Arc.StreamMark*` 包。如需在不使用 Arc 控件的应用中使用 Avalonia 渲染器，请安装同版本的 `TKCode.Arc.StreamMark`。
 
 ## 2. 在应用构建器中注册 Arc
 
@@ -282,7 +293,7 @@ PDF 示例需要 PDFium 和 pdf.js，它们没有提交到仓库。请运行一�
 | 标题与代码使用系统字体 | 没有注册字体 | 在 `AppBuilder` 上调用 `WithInterFont()` 和 `WithArcFonts()`。 |
 | 数字或日期格式错误，或格式化时抛出异常 | 启用了 `InvariantGlobalization` | 从项目文件中移除它。 |
 | `'Button' is an ambiguous reference` | `TKCode.Arc` 与 `Avalonia.Controls` 同时被导入 | 为其中一个设置别名，如上所示。 |
-| 关于 Avalonia 版本的还原警告 | 其他包引入了不同版本的 Avalonia，或引入了 Avalonia 13 | 在应用中显式引用同一个 Avalonia 12 版本（12.1.5 或更高）。 |
+| 关于 Avalonia 版本的还原警告 | 其他包引入了不同版本的 Avalonia，或引入了 Avalonia 13 | 在应用中显式引用同一个 Avalonia 12 版本（12.1.6 或更高）。 |
 | 找不到 Blocks、`DataGrid` 或 Special 类型 | 没有引用该包或没有注册 | 添加 `TKCode.Arc.Blocks`、`TKCode.Arc.AdvancedCharts` 或 `TKCode.Arc.Special`，并在 `UseArc(...)` 中调用 `UseArcBlocks()`、`UseArcAdvancedCharts()` 或 `UseArcSpecial()`。 |
 
 ## 下一步

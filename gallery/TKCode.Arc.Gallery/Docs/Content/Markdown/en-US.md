@@ -52,9 +52,12 @@ Static text is set with `Text`. The document grows with its content and has no i
 ```xml
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:arc="https://github.com/AIDotNet/TKCode.Arc">
-    <arc:Markdown Text="## Release notes&#10;&#10;Arc **0.4** adds `Markdown`." />
+    <arc:Markdown Text="## Release notes&#10;&#10;The export page now has **filters**." />
 </UserControl>
 ```
+
+From Arc `1.3.0-preview.4`, the renderer is `TKCode.Arc.StreamMark`, which uses an incremental parser without
+Markdig. It comes with `TKCode.Arc.Markdown`, so the same registration works for both static documents and streams.
 
 `Markdown` derives from Avalonia's `TemplatedControl`. Its template is a frame around a StreamMark `MarkdownView`,
 which does the parsing and the layout. Arc supplies the colors, fonts and radii through the `Md.*` resources of that
@@ -121,6 +124,9 @@ the state of the stream on the control.
 Call `Append` for each chunk as it arrives, and `Complete` when the reply ends. The text is paced and new words fade in
 at the end of the document. `IsStreaming` is `true` until the paced backlog has been shown, so a status line can say
 "Writing" until the reply is fully on screen rather than until the last chunk arrives.
+
+The incremental parser keeps completed blocks, list items and table rows while the reply grows. A link or footnote
+whose definition arrives later can still resolve when the stream finishes.
 
 <Demo name="StreamedReply" />
 
@@ -224,6 +230,27 @@ Plugins can change the Markdown dialect, so a change to the services parses the 
 
 `Markdown.DefaultServices` highlights code with `MarkdownHighlightPlugin`, copies code but does not offer a download,
 and folds long blocks to 12 lines.
+
+### Math, diagrams and custom syntax
+
+On the 1.3 preview, add `TKCode.Arc.StreamMark.RaTeX` for LaTeX math and `TKCode.Arc.StreamMark.Mermaid` for Mermaid
+fences. Use the same version as `TKCode.Arc.Markdown`. RaTeX bundles native libraries for Windows, macOS and Linux.
+Keep the default plugins and code block options when adding your own:
+
+```csharp
+using StreamMark.Avalonia.Extensions;
+using StreamMark.Mermaid;
+using StreamMark.RaTeX;
+
+markdown.Services = new MarkdownServices
+{
+    Plugins = [..Markdown.DefaultServices.Plugins, new RaTeXPlugin(), new MermaidPlugin()],
+    CodeBlocks = Markdown.DefaultServices.CodeBlocks,
+};
+```
+
+To extend parsing in `1.3.0-preview.4`, register rules with `builder.Profile.AddBlockRule(...)` or
+`builder.Profile.AddInlineRule(...)` in your plugin's `Configure` method. These replace the Markdig extension hooks.
 
 ### Example: assistant reply in a support chat
 
