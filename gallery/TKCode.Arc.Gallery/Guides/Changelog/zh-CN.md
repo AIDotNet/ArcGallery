@@ -1,6 +1,6 @@
 ---
 title: 更新日志
-source-hash: 4272dcadd00e
+source-hash: a6160c4762ad
 ---
 
 # 更新日志
@@ -8,6 +8,36 @@ source-hash: 4272dcadd00e
 TKCode.Arc 的所有重要变更，最新的在前。版本遵循[语义化版本](https://semver.org/)。从 1.0.0 起，破坏性 API 变更只在新的主版本中出现；更早的 `-preview` 版本在各发布版本之间可能变更 API。同样的列表也保存在仓库的 `CHANGELOG.md` 中。
 
 每次发布附带的 NuGet 包：`TKCode.Arc`、`TKCode.Arc.Core`、`TKCode.Arc.Foundation`（0.3.2 起）、`TKCode.Arc.Fonts` `TKCode.Arc.Icons.Lucide`、`TKCode.Arc.Blocks`、`TKCode.Arc.AdvancedCharts` 、`TKCode.Arc.Special`、`TKCode.Arc.Workflow`、`TKCode.Arc.Dock`（0.4.0-preview.2 起）、`TKCode.Arc.Themes.Pixel`、`TKCode.Arc.Themes.Corners`、`TKCode.Arc.Mobile`、`TKCode.Arc.Terminal`、`TKCode.Arc.Audio`、`TKCode.Arc.Audio.Native`、`TKCode.Arc.Audio.Browser`、`TKCode.Arc.Templates`（0.4.0-preview.6 起）、`TKCode.Arc.Pdf`、`TKCode.Arc.Pdf.Native` 和 `TKCode.Arc.Pdf.Browser`（1.0.0 起），`TKCode.Arc.Video`、`TKCode.Arc.Video.Native` 和 `TKCode.Arc.Video.Browser`（1.1.0-preview.1 起），`TKCode.Arc.Markdown` 和 `TKCode.Arc.Highlighting`（1.1.1 起），`TKCode.Arc.Ribbon`（1.2.0 起）。此外还有跟随主版本发布的预览包：`TKCode.Arc.Graphics3D`、`TKCode.Arc.Graphics3D.WebGpu`、`TKCode.Arc.Graphics3D.Controls` 和 `TKCode.Arc.Graphics3D.Browser`（1.2.0-preview.3 起）。
+
+## 1.3.0（2026-11-20）
+
+`1.3.0-preview.3` 和 `1.3.0-preview.4` 所有内容的正式版，另加首次发布的变更：重做的 `ModelTraining` 讲解组件、新的 `ArmingSwitch`（Special › Loaders），以及内容可以填满面板的 `Drawer`（[#168](https://github.com/AIDotNet/TKCode.Arc/issues/168)）。各预览版把 `Markdown` 和 `ChatThread` 背后的流式 Markdown 引擎 StreamMark 移入 TKCode.Arc 仓库，作为四个包发布（`TKCode.Arc.StreamMark`、`.StreamMark.TextMate`、`.StreamMark.RaTeX`、`.StreamMark.Mermaid`），用 StreamMark 自己的增量解析器取代 Markdig，并全面提升流式输出性能。1.2.0 已发布的包没有删除或重命名任何公开 API。安装时无需 `--prerelease`。下面是各预览版的说明。
+
+### 从 1.2.0 升级
+
+- 把所有 `TKCode.Arc*` 包设为 `1.3.0`。Avalonia 仍为 12.1.6 或更高的 12.x 版本。
+- 使用 `Markdown`、`ChatThread` 或 `TKCode.Arc.Highlighting` 的应用无需修改代码。请移除对 `TKCode.StreamMark.*` 的直接引用，或改为对应的 `TKCode.Arc.StreamMark*` 包（见下方 `1.3.0-preview.3`）；新旧包包含相同的类型，不能同时使用。
+- Arc 不再引入 Markdig。自己使用 Markdig 的应用需要自行添加包引用；注册了 Markdig 扩展的 StreamMark 插件改用 `MarkdownProfileBuilder.AddBlockRule` / `AddInlineRule`。
+- `ModelTraining` 的外观和运行方式已改变（见“变更”）。旧的标签文字和令牌种类仍能编译，但已标记为 `[Obsolete]`，不再显示。
+
+### 新增
+
+- `ArmingSwitch`（`TKCode.Arc.Special`，Special › Loaders）：为绝不能误触的操作准备的带保护盖开关。掀开半透明保护盖，把镀铬拨杆推到指示灯亮起，再按住指示灯 `HoldDuration` 时长即可运行 `ConfirmAction`。提供 `Status` 与 `StatusChanged`、`CoverOpenChanged`、`ArmedChanged` 和 `Confirmed`；`IsAutoSafeEnabled`、`IsLocked`、各状态的文字，以及 `OpenCover()`、`CloseCover()`、`Arm()` 和 `MakeSafe()`。关上保护盖或按 Escape 会回到安全状态；支持减少动态效果。
+- `Drawer.IsScrollable`（默认 true）可关闭正文的内置滚动区，让带 `*` 行的 `Grid` 等内容获得抽屉剩余的高度；`Drawer.BodyPadding` 设置正文周围的间距（#168）。
+- `ModelTraining`：用于类别、网络层、数据量、轮数、损失、准确率和目标的属性，`DefaultStep`、`CurrentStep` 和 `GoToStep(int)`，以及新布局的标签文字。
+
+### 变更
+
+- `ModelTraining` 已重做：训练数据和验证数据两叠卡片、一个画在分层底板上的 3-4-4-2 网络（有用的连接会逐渐加强）、类别概率、损失和轮数读数及损失曲线、验证评估，以及带说明文字的五步进度条（批次、前向传播、反向传播、轮次、评估）。运行无缝循环；点选某一步会跳到那一步；指针停在数据卡或网络层上会显示说明并放慢运行。减少动态效果时显示训练完成的状态。内置示例的损失现在从 0.69 降到 0.08。
+
+### 弃用
+
+- `ModelTrainingLabels.PhaseNames`（改用 `Steps`，它会转发过去），以及新 `ModelTraining` 布局不再显示的标签文字和令牌种类。
+
+### 修复
+
+- `Drawer` 的内容会拉伸到面板高度，带 `*` 行的 `Grid` 能填满抽屉，正文较短时操作按钮位于底部（#168）。
+- `TKCode.Arc.StreamMark`：中英文混排的段落在流式输出时与输出完成后的断行位置一致，即使一种字体同时覆盖两种文字（例如没有中文字体的 Linux）。
 
 ## 1.3.0-preview.4（2026-11-20）
 

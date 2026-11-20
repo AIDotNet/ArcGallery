@@ -42,9 +42,9 @@ them all. The steps below add Arc to an existing project and explain what the te
 ## 1. Add the packages
 
 ```bash
-dotnet add package TKCode.Arc --version 1.2.0
-dotnet add package TKCode.Arc.Fonts --version 1.2.0           # optional: Geist and Geist Mono
-dotnet add package TKCode.Arc.Icons.Lucide --version 1.2.0    # optional: the full Lucide set
+dotnet add package TKCode.Arc --version 1.3.0
+dotnet add package TKCode.Arc.Fonts --version 1.3.0           # optional: Geist and Geist Mono
+dotnet add package TKCode.Arc.Icons.Lucide --version 1.3.0    # optional: the full Lucide set
 dotnet add package Avalonia.Fonts.Inter --version 12.1.6                 # optional: Inter for body text
 ```
 
@@ -55,9 +55,9 @@ package management, add the versions to `Directory.Packages.props` once and keep
 
 ```xml
 <ItemGroup>
-    <PackageVersion Include="TKCode.Arc" Version="1.2.0" />
-    <PackageVersion Include="TKCode.Arc.Fonts" Version="1.2.0" />
-    <PackageVersion Include="TKCode.Arc.Icons.Lucide" Version="1.2.0" />
+    <PackageVersion Include="TKCode.Arc" Version="1.3.0" />
+    <PackageVersion Include="TKCode.Arc.Fonts" Version="1.3.0" />
+    <PackageVersion Include="TKCode.Arc.Icons.Lucide" Version="1.3.0" />
     <PackageVersion Include="Avalonia.Fonts.Inter" Version="12.1.6" />
 </ItemGroup>
 ```
@@ -65,19 +65,13 @@ package management, add the versions to `Directory.Packages.props` once and keep
 Keep the Arc packages on one version. They are released together, and Arc follows Semantic Versioning: breaking API
 changes come only with a new major version.
 
-### Try the incremental Markdown parser
+### StreamMark packages
 
-The commands above install the stable release. To try the incremental parser, use `1.3.0-preview.4` for all your
-`TKCode.Arc*` packages. Add the Markdown package and, if you want syntax highlighting, the highlighting package:
-
-```bash
-dotnet add package TKCode.Arc.Markdown --version 1.3.0-preview.4
-dotnet add package TKCode.Arc.Highlighting --version 1.3.0-preview.4
-```
-
-`UseArcMarkdown()` and `UseArcHighlighting()` work as before. If your project references `TKCode.StreamMark.*`
-packages directly, remove the old references and use the matching `TKCode.Arc.StreamMark*` packages. To use the
-Avalonia renderer independently of the Arc controls, install `TKCode.Arc.StreamMark` at that same version.
+`Markdown` and `ChatThread` (in `TKCode.Arc.Markdown`) render with StreamMark, which ships with Arc as
+`TKCode.Arc.StreamMark` and parses Markdown incrementally without Markdig. If your project references
+`TKCode.StreamMark.*` packages directly, remove those references and use the matching `TKCode.Arc.StreamMark*`
+packages at the same version as Arc. To use the Avalonia renderer without the Arc controls, install
+`TKCode.Arc.StreamMark` on its own.
 
 ## 2. Register Arc in the application builder
 
@@ -212,15 +206,15 @@ icon that is not compiled in draws nothing and logs a warning naming the line to
 AI explainers) are separate packages. Add the ones you need and register them inside `UseArc(...)`:
 
 ```bash
-dotnet add package TKCode.Arc.Blocks --version 1.2.0
-dotnet add package TKCode.Arc.AdvancedCharts --version 1.2.0
-dotnet add package TKCode.Arc.Special --version 1.2.0
-dotnet add package TKCode.Arc.Workflow --version 1.2.0
-dotnet add package TKCode.Arc.Dock --version 1.2.0    # optional: IDE-style dock layout (UseArcDock())
-dotnet add package TKCode.Arc.Ribbon --version 1.2.0    # optional: Office-style ribbon (UseArcRibbon())
-dotnet add package TKCode.Arc.Themes.Pixel --version 1.2.0    # optional: pixel-art theme (UseArcPixelTheme())
-dotnet add package TKCode.Arc.Themes.Corners --version 1.2.0    # optional: global corner style (UseArcCorners())
-dotnet add package TKCode.Arc.Mobile --version 1.2.0    # optional: touch-first controls, not yet verified on devices (UseArcMobile())
+dotnet add package TKCode.Arc.Blocks --version 1.3.0
+dotnet add package TKCode.Arc.AdvancedCharts --version 1.3.0
+dotnet add package TKCode.Arc.Special --version 1.3.0
+dotnet add package TKCode.Arc.Workflow --version 1.3.0
+dotnet add package TKCode.Arc.Dock --version 1.3.0    # optional: IDE-style dock layout (UseArcDock())
+dotnet add package TKCode.Arc.Ribbon --version 1.3.0    # optional: Office-style ribbon (UseArcRibbon())
+dotnet add package TKCode.Arc.Themes.Pixel --version 1.3.0    # optional: pixel-art theme (UseArcPixelTheme())
+dotnet add package TKCode.Arc.Themes.Corners --version 1.3.0    # optional: global corner style (UseArcCorners())
+dotnet add package TKCode.Arc.Mobile --version 1.3.0    # optional: touch-first controls, not yet verified on devices (UseArcMobile())
 ```
 
 ```csharp
@@ -244,9 +238,9 @@ twice does nothing.
 app for one platform, or `TKCode.Arc.Pdf.Browser` with pdf.js in WebAssembly:
 
 ```bash
-dotnet add package TKCode.Arc.Pdf --version 1.2.0
-dotnet add package TKCode.Arc.Pdf.Native --version 1.2.0     # desktop
-dotnet add package TKCode.Arc.Pdf.Browser --version 1.2.0    # browser
+dotnet add package TKCode.Arc.Pdf --version 1.3.0
+dotnet add package TKCode.Arc.Pdf.Native --version 1.3.0     # desktop
+dotnet add package TKCode.Arc.Pdf.Browser --version 1.3.0    # browser
 ```
 
 ```csharp
@@ -261,9 +255,9 @@ await ArcPdfBrowser.UseAsync();                     // browser, before the app s
 `TKCode.Arc.Video` (`VideoPlayer`, `VideoSurface`) plays through the platform's own player, chosen by a backend: `TKCode.Arc.Video.Native` on desktop (Media Foundation, AVFoundation or GStreamer, so no codecs ship with the app) or `TKCode.Arc.Video.Browser` in WebAssembly:
 
 ```bash
-dotnet add package TKCode.Arc.Video --version 1.2.0
-dotnet add package TKCode.Arc.Video.Native --version 1.2.0     # desktop
-dotnet add package TKCode.Arc.Video.Browser --version 1.2.0    # browser
+dotnet add package TKCode.Arc.Video --version 1.3.0
+dotnet add package TKCode.Arc.Video.Native --version 1.3.0     # desktop
+dotnet add package TKCode.Arc.Video.Browser --version 1.3.0    # browser
 ```
 
 ```csharp

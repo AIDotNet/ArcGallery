@@ -10,6 +10,59 @@ between releases. The same list is kept in `CHANGELOG.md` in the repository.
 NuGet packages published with each release: `TKCode.Arc`, `TKCode.Arc.Core`, `TKCode.Arc.Foundation` (from 0.3.2), `TKCode.Arc.Fonts` and
 `TKCode.Arc.Icons.Lucide`, `TKCode.Arc.Blocks`, `TKCode.Arc.AdvancedCharts`, `TKCode.Arc.Special`, `TKCode.Arc.Workflow`, `TKCode.Arc.Dock` (from 0.4.0-preview.2), `TKCode.Arc.Themes.Pixel`, `TKCode.Arc.Themes.Corners`, `TKCode.Arc.Mobile`, `TKCode.Arc.Terminal`, `TKCode.Arc.Audio`, `TKCode.Arc.Audio.Native`, `TKCode.Arc.Audio.Browser`, `TKCode.Arc.Templates` (from 0.4.0-preview.6), `TKCode.Arc.Pdf`, `TKCode.Arc.Pdf.Native` and `TKCode.Arc.Pdf.Browser` (from 1.0.0), `TKCode.Arc.Video`, `TKCode.Arc.Video.Native` and `TKCode.Arc.Video.Browser` (from 1.1.0-preview.1), `TKCode.Arc.Markdown` and `TKCode.Arc.Highlighting` (from 1.1.1), `TKCode.Arc.Ribbon` (from 1.2.0). Also, as previews that follow the main version: `TKCode.Arc.Graphics3D`, `TKCode.Arc.Graphics3D.WebGpu`, `TKCode.Arc.Graphics3D.Controls` and `TKCode.Arc.Graphics3D.Browser` (from 1.2.0-preview.3).
 
+## 1.3.0 (2026-11-20)
+
+The stable release of everything shipped in `1.3.0-preview.3` and `1.3.0-preview.4`, plus the changes that ship here
+for the first time: the rebuilt `ModelTraining` explainer, the new `ArmingSwitch` (Special › Loaders) and a `Drawer`
+whose content can fill the panel ([#168](https://github.com/AIDotNet/TKCode.Arc/issues/168)). The previews bring
+StreamMark, the streaming Markdown engine under `Markdown` and `ChatThread`, into the TKCode.Arc repository as four
+packages (`TKCode.Arc.StreamMark`, `.StreamMark.TextMate`, `.StreamMark.RaTeX`, `.StreamMark.Mermaid`), replace Markdig
+with StreamMark's own incremental parser, and speed streaming up end to end. No public API of a package that shipped in
+1.2.0 is removed or renamed. Install it without `--prerelease`. The notes of each preview follow below.
+
+### Upgrading from 1.2.0
+
+- Set every `TKCode.Arc*` package to `1.3.0`. Avalonia stays on 12.1.6 or a later 12.x.
+- Apps that use `Markdown`, `ChatThread` or `TKCode.Arc.Highlighting` need no code change. Remove any direct
+  `TKCode.StreamMark.*` reference, or move it to the matching `TKCode.Arc.StreamMark*` package (see `1.3.0-preview.3`
+  below); the old and the new packages hold the same types and cannot be used together.
+- Arc no longer brings Markdig. An app that used Markdig itself adds its own package reference; StreamMark plugins that
+  registered Markdig extensions move to `MarkdownProfileBuilder.AddBlockRule` / `AddInlineRule`.
+- `ModelTraining` looks and runs differently (see Changed). Its old label texts and token kinds still compile but are
+  marked `[Obsolete]` and are no longer shown.
+
+### Added
+
+- `ArmingSwitch` (`TKCode.Arc.Special`, Special › Loaders): a guarded switch for an action that must never fire by
+  accident. Lift the translucent cover, throw the chrome toggle until the lamp lights, then hold the lamp for
+  `HoldDuration` to run `ConfirmAction`. `Status` with `StatusChanged`, `CoverOpenChanged`, `ArmedChanged` and
+  `Confirmed`; `IsAutoSafeEnabled`, `IsLocked`, per-status texts, `OpenCover()`, `CloseCover()`, `Arm()` and
+  `MakeSafe()`. Closing the cover or pressing Escape makes it safe; reduced motion is honoured.
+- `Drawer.IsScrollable` (default true) turns the body's built-in scroller off, so content such as a `Grid` with a `*` row
+  receives the drawer's remaining height; `Drawer.BodyPadding` sets the spacing around the body (#168).
+- `ModelTraining`: properties for the classes, layers, data sizes, epochs, losses, accuracy and target, `DefaultStep`,
+  `CurrentStep` and `GoToStep(int)`, and label texts for the new layout.
+
+### Changed
+
+- `ModelTraining` is rebuilt: stacks of training and held-out data, a 3-4-4-2 network on layered plates whose useful
+  connections strengthen, class probabilities, loss and epoch readouts with a loss chart, a held-out evaluation and a
+  five-step bar (batch, forward pass, backward pass, epochs, evaluate) with captions. The run loops seamlessly; picking a
+  step jumps there; resting the pointer on a stack or layer shows a detail and slows the run. Reduced motion shows the
+  finished run. The built-in sample loss now falls from 0.69 to 0.08.
+
+### Deprecated
+
+- `ModelTrainingLabels.PhaseNames` (use `Steps`, which it forwards to) and the label texts and token kinds the new
+  `ModelTraining` layout no longer shows.
+
+### Fixed
+
+- `Drawer` content stretches to the panel's height, so a `Grid` with a `*` row fills the drawer, and actions sit at the
+  bottom of a short body (#168).
+- `TKCode.Arc.StreamMark`: a streaming paragraph that mixes Chinese and English now breaks its lines the same way as
+  the finished paragraph, also when one font covers both scripts (as on Linux without CJK fonts).
+
 ## 1.3.0-preview.4 (2026-11-20)
 
 StreamMark now parses Markdown incrementally without Markdig. It commits completed lines, reuses finished blocks,

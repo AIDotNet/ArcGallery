@@ -1,6 +1,6 @@
 ---
 title: 安装
-source-hash: 96c2af7f8bf2
+source-hash: 55385efe1d0f
 ---
 
 # 安装
@@ -35,9 +35,9 @@ dotnet run
 ## 1. 添加包
 
 ```bash
-dotnet add package TKCode.Arc --version 1.2.0
-dotnet add package TKCode.Arc.Fonts --version 1.2.0           # 可选：Geist 与 Geist Mono
-dotnet add package TKCode.Arc.Icons.Lucide --version 1.2.0    # 可选：完整的 Lucide 图标集
+dotnet add package TKCode.Arc --version 1.3.0
+dotnet add package TKCode.Arc.Fonts --version 1.3.0           # 可选：Geist 与 Geist Mono
+dotnet add package TKCode.Arc.Icons.Lucide --version 1.3.0    # 可选：完整的 Lucide 图标集
 dotnet add package Avalonia.Fonts.Inter --version 12.1.6                 # 可选：正文使用的 Inter
 ```
 
@@ -45,25 +45,18 @@ dotnet add package Avalonia.Fonts.Inter --version 12.1.6                 # 可�
 
 ```xml
 <ItemGroup>
-    <PackageVersion Include="TKCode.Arc" Version="1.2.0" />
-    <PackageVersion Include="TKCode.Arc.Fonts" Version="1.2.0" />
-    <PackageVersion Include="TKCode.Arc.Icons.Lucide" Version="1.2.0" />
+    <PackageVersion Include="TKCode.Arc" Version="1.3.0" />
+    <PackageVersion Include="TKCode.Arc.Fonts" Version="1.3.0" />
+    <PackageVersion Include="TKCode.Arc.Icons.Lucide" Version="1.3.0" />
     <PackageVersion Include="Avalonia.Fonts.Inter" Version="12.1.6" />
 </ItemGroup>
 ```
 
 请让所有 Arc 包保持同一版本。它们一起发布，并遵循语义化版本：破坏性 API 变更只在新的主版本中出现。
 
-### 试用增量 Markdown 解析器
+### StreamMark 包
 
-上面的命令安装正式版。要试用增量解析器，请把所有 `TKCode.Arc*` 包统一为 `1.3.0-preview.4`。添加 Markdown 包；如果需要语法高亮，再添加高亮包：
-
-```bash
-dotnet add package TKCode.Arc.Markdown --version 1.3.0-preview.4
-dotnet add package TKCode.Arc.Highlighting --version 1.3.0-preview.4
-```
-
-`UseArcMarkdown()` 和 `UseArcHighlighting()` 的用法不变。如果项目直接引用了 `TKCode.StreamMark.*` 包，请移除旧引用，改用对应的 `TKCode.Arc.StreamMark*` 包。如需在不使用 Arc 控件的应用中使用 Avalonia 渲染器，请安装同版本的 `TKCode.Arc.StreamMark`。
+`Markdown` 和 `ChatThread`（位于 `TKCode.Arc.Markdown`）由 StreamMark 渲染。StreamMark 以 `TKCode.Arc.StreamMark` 随 Arc 一起发布，不依赖 Markdig，按增量方式解析 Markdown。如果项目直接引用了 `TKCode.StreamMark.*` 包，请移除这些引用，改用与 Arc 同版本的对应 `TKCode.Arc.StreamMark*` 包。如需在不使用 Arc 控件的应用中使用 Avalonia 渲染器，单独安装 `TKCode.Arc.StreamMark` 即可。
 
 ## 2. 在应用构建器中注册 Arc
 
@@ -184,15 +177,15 @@ var save = new ArcButton { Content = "保存更改" };
 `TKCode.Arc.Blocks`（页面级区块）、`TKCode.Arc.AdvancedCharts`（`DataGrid`）和 `TKCode.Arc.Special`（AI 动画讲解）是独立的包。按需添加，并在 `UseArc(...)` 中注册：
 
 ```bash
-dotnet add package TKCode.Arc.Blocks --version 1.2.0
-dotnet add package TKCode.Arc.AdvancedCharts --version 1.2.0
-dotnet add package TKCode.Arc.Special --version 1.2.0
-dotnet add package TKCode.Arc.Workflow --version 1.2.0
-dotnet add package TKCode.Arc.Dock --version 1.2.0    # 可选：IDE 式停靠布局（UseArcDock()）
-dotnet add package TKCode.Arc.Ribbon --version 1.2.0    # 可选：Office 式功能区（UseArcRibbon()）
-dotnet add package TKCode.Arc.Themes.Pixel --version 1.2.0    # 可选：像素风主题（UseArcPixelTheme()）
-dotnet add package TKCode.Arc.Themes.Corners --version 1.2.0    # 可选：全局圆角风格（UseArcCorners()）
-dotnet add package TKCode.Arc.Mobile --version 1.2.0    # 可选：移动端控件，尚未在真机上验证（UseArcMobile()）
+dotnet add package TKCode.Arc.Blocks --version 1.3.0
+dotnet add package TKCode.Arc.AdvancedCharts --version 1.3.0
+dotnet add package TKCode.Arc.Special --version 1.3.0
+dotnet add package TKCode.Arc.Workflow --version 1.3.0
+dotnet add package TKCode.Arc.Dock --version 1.3.0    # 可选：IDE 式停靠布局（UseArcDock()）
+dotnet add package TKCode.Arc.Ribbon --version 1.3.0    # 可选：Office 式功能区（UseArcRibbon()）
+dotnet add package TKCode.Arc.Themes.Pixel --version 1.3.0    # 可选：像素风主题（UseArcPixelTheme()）
+dotnet add package TKCode.Arc.Themes.Corners --version 1.3.0    # 可选：全局圆角风格（UseArcCorners()）
+dotnet add package TKCode.Arc.Mobile --version 1.3.0    # 可选：移动端控件，尚未在真机上验证（UseArcMobile()）
 ```
 
 ```csharp
@@ -214,9 +207,9 @@ dotnet add package TKCode.Arc.Mobile --version 1.2.0    # 可选：移动端控�
 `TKCode.Arc.Pdf`（`PdfViewer`）还需要一个渲染器：桌面上是带 PDFium 的 `TKCode.Arc.Pdf.Native`，单平台应用中约 7.5 MB；WebAssembly 中是带 pdf.js 的 `TKCode.Arc.Pdf.Browser`：
 
 ```bash
-dotnet add package TKCode.Arc.Pdf --version 1.2.0
-dotnet add package TKCode.Arc.Pdf.Native --version 1.2.0     # desktop
-dotnet add package TKCode.Arc.Pdf.Browser --version 1.2.0    # browser
+dotnet add package TKCode.Arc.Pdf --version 1.3.0
+dotnet add package TKCode.Arc.Pdf.Native --version 1.3.0     # desktop
+dotnet add package TKCode.Arc.Pdf.Browser --version 1.3.0    # browser
 ```
 
 ```csharp
@@ -231,9 +224,9 @@ await ArcPdfBrowser.UseAsync();                     // browser, before the app s
 `TKCode.Arc.Video`（`VideoPlayer`、`VideoSurface`）通过平台自带的播放器播放，由后端决定：桌面上是 `TKCode.Arc.Video.Native`（Media Foundation、AVFoundation 或 GStreamer，应用不需要附带编解码器），WebAssembly 中是 `TKCode.Arc.Video.Browser`：
 
 ```bash
-dotnet add package TKCode.Arc.Video --version 1.2.0
-dotnet add package TKCode.Arc.Video.Native --version 1.2.0     # desktop
-dotnet add package TKCode.Arc.Video.Browser --version 1.2.0    # browser
+dotnet add package TKCode.Arc.Video --version 1.3.0
+dotnet add package TKCode.Arc.Video.Native --version 1.3.0     # desktop
+dotnet add package TKCode.Arc.Video.Browser --version 1.3.0    # browser
 ```
 
 ```csharp
