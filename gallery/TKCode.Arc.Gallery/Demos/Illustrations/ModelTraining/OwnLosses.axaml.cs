@@ -9,9 +9,10 @@ public partial class ModelTrainingOwnLossesDemo : UserControl
     public ModelTrainingOwnLossesDemo()
     {
         InitializeComponent();
-        // A learning rate that is too large: the loss falls, overshoots and bounces instead of settling.
-        Card.StepCount = 8;
-        Card.LossValues = [2.31, 1.12, 1.64, 0.98, 1.41, 0.92, 1.27, 0.95];
+        Card.ClassNames = ["Spam", "Inbox"];
+        Card.Labels = new ModelTrainingLabels { Unit = "emails" };
+        // The measured losses, spread over the run: a fast fall that flattens out early.
+        Card.LossValues = [1.12, 0.71, 0.52, 0.44, 0.4, 0.38, 0.37];
     }
 
     private void OnIterationCompleted(object? sender, ModelTrainingIterationEventArgs e)

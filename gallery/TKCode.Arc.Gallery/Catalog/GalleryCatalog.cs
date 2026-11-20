@@ -409,6 +409,9 @@ public static partial class GalleryCatalog
             new("SlideToConfirm", "Slide to confirm", "slide-to-confirm", 0,
                 "A slider you drag to the end to confirm an action: a liquid fill follows the thumb, an early release springs back, and the arrow turns into a check when the work is done.",
                 IsArc: false, AddedOn: "2026-11-14"),
+            new("ArmingSwitch", "Arming switch", "arming-switch", 0,
+                "A cockpit-style guarded switch for risky actions: lift the translucent cover, throw the chrome toggle until it snaps over and the lamp lights, then hold the lamp to run the action.",
+                IsArc: false, AddedOn: "2026-11-19"),
         ], IsArc: false),
         new("Playful", "Playful", "趣味",
         [
@@ -542,7 +545,7 @@ public static partial class GalleryCatalog
                 "A browser asks its resolver for a name, the resolver walks from a root server to the domain's own name server, caches the answer and replies from the cache next time.",
                 IsArc: false, AddedOn: "2026-11-09"),
             new("ModelTraining", "Model training", "model-training", 0,
-                "A training loop step by step: a batch flows forward to a prediction, the loss is measured and flows back, the weights move and the loss curve falls.",
+                "A small network learns from batches of training data; signals run forward, the error runs back and strengthens the useful connections, the loss curve falls, and held-out data checks the result.",
                 IsArc: false, AddedOn: "2026-11-09"),
             new("MultiRegionFailover", "Multi-region failover", "multi-region-failover", 0,
                 "A global load balancer shifts traffic to a standby region and promotes its database when the primary region goes down.",

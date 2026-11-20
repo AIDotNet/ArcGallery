@@ -1,79 +1,75 @@
 ---
 title: Model training
-summary: A training loop step by step; a batch flows forward to a prediction, the loss is measured and flows back, the weights move and the loss curve falls.
+summary: A small network learns from batches of training data; signals run forward, the error runs back and strengthens the useful connections, the loss curve falls, and held-out data checks the result.
 ---
 
 <Demo name="TrainingLoop" />
 
 ## When to use
 
-`ModelTraining` explains how a model learns, one step of the training loop at a time. A batch of examples is drawn
-from the data and flows forward through a small network to a prediction. The prediction is compared with the right
-answer: bars show the probability the model gave each class, and the loss is the negative log of the right one, so a
-confident right answer costs little and a confident wrong one costs a lot. The loss then flows backward through the
-layers, giving each weight its gradient, and every weight takes a small step against it, scaled by the learning rate.
-The connections change thickness and color as their weights move, and the loss lands on a curve that falls step by
-step. The first step stops at each phase with a caption; later steps repeat the loop faster. The network and the numbers
-are illustrative.
+`ModelTraining` explains how a model learns in five steps that loop on their own. A batch leaves a stack of training
+data and drops into the input layer of a small network drawn on layered plates. Signals ride every connection forward
+to a prediction, and the two class probabilities update beside the output layer. The error then rides the connections
+back as a short dash, and each connection it passes grows a little stronger. Over the epochs, batches stream through:
+the useful connections thicken and take the accent while the others stay light, the loss curve falls beside the
+network, and the loss and epoch readouts count along with it. At the end the held-out data runs through the trained
+model once, the score counts up and the evaluation passes (or misses) its target. The network and the numbers are
+illustrative.
 
-- **Courses and onboarding**: a lesson on gradient descent, before the math.
-- **Product pages for training platforms**: a visual next to text about fine-tuning or training runs.
-- **Talks**: the whole loop told in about twenty seconds with no narration.
+- **Landing pages of AI products**: training, fine-tuning or evaluation explained at a glance.
+- **Docs and courses**: an introduction to batches, epochs, loss curves and held-out evaluation.
+- **Talks**: the whole story runs in about twenty seconds without narration.
 
 ## When not to use
 
-- **A real training run**: the card plays its own small story. For a live job use `TrainingRun`, or plot measured
-  losses with a `LineChart`.
-- **Explaining one architecture**: the network is a generic three-layer sketch, not a transformer or a convolution.
-- **Many cards on a page**: each animates while it plays. Keep one per page, or pause the others with `IsPlaying`.
+- **Real training metrics**: the illustration plays its own story. Plot measured losses with a `LineChart` or show a
+  live job with `TrainingRun`.
+- **Data pipelines**: for records moving through a system use `DataFlow`.
+- **Numbers that could be read as a benchmark**: say near the illustration that they are examples.
 
 ## Usage
 
-The card needs no data: it plays six steps with a sample loss curve that falls from 2.30 and levels off near 0.4.
+The illustration needs no data: it trains a cat and dog photo classifier for twelve epochs and scores 94.2% against a
+90% target.
 
 ```xml
 <arc:ModelTraining />
 ```
 
-`ModelTraining` derives from `Explainer`, which supplies the story clock (`IsPlaying`, `Speed`, `IsLooping`,
-`Play()`, `Pause()`, `StepForward()`, `Restart()`), start on view, the playback buttons and the polite live region;
-this control adds the speed control and the stage.
+### The five steps
 
-### One step
-
-| Phase | What happens |
+| Step | What happens |
 |---|---|
-| `Batch` | A batch card slides from the data into the input layer |
-| `Forward` | A wave of activations runs from the inputs to the outputs |
-| `Loss` | The prediction bars fill; the right class is lit; the loss is −ln of its probability |
-| `Backward` | A wave of gradients runs from the outputs back to the inputs |
-| `Update` | Every connection moves toward its new weight and glows once; the loss is plotted |
+| Batch | A sheet leaves the training data and drops into the input layer, which lights up |
+| Forward pass | Signals ride every connection from layer to layer; the class probabilities update |
+| Backward pass | The error rides the connections back; each one it passes strengthens a little and the loss moves down the curve |
+| Epochs | Batches stream through; the useful connections thicken, the loss falls, the epoch counts up |
+| Evaluate | The held-out data runs through once; the score counts up and the check turns green |
 
-`Phase`, `Iteration` and `CurrentLoss` report where the story is; `IterationCompleted` is raised at the end of each
-step with the step and its loss.
+The step bar under the diagram plays and pauses the story and jumps to any step: while the story plays it goes on from
+that step, while it is paused it shows that step's still frame. `GoToStep` does the same from code, and `CurrentStep`
+says which step is current. `Phase`, `Iteration` and `CurrentLoss` follow the run, and `IterationCompleted` is raised
+after each weight update with its step and loss.
 
-### Your own run
+### Your own task
 
-`StepCount` (2 to 20) sets the number of steps, `BatchSize` and `LearningRate` are named in the captions and the
-readout, and `LossValues` replaces the sample curve. The example below shows a learning rate that is too large: the loss
-bounces instead of settling.
+`ClassNames`, `InputCount`, `HiddenUnits`, `Samples`, `HeldOutSamples`, `BatchSize`, `Epochs`, `LossFrom`, `LossTo`,
+`Accuracy` and `Target` describe the task; `LossValues` replaces the curve with measured values spread over the run.
+`StepCount` sets how many batches the story shows, and `Labels` holds every word, including what one sample is
+(`Unit`). The example below trains a spam filter that falls short of its target, so the evaluation ends below target.
 
 <Demo name="OwnLosses" />
 
 ```csharp
-card.StepCount = 8;
-card.LossValues = [2.31, 1.12, 1.64, 0.98, 1.41, 0.92, 1.27, 0.95];
+card.ClassNames = ["Spam", "Inbox"];
+card.Labels = new ModelTrainingLabels { Unit = "emails" };
+card.LossValues = [1.12, 0.71, 0.52, 0.44, 0.4, 0.38, 0.37];
 card.IterationCompleted += (_, e) => log.Add($"{e.Iteration}: {e.Loss:0.00}");
 ```
 
-`Labels` holds every word the card shows or speaks, including the phase names; replace it to translate or reword.
-
-### Reduced motion
-
-Under reduced motion the card opens on its end with the whole curve. Play and Next step still work, and each phase
-applies in place without waves.
-
-<Demo name="ReducedMotion" />
+Set `DefaultStep` to show a step before the story plays (and to start playing there), `AreControlsVisible` to hide the
+step bar, `IsCaptionVisible` to hide the caption and `Accent` to colour the signals, the learned connections, the curve
+and the current step.
 
 ## API reference
 
@@ -81,42 +77,46 @@ applies in place without waves.
 
 <!-- api: ModelTrainingLabels -->
 
+<!-- api: ModelTrainingPhase -->
+
 <!-- api: ModelTrainingIterationEventArgs -->
 
 ## Accessibility
 
-- The card is a group named by `Title` ("Model training"). The status line says Ready, Training, Paused or Trained.
-- The stage's accessible name follows the story ("Step 2 / 6, Backward, loss 1.48").
-- The live region speaks only when the reader drives the story: the phase captions during the first step, then
-  "Step 3 / 6: loss 1.05" for each later step. It stays quiet while the story plays on its own.
-- Play, Next step and Restart are buttons with names and tooltips; the speed control is named "Speed".
-- The phase rail names every phase in words, and the right class is marked "target" as well as colored.
+- The illustration is a group named by `Title` ("Model training"); the diagram is an image whose name describes the
+  whole run from the classes and the numbers. Set `Description` to word it yourself.
+- The step bar is a list of buttons named "Step 3 of 5: Backward pass"; the play button is named Play or Pause.
+- The caption repeats the current step in words, and a polite live region reads it when the reader picks a step or
+  steps through the story.
+- Nothing relies on colour alone: every readout is a number, the evaluation says Pending, Scoring, Passed or Below
+  target, and the leading class shows its probability.
 
 ## Motion
 
 | Change | Full | Reduced | Off |
 |---|---|---|---|
-| Batch | The card slides into the input layer | Appears | Appears |
-| Forward and backward passes | Dots run along the connections, nodes light as the wave passes | Not shown | Not shown |
-| Prediction bars | Fill over 0.5 s | Fill at once | Fill at once |
-| Weight update | Connections ease to their new thickness and glow once | Change at once | Change at once |
-| Loss point | The new point grows in | Appears | Appears |
-| Caption | Crossfade | Changes in place | Changes in place |
+| Batch | The sheet flies along an arc into the input layer while the stack moves up | Still frame | Still frame |
+| Forward and backward passes | Dots ride the connections forward, a dash rides them back; units light and ring | Still frame | Still frame |
+| Weights and loss | Connections thicken as the error passes; the loss head glides along the curve | Still frame | Still frame |
+| Evaluation | The score counts up; the tag crossfades and settles from 0.92 | Shown at once | Shown at once |
+| Hover | A mouse resting on a stack or a layer slows the story to 0.6× on a spring | No change | No change |
 
-The first step takes about six seconds at speed 1; later steps run at less than half that. Everything runs on the story
-clock, so it pauses, steps and scales with `Speed`.
+One run takes about 21 seconds at speed 1 and loops seamlessly: its first 0.8 seconds turn the finished model back into
+an untrained one. Everything is a function of the story clock, so it pauses, steps and scales with `Speed`. Under
+reduced motion the illustration opens on the finished run and has no play button; picking a step shows its still frame.
 
 ## Responsive behavior
 
-- From 600 px the prediction bars and the loss curve stand in a column on the right; narrower, they sit side by side
-  under the network.
-- The card is at most 780 px wide; under 560 px its padding tightens and under 420 px the "Speed" words hide.
-- Every control is a button, so touch works the same as a pointer.
+- From 720 px the readouts and the loss chart stand in a 232 px column beside the network; narrower, they sit under it.
+- Under 600 px the step bar shows numbers only and the caption starts with the step's name.
+- Under 480 px the two data stacks move above the network and the class probabilities stack under their names.
+- Hover details appear only for a mouse; touch shows the same diagram without them.
 
 ## Related
 
 | Component | Choose it when |
 |---|---|
 | `TrainingRun` | You show a real fine-tuning job with its live loss |
+| `DataFlow` | Records move through a pipeline |
 | `MixtureOfExperts` | The story is how a model routes tokens to experts |
 | `LineChart` | You plot measured losses |

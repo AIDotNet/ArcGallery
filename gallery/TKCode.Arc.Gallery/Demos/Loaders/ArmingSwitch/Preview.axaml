@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.ArmingSwitchPreviewDemo">
+    <!-- A made-up release: lift the cover, throw the switch up, then hold the lamp. The rollout is simulated (1.4 s),
+         succeeds, and the cover drops back on its own a moment later. Tab, Enter, Space, the arrows and Escape work too. -->
+    <arc:ArmingSwitch x:Name="Switch"
+                      MaxWidth="840"
+                      Margin="8"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Title="Ship to production"
+                      Description="billing v5.2.0 to ap-south-1 and sa-east-1"
+                      HoldLabel="Hold to ship"
+                      RunningStatusText="Shipping"
+                      DoneStatusText="Shipped"
+                      ArmedHint="Press and hold the lamp to ship."
+                      RunningHint="Pretending to roll out to both regions."
+                      DoneHint="Sample release finished. Lift the cover to ship again."
+                      FailedHint="The rollout stopped halfway. Hold the lamp to retry." />
+</UserControl>

@@ -4616,6 +4616,142 @@
         <source>The whole prompt sent to both models.</source>
         <target>傳送給兩個模型的完整提示。</target>
       </trans-unit>
+      <trans-unit id="ArmingSwitch">
+        <source>An aircraft-style guarded switch for an action that must never fire by accident, such as a production release or deleting a workspace. A brushed aluminium plate carries a chrome bat toggle under a translucent hinged safety cover and a lamp with a hold ring. Lift the cover, throw the switch up until it snaps over centre and the lamp flickers on, then press and hold the lamp for `HoldDuration` to run `ConfirmAction`. Success lights the lamp green and, with `IsAutoSafeEnabled`, drops the cover, which throws the switch back to safe. Closing the cover at any time makes an armed switch safe. Tab moves between the cover, the switch and the lamp; Enter, Space and the arrow keys operate them and Escape makes everything safe.</source>
+        <target>駕駛艙風格的護蓋開關，用於絕不能誤觸發的操作，例如正式環境發布或刪除工作區。髮絲紋鋁面板上有一根罩在半透明鉸鏈安全護蓋下的鍍鉻撥桿，以及一盞帶按住圓環的指示燈。掀起護蓋，把開關往上扳過中點直到它彈到定位、指示燈閃爍亮起，然後按住指示燈 `HoldDuration` 時長來執行 `ConfirmAction`。成功時指示燈變綠；啟用 `IsAutoSafeEnabled` 時護蓋落下，把開關推回安全位置。任何時候闔上護蓋都會讓已待發的開關回到安全狀態。Tab 在護蓋、開關和指示燈之間移動；Enter、Space 和方向鍵操作它們，Escape 讓一切回到安全狀態。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.AccentBrush">
+        <source>The color of the hold ring; null uses the theme's accent.</source>
+        <target>按住圓環的顏色；為 null 時使用主題的強調色。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.ArmLabel">
+        <source>Engraved beside the switch's up position; also names the switch for assistive technology ("Arm switch").</source>
+        <target>刻在開關上方位置旁的文字；也用於為輔助技術命名開關（"Arm switch"）。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.ArmedChanged">
+        <source>Raised when the switch snaps to armed or back to safe (`IsArmed` changed), including when a closing cover pushes it back.</source>
+        <target>開關彈到待發或回到安全位置（`IsArmed` 改變）時觸發，包括闔上的護蓋把它推回的情況。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.ArmedHint">
+        <source>The next step while the switch is armed.</source>
+        <target>開關待發時的下一步提示。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.ArmedStatusText">
+        <source>The status chip's text while the switch is armed.</source>
+        <target>開關待發時狀態標籤的文字。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.ConfirmAction">
+        <source>The work to run when the hold completes. While its task runs the status is `Running` (the lamp pulses and the ring spins). True means success; false, or an exception, means failure. Null succeeds at once.</source>
+        <target>按住完成時要執行的工作。任務執行期間狀態為 `Running`（指示燈脈動、圓環旋轉）。true 表示成功；false 或例外表示失敗。為 null 時立即成功。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.Confirmed">
+        <source>Raised once when a hold completes, before `ConfirmAction` runs.</source>
+        <target>按住完成時觸發一次，在 `ConfirmAction` 執行之前。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.CoverBrush">
+        <source>The color of the translucent cover and of the tinted shadow it casts; null derives it from the theme's accent.</source>
+        <target>半透明護蓋及其投下的著色陰影的顏色；為 null 時由主題的強調色衍生。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.CoverOpenChanged">
+        <source>Raised when the cover is lifted or closed (`IsCoverOpen` changed), including when a drag carries it past halfway.</source>
+        <target>護蓋掀起或闔上（`IsCoverOpen` 改變）時觸發，包括拖曳使其越過一半的情況。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.Description">
+        <source>One line under the heading saying what runs and where; empty hides it.</source>
+        <target>標題下方的一行，說明執行什麼、在哪裡執行；為空時隱藏。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.DoneHint">
+        <source>The line shown after the action succeeded.</source>
+        <target>操作成功後顯示的一行。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.DoneStatusText">
+        <source>The status chip's text after the action succeeded.</source>
+        <target>操作成功後狀態標籤的文字。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.FailedHint">
+        <source>The line shown after the action failed.</source>
+        <target>操作失敗後顯示的一行。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.FailedStatusText">
+        <source>The status chip's text after the action failed.</source>
+        <target>操作失敗後狀態標籤的文字。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.HoldDuration">
+        <source>How long the lamp must be held to run the action (0.3 to 6 seconds, 1.2 by default). Letting go early drains the ring; pressing again picks up from there.</source>
+        <target>執行操作需要按住指示燈的時長（0.3 到 6 秒，預設 1.2 秒）。提早放開會排空圓環；再次按下會從排空到的位置繼續。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.HoldLabel">
+        <source>Engraved under the lamp, and the accessible name of the lamp.</source>
+        <target>刻在指示燈下方的文字，也是指示燈的無障礙名稱。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.IsArmed">
+        <source>Whether the switch is thrown up to armed.</source>
+        <target>開關是否已往上扳到待發位置。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.IsAutoSafeEnabled">
+        <source>After a success, drop the cover on its own a moment later, which throws the switch back to safe. The green lamp stays lit until the cover is lifted again.</source>
+        <target>成功後稍等片刻自動落下護蓋，把開關推回安全位置。綠燈一直亮到護蓋再次掀起。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.IsCoverOpen">
+        <source>Whether the safety cover is lifted.</source>
+        <target>安全護蓋是否已掀起。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.IsLocked">
+        <source>Locks the cover, the switch and the lamp while keeping them focusable: attempts rattle the cover and say that the switch is locked.</source>
+        <target>鎖定護蓋、開關和指示燈，但它們仍可取得焦點：嘗試操作時護蓋晃動，並說明開關已鎖定。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.OpenHint">
+        <source>The next step while the cover is up and the switch safe.</source>
+        <target>護蓋掀起、開關仍在安全位置時的下一步提示。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.OpenStatusText">
+        <source>The status chip's text while the cover is up and the switch safe.</source>
+        <target>護蓋掀起、開關仍在安全位置時狀態標籤的文字。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.ReadyLabel">
+        <source>Engraved beside the small ready light, which beats while idle, flickers while the action runs and stays lit once it is done.</source>
+        <target>刻在小就緒燈旁的文字；就緒燈閒置時跳動，操作執行時閃爍，完成後保持常亮。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.RunningHint">
+        <source>The line shown while the action runs.</source>
+        <target>操作執行期間顯示的一行。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.RunningStatusText">
+        <source>The status chip's text while the action runs.</source>
+        <target>操作執行期間狀態標籤的文字。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.SafeHint">
+        <source>The next step shown under the panel (and announced) while the cover is down.</source>
+        <target>護蓋闔上時顯示在面板下方（並朗讀）的下一步提示。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.SafeLabel">
+        <source>Engraved beside the switch's down position.</source>
+        <target>刻在開關下方位置旁的文字。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.SafeStatusText">
+        <source>The status chip's text while the cover is down and the switch safe.</source>
+        <target>護蓋闔上、開關處於安全位置時狀態標籤的文字。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.Status">
+        <source>Where the control is in its lift, arm, hold and run ritual.</source>
+        <target>控制項在掀蓋、待發、按住與執行流程中所處的位置。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.StatusChanged">
+        <source>Raised whenever `Status` changes, with the exception when the action threw.</source>
+        <target>`Status` 每次改變時觸發；操作擲回例外時附帶該例外。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitch.Title">
+        <source>The heading of the card, naming the action.</source>
+        <target>卡片的標題，說明是什麼操作。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitchStatus">
+        <source>Where an `ArmingSwitch` is in its lift, arm, hold and run ritual.</source>
+        <target>`ArmingSwitch` 在掀蓋、待發、按住與執行流程中所處的位置。</target>
+      </trans-unit>
+      <trans-unit id="ArmingSwitchStatusChangedEventArgs">
+        <source>Arguments of `StatusChanged`.</source>
+        <target>`ArmingSwitch.StatusChanged` 的參數。</target>
+      </trans-unit>
       <trans-unit id="AskYourData">
         <source>Natural language to chart in one card (Arc Ask your data, design reference). A question field with the data source; a collapsible Generated SQL panel where the query streams in with syntax tints; a running state with a rolling count of the rows scanned over a breathing skeleton; then a result that builds as stacked bars, lines or a table, with a legend, a pointer and keyboard readout, and a one line insight streamed underneath. Failures show the database's message with Try again; a query that matches nothing offers the suggestions. Wire `GenerateSql` (a whole string, revealed four tokens a tick at a fixed final size) or `StreamSql` (chunks from your model; the panel grows with them) to your model, and `RunQuery` to a read only database role. Without them the card plays its `Simulation`, answers you supply, and asks its question once it is 35% on screen; with neither, it waits in its empty state and Ask stays unavailable.</source>
         <target>在一張卡片裡把自然語言變成圖表（Arc Ask your data，設計參考）。帶資料來源的問題輸入框；可收合的 Generated SQL 面板，查詢帶著語法著色串流寫入；執行狀態中，已掃描列數在呼吸的骨架上方滾動計數；接著結果以堆疊長條、折線或表格逐步呈現，附帶圖例、指標與鍵盤讀數，以及在下方串流出現的一行洞察。失敗時顯示資料庫的訊息與「重試」；沒有相符結果的查詢會提供建議問題。把 `GenerateSql`（整段字串，以固定的最終尺寸每個節拍顯示四個語彙單元）或 `StreamSql`（來自模型的分段，面板隨之增高）接上你的模型，把 `RunQuery` 接上唯讀資料庫角色。都不接上時，卡片會播放它的 `Simulation`（由你提供的答案），並在有 35% 出現在螢幕上時提出它的問題；兩者都沒有時，卡片會停在空狀態，提問按鈕無法使用。</target>
@@ -12752,6 +12888,10 @@
         <source>A temporary side surface for focused work that keeps the page in context: filters, settings, record details, forms too long for a dialog. Declare it anywhere; while `IsOpen` its panel springs in from `Side` above a lightly blurred scrim. The header is a drag handle: it follows the pointer toward the edge and rubber-bands the other way; past a third of the panel, or on a flick toward the edge faster than 500px/s, the drawer closes and keeps the flick's velocity; otherwise it springs back. A click, Escape or the scrim closes it with a quicker tween. The close button is there unless `ShowCloseButton` or `ShowHeader` is off; under reduced motion dragging is off and the panel only fades.</source>
         <target>一個暫時的側邊表面，用於在保留頁面脈絡的同時專注處理事務：篩選、設定、記錄詳細資料、對對話方塊來說過長的表單。可以在任何位置宣告；`IsOpen` 時面板從 `Side` 一側以彈簧滑入，下方是輕度模糊的遮罩。標題列是拖曳把手：朝邊緣拖曳時跟隨指標，反方向則有橡皮筋阻尼；拖過面板的三分之一，或以超過 500px/s 的速度朝邊緣輕撥，抽屜就會關閉並保留輕撥的速度；否則彈回原位。點按、Escape 或遮罩會以更快的補間關閉它。除非關閉了 `ShowCloseButton` 或 `ShowHeader`，否則會顯示關閉按鈕；減少動態效果時不能拖曳，面板只淡入淡出。</target>
       </trans-unit>
+      <trans-unit id="Drawer.BodyPadding">
+        <source>Padding around the body content; null (default) follows the theme (24px, or 20px when narrow).</source>
+        <target>內文內容周圍的內距；null（預設）跟隨主題（24px，窄螢幕時 20px）。</target>
+      </trans-unit>
       <trans-unit id="Drawer.HeaderContent">
         <source>Content that replaces the default title row of the header.</source>
         <target>取代標題列預設標題行的內容。</target>
@@ -12759,6 +12899,10 @@
       <trans-unit id="Drawer.IsFullScreen">
         <source>Fills the viewport along the panel's axis, without corner radius or hairline.</source>
         <target>沿面板的軸向填滿檢視區，不帶圓角與細邊線。</target>
+      </trans-unit>
+      <trans-unit id="Drawer.IsScrollable">
+        <source>Whether the body scrolls vertically when its content overflows (default true). False disables the built-in scroller so the content receives the drawer's remaining height directly.</source>
+        <target>內容溢出時內文是否可以縱向捲動（預設 true）。設為 False 會關閉內建捲動區，讓內容直接取得抽屜剩餘的高度。</target>
       </trans-unit>
       <trans-unit id="Drawer.PanelCornerRadius">
         <source>Corner radius of the panel; null (default) follows the theme.</source>
@@ -23197,52 +23341,116 @@
         <target>概覽事實下方的小字，例如 "Prices in USD per 1M tokens · demo values"；為 null 時不顯示。</target>
       </trans-unit>
       <trans-unit id="ModelTraining">
-        <source>An animated explainer of a model's training loop. Each step draws a batch from the data, runs it forward through a small network (a wave of activations, left to right), compares the prediction with the right answer to get the loss (bars show the probability the model gave each class, and the loss is −ln of the right one), runs the loss backward (a wave of gradients, right to left) and nudges every weight (the connections change thickness and color). The loss lands on a curve that falls step by step. The first step stops at every phase with a caption; later steps repeat the loop faster. Play, pause, step, restart and a 0.5× / 1× / 2× speed control drive it; under reduced motion it opens on its end and steps apply in place. The network and the numbers are illustrative.</source>
-        <target>模型訓練迴圈的動畫講解。每一步從資料中取出一個批次，讓它前向通過一個小型網路（一波激活值，從左到右），把預測與正確答案比較得到損失（長條顯示模型給每個類別的機率，損失是正確類別機率的 −ln），再把損失反向傳播（一波梯度，從右到左），並微調每個權重（連線的粗細和顏色隨之變化）。損失落在一條逐步下降的曲線上。第一步會在每個階段停下並顯示說明；之後的步驟更快地重複這個迴圈。播放、暫停、單步、重新開始以及 0.5× / 1× / 2× 速度控制項驅動演示；在減少動態效果下直接開啟結束狀態，單步就地生效。網路和數字僅供示意。</target>
+        <source>An animated illustration of how a model learns, told in five steps that loop seamlessly (about 21 s at speed 1). A batch leaves a stack of training data and drops into the input layer of a small network drawn on 2.5D plates; signals ride every connection forward to a prediction; the error rides them back as a short dash and each connection it passes grows a little stronger; over the epochs batches stream through, the useful connections thicken and take the accent while the rest stay light, the loss curve falls beside the network and the loss, epoch and output readouts count in step; at the end the held-out data runs through once, the score counts up and the evaluation passes its target. A step bar with play and pause replays the story or jumps to any step (while paused, a step shows its still frame); a caption explains the current step; a mouse resting on a stack or a layer shows a detail and slows the story down. Under reduced motion it shows the finished run as a still frame. The network and the numbers are illustrative. The `Explainer` clock drives it: `AutoPlay` starts it on first sight, `Pause` holds it, `StepForward` plays to the next step, `Restart` starts over and `Speed` scales it (0 holds it still). A playing run always loops without a pause, so `IsLooping` has no effect; `Finished` is raised at the end of every run. `AreControlsVisible` shows the step bar. The header-only members (`Model`) have no effect.</source>
+        <target>講解模型如何學習的動畫插圖，分五個步驟無縫循環（速度為 1 時約 21 秒）。一個批次離開訓練資料堆，落入畫在 2.5D 底板上的小型網路的輸入層；訊號沿每條連線向前傳遞得到預測；誤差以一小段短線沿連線傳回，它經過的每條連線都變強一點；在各個輪次中批次接連流過，有用的連線變粗並染上強調色，其餘保持淺淡，網路旁的損失曲線下降，損失、輪次和輸出讀數同步計數；最後保留資料跑一遍，分數向上計數，評估達到目標。帶播放和暫停的步驟列可重播故事或跳到任一步驟（暫停時，步驟顯示其靜止畫面）；說明文字解釋目前步驟；滑鼠停在資料堆或某一層上會顯示詳情並讓故事減速。減弱動效下以靜止畫面顯示完成的執行。網路和數字僅作示意。由 `Explainer` 時鐘驅動：`AutoPlay` 首次出現時開始，`Pause` 暫停，`StepForward` 播放到下一步，`Restart` 重新開始，`Speed` 縮放速度（0 保持靜止）。播放中的執行總是無停頓地循環，因此 `IsLooping` 無效；每輪結束時觸發 `Finished`。`AreControlsVisible` 顯示步驟列。僅用於標題列的成員（`Model`）無效。</target>
+      </trans-unit>
+      <trans-unit id="ModelTraining.Accent">
+        <source>The colour of the signals, the error dash, the learned connections, the loss curve and the current step; null (the default) uses the accent. The passed evaluation keeps the success colour.</source>
+        <target>訊號、誤差短線、學到的連線、損失曲線和目前步驟的顏色；null（預設）使用強調色。通過的評估保持成功色。</target>
+      </trans-unit>
+      <trans-unit id="ModelTraining.Accuracy">
+        <source>The accuracy on the held-out data in percent; the evaluation counts up to it (default 94.2).</source>
+        <target>保留資料上的準確率（百分比）；評估向上計數到該值（預設 94.2）。</target>
       </trans-unit>
       <trans-unit id="ModelTraining.BatchSize">
-        <source>The examples per batch, named in the batch caption (default 32).</source>
-        <target>每個批次的樣本數，顯示在批次說明中（預設 32）。</target>
+        <source>The samples per batch, named in the batch caption and the training data's detail (default 32).</source>
+        <target>每個批次的樣本數，顯示在批次說明和訓練資料的詳情中（預設 32）。</target>
+      </trans-unit>
+      <trans-unit id="ModelTraining.ClassNames">
+        <source>The two classes the model learns to tell apart, shown beside the output layer (default Cat and Dog).</source>
+        <target>模型學習區分的兩個類別，顯示在輸出層旁（預設 Cat 和 Dog）。</target>
       </trans-unit>
       <trans-unit id="ModelTraining.CurrentLoss">
-        <source>The last loss measured; NaN before the first.</source>
-        <target>最近一次測得的損失；第一次之前為 NaN。</target>
+        <source>The loss the readout shows; NaN before the first batch has been measured.</source>
+        <target>讀數顯示的損失；首個批次測得之前為 NaN。</target>
+      </trans-unit>
+      <trans-unit id="ModelTraining.CurrentStep">
+        <source>The step the step bar marks as current (0 batch, 1 forward pass, 2 backward pass, 3 epochs, 4 evaluate).</source>
+        <target>步驟列標為目前的步驟（0 批次、1 前向傳遞、2 反向傳遞、3 輪次、4 評估）。</target>
+      </trans-unit>
+      <trans-unit id="ModelTraining.DefaultStep">
+        <source>The step (0 to 4) shown before the story plays and where playing starts; −1 (the default) shows the finished, evaluated model and plays from the start. Under reduced motion it picks the still frame shown.</source>
+        <target>故事播放前顯示的步驟（0 到 4），也是開始播放的位置；−1（預設）顯示已完成評估的模型並從頭播放。減弱動效下它決定顯示哪一個靜止畫面。</target>
+      </trans-unit>
+      <trans-unit id="ModelTraining.Description">
+        <source>The diagram's accessible description; null (the default) builds one from the classes and the numbers.</source>
+        <target>圖示的無障礙描述；null（預設）根據類別和數字產生。</target>
+      </trans-unit>
+      <trans-unit id="ModelTraining.Epochs">
+        <source>The epochs the story trains for; the epoch readout and the chart's axis count to it (default 12).</source>
+        <target>故事訓練的輪次數；輪次讀數和圖表座標軸計數到該值（預設 12）。</target>
+      </trans-unit>
+      <trans-unit id="ModelTraining.HeldOutSamples">
+        <source>The samples in the held-out data (default 1,600).</source>
+        <target>保留資料中的樣本數（預設 1,600）。</target>
+      </trans-unit>
+      <trans-unit id="ModelTraining.HiddenUnits">
+        <source>The units of the two hidden layers, each 2 to 6 (default 4 and 4).</source>
+        <target>兩個隱藏層的單元數，每層 2 到 6（預設 4 和 4）。</target>
+      </trans-unit>
+      <trans-unit id="ModelTraining.InputCount">
+        <source>The units of the input layer, one per feature; each data sheet shows one line per feature (2 to 5, default 3).</source>
+        <target>輸入層的單元數，每個特徵一個；每張資料頁為每個特徵顯示一條橫線（2 到 5，預設 3）。</target>
+      </trans-unit>
+      <trans-unit id="ModelTraining.IsCaptionVisible">
+        <source>Shows the sentence under the step bar that explains the current step (default true).</source>
+        <target>顯示步驟列下方解釋目前步驟的句子（預設 true）。</target>
       </trans-unit>
       <trans-unit id="ModelTraining.Iteration">
-        <source>The current step, from 1; 0 before the first.</source>
-        <target>目前的步驟，從 1 開始；第一步之前為 0。</target>
+        <source>The training step (batch) the run is on, from 1; 0 before the first.</source>
+        <target>執行所處的訓練步驟（批次），從 1 開始；第一個之前為 0。</target>
       </trans-unit>
       <trans-unit id="ModelTraining.IterationCompleted">
-        <source>Raised when a step finishes its update, with the step and its loss.</source>
-        <target>某一步完成更新時觸發，附帶該步驟及其損失。</target>
+        <source>Raised when a training step's weight update finishes, with the step and the loss after it.</source>
+        <target>某個訓練步驟的權重更新完成時觸發，附帶該步驟及更新後的損失。</target>
       </trans-unit>
       <trans-unit id="ModelTraining.Labels">
-        <source>Every word the card shows or announces.</source>
-        <target>卡片顯示或朗讀的每一個文字。</target>
+        <source>Every word the illustration shows or announces.</source>
+        <target>插圖顯示或朗讀的每一個文字。</target>
       </trans-unit>
       <trans-unit id="ModelTraining.LearningRate">
-        <source>The learning rate, named in the readout and the update caption; a larger rate moves the weights further each step (default 0.05).</source>
-        <target>學習率，顯示在讀數和更新說明中；學習率越大，每一步權重移動得越遠（預設 0.05）。</target>
+        <source>How far each update moves the weights toward their trained values (approximate; default 0.05): a larger rate makes the connections strengthen sooner, a smaller one later. The finished model looks the same.</source>
+        <target>每次更新讓權重向訓練值移動多遠（近似；預設 0.05）：學習率越大，連線越早變強，越小則越晚。完成的模型看起來相同。</target>
+      </trans-unit>
+      <trans-unit id="ModelTraining.LossFrom">
+        <source>The loss after the first batch, where the curve starts (default 0.69).</source>
+        <target>第一個批次後的損失，曲線從這裡開始（預設 0.69）。</target>
+      </trans-unit>
+      <trans-unit id="ModelTraining.LossTo">
+        <source>The loss after the last epoch, where the curve ends; the validation point sits just above it (default 0.08).</source>
+        <target>最後一個輪次後的損失，曲線在這裡結束；驗證點位於其上方不遠處（預設 0.08）。</target>
       </trans-unit>
       <trans-unit id="ModelTraining.LossValues">
-        <source>The loss of each step, in order; null (the default) uses a sample curve that falls from 2.30 and levels off. Extra values are ignored, missing ones continue the sample curve. Values are clamped to 0.01 – 5.</source>
-        <target>每一步的損失，按順序排列；null（預設）使用一條從 2.30 開始下降並趨於平穩的範例曲線。多餘的值會被忽略，缺少的部分沿範例曲線繼續。值會被限制在 0.01 – 5 之間。</target>
+        <source>The loss curve as values spread evenly over the training, first to last (at least two); null (the default) draws a curve from `LossFrom` to `LossTo`. When set, its first and last values replace them.</source>
+        <target>以平均分布在訓練過程上的值給出的損失曲線，從頭到尾（至少兩個）；null（預設）繪製一條從 `LossFrom` 到 `LossTo` 的曲線。設定後，其首尾值取代這兩個屬性。</target>
       </trans-unit>
       <trans-unit id="ModelTraining.Phase">
-        <source>The phase of the current step.</source>
-        <target>目前步驟所處的階段。</target>
+        <source>Where the run is.</source>
+        <target>執行所處的位置。</target>
+      </trans-unit>
+      <trans-unit id="ModelTraining.Samples">
+        <source>The samples in the training data, shown under its stack (default 12,800).</source>
+        <target>訓練資料中的樣本數，顯示在資料堆下方（預設 12,800）。</target>
       </trans-unit>
       <trans-unit id="ModelTraining.StepCount">
-        <source>How many training steps the story runs (2 to 20, default 6).</source>
-        <target>演示執行的訓練步數（2 到 20，預設 6）。</target>
+        <source>How many training steps (batches) the story shows: the first one slowly over the batch, forward and backward steps, the rest streaming through the epochs step (2 to 20, default 6).</source>
+        <target>故事展示多少個訓練步驟（批次）：第一個在批次、前向和反向步驟中慢速展示，其餘在輪次步驟中接連流過（2 到 20，預設 6）。</target>
+      </trans-unit>
+      <trans-unit id="ModelTraining.Target">
+        <source>The accuracy the evaluation must reach in percent, shown under its name (default 90).</source>
+        <target>評估必須達到的準確率（百分比），顯示在其名稱下方（預設 90）。</target>
       </trans-unit>
       <trans-unit id="ModelTrainingIterationEventArgs">
         <source>Arguments of `IterationCompleted`.</source>
         <target>`IterationCompleted` 的參數。</target>
       </trans-unit>
       <trans-unit id="ModelTrainingLabels">
-        <source>Every word a `ModelTraining` shows or announces, in English by default (the playback buttons are named by `PlaybackLabels`). Replace the instance to translate or reword; texts with numbers are functions so the word order can change.</source>
-        <target>`ModelTraining` 顯示或朗讀的每一個文字，預設為英文（播放按鈕的名稱由 `PlaybackLabels` 指定）。替換整個實例即可翻譯或改寫；包含數字的文字為函數，以便調整詞序。</target>
+        <source>Every word a `ModelTraining` shows or announces, in English by default (the play button is named by `PlaybackLabels`). Replace the instance to translate or reword; texts with numbers are functions so the word order can change.</source>
+        <target>`ModelTraining` 顯示或朗讀的每一個文字，預設為英文（播放按鈕的名稱由 `PlaybackLabels` 指定）。替換整個實例即可翻譯或改寫；包含數字的文字為函式，以便調整詞序。</target>
+      </trans-unit>
+      <trans-unit id="ModelTrainingPhase">
+        <source>Where a `ModelTraining` run is (`Phase`).</source>
+        <target>`ModelTraining` 執行所處的位置（`Phase`）。</target>
       </trans-unit>
       <trans-unit id="ModelViewer">
         <source>Shows one 3D model with everything a product view needs: studio lighting, a soft ground shadow, orbit / zoom / pan with the pointer, auto-rotation and a reset button. Give it a glTF file (`Source`, `LoadAsync`) or any object built in code (`Model`); it frames the model by itself.</source>

@@ -3,16 +3,21 @@
              xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
              x:Class="TKCode.Arc.Gallery.Demos.ModelTrainingOwnLossesDemo">
     <StackPanel Spacing="16">
+        <!-- Your own task and numbers: a spam filter trained for 20 epochs that misses its target. -->
         <arc:ModelTraining x:Name="Card"
-                           Title="A rate that is too high"
-                           LearningRate="0.8"
+                           InputCount="4"
+                           Samples="48000"
+                           HeldOutSamples="6000"
                            BatchSize="64"
+                           Epochs="20"
+                           Accuracy="88.6"
+                           Target="92"
                            IterationCompleted="OnIterationCompleted" />
         <TextBlock x:Name="Log"
                    HorizontalAlignment="Center"
                    TextWrapping="Wrap"
                    FontSize="13"
-                   Text="The loss of each finished step is logged here."
+                   Text="The loss after each weight update is logged here."
                    Foreground="{arc:ArcDesignTokenResource TextMuted}" />
     </StackPanel>
 </UserControl>
