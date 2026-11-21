@@ -306,6 +306,52 @@ Change as little as possible. A token change applies everywhere: overriding `Dan
 destructive button and failed status in the application. Overrides of colors should be checked in both appearances,
 because the override is not recalculated for dark mode.
 
+## Fonts
+
+Arc controls take their font from three tokens, `BodyFontFamily`, `DisplayFontFamily` and `MonoFontFamily`, not from
+the `FontFamily` that Avalonia inherits down the tree. A control's theme sets its `FontFamily` from the token, and a
+value set by a style wins over an inherited one. So `FontFamily` on a `Window` or a panel reaches plain `TextBlock`s
+but not `arc:Button`, `arc:Input` and the rest. Change the token instead:
+
+```csharp
+using Avalonia.Media;
+
+// Your font first, Inter for Latin text it does not cover, then the platform default.
+var body = new FontFamily("avares://MyApp/Assets/Fonts#My Sans SC, fonts:Inter#Inter, $Default");
+
+ArcTheme.Apply(t => t
+    .BodyFontFamily(body)      // body text of every Arc control
+    .DisplayFontFamily(body)   // headings and large numbers
+    .MonoFontFamily(new FontFamily("Cascadia Mono, $Default")));
+```
+
+`FontFamily(family)` sets body and display together. A family is a comma separated chain: Avalonia uses the first font
+that has a glyph, so put a CJK font and a Latin font in one chain to get both. `ArcWindow`, `Window` and the popup roots
+read `BodyFontFamily` too, so plain text next to Arc controls follows the same token. The string form,
+`Token("BodyFontFamily", "...")`, does the same.
+
+To change the font of one part of a page only, put the token's resource key in that subtree's resources:
+
+```csharp
+panel.Resources[ArcDesignTokens.Key(ArcDesignTokenKind.BodyFontFamily)] = new FontFamily("Cascadia Mono, $Default");
+```
+
+Large custom fonts, CFF-flavoured OpenType files (`.otf`) in particular, are slower to rasterize than the bundled
+TrueType fonts, and every frame of an animation that scales or fades text pays for it. If a button's label shimmers
+while it is pressed with such a font, set `IsPressScaleEnabled="False"` on the button, or for every button in a scope:
+
+```xml
+<StackPanel>
+    <StackPanel.Styles>
+        <Style Selector="arc|Button">
+            <Setter Property="IsPressScaleEnabled" Value="False" />
+        </Style>
+    </StackPanel.Styles>
+</StackPanel>
+```
+
+A TrueType (`.ttf`) build of the font, or a subset with only the glyphs you use, avoids most of the cost.
+
 ## Corner style
 
 Arc's corners are round: 18 for controls, 26 for panels, 34 for surfaces. If your product wants squarer corners, change

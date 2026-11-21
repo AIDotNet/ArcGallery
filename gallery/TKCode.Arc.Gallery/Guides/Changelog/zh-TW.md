@@ -1,6 +1,6 @@
 ---
 title: 更新日誌
-source-hash: a6160c4762ad
+source-hash: 079d3c4136b5
 ---
 
 # 更新日誌
@@ -8,6 +8,10 @@ source-hash: a6160c4762ad
 TKCode.Arc 的所有重要變更，最新的在前。版本遵循[語意化版本](https://semver.org/)。從 1.0.0 起，破壞性 API 變更只在新的主版本中出現；更早的 `-preview` 版本在各發行版本之間可能變更 API。同一份清單也保存在儲存庫的 `CHANGELOG.md` 中。
 
 每次發行附帶的 NuGet 套件：`TKCode.Arc`、`TKCode.Arc.Core`、`TKCode.Arc.Foundation`（0.3.2 起）、`TKCode.Arc.Fonts` 、`TKCode.Arc.Icons.Lucide`、`TKCode.Arc.Blocks`、`TKCode.Arc.AdvancedCharts` 、`TKCode.Arc.Special`、`TKCode.Arc.Workflow`、`TKCode.Arc.Dock`（0.4.0-preview.2 起）、`TKCode.Arc.Themes.Pixel`、`TKCode.Arc.Themes.Corners`、`TKCode.Arc.Mobile`、`TKCode.Arc.Terminal`、`TKCode.Arc.Audio`、`TKCode.Arc.Audio.Native`、`TKCode.Arc.Audio.Browser`、`TKCode.Arc.Templates`（0.4.0-preview.6 起）、`TKCode.Arc.Pdf`、`TKCode.Arc.Pdf.Native` 和 `TKCode.Arc.Pdf.Browser`（1.0.0 起），`TKCode.Arc.Video`、`TKCode.Arc.Video.Native` 和 `TKCode.Arc.Video.Browser`（1.1.0-preview.1 起），`TKCode.Arc.Markdown` 和 `TKCode.Arc.Highlighting`（1.1.1 起），`TKCode.Arc.Ribbon`（1.2.0 起）。此外還有跟隨主版本發行的預覽套件：`TKCode.Arc.Graphics3D`、`TKCode.Arc.Graphics3D.WebGpu`、`TKCode.Arc.Graphics3D.Controls` 和 `TKCode.Arc.Graphics3D.Browser`（1.2.0-preview.3 起）。
+
+## 1.3.1-preview.1（2026-11-21）
+
+修復兩個 issue 的修補預覽版。`Card` 內的輸入框或下拉選單取得指標時，卡片不再重播 hover 上浮動畫（[#174](https://github.com/AIDotNet/TKCode.Arc/issues/174)）；`ArcThemeBuilder` 新增接受 `FontFamily` 的 `BodyFontFamily`、`DisplayFontFamily`、`MonoFontFamily` 與 `FontFamily` 方法，主題指南新增「字型」一節（[#173](https://github.com/AIDotNet/TKCode.Arc/issues/173)）。現有公開 API 沒有變化。安裝時使用 `--version 1.3.1-preview.1`。
 
 ## 1.3.0（2026-11-20）
 

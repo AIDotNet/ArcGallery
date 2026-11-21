@@ -10,6 +10,14 @@ between releases. The same list is kept in `CHANGELOG.md` in the repository.
 NuGet packages published with each release: `TKCode.Arc`, `TKCode.Arc.Core`, `TKCode.Arc.Foundation` (from 0.3.2), `TKCode.Arc.Fonts` and
 `TKCode.Arc.Icons.Lucide`, `TKCode.Arc.Blocks`, `TKCode.Arc.AdvancedCharts`, `TKCode.Arc.Special`, `TKCode.Arc.Workflow`, `TKCode.Arc.Dock` (from 0.4.0-preview.2), `TKCode.Arc.Themes.Pixel`, `TKCode.Arc.Themes.Corners`, `TKCode.Arc.Mobile`, `TKCode.Arc.Terminal`, `TKCode.Arc.Audio`, `TKCode.Arc.Audio.Native`, `TKCode.Arc.Audio.Browser`, `TKCode.Arc.Templates` (from 0.4.0-preview.6), `TKCode.Arc.Pdf`, `TKCode.Arc.Pdf.Native` and `TKCode.Arc.Pdf.Browser` (from 1.0.0), `TKCode.Arc.Video`, `TKCode.Arc.Video.Native` and `TKCode.Arc.Video.Browser` (from 1.1.0-preview.1), `TKCode.Arc.Markdown` and `TKCode.Arc.Highlighting` (from 1.1.1), `TKCode.Arc.Ribbon` (from 1.2.0). Also, as previews that follow the main version: `TKCode.Arc.Graphics3D`, `TKCode.Arc.Graphics3D.WebGpu`, `TKCode.Arc.Graphics3D.Controls` and `TKCode.Arc.Graphics3D.Browser` (from 1.2.0-preview.3).
 
+## 1.3.1-preview.1 (2026-11-21)
+
+A patch preview for two issues. `Card` no longer replays its hover lift when a text box or drop-down inside it takes the
+pointer ([#174](https://github.com/AIDotNet/TKCode.Arc/issues/174)), and `ArcThemeBuilder` gained `BodyFontFamily`,
+`DisplayFontFamily`, `MonoFontFamily` and `FontFamily` methods that take a `FontFamily`, with a new Fonts section in the
+Theming guide ([#173](https://github.com/AIDotNet/TKCode.Arc/issues/173)). No existing public API changes. Install it with
+`--version 1.3.1-preview.1`.
+
 ## 1.3.0 (2026-11-20)
 
 The stable release of everything shipped in `1.3.0-preview.3` and `1.3.0-preview.4`, plus the changes that ship here

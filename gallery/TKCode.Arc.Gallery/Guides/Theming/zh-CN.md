@@ -1,6 +1,6 @@
 ---
 title: 主题
-source-hash: cceaf2bc7826
+source-hash: f08763bc7721
 ---
 
 # 主题
@@ -271,6 +271,44 @@ ArcTheme.Apply(t => t
 值是文本，按令牌的类型解析（`#RRGGBB`、`12`、`4,8`、`120ms`、枚举成员名）。控件令牌的标识就是控件名；移动端控件使用 `MobileButton`、`MobileCheckbox`、`MobileDialog`、`MobileSwitch` 和 `MobileToast`。`ClearTokens()` 会移除全部覆盖。
 
 尽量少改。令牌的修改会应用到所有地方：覆盖 `Danger` 会改变应用中每一条错误提示、每一个破坏性按钮和每一个失败状态。颜色的覆盖值应在两种外观下检查，因为深色模式不会重新计算该覆盖值。
+
+## 字体
+
+Arc 控件的字体来自三个令牌：`BodyFontFamily`、`DisplayFontFamily` 和 `MonoFontFamily`，而不是 Avalonia 沿控件树继承的 `FontFamily`。控件主题会用令牌设置自己的 `FontFamily`，而样式设置的值优先于继承的值。因此在 `Window` 或某个面板上设置 `FontFamily`，只会影响普通 `TextBlock`，不会影响 `arc:Button`、`arc:Input` 等控件。要改字体，请改令牌：
+
+```csharp
+using Avalonia.Media;
+
+// 先放你的字体，它没有覆盖的拉丁文字交给 Inter，最后是平台默认字体。
+var body = new FontFamily("avares://MyApp/Assets/Fonts#My Sans SC, fonts:Inter#Inter, $Default");
+
+ArcTheme.Apply(t => t
+    .BodyFontFamily(body)      // 所有 Arc 控件的正文字体
+    .DisplayFontFamily(body)   // 标题和大号数字
+    .MonoFontFamily(new FontFamily("Cascadia Mono, $Default")));
+```
+
+`FontFamily(family)` 会同时设置正文和展示字体。字体族是用逗号分隔的字体链：Avalonia 使用第一个包含该字形的字体，因此把中文字体和拉丁字体放在同一条链里即可两者兼顾。`ArcWindow`、`Window` 和弹出层根节点同样读取 `BodyFontFamily`，所以与 Arc 控件并排的普通文字会跟随同一个令牌。字符串形式 `Token("BodyFontFamily", "...")` 效果相同。
+
+如果只想修改页面某一部分的字体，把该令牌的资源键放进这个子树的资源即可：
+
+```csharp
+panel.Resources[ArcDesignTokens.Key(ArcDesignTokenKind.BodyFontFamily)] = new FontFamily("Cascadia Mono, $Default");
+```
+
+体积较大的自定义字体，尤其是 CFF 风格的 OpenType 文件（`.otf`），光栅化比内置的 TrueType 字体慢，而每一帧缩放或淡入淡出文字的动画都要承担这部分开销。如果使用这类字体时，按钮在按下过程中文字闪烁，可以在该按钮上设置 `IsPressScaleEnabled="False"`，或者为某个范围内的所有按钮统一关闭：
+
+```xml
+<StackPanel>
+    <StackPanel.Styles>
+        <Style Selector="arc|Button">
+            <Setter Property="IsPressScaleEnabled" Value="False" />
+        </Style>
+    </StackPanel.Styles>
+</StackPanel>
+```
+
+使用该字体的 TrueType（`.ttf`）版本，或者只保留用到字形的子集，可以避免大部分开销。
 
 ## 圆角风格
 

@@ -1,6 +1,6 @@
 ---
 title: 主題
-source-hash: cceaf2bc7826
+source-hash: f08763bc7721
 ---
 
 # 主題
@@ -271,6 +271,44 @@ ArcTheme.Apply(t => t
 值是文字，依權杖的型別解析（`#RRGGBB`、`12`、`4,8`、`120ms`、列舉成員名稱）。控制項權杖的識別就是控制項名稱；行動端控制項使用 `MobileButton`、`MobileCheckbox`、`MobileDialog`、`MobileSwitch` 和 `MobileToast`。`ClearTokens()` 會移除全部覆寫。
 
 請盡量少改。權杖的修改會套用到所有地方：覆寫 `Danger` 會改變應用程式中每一則錯誤訊息、每一個破壞性按鈕和每一個失敗狀態。顏色的覆寫值應在兩種外觀下檢查，因為深色模式不會重新計算該覆寫值。
+
+## 字型
+
+Arc 控制項的字型來自三個權杖：`BodyFontFamily`、`DisplayFontFamily` 和 `MonoFontFamily`，而不是 Avalonia 沿控制項樹繼承的 `FontFamily`。控制項主題會用權杖設定自己的 `FontFamily`，而樣式設定的值優先於繼承的值。因此在 `Window` 或某個面板上設定 `FontFamily`，只會影響一般 `TextBlock`，不會影響 `arc:Button`、`arc:Input` 等控制項。要改字型，請改權杖：
+
+```csharp
+using Avalonia.Media;
+
+// 先放你的字型，它沒有涵蓋的拉丁文字交給 Inter，最後是平台預設字型。
+var body = new FontFamily("avares://MyApp/Assets/Fonts#My Sans SC, fonts:Inter#Inter, $Default");
+
+ArcTheme.Apply(t => t
+    .BodyFontFamily(body)      // 所有 Arc 控制項的內文字型
+    .DisplayFontFamily(body)   // 標題和大號數字
+    .MonoFontFamily(new FontFamily("Cascadia Mono, $Default")));
+```
+
+`FontFamily(family)` 會同時設定內文和展示字型。字型族是用逗號分隔的字型鏈：Avalonia 使用第一個包含該字形的字型，因此把中文字型和拉丁字型放在同一條鏈裡即可兩者兼顧。`ArcWindow`、`Window` 和彈出層根節點同樣讀取 `BodyFontFamily`，所以與 Arc 控制項並排的一般文字會跟隨同一個權杖。字串形式 `Token("BodyFontFamily", "...")` 效果相同。
+
+如果只想修改頁面某一部分的字型，把該權杖的資源鍵放進這個子樹的資源即可：
+
+```csharp
+panel.Resources[ArcDesignTokens.Key(ArcDesignTokenKind.BodyFontFamily)] = new FontFamily("Cascadia Mono, $Default");
+```
+
+體積較大的自訂字型，尤其是 CFF 風格的 OpenType 檔案（`.otf`），點陣化比內建的 TrueType 字型慢，而每一幀縮放或淡入淡出文字的動畫都要承擔這部分開銷。如果使用這類字型時，按鈕在按下過程中文字閃爍，可以在該按鈕上設定 `IsPressScaleEnabled="False"`，或者為某個範圍內的所有按鈕統一關閉：
+
+```xml
+<StackPanel>
+    <StackPanel.Styles>
+        <Style Selector="arc|Button">
+            <Setter Property="IsPressScaleEnabled" Value="False" />
+        </Style>
+    </StackPanel.Styles>
+</StackPanel>
+```
+
+使用該字型的 TrueType（`.ttf`）版本，或者只保留用到字形的子集，可以避免大部分開銷。
 
 ## 圓角風格
 
