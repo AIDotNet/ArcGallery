@@ -26381,8 +26381,8 @@
         <target>側邊欄顯示的內容（雙向）。沒有目錄的文件只顯示縮圖，沒有頁籤，無論這裡如何設定。</target>
       </trans-unit>
       <trans-unit id="PdfViewer.Source">
-        <source>The PDF to open; changing it stops the open in progress and closes the document the viewer opened. In XAML, a path or an absolute URI. Wins over `Document`.</source>
-        <target>要開啟的 PDF；變更它會停止進行中的開啟，並關閉檢視器開啟的文件。在 XAML 中是路徑或絕對 URI。優先於 `Document`。</target>
+        <source>The PDF to open; changing it stops the open in progress and closes the document the viewer opened. In XAML, a path or an absolute URI; a binding may also give a path or address (`string`), a `Uri` or the document's bytes. Wins over `Document`.</source>
+        <target>要開啟的 PDF；變更它會停止進行中的開啟，並關閉檢視器開啟的文件。在 XAML 中是路徑或絕對 URI；繫結時也可以給路徑或位址（`string`）、`Uri` 或文件的位元組。優先於 `Document`。</target>
       </trans-unit>
       <trans-unit id="PdfViewer.Status">
         <source>Where the viewer is with its document.</source>

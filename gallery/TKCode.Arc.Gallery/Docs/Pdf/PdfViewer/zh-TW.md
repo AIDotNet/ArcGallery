@@ -1,7 +1,7 @@
 ---
 title: PDF 檢視器
 summary: 檢視 PDF，帶縮圖、目錄、搜尋、文字選取、連結和密碼提示；桌面上由 PDFium 繪製，瀏覽器中由 pdf.js 繪製。
-source-hash: 0f5b8e340c0d
+source-hash: ba642e355a5f
 ---
 
 <Demo name="Preview" />
@@ -34,7 +34,7 @@ ArcPdfNative.Use();              // desktop: TKCode.Arc.Pdf.Native
 await ArcPdfBrowser.UseAsync();  // browser: TKCode.Arc.Pdf.Browser
 ```
 
-把 `Source` 設為絕對位址或路徑。`http`、`https` 和 `avares` 位址都可以，檔案路徑也可以。在程式碼中，`PdfSource` 還能開啟位元組和資料流。
+把 `Source` 設為絕對位址或路徑。`http`、`https` 和 `avares` 位址都可以，檔案路徑也可以。在程式碼中，`PdfSource` 還能開啟位元組和資料流。繫結 `Source` 時，除了 `PdfSource`，也可以直接給路徑或位址（`string`）、`Uri` 或文件的位元組（`byte[]`）；空字串表示不顯示文件。要顯示你自己開啟的 `PdfDocument`，請繫結 `Document`。
 
 ```xml
 <arc:PdfViewer Source="avares://MyApp/Assets/report.pdf" Height="600" />

@@ -1,7 +1,7 @@
 ---
 title: PDF 查看器
 summary: 查看 PDF，带缩略图、目录、搜索、文字选择、链接和密码提示；桌面上由 PDFium 渲染，浏览器中由 pdf.js 渲染。
-source-hash: 0f5b8e340c0d
+source-hash: ba642e355a5f
 ---
 
 <Demo name="Preview" />
@@ -34,7 +34,7 @@ ArcPdfNative.Use();              // desktop: TKCode.Arc.Pdf.Native
 await ArcPdfBrowser.UseAsync();  // browser: TKCode.Arc.Pdf.Browser
 ```
 
-把 `Source` 设为绝对地址或路径。`http`、`https` 和 `avares` 地址都可以，文件路径也可以。在代码中，`PdfSource` 还能打开字节和流。
+把 `Source` 设为绝对地址或路径。`http`、`https` 和 `avares` 地址都可以，文件路径也可以。在代码中，`PdfSource` 还能打开字节和流。绑定 `Source` 时，除了 `PdfSource`，也可以直接给路径或地址（`string`）、`Uri` 或文档的字节（`byte[]`）；空字符串表示不显示文档。要显示你自己打开的 `PdfDocument`，请绑定 `Document`。
 
 ```xml
 <arc:PdfViewer Source="avares://MyApp/Assets/report.pdf" Height="600" />

@@ -35,7 +35,9 @@ await ArcPdfBrowser.UseAsync();  // browser: TKCode.Arc.Pdf.Browser
 ```
 
 Set `Source` to an absolute address or a path. `http`, `https` and `avares` addresses work, and so does a file path. From
-code, `PdfSource` also opens bytes and streams.
+code, `PdfSource` also opens bytes and streams. A binding can give `Source` a path or address (`string`), a `Uri` or the
+document's bytes (`byte[]`) as well as a `PdfSource`; an empty string shows nothing. To show a `PdfDocument` you opened
+yourself, bind `Document` instead.
 
 ```xml
 <arc:PdfViewer Source="avares://MyApp/Assets/report.pdf" Height="600" />
