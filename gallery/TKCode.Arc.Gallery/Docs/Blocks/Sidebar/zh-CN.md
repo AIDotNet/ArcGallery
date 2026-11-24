@@ -1,7 +1,7 @@
 ---
 title: 侧边栏
 summary: 工作区导航，包含分组、嵌套页面、数量和滑动的选中标记；可收起为图标窄栏。
-source-hash: 7a7987ef0bbd
+source-hash: 01573dd8bd7a
 ---
 
 <Demo name="Preview" />
@@ -117,7 +117,7 @@ source-hash: 7a7987ef0bbd
 
 `Badge` 会在行尾显示一个简短的数量，例如未读消息的“12”；`Badge` 为 `null` 时不显示任何内容。`IsUnread="True"` 则在行尾显示一个小的强调色圆点，让标签更醒目，并在该行的无障碍名称中加上“未读”。数字有意义时用数量，只需要表示“有新内容”时用圆点。在窄栏上，两者都会变成图标上的圆点。
 
-`Icon` 接受 24 × 24 的 Lucide 图形（例如 `ArcIcons` 中的字形），也可以是任何能放入 16 px 图标槽的控件。`ArcIcons` 只包含 Arc 自己的组件用到的字形；其他 Lucide 图标请把 `TKCode.Arc.Icons.Lucide` 中的 `lucide:LucideIcon` 放进 `Icon`（参见安装指南）。用一个小的 `Ellipse` 就能做出彩色圆点图标，并与其他行的图标对齐。作为图标的控件只能放在一行中，因此请为每个项目各创建一个。`TrailingIcon` 会在标签之后紧跟一个图标，颜色与标签的弱化色相同；适合用作提示，例如“More”行的箭头。
+`Icon` 接受 24 × 24 的 Lucide 图形（例如 `ArcIcons` 中的字形），也可以是任何能放入 16 px 图标槽的控件。`ArcIcons` 只包含 Arc 自己的组件用到的字形；其他 Lucide 图标请把 `TKCode.Arc.Icons.Lucide` 中的 `lucide:LucideIcon` 放进 `Icon`（参见安装指南）。用一个小的 `Ellipse` 就能做出彩色圆点图标，并与其他行的图标对齐。作为图标的控件只能放在一行中，因此请为每个项目各创建一个。`TrailingIcon` 会在标签之后紧跟一个图标，颜色与标签的弱化色相同；适合用作提示，例如“More”行的箭头；在侧边栏上设置 `TrailingPlacement="End"` 可把它移到行的末端。
 
 `IsAction="True"` 会把一行变成操作：颜色柔和，永远不会被选中。选择它会触发 `ItemInvoked` 并执行其命令，但 `SelectedItem` 保持不变。适用于“New project”或“More”。
 
@@ -243,6 +243,35 @@ public class MenuNode
 - 你的对象保存在 `SidebarItem.Tag` 中，因此 `SelectedItem.Tag`（或 `ItemInvoked` 的 `Item.Tag`）就是所选页面的数据。
 - 想在子类上放自己的字段？把 `SidebarItem` 的子类放进 `ItemsSource`，它们会被原样使用：不需要 `*MemberBinding`，`TrailingTemplate` 仍以该项作为 `DataContext`。
 - 项上已设置的 `TrailingIcon` 优先于 `TrailingTemplate`。
+
+### 分组操作与行尾内容
+
+`SectionHeaderTrailingTemplate` 会在每个分组标题行的右端放置你自己的内容，例如“新增”或“排序”按钮。它生成的控件以该分组的数据作为 `DataContext`：分组来自 `SectionsSource` 时是对应的源对象，在 XAML 中声明的分组则是 `SidebarSection` 本身。这些内容自己接收点击，因此按下它不会展开或收起可收起的分组；在图标窄栏上它随标题一起淡出，Tab 键也会跳过它。没有 `Header` 的分组没有标题行，因此也不会显示这些内容。
+
+`TrailingPlacement="End"` 把各行的行尾内容（`TrailingIcon`，或 `TrailingTemplate` 生成的控件）从紧跟标签之后移到行的末端，位于数量和父项箭头之前。默认值 `AfterLabel` 让它紧跟标签文字。
+
+<Demo name="SectionActions" />
+
+```xml
+<arc:Sidebar xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             SectionsSource="{Binding Groups}"
+             SectionHeaderMemberBinding="{Binding Title}"
+             SectionItemsMemberBinding="{Binding Pages}"
+             KeyMemberBinding="{Binding Key}"
+             LabelMemberBinding="{Binding Title}"
+             TrailingPlacement="End">
+    <arc:Sidebar.SectionHeaderTrailingTemplate>
+        <DataTemplate>
+            <arc:Button Variant="Ghost" Size="Small" Width="22" Height="22" MinHeight="0" Padding="0"
+                        Command="{Binding AddPageCommand}">
+                <arc:ArcGlyph Data="{x:Static arc:ArcIcons.Plus}" Size="14" />
+            </arc:Button>
+        </DataTemplate>
+    </arc:Sidebar.SectionHeaderTrailingTemplate>
+</arc:Sidebar>
+```
 
 ### 图标窄栏
 

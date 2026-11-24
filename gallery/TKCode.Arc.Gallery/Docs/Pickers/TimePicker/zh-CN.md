@@ -1,7 +1,7 @@
 ---
 title: 时间选择器
 summary: 从等间隔列表中选择时刻的时间字段，默认每 15 分钟一项，按用户的区域格式显示。
-source-hash: a7352d695818
+source-hash: 55c171c05df8
 ---
 
 <Demo name="TimeField" />
@@ -20,7 +20,7 @@ source-hash: a7352d695818
 - **命名时刻的短列表，例如“早上”或“晚上”**：用 `Select`。命名列表不需要滚动的时刻列表，而且“早上”并没有唯一的 `TimeOnly` 值。
 - **日期**：用 `DatePicker`；当月份必须保持在页面上可见时，用 `Calendar`。
 - **日期范围**：用 `DateRangePicker`。整日的范围没有一天中的时刻，也没有步长列表。
-- **需要精确到秒的自由输入时刻**：选择器是步长列表。当人们必须输入秒数或步长之间的时刻时，用 `Input` 加校验规则，并在视图模型中解析文本。
+- **自由输入时刻**：选择器从步长中选择（设置 `Precision="Second"` 时可精确到秒），但不解析输入的文字。当人们必须输入时刻时，用 `Input` 加校验规则，并在视图模型中解析文本。
 - **时长，例如 90 分钟的会议或 2 小时的计时器**：用 `NumberField` 输入分钟数。时长不是一天中的时刻，列表会暗示一个并不适用的时钟。
 
 ## 用法
@@ -34,13 +34,13 @@ source-hash: a7352d695818
 </UserControl>
 ```
 
-`TimePicker` 派生自 Avalonia 的 `TemplatedControl`，并实现 Arc 选择器的自动化行为。触发器是位于 `Field` 中的 `FieldFrame`，因此标签、说明与错误行与输入框和日期选择器来自同一基础。列表是由控件自己拥有的弹层中绘制的面板。它只绘制可见的行，因此即使是 1 分钟的步长（1440 个选项）也不会创建 1440 个控件。由于控件是一个列表，它不解析输入的文字：只有选中某一行或代码设置 `SelectedTime` 时，值才会改变。
+`TimePicker` 派生自 Avalonia 的 `TemplatedControl`，并实现 Arc 选择器的自动化行为。触发器是位于 `Field` 中的 `FieldFrame`，因此标签、说明与错误行与输入框和日期选择器来自同一基础。列表是由控件自己拥有的弹层中绘制的面板。它只绘制可见的行，因此即使是 1 分钟的步长（1440 个选项）也不会创建 1440 个控件。设置 `Precision="Second"` 或 `DropDownLayout="Columns"` 时，弹层改为每个部分一列（见“秒与列”）。控件不解析输入的文字：只有选中某一行或代码设置 `SelectedTime` 时，值才会改变。
 
 ### 结构
 
 1. **标签**（`Label`）：位于触发器上方，采用字段标签的样式。它同时是字段的无障碍名称。设置 `IsLabelVisible="False"` 时标签隐藏，但仍为字段命名。
 2. **触发器外框**（由 `TimePicker.FramePart` 指定的模板部件）：字段表面上的 1 px 边框。其高度由 `Size` 决定：`Small` 为 36 px，`Medium`（默认）为 44 px，`Large` 为 50 px。悬停、按下和打开时，边框变为强边框色，背景变为弱化的表面色；无效字段显示危险色边框。
-3. **时钟图标**：16 px，弱化文字颜色，与值之间有 9 px 间距。
+3. **时钟图标**（`Prefix`）：16 px，弱化文字颜色，与值之间有 9 px 间距。把 `Prefix` 设为其他内容可替换它，设为 `null` 可隐藏它（见“前缀图标”）。
 4. **值**（由 `TimePicker.ValuePart` 指定的模板部件）：时刻以 14 px 文字显示，行高为 19.6 px（14 px × 1.4）。`Large` 使用基础字号。没有时刻时，以弱化文字颜色显示 `Placeholder`。
 5. **箭头**：16 px，弱化文字颜色。列表打开时旋转 180 度。
 6. **说明**（`Description`）与**错误行**（`ErrorMessage`）：外框下方的帮助文字与错误文字。非空的 `ErrorMessage` 会使字段无效，外框显示危险色边框。
@@ -62,6 +62,51 @@ source-hash: a7352d695818
 <Demo name="StepsAndClocks" />
 
 在服务多个地区的应用中使用 `Auto`，让每个人都以自己书写的方式读取时刻。在运营控制台、时刻表或日志视图中，若 24 小时制是标准，则强制使用 `TwentyFourHour`。只有当产品文案在所有地方都是 12 小时制时，才使用 `TwelveHour`，因为混合显示会让日程令人困惑。
+
+### 秒与列
+
+`Precision` 设置时刻的最小单位。`Minute`（默认）显示小时与分钟。`Second` 在触发器（“2:35:20 PM”，24 小时制下为 “14:35:20”）和选项中加入秒，并把秒保留在 `SelectedTime` 中。`SecondStep` 设置秒的间隔（1 到 30，默认 1），与 `MinuteStep` 设置分钟间隔的方式相同。
+
+包含每一秒的列表会有 86,400 行，因此弹层换一种形状。`DropDownLayout` 决定它：
+
+| `DropDownLayout` | 弹层 |
+|---|---|
+| `Auto`（默认） | `Minute` 精度时为列表，`Second` 精度时为列 |
+| `List` | 一个列表，包含 `MinuteStep` 网格上的每个时刻 |
+| `Columns` | 小时、分钟（每 `MinuteStep`）、秒（每 `SecondStep`，仅 `Second` 精度）各一列，12 小时制时另有 AM / PM 列 |
+
+`Columns` 在分钟精度下也有用：`MinuteStep="1"` 时列表有 1440 行，而列只有 24 个小时和 60 个分钟。在某一列中点击会立即应用该部分并保持弹层打开，因此可以依次设置小时、分钟和秒；按 Enter、Escape 或在外部按下即可关闭。每一列打开时都把已选值放在中间，并用圆点标记。弹层至少与触发器同宽，列需要时会更宽。
+
+<Demo name="Seconds" />
+
+```xml
+<StackPanel Spacing="16">
+    <arc:TimePicker Label="录制开始"
+                    Precision="Second"
+                    MinuteStep="1"
+                    SelectedTime="14:35:20" />
+    <arc:TimePicker Label="任意分钟，按列选择"
+                    MinuteStep="1"
+                    DropDownLayout="Columns" />
+</StackPanel>
+```
+
+### 前缀图标
+
+值前面的时钟是 `Prefix` 的默认内容，由主题为每个选择器各创建一个。把 `Prefix` 设为其他内容（图标或简短文字）即可替换它，设为 `{x:Null}` 即可隐藏它，例如在每行已经以自己的图标开头的检视面板中。没有前缀时，值从外框的内边距处开始：图标和它 9 px 的间距都会去掉。
+
+<Demo name="Prefix" />
+
+```xml
+<StackPanel Spacing="16">
+    <arc:TimePicker Label="开始" Prefix="{x:Null}" />
+    <arc:TimePicker Label="计时">
+        <arc:TimePicker.Prefix>
+            <arc:ArcGlyph Data="{x:Static arc:ArcIcons.Timer}" Size="16" />
+        </arc:TimePicker.Prefix>
+    </arc:TimePicker>
+</StackPanel>
+```
 
 ### 空值与默认值
 
@@ -243,7 +288,11 @@ for (var i = 0; i < picker.OptionCount; i++)
 
 **为什么我没有设置时刻，字段却显示 9:00 AM？** 控件的默认值是 09:00，Arc 使用它以便字段始终显示为一个时刻。把 `SelectedTime` 设为 `null`，即可改为显示预留位置文字。
 
-**人们可以输入时刻吗？** 不可以。触发器会打开一个列表，只有选中某一行或代码设置 `SelectedTime` 时，值才会改变。需要输入时，请对输入框加上规则。
+**人们可以输入时刻吗？** 不能以文字输入。触发器会打开列表或列，只有选中某一行或代码设置 `SelectedTime` 时，值才会改变。在列中，输入数字会跳到激活列中的某个值。需要输入时，请对输入框加上规则。
+
+**可以选择秒吗？** 可以：设置 `Precision="Second"`。触发器会显示秒，弹层显示小时、分钟和秒的列，秒的间隔由 `SecondStep` 决定。
+
+**如何隐藏时钟图标？** 设置 `Prefix="{x:Null}"`。`Prefix` 中的任何其他内容都会替换该图标。
 
 **时刻不在步长上时会怎样？** 值会保持设置时的样子，因此 `09:07` 保持为 `09:07`，显示为 `9:07 AM`。列表高亮位于该时刻当前或之前的选项，即步长为 15 分钟时的 09:00。如果业务需要精确的步长，请在视图模型中取整。
 
@@ -277,6 +326,17 @@ for (var i = 0; i < picker.OptionCount; i++)
 
 指针的行为与键盘相同：指向某一行会使其激活，点击则选中它。
 
+在列布局中（`Precision="Second"` 或 `DropDownLayout="Columns"`），按键作用于激活的列，打开时为小时列：
+
+| 按键 | 操作 |
+|---|---|
+| `ArrowDown` / `ArrowUp` | 应用激活列的下一个或上一个值，在两端循环 |
+| `Home` / `End` | 应用激活列的第一个或最后一个值 |
+| `ArrowLeft` / `ArrowRight` | 移到上一列或下一列 |
+| 数字，或 AM / PM 的首字母 | 跳到激活列中以所输入内容开头的第一个值 |
+| `Enter` / `Space` | 关闭弹层（值已经应用） |
+| `Escape` | 关闭弹层，焦点保留在触发器上 |
+
 ## 动效
 
 - 值朝时间的方向滚动：较晚的时刻从下方升起，较早的时刻从上方落下。
@@ -294,7 +354,7 @@ for (var i = 0; i < picker.OptionCount; i++)
 ## 响应式
 
 - `TimePicker` 没有断点：触发器最小宽度为 160 px（`MinWidth`），并占用给它的宽度，因此在表单列中让它拉伸即可。
-- 列表与触发器同宽，最高为 `MaxDropDownHeight`（默认 250 px），超出后纵向滚动。每行高 36 px（`OptionHeight`）。
+- 列表与触发器同宽，最高为 `MaxDropDownHeight`（默认 250 px），超出后纵向滚动。每行高 36 px（`OptionHeight`）。列布局至少与触发器同宽，每列至少 56 px（`ColumnMinWidth`），触发器较窄时会更宽。
 - 列表自行滚动，打开时会把已选时间滚动到中间，页面不会移动。
 - `Size` 决定触发器高度：`Small` 为 36 px，`Medium` 为 44 px，`Large` 为 50 px。触屏上请保持 `Medium` 或 `Large`。
 

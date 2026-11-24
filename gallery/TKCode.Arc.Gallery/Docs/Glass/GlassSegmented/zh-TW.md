@@ -1,7 +1,7 @@
 ---
 title: Glass segmented
 summary: 一個磨砂玻璃上的分段控制項：選取的透鏡在分段之間滑動時會拉伸，也可以直接拖曳。
-source-hash: cc5d6140595f
+source-hash: ebc8dbbaec33
 ---
 
 <Demo name="Preview" />
@@ -36,7 +36,7 @@ source-hash: cc5d6140595f
 </Panel>
 ```
 
-`GlassSegmented` 衍生自 Avalonia 的 `SelectingItemsControl`，位於 Special 套件中：在 `UseArc()` 旁呼叫 `UseArcSpecial()` 註冊。磨砂效果與所有玻璃表面相同：它如何以公開的 Avalonia API 實作，見 Glass card 頁面。
+`GlassSegmented` 衍生自 Avalonia 的 `SelectingItemsControl`，位於 Special 套件中：在 `UseArc()` 旁呼叫 `UseArcSpecial()` 註冊。磨砂效果與所有玻璃表面相同：它如何以公開的 Avalonia API 實作，以及讓合成器在沒有來源時直接模糊控制項身後內容的 `arc:GlassBackdrop.Mode="Native"`，見 Glass card 頁面。
 
 ### 圖示與停用的分段
 

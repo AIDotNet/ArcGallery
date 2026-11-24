@@ -11797,8 +11797,8 @@
         <target>像素宽度固定；Auto 列在首次测量后保持不变，因此排序时不会重新排版；星号列平分剩余空间。</target>
       </trans-unit>
       <trans-unit id="DatePicker">
-        <source>Arc date field: type a date (parsed with `Culture`) or open the calendar popup (click, Alt+Down or ArrowDown) and pick a day. The shown date rolls part by part in time's direction (a later date rises from below, an earlier one drops from above; parts after a wider or narrower part slide along), the picked day's disc glides in the calendar and the footer confirms it before the popup returns to the field. Escape closes and keeps focus in the field; `MinDate`, `MaxDate` and `DisabledDates` reach the calendar and also reject typed dates. Label, description, error and size come from the field foundation.</source>
-        <target>Arc 日期字段：输入日期（按 `Culture` 解析），或打开日历弹出层（点击、Alt+Down 或 ArrowDown）并选择某一天。显示的日期按时间方向逐段滚动（较晚的日期从下方升起，较早的日期从上方落下；位于较宽或较窄部分之后的部分沿其滑动）；所选日期的圆点在日历中滑动，页脚确认选择后弹出层返回字段。按 Escape 关闭并使焦点留在字段中；`MinDate`、`MaxDate` 和 `DisabledDates` 同时作用于日历，并拒绝输入的日期。标签、说明、错误和尺寸由字段基础组件提供。</target>
+        <source>Arc date field: type a date (parsed with `Culture`) or open the calendar popup (click, Alt+Down or ArrowDown) and pick a day. The shown date rolls part by part in time's direction (a later date rises from below, an earlier one drops from above; parts after a wider or narrower part slide along), the picked day's disc glides in the calendar and the footer confirms it before the popup returns to the field. Escape closes and keeps focus in the field; `MinDate`, `MaxDate` and `DisabledDates` reach the calendar and also reject typed dates. Label, description, error and size come from the field foundation. The calendar icon before the text is the theme's default `Prefix` (one per picker): set `Prefix` to other content to replace it, or to `null` to hide it and close its gap.</source>
+        <target>Arc 日期字段：输入日期（按 `Culture` 解析），或打开日历弹出层（点击、Alt+Down 或 ArrowDown）并选择某一天。显示的日期按时间方向逐段滚动（较晚的日期从下方升起，较早的日期从上方落下；位于较宽或较窄部分之后的部分沿其滑动）；所选日期的圆点在日历中滑动，页脚确认选择后弹出层返回字段。按 Escape 关闭并使焦点留在字段中；`MinDate`、`MaxDate` 和 `DisabledDates` 同时作用于日历，并拒绝输入的日期。标签、说明、错误和尺寸由字段基础组件提供。日期前面的日历图标是主题提供的默认 `Prefix`（每个选择器一个）：把 `Prefix` 设为其他内容可替换它，设为 `null` 可隐藏它并去掉其间距。</target>
       </trans-unit>
       <trans-unit id="DatePicker.ClearText">
         <source>Footer button that clears the value (Arc: "Clear").</source>
@@ -15876,9 +15876,17 @@
         <source>Tells glass surfaces (`GlassCard`, `GlassMenu`, `GlassSegmented`, `GlassTabBar`) what lies behind them. Set `arc:GlassBackdrop.Source` once on a container and every glass surface inside it shows a blurred, tinted copy of that visual, lined up with the part it covers.</source>
         <target>告诉玻璃表面（`GlassCard`、`GlassMenu`、`GlassSegmented`、`GlassTabBar`）身后是什么。在容器上设置一次 `arc:GlassBackdrop.Source`，容器内的每个玻璃表面都会显示该元素经过模糊和着色、并与其覆盖部分对齐的副本。</target>
       </trans-unit>
+      <trans-unit id="GlassBackdrop.Cache">
+        <source>The backdrop cache of the native mode (inherited; null by default). `RetainedBackdropEffectCache` keeps a snapshot of what is behind the glass and refreshes only its changed parts, so the pointer sheen or a sliding lens do not read the backdrop again; `VolatileBackdropEffectCache` reads the backdrop again on every draw and keeps no texture. Null: volatile when `IsLiveProperty` is set, otherwise the compositor's choice (retained for a blur). Ignored by the brush mode.</source>
+        <target>原生模式的背景缓存（可继承；默认 null）。`RetainedBackdropEffectCache` 保留一张玻璃身后内容的快照，只刷新变化的部分，指针光泽或滑动的选中块不会重新读取背景；`VolatileBackdropEffectCache` 每次绘制都重新读取背景，不保留纹理。为 null 时：设置了 `IsLiveProperty` 则使用 volatile，否则由合成器选择（模糊时为 retained）。画刷模式忽略此属性。</target>
+      </trans-unit>
       <trans-unit id="GlassBackdrop.IsLive">
-        <source>Whether the glass redraws its copy of `SourceProperty` every frame while it is on screen (inherited; false by default). Turn it on for a source that changes on its own; a still source only needs the copy drawn when the glass moves.</source>
-        <target>玻璃在屏幕上时是否每一帧都重画 `SourceProperty` 的副本（可继承；默认 false）。来源自己会变化时开启；静止的来源只需在玻璃移动时重画副本。</target>
+        <source>Whether the glass redraws its copy of `SourceProperty` every frame while it is on screen (inherited; false by default). Turn it on for a source that changes on its own; a still source only needs the copy drawn when the glass moves. In the `Native` mode nothing is redrawn by the glass (the compositor sees the change); there it selects the volatile backdrop cache unless `CacheProperty` is set.</source>
+        <target>玻璃在屏幕上时是否每一帧都重画 `SourceProperty` 的副本（可继承；默认 false）。来源自己会变化时开启；静止的来源只需在玻璃移动时重画副本。在 `Native` 模式下玻璃不重画任何内容（合成器会察觉变化）；此时未设置 `CacheProperty` 时，它会选择 volatile 背景缓存。</target>
+      </trans-unit>
+      <trans-unit id="GlassBackdrop.Mode">
+        <source>How the glass surfaces inside this element blur what is behind them (inherited): `Brush` (the default) paints a blurred copy of `SourceProperty`; `Native` lets the compositor blur what is drawn behind the glass, with or without a source.</source>
+        <target>此元素内的玻璃表面如何模糊身后的内容（可继承）：`Brush`（默认）绘制 `SourceProperty` 的模糊副本；`Native` 让合成器模糊玻璃身后已绘制的内容，有无来源皆可。</target>
       </trans-unit>
       <trans-unit id="GlassBackdrop.Source">
         <source>The visual seen blurred through the glass surfaces inside this element (inherited). Null: the glass is a tinted translucent surface without blur.</source>
@@ -29973,8 +29981,8 @@
         <target>发布尝试启动时所用的内容：传递给发布操作、命令和事件。</target>
       </trans-unit>
       <trans-unit id="ReorderableList">
-        <source>Arc's reorderable list: organize items with direct drag and drop. Rows are dragged by their grip (pointer capture): the row lifts, follows the pointer, the rows it passes slide aside on springs and the drop settles on a quick spring with the release velocity; holding a row near the edge of a scrolling ancestor scrolls it. Keyboard: ↑/↓ on a grip moves the row one place at once (Arc), Space / Enter picks it up so arrows preview the move, Space / Enter drops it and Escape cancels; every step is announced. A mutable `ItemsSource` (or inline items) is reordered in place; `Reordered` reports each move. Drag motion is render transforms only.</source>
-        <target>Arc 可重排列表：通过直接拖放整理项目。行通过抓手拖动（指针捕获）：行会抬起并跟随指针，经过的行会以弹簧滑开，释放时以快速弹簧结合释放速度落定；将行按住在滚动祖先的边缘附近会滚动它。键盘操作：抓手上的 ↑/↓ 会立即将该行移动一位（与 Arc 一致），Space / Enter 拾起该行，此时方向键可预览移动，Space / Enter 放下，Escape 取消；每一步都会被通报。可变的 `ItemsSource`（或内联项）会就地重新排序；`Reordered` 报告每次移动。拖动动效仅使用渲染变换。</target>
+        <source>Arc's reorderable list: organize items with direct drag and drop. Rows are dragged by their grip (pointer capture): the row lifts, follows the pointer, the rows it passes slide aside on springs and the drop settles on a quick spring with the release velocity; holding a row near the edge of a scrolling ancestor scrolls it. Keyboard: ↑/↓ on a grip moves the row one place at once (Arc), Space / Enter picks it up so arrows preview the move, Space / Enter drops it and Escape cancels; every step is announced. A mutable `ItemsSource` (or inline items) is reordered in place; `Reordered` reports each move. Drag motion is render transforms only. The dragged row is drawn in the window's overlay layer, so a scroll viewer around the list does not clip it or its shadow; the other rows stay in the list and clip as usual.</source>
+        <target>Arc 可重排列表：通过直接拖放整理项目。行通过抓手拖动（指针捕获）：行会抬起并跟随指针，经过的行会以弹簧滑开，释放时以快速弹簧结合释放速度落定；将行按住在滚动祖先的边缘附近会滚动它。键盘操作：抓手上的 ↑/↓ 会立即将该行移动一位（与 Arc 一致），Space / Enter 拾起该行，此时方向键可预览移动，Space / Enter 放下，Escape 取消；每一步都会被通报。可变的 `ItemsSource`（或内联项）会就地重新排序；`Reordered` 报告每次移动。拖动动效仅使用渲染变换。被拖动的行绘制在窗口的浮层中，因此列表外层的滚动视图不会裁切它及其阴影；其他行仍留在列表中并照常裁切。</target>
       </trans-unit>
       <trans-unit id="ReorderableList.ItemTitleSelector">
         <source>Title used in the grip's accessible name and in announcements (defaults to `Title` or the item text).</source>
@@ -33868,6 +33876,10 @@
         <source>How the width change between the open sidebar and the rail reaches the page next to it: `Overlay` (default) or `Push`.</source>
         <target>打开的侧边栏与收起的侧栏之间的宽度变化如何传递给相邻页面：`Overlay`（默认）或 `Push`。</target>
       </trans-unit>
+      <trans-unit id="Sidebar.SectionHeaderTrailingTemplate">
+        <source>Builds the content at the right end of each section heading's title row, such as an add or a sort button. The control gets the section's data as its `DataContext`: the object in `SectionsSource` the section was made from, otherwise the `SidebarSection` itself. It takes its own clicks (a click on it never opens or closes the section), fades with the title when the sidebar collapses to the icon rail, and Tab skips it there. A heading without a title (`Header`) shows no title row, so its content does not show either.</source>
+        <target>生成每个分组标题行右端的内容，例如“新增”或“排序”按钮。该控件以分组的数据作为 `DataContext`：分组来自 `SectionsSource` 时是对应的源对象，否则是 `SidebarSection` 本身。它自己接收点击（点击它不会展开或收起分组），侧边栏收起为图标窄栏时随标题淡出，并且 Tab 键会跳过它。没有标题（`Header`）的分组不显示标题行，因此其内容也不显示。</target>
+      </trans-unit>
       <trans-unit id="Sidebar.SelectCommand">
         <source>Runs when a page is chosen; the parameter is the `SidebarItem`.</source>
         <target>选择页面时执行；参数为 `SidebarItem`。</target>
@@ -33883,6 +33895,10 @@
       <trans-unit id="Sidebar.SelectionChanged">
         <source>Raised when `SelectedItem` changes, whether a page was chosen, `SelectedItem` or `SelectedKey` was set in code or through a binding, or the selection was cleared. Choosing the page that is already selected raises `ItemInvoked` only.</source>
         <target>`SelectedItem` 改变时触发，无论是选择了页面、在代码中或通过绑定设置了 `SelectedItem` 或 `SelectedKey`，还是选择被清除。选择已经选中的页面只会触发 `ItemInvoked`。</target>
+      </trans-unit>
+      <trans-unit id="Sidebar.TrailingPlacement">
+        <source>Where a row shows its trailing content (`TrailingIcon`, or what `TrailingTemplate` builds): right after the label's text (`AfterLabel`, the default) or at the end of the row (`End`).</source>
+        <target>行尾内容（`TrailingIcon`，或 `TrailingTemplate` 生成的控件）在行中的位置：紧跟标签文字之后（`AfterLabel`，默认）或位于行的末端（`End`）。</target>
       </trans-unit>
       <trans-unit id="Sidebar.TrailingTemplate">
         <source>Builds the content at the end of each bound row. The control gets the item's data (the object in `ItemsSource`) as its `DataContext`, so a template can bind to your own fields, e.g. show an add button only while `CanAdd` is true. A `TrailingIcon` that is already set wins.</source>
@@ -37285,12 +37301,32 @@
         <target>已排序列的 `EffectiveKey`（双向，供视图模型使用）。</target>
       </trans-unit>
       <trans-unit id="Tabs">
-        <source>Arc tabs: switch between related views of the same object. A single selection pill glides between the triggers on a morph spring, the incoming panel slides 8px in from the side of travel while the outgoing one is pinned in place and fades, and the panel area springs from the old panel height to the new one so the content below glides. Long tab lists scroll horizontally with soft edges and edge scroll buttons, and the selected or focused tab is always scrolled into view. Items are `TabItem` containers written inline (`&lt;arc:TabItem Header="Overview"&gt;…&lt;/arc:TabItem&gt;`) or generated from `ItemsSource`: `ItemTemplate` renders the trigger and `ContentTemplate` the panel.</source>
-        <target>Arc 标签页：在同一对象的相关视图之间切换。单个选中的胶囊形指示器在触发器之间沿弹簧曲线滑动，进入的面板从移动方向的一侧滑入 8px，而离开的面板固定在原处并淡出；面板区域从旧面板高度以弹簧过渡到新高度，使下方内容平滑滑动。标签较多时，标签列表可水平滚动，带柔和边缘和边缘滚动按钮，且选中或聚焦的标签始终滚动到可见范围内。项目可以内联书写为 `TabItem` 容器（`&lt;arc:TabItem Header="Overview"&gt;…&lt;/arc:TabItem&gt;`），也可由 `ItemsSource` 生成：`ItemTemplate` 渲染触发器，`ContentTemplate` 渲染面板。</target>
+        <source>Arc tabs: switch between related views of the same object. A single selection pill glides between the triggers on a morph spring, the incoming panel slides 8px in from the side of travel while the outgoing one is pinned in place and fades, and the panel area springs from the old panel height to the new one so the content below glides. Long tab lists scroll horizontally with soft edges and edge scroll buttons, and the selected or focused tab is always scrolled into view. Items are `TabItem` containers written inline (`&lt;arc:TabItem Header="Overview"&gt;…&lt;/arc:TabItem&gt;`) or generated from `ItemsSource`: `ItemTemplate` renders the trigger and `ContentTemplate` the panel. `Variant` switches to browser-style cards. Tabs can be closable (`IsClosable` or `AreTabsClosable`): closing raises `TabCloseRequested` and the app removes the item; when the selected tab is removed the selection moves to the next tab, or to the previous one at the end. `IsAddButtonVisible` shows an add button after the last tab that raises `TabAddRequested`.</source>
+        <target>Arc 标签页：在同一对象的相关视图之间切换。单个选中的胶囊形指示器在触发器之间沿弹簧曲线滑动，进入的面板从移动方向的一侧滑入 8px，而离开的面板固定在原处并淡出；面板区域从旧面板高度以弹簧过渡到新高度，使下方内容平滑滑动。标签较多时，标签列表可水平滚动，带柔和边缘和边缘滚动按钮，且选中或聚焦的标签始终滚动到可见范围内。项目可以内联书写为 `TabItem` 容器（`&lt;arc:TabItem Header="Overview"&gt;…&lt;/arc:TabItem&gt;`），也可由 `ItemsSource` 生成：`ItemTemplate` 渲染触发器，`ContentTemplate` 渲染面板。`Variant` 可切换为浏览器式卡片外观。标签页可以关闭（`IsClosable` 或 `AreTabsClosable`）：关闭时触发 `TabCloseRequested`，由应用移除该项；选中的标签页被移除后，选中项移到下一个标签页，若已在末尾则移到前一个。`IsAddButtonVisible` 在最后一个标签页之后显示添加按钮，按下时触发 `TabAddRequested`。</target>
       </trans-unit>
       <trans-unit id="Tabs.ActivationMode">
         <source>Whether arrow keys select the tab they move to (`Automatic`, Arc default).</source>
         <target>方向键是否同时选中移动到的标签（`Automatic`，Arc 默认）。</target>
+      </trans-unit>
+      <trans-unit id="Tabs.AddTabCommand">
+        <source>Executed when the add button is pressed, after `TabAddRequested` unless a handler handled it.</source>
+        <target>按下添加按钮时执行；在 `TabAddRequested` 之后执行，除非处理程序已将其标记为已处理。</target>
+      </trans-unit>
+      <trans-unit id="Tabs.AddTabLabel">
+        <source>Accessible name of the add button.</source>
+        <target>添加按钮的无障碍名称。</target>
+      </trans-unit>
+      <trans-unit id="Tabs.AreTabsClosable">
+        <source>Whether every tab is closable, as if each set `IsClosable` (handy with `ItemsSource`). A tab's own `IsClosable` still makes it closable when this is false. Default false.</source>
+        <target>是否所有标签页都可关闭，相当于每个标签页都设置了 `IsClosable`（配合 `ItemsSource` 使用很方便）。此项为 false 时，标签页自身的 `IsClosable` 仍可使其可关闭。默认 false。</target>
+      </trans-unit>
+      <trans-unit id="Tabs.CloseTabCommand">
+        <source>Executed with the tab's item (see `Item`) when the user closes a tab, after `TabCloseRequested` unless a handler handled it.</source>
+        <target>用户关闭标签页时以该标签页的项（见 `Item`）为参数执行；在 `TabCloseRequested` 之后执行，除非处理程序已将其标记为已处理。</target>
+      </trans-unit>
+      <trans-unit id="Tabs.CloseTabLabel">
+        <source>Accessible name of the close buttons.</source>
+        <target>关闭按钮的无障碍名称。</target>
       </trans-unit>
       <trans-unit id="Tabs.ContentMargin">
         <source>Margin around the panel; its top edge is the space between the trigger list and the panel (Arc: 16px).</source>
@@ -37299,6 +37335,10 @@
       <trans-unit id="Tabs.ContentTemplate">
         <source>Template for the panel of data items (the trigger uses `ItemTemplate`).</source>
         <target>数据项面板的模板（触发器使用 `ItemTemplate`）。</target>
+      </trans-unit>
+      <trans-unit id="Tabs.IsAddButtonVisible">
+        <source>Whether an add button follows the last tab (it stays in view when the list scrolls). Default false.</source>
+        <target>是否在最后一个标签页之后显示添加按钮（列表滚动时它仍保持可见）。默认 false。</target>
       </trans-unit>
       <trans-unit id="Tabs.ScrollLeftLabel">
         <source>Accessible name of the left scroll button.</source>
@@ -37315,6 +37355,18 @@
       <trans-unit id="Tabs.SelectedContentTemplate">
         <source>The template of the selected tab's panel.</source>
         <target>选中标签面板的模板。</target>
+      </trans-unit>
+      <trans-unit id="Tabs.TabAddRequested">
+        <source>Raised when the user presses the add button; the app adds an item (and usually selects it).</source>
+        <target>用户按下添加按钮时触发；由应用添加一项（通常同时选中它）。</target>
+      </trans-unit>
+      <trans-unit id="Tabs.TabCloseRequested">
+        <source>Raised when the user closes a closable tab (close button, middle click, Delete); the app removes the item.</source>
+        <target>用户关闭可关闭的标签页时触发（关闭按钮、鼠标中键点击、Delete）；由应用移除该项。</target>
+      </trans-unit>
+      <trans-unit id="Tabs.Variant">
+        <source>The look of the list: the Arc pill (default) or browser-style cards.</source>
+        <target>列表的外观：Arc 胶囊（默认）或浏览器式卡片。</target>
       </trans-unit>
       <trans-unit id="TagInput">
         <source>Arc tag input: turns short typed values into removable tags. Enter or a comma adds the trimmed draft (a duplicate, compared case-insensitively, pulses the tag that exists instead); Backspace at the start of the field picks the last tag and the next Backspace removes it; the arrow keys move the pick and a ring glides to it; leaving the field commits the draft. New tags blur in where they were typed, removed tags leave their slot and the rest glide in, and the shell follows wrapped rows on a spring; the field never scrolls sideways.</source>
@@ -38513,8 +38565,8 @@
         <target>拖动结束、按键改变数值或切换上午下午时触发。</target>
       </trans-unit>
       <trans-unit id="TimePicker">
-        <source>Arc time field: a trigger over a scrolling list of times generated every `MinuteStep` minutes. The list opens centred on the chosen time, arrow keys move the highlight (the list glides to keep it in view, wrapping at both ends), Enter or a click chooses and closes, Escape closes. The shown time rolls like a clock face: a later time rises from below, an earlier one drops from above. 12- or 24-hour display follows the culture unless `ClockFormat` says otherwise; the value is always a 24-hour `TimeOnly`.</source>
-        <target>Arc 时间字段：触发器下方是一个可滚动的时间列表，每隔 `MinuteStep` 分钟生成一项。列表打开时以所选时间为中心，方向键移动高亮（列表会滑动以保持其可见，两端循环），Enter 或点击选择并关闭，Escape 关闭。显示的时间如同钟面一样滚动：较晚的时间从下方升起，较早的时间从上方落下。除非 `ClockFormat` 另有指定，否则 12 小时制或 24 小时制显示跟随文化设置；值始终为 24 小时制的 `TimeOnly`。</target>
+        <source>Arc time field: a trigger over a scrolling list of times generated every `MinuteStep` minutes. The list opens centred on the chosen time, arrow keys move the highlight (the list glides to keep it in view, wrapping at both ends), Enter or a click chooses and closes, Escape closes. The shown time rolls like a clock face: a later time rises from below, an earlier one drops from above. 12- or 24-hour display follows the culture unless `ClockFormat` says otherwise; the value is always a 24-hour `TimeOnly`. With `Precision` set to `Second` (or `DropDownLayout` set to `Columns`) the drop-down shows one column per part instead of the list.</source>
+        <target>Arc 时间字段：触发器下方是一个可滚动的时间列表，每隔 `MinuteStep` 分钟生成一项。列表打开时以所选时间为中心，方向键移动高亮（列表会滑动以保持其可见，两端循环），Enter 或点击选择并关闭，Escape 关闭。显示的时间如同钟面一样滚动：较晚的时间从下方升起，较早的时间从上方落下。除非 `ClockFormat` 另有指定，否则 12 小时制或 24 小时制显示跟随文化设置；值始终为 24 小时制的 `TimeOnly`。当 `Precision` 设为 `Second`（或 `DropDownLayout` 设为 `Columns`）时，下拉层改为每个部分一列，而不是列表。</target>
       </trans-unit>
       <trans-unit id="TimePicker.ClockFormat">
         <source>12- or 24-hour display (Auto follows the culture).</source>
@@ -38527,6 +38579,10 @@
       <trans-unit id="TimePicker.Description">
         <source>Helper copy under the trigger.</source>
         <target>触发器下方的辅助文字。</target>
+      </trans-unit>
+      <trans-unit id="TimePicker.DropDownLayout">
+        <source>List or columns: `Auto` (default) shows the list at minute precision and columns at second precision.</source>
+        <target>列表或列：`Auto`（默认）在分钟精度下显示列表，在秒精度下显示列。</target>
       </trans-unit>
       <trans-unit id="TimePicker.EffectiveErrorMessage">
         <source>The error actually shown: `ErrorMessage`, else the validation message of the `SelectedTime` binding.</source>
@@ -38571,6 +38627,18 @@
       <trans-unit id="TimePicker.Placeholder">
         <source>Shown while there is no time (Arc: "Select a time").</source>
         <target>没有时间时显示（Arc 默认文字为“选择时间”）。</target>
+      </trans-unit>
+      <trans-unit id="TimePicker.Precision">
+        <source>Smallest part shown and chosen: `Minute` (default) or `Second`, which shows the seconds and, with the `Auto` layout, opens columns.</source>
+        <target>显示和选择的最小单位：`Minute`（默认）或 `Second`；后者显示秒，并在 `Auto` 布局下打开列。</target>
+      </trans-unit>
+      <trans-unit id="TimePicker.Prefix">
+        <source>Content before the value. The theme sets a clock icon (one per picker); set another icon or text to replace it, or `null` to hide it (the frame's prefix slot and its gap collapse).</source>
+        <target>值前面的内容。主题会设置一个时钟图标（每个选择器一个）；设为其他图标或文字可替换它，设为 `null` 可隐藏它（外框的前缀位置及其间距随之收起）。</target>
+      </trans-unit>
+      <trans-unit id="TimePicker.SecondStep">
+        <source>Seconds between the options of the seconds column (1 to 30; default 1).</source>
+        <target>秒列中选项之间的秒数（1 到 30；默认 1）。</target>
       </trans-unit>
       <trans-unit id="TimePicker.SelectedTime">
         <source>The chosen time (two-way). Arc's default is 09:00; null shows the placeholder.</source>
@@ -43325,8 +43393,8 @@
         <target>`WindRoseChart` 的一个方向扇区（按绘制后的样子）：提示、读数和事件所报告的内容。</target>
       </trans-unit>
       <trans-unit id="WindowCaptionButtons">
-        <source>Minimize, maximize / restore and close for a window whose content reaches the top (an `ArcWindow` with `IsTitleBarVisible="False"`), placed wherever the app draws its own header. The buttons drive the window they are in and follow it: maximize shows restore while the window is maximized and is disabled while the window cannot grow (`CanResize` or `CanMaximize` false), minimize while `CanMinimize` is false; with `UnavailableCaptionButtons` set to `Hide` they are hidden instead. On Windows they tell the system what they are, so the maximize button opens Snap Layouts. `TitleBar` draws its own caption buttons with this control; show one set per window.</source>
-        <target>内容延伸到顶部的窗口（`IsTitleBarVisible="False"` 的 `ArcWindow`）所用的最小化、最大化 / 还原和关闭按钮，可放在应用自己绘制的页头中的任意位置。按钮控制所在的窗口并跟随其状态：窗口最大化时最大化按钮显示为还原，窗口不能放大时（`CanResize` 或 `CanMaximize` 为 false）最大化按钮禁用，`CanMinimize` 为 false 时最小化按钮禁用；`UnavailableCaptionButtons` 设为 `Hide` 时改为隐藏。在 Windows 上，它们会告诉系统自己是什么按钮，因此最大化按钮会打开贴靠布局。`TitleBar` 也用这个控件绘制自己的标题栏按钮；每个窗口只显示一组。</target>
+        <source>Minimize, maximize / restore and close for a window whose content reaches the top (an `ArcWindow` with `IsTitleBarVisible="False"`), placed wherever the app draws its own header. The buttons drive the window they are in and follow it: maximize shows restore while the window is maximized and is disabled while the window cannot grow (`CanResize` or `CanMaximize` false), minimize while `CanMinimize` is false; with `UnavailableCaptionButtons` set to `Hide` they are hidden instead. On Windows they tell the system what they are, so the maximize button opens Snap Layouts, and the system's own tooltips show over them in place of the Arc ones. `TitleBar` draws its own caption buttons with this control; show one set per window.</source>
+        <target>内容延伸到顶部的窗口（`IsTitleBarVisible="False"` 的 `ArcWindow`）所用的最小化、最大化 / 还原和关闭按钮，可放在应用自己绘制的页头中的任意位置。按钮控制所在的窗口并跟随其状态：窗口最大化时最大化按钮显示为还原，窗口不能放大时（`CanResize` 或 `CanMaximize` 为 false）最大化按钮禁用，`CanMinimize` 为 false 时最小化按钮禁用；`UnavailableCaptionButtons` 设为 `Hide` 时改为隐藏。在 Windows 上，它们会告诉系统自己是什么按钮，因此最大化按钮会打开贴靠布局，悬停时显示的是系统自己的提示，而不是 Arc 的提示。`TitleBar` 也用这个控件绘制自己的标题栏按钮；每个窗口只显示一组。</target>
       </trans-unit>
       <trans-unit id="WindowCaptionButtons.IsPreview">
         <source>True draws the buttons without driving the window: they minimize, maximize and close nothing and the system does not treat them as caption buttons. For previews, such as a mock-up of a window inside a page. False by default.</source>

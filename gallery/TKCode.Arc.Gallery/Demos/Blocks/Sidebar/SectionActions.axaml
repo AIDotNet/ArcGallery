@@ -1,0 +1,64 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             xmlns:demo="clr-namespace:TKCode.Arc.Gallery.Demos"
+             x:Class="TKCode.Arc.Gallery.Demos.SidebarSectionActionsDemo">
+    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="24" HorizontalAlignment="Center">
+        <Border Height="380"
+                CornerRadius="20"
+                BorderThickness="1"
+                ClipToBounds="True"
+                BorderBrush="{arc:ArcDesignTokenResource Border}">
+            <arc:Sidebar x:Name="Nav"
+                         BorderThickness="0"
+                         TrailingPlacement="End"
+                         SectionHeaderMemberBinding="{Binding Title, DataType={x:Type demo:SidebarProjectGroup}}"
+                         SectionItemsMemberBinding="{Binding Items, DataType={x:Type demo:SidebarProjectGroup}}"
+                         SectionIsCollapsibleMemberBinding="{Binding IsCollapsible, DataType={x:Type demo:SidebarProjectGroup}}"
+                         KeyMemberBinding="{Binding Key, DataType={x:Type demo:SidebarMenuNode}}"
+                         LabelMemberBinding="{Binding Title, DataType={x:Type demo:SidebarMenuNode}}"
+                         SelectedKey="projects/atlas">
+                <!-- At the right end of each section heading; its DataContext is the group the section was made from. -->
+                <arc:Sidebar.SectionHeaderTrailingTemplate>
+                    <DataTemplate x:DataType="demo:SidebarProjectGroup">
+                        <arc:Button Variant="Ghost"
+                                    Size="Small"
+                                    Width="22"
+                                    Height="22"
+                                    MinHeight="0"
+                                    Padding="0"
+                                    ToolTip.Tip="{Binding AddText}"
+                                    Click="OnAdd">
+                            <arc:ArcGlyph Data="{x:Static arc:ArcIcons.Plus}" Size="14" />
+                        </arc:Button>
+                    </DataTemplate>
+                </arc:Sidebar.SectionHeaderTrailingTemplate>
+                <!-- TrailingPlacement="End" puts each row's trailing content at the end of the row. -->
+                <arc:Sidebar.TrailingTemplate>
+                    <DataTemplate x:DataType="demo:SidebarMenuNode">
+                        <arc:Button Variant="Ghost"
+                                    Size="Small"
+                                    Width="22"
+                                    Height="22"
+                                    MinHeight="0"
+                                    Padding="0"
+                                    Click="OnRemove">
+                            <arc:ArcGlyph Data="{x:Static arc:ArcIcons.X}" Size="12" />
+                        </arc:Button>
+                    </DataTemplate>
+                </arc:Sidebar.TrailingTemplate>
+            </arc:Sidebar>
+        </Border>
+        <StackPanel Grid.Column="1" Spacing="10" VerticalAlignment="Center" Width="300">
+            <TextBlock Text="{Binding #Nav.SelectedKey, StringFormat='Route: /{0}'}"
+                       FontFamily="{arc:ArcDesignTokenResource MonoFontFamily}"
+                       FontSize="{arc:ArcDesignTokenResource TypeSM}"
+                       Foreground="{arc:ArcDesignTokenResource Foreground}" />
+            <TextBlock x:Name="Log"
+                       Text="The + of a section adds a page to it; the x at the end of a row removes that page."
+                       TextWrapping="Wrap"
+                       FontSize="{arc:ArcDesignTokenResource TypeSM}"
+                       Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+        </StackPanel>
+    </Grid>
+</UserControl>

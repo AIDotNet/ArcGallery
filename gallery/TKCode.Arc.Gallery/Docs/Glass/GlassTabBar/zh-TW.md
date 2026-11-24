@@ -1,7 +1,7 @@
 ---
 title: Glass tab bar
 summary: 一個用於應用程式外殼的浮動底部磨砂玻璃索引標籤列，選取的透鏡在標籤之間滑動並拉伸。
-source-hash: 27dce94b9c0d
+source-hash: 572541d0b00e
 ---
 
 <Demo name="Preview" />
@@ -39,7 +39,7 @@ source-hash: 27dce94b9c0d
 </Panel>
 ```
 
-總有一個標籤被選取；繫結 `SelectedIndex` 或處理 `SelectionChanged` 來切換頁面。`GlassTabBar` 衍生自 Avalonia 的 `SelectingItemsControl`，位於 Special 套件中：在 `UseArc()` 旁呼叫 `UseArcSpecial()` 註冊。內容捲動時，它相對標籤列移動，所以標籤列下的副本會重新拍下。磨砂效果如何以公開的 Avalonia API 實作，見 Glass card 頁面。
+總有一個標籤被選取；繫結 `SelectedIndex` 或處理 `SelectionChanged` 來切換頁面。`GlassTabBar` 衍生自 Avalonia 的 `SelectingItemsControl`，位於 Special 套件中：在 `UseArc()` 旁呼叫 `UseArcSpecial()` 註冊。內容捲動時，它相對標籤列移動，所以標籤列下的副本會重新拍下。磨砂效果如何以公開的 Avalonia API 實作，以及由合成器直接模糊捲過標籤列下方的內容、不再拍副本的 `arc:GlassBackdrop.Mode="Native"`，見 Glass card 頁面。
 
 ### 只顯示圖示與徽章
 

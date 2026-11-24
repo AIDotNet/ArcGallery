@@ -1,7 +1,7 @@
 ---
 title: 標籤頁
 summary: 在同一物件的並列檢視之間切換的分頁，例如概覽、動態與設定，每個檢視有自己的面板。
-source-hash: 21c3150fbc0a
+source-hash: cf557f9528fc
 ---
 
 <Demo name="Default" />
@@ -156,6 +156,28 @@ tabs.SelectionChanged += (_, _) =>
 
 請讓標籤使用簡短的文字，使其在頁面支援的最窄寬度下仍能放入清單；其餘資訊移入面板。十個資料夾的清單配合邊緣按鈕可以使用；十五個且標籤很長的清單，更適合改用 `Select` 或側邊欄，因為使用者每次選取都得捲動。
 
+### 瀏覽器式標籤頁
+
+`Variant="Card"` 把清單畫成瀏覽器標籤頁：一條鋪滿寬度、落在底線上的淺色條帶，選取的卡片底部敞開，與下方面板連成一體。預設的 `Pill` 保持分段外觀。兩種外觀都支援關閉與新增標籤頁。
+
+<Demo name="BrowserTabs" />
+
+```xml
+<arc:Tabs Variant="Card"
+          ItemsSource="{Binding OpenFiles}"
+          SelectedItem="{Binding ActiveFile}"
+          AreTabsClosable="True"
+          IsAddButtonVisible="True"
+          CloseTabCommand="{Binding CloseFileCommand}"
+          AddTabCommand="{Binding NewFileCommand}"
+          AutomationProperties.Name="Open files" />
+```
+
+- **關閉**：`TabItem.IsClosable` 為 true，或在清單上設定 `AreTabsClosable`（搭配 `ItemsSource` 使用很方便）時，標籤頁會顯示關閉按鈕。按鈕出現在選取的標籤頁、指標所在的標籤頁與獲得焦點的標籤頁上；它的位置一直保留，標籤文字不會移動。在獲得焦點的標籤頁上按 Delete 或以滑鼠中鍵點按也會關閉。
+- **由應用程式移除標籤頁**：關閉時先觸發 `TabCloseRequested`（帶 `Item`、`Index` 與 `Container`），若處理常式沒有設定 `Handled`，再以該項目為參數執行 `CloseTabCommand`。清單從不自行移除該項目，因此有未儲存內容的標籤頁可以在應用程式詢問時保持開啟。選取的標籤頁被移除後，會選取下一個標籤頁；若它是最後一個，則選取前一個。
+- **新增**：`IsAddButtonVisible` 在最後一個標籤頁之後顯示新增按鈕，按下時觸發 `TabAddRequested`，再執行 `AddTabCommand`。新增項目並選取它，清單會把新標籤頁捲入視野。清單溢出時，新增按鈕與邊緣捲動按鈕一起保持可見。
+- `CloseTabLabel` 與 `AddTabLabel` 為輔助技術命名這兩個按鈕（預設為 "Close tab" 與 "Add tab"）。
+
 ### 資料結構與效能
 
 只顯示選取標籤頁的內容。選取變更時，面板宿主會替換所顯示的內容，並在淡出期間保留離開的面板。應把繁重的載入放在選取之後，例如放在檢視模型的選取處理常式中，而不是在頁面打開時載入每個區段。請保持標籤數量較少：大約五到七個標籤頁的清單易於掃視，更長的清單需要不同的結構。
@@ -266,6 +288,7 @@ CRM 中的一筆客戶紀錄。帳號名稱及其方案位於標籤頁上方，�
 - 只有選取的標籤頁在 Tab 順序中。方向鍵在標籤頁之間移動，Home 與 End 分別跳到第一個與最後一個。
 - Tab 鍵從清單移動到選取標籤頁的面板。
 - 溢出清單上的捲動按鈕由 `ScrollLeftLabel` 與 `ScrollRightLabel` 命名，預設分別為「向左捲動標籤頁」與「向右捲動標籤頁」。
+- 關閉按鈕不在 Tab 順序中（在獲得焦點的標籤頁上按 Delete 即可關閉），由 `CloseTabLabel` 命名。新增按鈕在 Tab 順序中緊接在標籤清單之後，由 `AddTabLabel` 命名。
 - 正在離開的標籤頁的面板會對輔助技術隱藏，並且在淡出期間不能獲得焦點。
 
 ### 鍵盤
@@ -276,6 +299,8 @@ CRM 中的一筆客戶紀錄。帳號名稱及其方案位於標籤頁上方，�
 | `Left` / `Right` | 移到上一個或下一個啟用的標籤頁，到達兩端時循環；在 `Automatic` 模式下該標籤頁同時被選取 |
 | `Home` / `End` | 移到第一個或最後一個啟用的標籤頁；在 `Automatic` 模式下該標籤頁同時被選取 |
 | `Enter` / `Space` | 選取獲得焦點的標籤頁。在 `Manual` 模式下鍵盤透過此方式選取；滑鼠按下在兩種模式下都會選取 |
+| `Delete` | 關閉獲得焦點的可關閉標籤頁（觸發 `TabCloseRequested`）；移除後焦點移到新選取的標籤頁 |
+| 滑鼠中鍵點按 | 關閉可關閉的標籤頁 |
 | 滑鼠按下 | 以左鍵按下時選取標籤頁；觸控在放開時選取 |
 
 停用的標籤頁會被方向鍵、Home 與 End 略過，滑鼠按下也無法選取它。
@@ -295,6 +320,7 @@ CRM 中的一筆客戶紀錄。帳號名稱及其方案位於標籤頁上方，�
 | 面板區域改變高度 | 以彈簧從舊高度過渡到新高度，帶動下方內容 | 沒有高度動畫 | 立即完成 |
 | 清單捲動到某個標籤頁 | 以 smooth 彈簧捲動 | 直接跳轉 | 直接跳轉 |
 | 懸停與選取的觸發器 | 標籤顏色漸變 | 立即完成 | 立即完成 |
+| 懸停在卡片、關閉按鈕或新增按鈕上 | 填充色漸變；卡片外觀下選取的卡片像膠囊一樣滑動 | 立即完成 | 立即完成 |
 
 ## 響應式
 

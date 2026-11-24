@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.TimePickerSecondsDemo">
+    <StackPanel Spacing="16">
+        <arc:TimePicker Label="Recording start"
+                        Precision="Second"
+                        MinuteStep="1"
+                        SelectedTime="14:35:20"
+                        Width="260"
+                        HorizontalAlignment="Left" />
+        <arc:TimePicker Label="Timer check, 24-hour"
+                        Precision="Second"
+                        MinuteStep="5"
+                        SecondStep="15"
+                        ClockFormat="TwentyFourHour"
+                        SelectedTime="09:30:45"
+                        Width="260"
+                        HorizontalAlignment="Left" />
+        <arc:TimePicker Label="Any minute, in columns"
+                        MinuteStep="1"
+                        DropDownLayout="Columns"
+                        SelectedTime="18:07"
+                        Width="260"
+                        HorizontalAlignment="Left" />
+    </StackPanel>
+</UserControl>

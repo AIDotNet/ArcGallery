@@ -59,6 +59,34 @@ illustration), set `arc:GlassBackdrop.IsLive="True"` so the copy is redrawn ever
 Without a source the card is a translucent tinted pane with no blur: what lies behind shows through sharp, so its tint is
 stronger. Under the ArcDesign `ReduceTransparency` token the card is the opaque raised surface with the ordinary border.
 
+### Native backdrop
+
+`arc:GlassBackdrop.Mode="Native"` switches the glass inside a container to Avalonia's own backdrop effect
+(`Visual.BackdropEffect`, Avalonia 12.2): the compositor blurs the pixels already drawn behind the glass, so no source is
+needed and nothing is drawn twice, even over a source that changes every frame. The default stays `Brush`, the copy
+described above.
+
+```xml
+<Panel arc:GlassBackdrop.Mode="Native">
+    <Border Background="#2B3A55" /><!-- your picture, video or page -->
+    <arc:GlassCard Width="320" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock Text="Evening swim" />
+    </arc:GlassCard>
+</Panel>
+```
+
+The tint, the edge light and the sheen are the same in both modes, and the blur reads past the card's edge as the copy
+does. The trade-offs:
+
+- The renderer has to read back what it drew. Pictures of the page (`RenderTargetBitmap`, a `VisualBrush` of it) and
+  headless drawing show the tint without the blur.
+- A popup in its own native window has nothing drawn behind it and shows the tinted pane; popups in the overlay layer
+  (Arc's default) blur the page under them.
+- Inside an element with an `Effect` or an `OpacityMask` the glass shows no blur; a plain `Opacity` is fine.
+- `arc:GlassBackdrop.Cache` picks how the backdrop is kept: `Retained` (the compositor's choice for a blur) keeps a
+  snapshot and refreshes only what changed, so the sheen or a sliding lens do not read the backdrop again; `Volatile`
+  reads it again on every draw. `IsLive="True"` selects `Volatile` unless `Cache` is set.
+
 ### Tilt and light
 
 `MaxTilt` (0 by default, up to 20 degrees) lets the card lean toward the pointer in perspective, the edge under the

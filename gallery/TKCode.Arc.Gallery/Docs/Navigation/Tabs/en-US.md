@@ -192,6 +192,37 @@ Give tabs short labels that fit the list at the narrowest width the page support
 information into the panel. A list of ten folders is usable with edge buttons; a list of fifteen with long labels is
 better as a `Select` or a sidebar, because the person then has to scroll for every choice.
 
+### Browser-style tabs
+
+`Variant="Card"` draws the list as browser tabs: a full-width muted strip on a baseline, with the selected card open at
+the bottom so it runs into the panel. `Pill` (the default) keeps the segmented look. Both variants support closing and
+adding tabs.
+
+<Demo name="BrowserTabs" />
+
+```xml
+<arc:Tabs Variant="Card"
+          ItemsSource="{Binding OpenFiles}"
+          SelectedItem="{Binding ActiveFile}"
+          AreTabsClosable="True"
+          IsAddButtonVisible="True"
+          CloseTabCommand="{Binding CloseFileCommand}"
+          AddTabCommand="{Binding NewFileCommand}"
+          AutomationProperties.Name="Open files" />
+```
+
+- **Closing**: a tab shows a close button when its `IsClosable` is true, or when `AreTabsClosable` is set on the list
+  (handy with `ItemsSource`). The button shows on the selected tab, on the tab under the pointer and on the focused tab;
+  its room is kept, so labels do not shift. A middle click or Delete on the focused tab closes as well.
+- **The app removes the tab**: closing raises `TabCloseRequested` (with `Item`, `Index` and `Container`) and then runs
+  `CloseTabCommand` with the item, unless a handler set `Handled`. The list never removes the item itself, so a tab with
+  unsaved work can stay open while the app asks. When the selected tab is removed, the next tab is selected, or the
+  previous one when it was the last.
+- **Adding**: `IsAddButtonVisible` shows an add button after the last tab. It raises `TabAddRequested` and then runs
+  `AddTabCommand`. Add the item and select it; the list scrolls the new tab into view. The button stays in view next to
+  the edge scroll buttons when the list overflows.
+- `CloseTabLabel` and `AddTabLabel` name the buttons for assistive technology ("Close tab" and "Add tab" by default).
+
 ### Data shape and performance
 
 Only the selected tab's content is shown. When the selection changes, the panel host replaces the content it shows and
@@ -327,6 +358,8 @@ change the edge treatment without changing the control's template.
 - Tab moves from the list into the panel of the selected tab.
 - Scroll buttons on an overflowing list are named by `ScrollLeftLabel` and `ScrollRightLabel`, which default to
   "Scroll tabs left" and "Scroll tabs right".
+- The close buttons are not in the tab order (Delete closes the focused tab) and are named by `CloseTabLabel`. The add
+  button follows the tab list in the tab order and is named by `AddTabLabel`.
 - The panel of a tab that is leaving is hidden from assistive technology and cannot take focus while it fades.
 
 ### Keyboard
@@ -337,6 +370,8 @@ change the edge treatment without changing the control's template.
 | `Left` / `Right` | Move to the previous or next enabled tab, wrapping at the ends; in `Automatic` mode the tab is also selected |
 | `Home` / `End` | Move to the first or last enabled tab; in `Automatic` mode the tab is also selected |
 | `Enter` / `Space` | Select the focused tab. In `Manual` mode this is how the keyboard selects; a pointer press selects in both modes. |
+| `Delete` | Close the focused tab when it is closable (raises `TabCloseRequested`); focus moves to the tab selected after it is removed |
+| Middle click | Close a closable tab |
 | Pointer press | Select the tab on press with the left button; touch selects on release |
 
 A disabled tab is skipped by the arrow keys, Home and End, and it cannot be selected by a press.
@@ -358,6 +393,7 @@ A disabled tab is skipped by the arrow keys, Home and End, and it cannot be sele
 | The panel area changes height | Springs from the old height to the new one, moving the content below | No height animation | Immediate |
 | The list scrolls to a tab | Scrolls on the smooth spring | Jumps | Jumps |
 | Hover and selected trigger | The label color crossfades | Immediate | Immediate |
+| Hover on a card, a close button or the add button | The fill crossfades; in the card variant the selected card glides like the pill | Immediate | Immediate |
 
 ## Responsive behavior
 

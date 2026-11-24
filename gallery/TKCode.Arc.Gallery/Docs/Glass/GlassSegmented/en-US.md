@@ -42,7 +42,8 @@ segment is always selected; read or bind `SelectedIndex` or `SelectedItem`, and 
 
 `GlassSegmented` derives from Avalonia's `SelectingItemsControl` and lives in the Special package: register it with
 `UseArcSpecial()` next to `UseArc()`. The frost works as for every glass surface: see the Glass card page for how it is
-made with public Avalonia APIs.
+made with public Avalonia APIs, and for `arc:GlassBackdrop.Mode="Native"`, which lets the compositor blur what is behind
+the control without a source.
 
 ### Icons and disabled segments
 
