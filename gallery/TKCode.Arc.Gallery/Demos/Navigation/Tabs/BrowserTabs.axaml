@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.TabsBrowserTabsDemo">
+    <StackPanel Spacing="12" MaxWidth="560" HorizontalAlignment="Left">
+        <arc:Tabs x:Name="Files"
+                  Variant="Card"
+                  AreTabsClosable="True"
+                  IsAddButtonVisible="True"
+                  AutomationProperties.Name="Open files"
+                  TabCloseRequested="OnTabCloseRequested"
+                  TabAddRequested="OnTabAddRequested">
+            <arc:Tabs.ContentTemplate>
+                <DataTemplate x:DataType="x:String">
+                    <TextBlock Text="{Binding StringFormat='{}{0} is open. Close it with its X, a middle click or Delete.'}"
+                               FontSize="14"
+                               TextWrapping="Wrap"
+                               Foreground="{arc:ArcDesignTokenResource TextSecondary}" />
+                </DataTemplate>
+            </arc:Tabs.ContentTemplate>
+        </arc:Tabs>
+        <TextBlock x:Name="Log"
+                   FontSize="12"
+                   TextWrapping="Wrap"
+                   Foreground="{arc:ArcDesignTokenResource TextMuted}" />
+    </StackPanel>
+</UserControl>

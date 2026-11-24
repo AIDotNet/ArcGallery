@@ -1,7 +1,7 @@
 ---
 title: Glass card
 summary: 一張磨砂玻璃卡片：模糊身後的內容，帶柔和的邊緣光，以及隨指標或傾斜訊號移動的光澤。
-source-hash: 34f4895f0018
+source-hash: 0e64697ebbe9
 ---
 
 <Demo name="Preview" />
@@ -43,6 +43,29 @@ Avalonia 的效果（如 `BlurEffect`）只作用於元素自己的繪製內容�
 這個副本是玻璃繪製時對來源拍下的一張圖。卡片相對來源移動或改變大小、主題變化時，會重新拍一次。來源自己會變化時（影片、即時圖表、動畫插畫），設定 `arc:GlassBackdrop.IsLive="True"`，卡片在畫面上時每一格都會重畫副本。
 
 沒有來源時，卡片是一塊不帶模糊的半透明著色玻璃：身後內容清晰可見，所以著色更深。開啟 ArcDesign 的 `ReduceTransparency` 權杖時，卡片是帶一般邊框的不透明浮起表面。
+
+### 原生背景模糊
+
+`arc:GlassBackdrop.Mode="Native"` 讓容器內的玻璃改用 Avalonia 內建的背景效果（`Visual.BackdropEffect`，Avalonia 12.2）：
+由合成器直接模糊玻璃身後已經繪製好的像素，因此不需要來源，也不會把任何內容繪製兩次，即使來源每格都在變化。預設仍是 `Brush`，即上面
+介紹的副本方式。
+
+```xml
+<Panel arc:GlassBackdrop.Mode="Native">
+    <Border Background="#2B3A55" /><!-- your picture, video or page -->
+    <arc:GlassCard Width="320" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock Text="Evening swim" />
+    </arc:GlassCard>
+</Panel>
+```
+
+兩種模式的著色、邊緣光和光澤相同，模糊也像副本一樣會讀取卡片邊緣之外的內容。取捨如下：
+
+- 繪製器必須能讀回已繪製的內容。頁面的圖片（`RenderTargetBitmap`、頁面的 `VisualBrush`）和無頭繪製只顯示著色，沒有模糊。
+- 位於獨立原生視窗中的彈出層身後什麼都沒有繪製，顯示著色面板；位於覆蓋層中的彈出層（Arc 預設）會模糊其下方的頁面。
+- 放在帶 `Effect` 或 `OpacityMask` 的元素裡時，玻璃沒有模糊；一般的 `Opacity` 沒有影響。
+- `arc:GlassBackdrop.Cache` 決定背景的保存方式：`Retained`（合成器對模糊的預設選擇）保留一張快照，只更新變化的部分，指標光澤
+  或滑動的選取塊不會重新讀取背景；`Volatile` 每次繪製都重新讀取。未設定 `Cache` 時，`IsLive="True"` 會選擇 `Volatile`。
 
 ### 傾斜與光
 

@@ -124,6 +124,26 @@ of its fields, so a `DatePicker` lines up with an `Input` or a `Select` in the s
 
 <Demo name="Sizes" />
 
+### Prefix icon
+
+The calendar icon before the date is the default content of `Prefix` (from `FieldTextBox`), built by the theme for
+each picker. Set `Prefix` to other content, such as another icon, to replace it, or to `{x:Null}` to hide it, for
+example in an inspector row that already starts with its own icon. Without a prefix the text starts at the frame's
+padding: the icon and its gap both go. The calendar button at the right stays.
+
+<Demo name="Prefix" />
+
+```xml
+<StackPanel Spacing="16">
+    <arc:DatePicker Label="Due date" Prefix="{x:Null}" />
+    <arc:DatePicker Label="Milestone">
+        <arc:DatePicker.Prefix>
+            <arc:ArcGlyph Data="{x:Static arc:ArcIcons.Flag}" Size="16" IsHitTestVisible="False" />
+        </arc:DatePicker.Prefix>
+    </arc:DatePicker>
+</StackPanel>
+```
+
 ### Culture and display format
 
 `Culture` controls the parsing, the calendar's month and weekday names, and the default display. When it is not set, the

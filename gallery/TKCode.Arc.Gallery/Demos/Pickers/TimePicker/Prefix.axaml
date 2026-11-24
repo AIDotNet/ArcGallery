@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.TimePickerPrefixDemo">
+    <StackPanel Spacing="16">
+        <arc:TimePicker Label="Clock icon (default)"
+                        Width="260"
+                        HorizontalAlignment="Left" />
+        <arc:TimePicker Label="No icon"
+                        Prefix="{x:Null}"
+                        Width="260"
+                        HorizontalAlignment="Left" />
+        <arc:TimePicker Label="Another icon"
+                        Width="260"
+                        HorizontalAlignment="Left">
+            <arc:TimePicker.Prefix>
+                <arc:ArcGlyph Data="{x:Static arc:ArcIcons.Timer}"
+                              Size="16"
+                              Foreground="{arc:ArcDesignTokenResource TextMuted}" />
+            </arc:TimePicker.Prefix>
+        </arc:TimePicker>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.DatePickerPrefixDemo">
+    <StackPanel Spacing="16">
+        <arc:DatePicker Label="Calendar icon (default)"
+                        Width="260"
+                        HorizontalAlignment="Left" />
+        <arc:DatePicker Label="No icon"
+                        Prefix="{x:Null}"
+                        Width="260"
+                        HorizontalAlignment="Left" />
+        <arc:DatePicker Label="Another icon"
+                        Width="260"
+                        HorizontalAlignment="Left">
+            <arc:DatePicker.Prefix>
+                <arc:ArcGlyph Data="{x:Static arc:ArcIcons.Flag}"
+                              Size="16"
+                              IsHitTestVisible="False"
+                              Foreground="{arc:ArcDesignTokenResource TextMuted}" />
+            </arc:DatePicker.Prefix>
+        </arc:DatePicker>
+    </StackPanel>
+</UserControl>

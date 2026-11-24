@@ -1,7 +1,7 @@
 ---
 title: 标签页
 summary: 在同一对象的并列视图之间切换的标签页，例如概览、动态与设置，每个视图有自己的面板。
-source-hash: 21c3150fbc0a
+source-hash: cf557f9528fc
 ---
 
 <Demo name="Default" />
@@ -156,6 +156,28 @@ tabs.SelectionChanged += (_, _) =>
 
 请让标签使用简短的文字，使其在页面支持的最窄宽度下仍能放入列表；其余信息移入面板。十个文件夹的列表配合边缘按钮可以使用；十五个且标签很长的列表更适合改用 `Select` 或侧边栏，因为人每次选择都得滚动。
 
+### 浏览器式标签页
+
+`Variant="Card"` 把列表画成浏览器标签页：一条铺满宽度、落在底线上的浅色条带，选中的卡片底部敞开，与下方面板连成一体。默认的 `Pill` 保持分段外观。两种外观都支持关闭和添加标签页。
+
+<Demo name="BrowserTabs" />
+
+```xml
+<arc:Tabs Variant="Card"
+          ItemsSource="{Binding OpenFiles}"
+          SelectedItem="{Binding ActiveFile}"
+          AreTabsClosable="True"
+          IsAddButtonVisible="True"
+          CloseTabCommand="{Binding CloseFileCommand}"
+          AddTabCommand="{Binding NewFileCommand}"
+          AutomationProperties.Name="Open files" />
+```
+
+- **关闭**：`TabItem.IsClosable` 为 true，或在列表上设置 `AreTabsClosable`（配合 `ItemsSource` 使用很方便）时，标签页显示关闭按钮。按钮出现在选中的标签页、指针所在的标签页和获得焦点的标签页上；它的位置始终保留，标签文字不会移动。在获得焦点的标签页上按 Delete 或用鼠标中键点击同样会关闭。
+- **由应用移除标签页**：关闭时先触发 `TabCloseRequested`（带 `Item`、`Index` 和 `Container`），若处理程序没有设置 `Handled`，再以该项为参数执行 `CloseTabCommand`。列表从不自行移除该项，因此有未保存内容的标签页可以在应用询问时保持打开。选中的标签页被移除后，选中下一个标签页；若它是最后一个，则选中前一个。
+- **添加**：`IsAddButtonVisible` 在最后一个标签页之后显示添加按钮，按下时触发 `TabAddRequested`，再执行 `AddTabCommand`。添加新项并选中它，列表会把新标签页滚入视野。列表溢出时，添加按钮与边缘滚动按钮一起保持可见。
+- `CloseTabLabel` 与 `AddTabLabel` 为辅助技术命名这两个按钮（默认为 "Close tab" 和 "Add tab"）。
+
 ### 数据结构与性能
 
 只显示选中标签页的内容。选择变化时，面板宿主会替换所显示的内容，并在淡出期间保留离开的面板。应将繁重的加载放在选择之后，例如放在视图模型的选择处理程序中，而不是在页面打开时加载每个分区。请保持标签数量较少：大约五到七个标签页的列表易于扫视，更长的列表需要不同的结构。
@@ -266,6 +288,7 @@ CRM 中的一条客户记录。账户名称及其方案位于标签页上方，�
 - 只有选中的标签页在 Tab 顺序中。方向键在标签页之间移动，Home 与 End 分别跳到第一个与最后一个。
 - Tab 键从列表移动到选中标签页的面板。
 - 溢出列表上的滚动按钮由 `ScrollLeftLabel` 与 `ScrollRightLabel` 命名，默认分别为“向左滚动标签页”和“向右滚动标签页”。
+- 关闭按钮不在 Tab 顺序中（在获得焦点的标签页上按 Delete 即可关闭），由 `CloseTabLabel` 命名。添加按钮在 Tab 顺序中紧随标签列表，由 `AddTabLabel` 命名。
 - 正在离开的标签页的面板对辅助技术隐藏，并且在淡出期间不能获得焦点。
 
 ### 键盘
@@ -276,6 +299,8 @@ CRM 中的一条客户记录。账户名称及其方案位于标签页上方，�
 | `Left` / `Right` | 移到上一个或下一个启用的标签页，到达两端时循环；在 `Automatic` 模式下该标签页同时被选中 |
 | `Home` / `End` | 移到第一个或最后一个启用的标签页；在 `Automatic` 模式下该标签页同时被选中 |
 | `Enter` / `Space` | 选中获得焦点的标签页。在 `Manual` 模式下键盘通过此方式选择；指针按下在两种模式下都会选中 |
+| `Delete` | 关闭获得焦点的可关闭标签页（触发 `TabCloseRequested`）；移除后焦点移到新选中的标签页 |
+| 鼠标中键点击 | 关闭可关闭的标签页 |
 | 指针按下 | 左键按下时选中标签页；触摸在松开时选中 |
 
 禁用的标签页会被方向键、Home 与 End 跳过，指针按下也无法选中它。
@@ -295,6 +320,7 @@ CRM 中的一条客户记录。账户名称及其方案位于标签页上方，�
 | 面板区域改变高度 | 以弹簧从旧高度过渡到新高度，带动下方内容 | 无高度动画 | 立即完成 |
 | 列表滚动到某个标签页 | 以 smooth 弹簧滚动 | 直接跳转 | 直接跳转 |
 | 悬停与选中的触发器 | 标签颜色渐变 | 立即完成 | 立即完成 |
+| 悬停在卡片、关闭按钮或添加按钮上 | 填充色渐变；卡片外观下选中的卡片像胶囊一样滑动 | 立即完成 | 立即完成 |
 
 ## 响应式
 

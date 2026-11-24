@@ -1,7 +1,7 @@
 ---
 title: Glass menu
 summary: 一个磨砂玻璃菜单：高亮在指针下逐行滑动，内部一团柔光沿着行跟随指针。
-source-hash: e2b26fe72d49
+source-hash: 99ce301bd714
 ---
 
 <Demo name="Preview" />
@@ -35,7 +35,7 @@ source-hash: e2b26fe72d49
 </Panel>
 ```
 
-`GlassMenu` 派生自 Avalonia 的 `ItemsControl`，位于 Special 包中：在 `UseArc()` 旁调用 `UseArcSpecial()` 注册。磨砂效果与所有玻璃表面相同：它如何用公开的 Avalonia API 实现、何时设置 `arc:GlassBackdrop.IsLive`，见 Glass card 页面。
+`GlassMenu` 派生自 Avalonia 的 `ItemsControl`，位于 Special 包中：在 `UseArc()` 旁调用 `UseArcSpecial()` 注册。磨砂效果与所有玻璃表面相同：它如何用公开的 Avalonia API 实现、何时设置 `arc:GlassBackdrop.IsLive`，见 Glass card 页面。设置 `arc:GlassBackdrop.Mode="Native"` 后改由合成器模糊菜单身后的内容，覆盖层中的弹出菜单完全不需要来源；取舍见 Glass card 页面。
 
 ### 作为弹出菜单
 

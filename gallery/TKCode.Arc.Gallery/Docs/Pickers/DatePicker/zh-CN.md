@@ -1,7 +1,7 @@
 ---
 title: 日期选择器
 summary: 日期字段：可直接输入日期，也可从日历弹层中选择，标签与错误行与其他字段一致。
-source-hash: deded7ac40f9
+source-hash: 859601883f34
 ---
 
 <Demo name="DateField" />
@@ -87,6 +87,23 @@ picker.SelectedDateChanged += (_, e) =>
 `Size` 设置字段高度：`Small` 为 36，`Medium` 为 44（Arc 的外观），`Large` 为 50。一个表单的所有字段使用同一尺寸，因此 `DatePicker` 能与同一行中的 `Input` 或 `Select` 对齐。
 
 <Demo name="Sizes" />
+
+### 前缀图标
+
+日期前面的日历图标是 `Prefix`（来自 `FieldTextBox`）的默认内容，由主题为每个选择器各创建一个。把 `Prefix` 设为其他内容（例如另一个图标）即可替换它，设为 `{x:Null}` 即可隐藏它，例如在每行已经以自己的图标开头的检视面板中。没有前缀时，文字从外框的内边距处开始：图标和它的间距都会去掉。右侧的日历按钮保持不变。
+
+<Demo name="Prefix" />
+
+```xml
+<StackPanel Spacing="16">
+    <arc:DatePicker Label="截止日期" Prefix="{x:Null}" />
+    <arc:DatePicker Label="里程碑">
+        <arc:DatePicker.Prefix>
+            <arc:ArcGlyph Data="{x:Static arc:ArcIcons.Flag}" Size="16" IsHitTestVisible="False" />
+        </arc:DatePicker.Prefix>
+    </arc:DatePicker>
+</StackPanel>
+```
 
 ### 区域设置与显示格式
 

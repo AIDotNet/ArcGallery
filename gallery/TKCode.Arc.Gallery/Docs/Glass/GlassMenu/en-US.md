@@ -43,7 +43,9 @@ menu also raises `ItemInvoked` for every command that runs.
 
 `GlassMenu` derives from Avalonia's `ItemsControl` and lives in the Special package: register it with `UseArcSpecial()`
 next to `UseArc()`. The frost works as for every glass surface: see the Glass card page for how it is made with public
-Avalonia APIs and when to set `arc:GlassBackdrop.IsLive`.
+Avalonia APIs and when to set `arc:GlassBackdrop.IsLive`. With `arc:GlassBackdrop.Mode="Native"` the compositor blurs
+what is behind the menu instead, so a popup menu in the overlay layer needs no source at all; the Glass card page lists
+the trade-offs.
 
 ### As a popup
 

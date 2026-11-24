@@ -28,8 +28,9 @@ the format of the person's culture.
   list of times, and "Morning" has no single `TimeOnly` value.
 - **A date**: use `DatePicker`, or `Calendar` when the month must stay visible on the page.
 - **A date range**: use `DateRangePicker`. A range of whole days has no time of day and no step list.
-- **Free typing of a time that must be exact to the second**: the picker is a list of steps. Use `Input` with a
-  validation rule when people must type seconds or times between steps, and parse the text in the view model.
+- **Free typing of a time**: the picker chooses from steps, down to the second with `Precision="Second"`, but it does
+  not parse typed text. Use `Input` with a validation rule when people must type a time, and parse the text in the
+  view model.
 - **A duration, such as a 90 minute meeting or a 2 hour timer**: use `NumberField` for the number of minutes. A
   duration is not a time of day, and the list would suggest a clock that does not apply.
 
@@ -47,8 +48,9 @@ the format of the person's culture.
 `TimePicker` derives from Avalonia's `TemplatedControl` and implements the Arc picker automation. The trigger is a
 `FieldFrame` inside a `Field`, so the label, the description and the error row come from the same foundation as the
 input and the date pickers. The list is a drawn panel in a popup that the control owns. It draws only the rows that
-are visible, so even a one minute step (1440 options) does not create 1440 controls. Because the control is a list, it
-does not parse typed text: the value only changes when a row is chosen or when code sets `SelectedTime`.
+are visible, so even a one minute step (1440 options) does not create 1440 controls. With `Precision="Second"` or
+`DropDownLayout="Columns"` the popup shows one column per part instead (see Seconds and columns). The control does not
+parse typed text: the value only changes when a row is chosen or when code sets `SelectedTime`.
 
 ### Anatomy
 
@@ -57,7 +59,8 @@ does not parse typed text: the value only changes when a row is chosen or when c
 2. **Trigger frame** (the template part named by `TimePicker.FramePart`): a 1 px border on the field surface. Its height follows `Size`: 36 px for `Small`,
    44 px for `Medium` (the default) and 50 px for `Large`. Hover, press and open change the border to the strong
    border color and the background to the muted surface; an invalid field shows the danger border.
-3. **Clock icon**: 16 px, in the muted text color, with a 9 px gap before the value.
+3. **Clock icon** (`Prefix`): 16 px, in the muted text color, with a 9 px gap before the value. Set `Prefix` to
+   replace it or to `null` to hide it (see Prefix icon).
 4. **Value** (the template part named by `TimePicker.ValuePart`): the time in 14 px text with a 19.6 px line height (14 px × 1.4). `Large` uses the base
    type size. With no time it shows `Placeholder` in the muted text color.
 5. **Chevron**: 16 px, in the muted text color. It turns 180 degrees while the list is open.
@@ -91,6 +94,60 @@ fall back to AM and PM when the culture has none. The value is always a `TimeOnl
 Use `Auto` in an application that serves several regions, so that each person reads times the way they write them.
 Force `TwentyFourHour` in an operations console, a timetable or a log view where the 24-hour clock is the standard.
 Use `TwelveHour` only when the product's copy is 12-hour everywhere, because a mixed display confuses schedules.
+
+### Seconds and columns
+
+`Precision` sets the smallest part of the time. `Minute` (the default) shows hours and minutes. `Second` adds the
+seconds to the trigger ("2:35:20 PM", or "14:35:20" on a 24-hour clock) and to the choices, and keeps them in
+`SelectedTime`. `SecondStep` spaces the seconds (1 to 30, default 1), as `MinuteStep` spaces the minutes.
+
+A list of every second would have 86,400 rows, so the popup changes shape. `DropDownLayout` chooses it:
+
+| `DropDownLayout` | Popup |
+|---|---|
+| `Auto` (default) | The list at `Minute` precision, columns at `Second` precision |
+| `List` | One list of every time on the `MinuteStep` grid |
+| `Columns` | One column each for the hours, the minutes (every `MinuteStep`), the seconds (every `SecondStep`, at `Second` precision) and AM / PM on a 12-hour clock |
+
+`Columns` also helps at minute precision: with `MinuteStep="1"` the list has 1440 rows, and the columns have 24 hours
+and 60 minutes. A click in a column applies that part at once and keeps the popup open, so a person can set the hour,
+the minute and the second in turn; Enter, Escape or a press outside closes it. Every column opens with the chosen
+value in the middle and marks it with the dot. The popup is at least as wide as the trigger and grows wider when the
+columns need it.
+
+<Demo name="Seconds" />
+
+```xml
+<StackPanel Spacing="16">
+    <arc:TimePicker Label="Recording start"
+                    Precision="Second"
+                    MinuteStep="1"
+                    SelectedTime="14:35:20" />
+    <arc:TimePicker Label="Any minute, in columns"
+                    MinuteStep="1"
+                    DropDownLayout="Columns" />
+</StackPanel>
+```
+
+### Prefix icon
+
+The clock before the value is the default content of `Prefix`, built by the theme for each picker. Set `Prefix` to
+other content (an icon or a short text) to replace it, or to `{x:Null}` to hide it, for example in an inspector row
+that already starts with its own icon. Without a prefix the value starts at the frame's padding: the icon and its
+9 px gap both go.
+
+<Demo name="Prefix" />
+
+```xml
+<StackPanel Spacing="16">
+    <arc:TimePicker Label="Start" Prefix="{x:Null}" />
+    <arc:TimePicker Label="Timer">
+        <arc:TimePicker.Prefix>
+            <arc:ArcGlyph Data="{x:Static arc:ArcIcons.Timer}" Size="16" />
+        </arc:TimePicker.Prefix>
+    </arc:TimePicker>
+</StackPanel>
+```
 
 ### Empty value and default
 
@@ -300,8 +357,14 @@ Write error messages with the rule and the fix: say what the time must be, not o
 **Why does the field show 9:00 AM when I did not set a time?** The control's default is 09:00, which Arc uses so that
 the field always reads as a time. Set `SelectedTime` to `null` to show the placeholder instead.
 
-**Can people type a time?** No. The trigger opens a list, and the value changes only when a row is chosen or code sets
-`SelectedTime`. Use `Input` with a rule when typed input is required.
+**Can people type a time?** Not as text. The trigger opens a list or columns, and the value changes only when a row is
+chosen or code sets `SelectedTime`. In the columns, typed digits jump to a value of the active column. Use `Input`
+with a rule when typed input is required.
+
+**Can it pick seconds?** Yes: set `Precision="Second"`. The trigger shows the seconds, and the popup shows columns for
+the hours, minutes and seconds, with `SecondStep` between the seconds.
+
+**How do I hide the clock icon?** Set `Prefix="{x:Null}"`. Any other content in `Prefix` replaces the icon.
 
 **What happens when the time is not on the step?** The value is kept as set, so `09:07` stays `09:07` and shows as
 `9:07 AM`. The list highlights the option at or before the time, which is 09:00 with a 15 minute step. Round the value
@@ -342,6 +405,18 @@ so the page does not move.
 
 The pointer does the same as the keyboard: moving over a row makes it active, and a click chooses it.
 
+In the column layout (`Precision="Second"` or `DropDownLayout="Columns"`) the keys work on the active column, which
+opens on the hours:
+
+| Keys | Action |
+|---|---|
+| `ArrowDown` / `ArrowUp` | Applies the next or previous value of the active column, wrapping at both ends |
+| `Home` / `End` | Applies the first or last value of the active column |
+| `ArrowLeft` / `ArrowRight` | Moves to the previous or next column |
+| Digits, or the first letter of AM / PM | Jump to the first value of the active column that starts with what was typed |
+| `Enter` / `Space` | Closes the popup (the value is already applied) |
+| `Escape` | Closes the popup and keeps focus on the trigger |
+
 ## Motion
 
 - The value rolls in the direction of time: a later time rises from below and an earlier one falls from above.
@@ -362,7 +437,8 @@ The pointer does the same as the keyboard: moving over a row makes it active, an
 - `TimePicker` has no breakpoint. Its trigger is at least 160 px wide (`MinWidth`) and stretches to the width it is
   given, so let it fill a form column.
 - The list opens as wide as the trigger, is at most `MaxDropDownHeight` (250 px by default) tall and then scrolls
-  vertically. Its rows are 36 px tall (`OptionHeight`).
+  vertically. Its rows are 36 px tall (`OptionHeight`). The column layout is at least as wide as the trigger, gives
+  each column at least 56 px (`ColumnMinWidth`) and grows past a narrow trigger.
 - The list scrolls by itself, and opening it centres the chosen time, so the page does not move.
 - `Size` sets the trigger height: `Small` is 36 px, `Medium` 44 px and `Large` 50 px. On touch screens keep `Medium` or
   `Large`.

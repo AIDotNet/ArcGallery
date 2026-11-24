@@ -47,7 +47,8 @@ the last item can scroll clear of the bar.
 One tab is always selected; bind `SelectedIndex` or handle `SelectionChanged` to switch the page. `GlassTabBar` derives
 from Avalonia's `SelectingItemsControl` and lives in the Special package: register it with `UseArcSpecial()` next to
 `UseArc()`. When the content scrolls the copy under the bar is taken again, because the content moves against the bar.
-See the Glass card page for how the frost is made with public Avalonia APIs.
+See the Glass card page for how the frost is made with public Avalonia APIs, and for `arc:GlassBackdrop.Mode="Native"`,
+where the compositor blurs whatever scrolls under the bar and no copy is taken.
 
 ### Icons only and badges
 

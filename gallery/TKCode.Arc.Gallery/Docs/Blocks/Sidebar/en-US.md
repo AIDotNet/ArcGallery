@@ -186,7 +186,7 @@ become a dot on the icon.
 `TKCode.Arc.Icons.Lucide`, see the Installation guide) in `Icon`. A
 small `Ellipse` makes a colored dot icon that lines up with the glyphs of the other rows. A control icon can sit in one
 row only, so create one per item. `TrailingIcon` puts an icon right after the label, in the label's muted color; it
-suits a hint such as the chevron of a "More" row.
+suits a hint such as the chevron of a "More" row; `TrailingPlacement="End"` on the sidebar moves it to the end of the row.
 
 `IsAction="True"` turns a row into an action: muted and never selected. Choosing it raises `ItemInvoked` and runs its
 commands, but `SelectedItem` stays where it was. Use it for "New project" or "More".
@@ -343,6 +343,41 @@ public class MenuNode
 - Prefer your own fields on a subclass? Put `SidebarItem` subclasses in `ItemsSource` and they are used as they are: no
   `*MemberBinding` is needed, and `TrailingTemplate` still gets the item as `DataContext`.
 - A `TrailingIcon` that is already set on an item wins over `TrailingTemplate`.
+
+### Section actions and trailing content
+
+`SectionHeaderTrailingTemplate` puts your own content, such as an add or a sort button, at the right end of every
+section heading. Its control gets the section's data as `DataContext`: the object in `SectionsSource` the section was
+made from, or the `SidebarSection` itself for sections written in XAML. It takes its own clicks, so pressing it never
+opens or closes a collapsible section, and on the icon rail it fades with the heading and Tab skips it. A section
+without a `Header` has no title row, so it shows no content either.
+
+`TrailingPlacement="End"` moves the trailing content of the rows (`TrailingIcon`, or what `TrailingTemplate` builds) from
+right after the label to the end of the row, before the count and a parent's chevron. The default, `AfterLabel`, keeps
+it next to the label's text.
+
+<Demo name="SectionActions" />
+
+```xml
+<arc:Sidebar xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             SectionsSource="{Binding Groups}"
+             SectionHeaderMemberBinding="{Binding Title}"
+             SectionItemsMemberBinding="{Binding Pages}"
+             KeyMemberBinding="{Binding Key}"
+             LabelMemberBinding="{Binding Title}"
+             TrailingPlacement="End">
+    <arc:Sidebar.SectionHeaderTrailingTemplate>
+        <DataTemplate>
+            <arc:Button Variant="Ghost" Size="Small" Width="22" Height="22" MinHeight="0" Padding="0"
+                        Command="{Binding AddPageCommand}">
+                <arc:ArcGlyph Data="{x:Static arc:ArcIcons.Plus}" Size="14" />
+            </arc:Button>
+        </DataTemplate>
+    </arc:Sidebar.SectionHeaderTrailingTemplate>
+</arc:Sidebar>
+```
 
 ### Icon rail
 

@@ -1,7 +1,7 @@
 ---
 title: 側邊欄
 summary: 工作區導覽，包含群組、巢狀頁面、數量與滑動的選取標記；可收合為圖示窄欄。
-source-hash: 7a7987ef0bbd
+source-hash: 01573dd8bd7a
 ---
 
 <Demo name="Preview" />
@@ -117,7 +117,7 @@ source-hash: 7a7987ef0bbd
 
 `Badge` 會在列尾顯示一個簡短的數量，例如未讀訊息的「12」；`Badge` 為 `null` 時不顯示任何內容。`IsUnread="True"` 則在列尾顯示一個小的強調色圓點，讓標籤更醒目，並在該列的無障礙名稱中加上「未讀」。數字有意義時用數量，只需要表示「有新內容」時用圓點。在窄欄上，兩者都會變成圖示上的圓點。
 
-`Icon` 接受 24 × 24 的 Lucide 圖形（例如 `ArcIcons` 中的字形），也可以是任何能放入 16 px 圖示槽的控制項。`ArcIcons` 只包含 Arc 自己的元件用到的字形；其他 Lucide 圖示請把 `TKCode.Arc.Icons.Lucide` 中的 `lucide:LucideIcon` 放進 `Icon`（參見安裝指南）。用一個小的 `Ellipse` 就能做出彩色圓點圖示，並與其他列的圖示對齊。作為圖示的控制項只能放在一列中，因此請為每個項目各建立一個。`TrailingIcon` 會在標籤之後緊接一個圖示，顏色與標籤的淡化色相同；適合用作提示，例如「More」列的箭頭。
+`Icon` 接受 24 × 24 的 Lucide 圖形（例如 `ArcIcons` 中的字形），也可以是任何能放入 16 px 圖示槽的控制項。`ArcIcons` 只包含 Arc 自己的元件用到的字形；其他 Lucide 圖示請把 `TKCode.Arc.Icons.Lucide` 中的 `lucide:LucideIcon` 放進 `Icon`（參見安裝指南）。用一個小的 `Ellipse` 就能做出彩色圓點圖示，並與其他列的圖示對齊。作為圖示的控制項只能放在一列中，因此請為每個項目各建立一個。`TrailingIcon` 會在標籤之後緊接一個圖示，顏色與標籤的淡化色相同；適合用作提示，例如「More」列的箭頭；在側邊欄上設定 `TrailingPlacement="End"` 可把它移到列的末端。
 
 `IsAction="True"` 會把一列變成動作：顏色柔和，永遠不會被選取。選取它會引發 `ItemInvoked` 並執行其命令，但 `SelectedItem` 保持不變。適用於「New project」或「More」。
 
@@ -243,6 +243,35 @@ public class MenuNode
 - 你的物件保存在 `SidebarItem.Tag` 中，因此 `SelectedItem.Tag`（或 `ItemInvoked` 的 `Item.Tag`）就是所選頁面的資料。
 - 想在子類別上放自己的欄位？把 `SidebarItem` 的子類別放進 `ItemsSource`，它們會被原樣使用：不需要 `*MemberBinding`，`TrailingTemplate` 仍以該項作為 `DataContext`。
 - 項目上已設定的 `TrailingIcon` 優先於 `TrailingTemplate`。
+
+### 群組動作與列尾內容
+
+`SectionHeaderTrailingTemplate` 會在每個群組標題列的右端放置你自己的內容，例如「新增」或「排序」按鈕。它產生的控制項以該群組的資料作為 `DataContext`：群組來自 `SectionsSource` 時是對應的來源物件，在 XAML 中宣告的群組則是 `SidebarSection` 本身。這些內容自己接收點擊，因此按下它不會展開或收合可收合的群組；在圖示窄欄上它隨標題一起淡出，Tab 鍵也會略過它。沒有 `Header` 的群組沒有標題列，因此也不會顯示這些內容。
+
+`TrailingPlacement="End"` 把各列的列尾內容（`TrailingIcon`，或 `TrailingTemplate` 產生的控制項）從緊接標籤之後移到列的末端，位於數量與父項箭頭之前。預設值 `AfterLabel` 讓它緊接標籤文字。
+
+<Demo name="SectionActions" />
+
+```xml
+<arc:Sidebar xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             SectionsSource="{Binding Groups}"
+             SectionHeaderMemberBinding="{Binding Title}"
+             SectionItemsMemberBinding="{Binding Pages}"
+             KeyMemberBinding="{Binding Key}"
+             LabelMemberBinding="{Binding Title}"
+             TrailingPlacement="End">
+    <arc:Sidebar.SectionHeaderTrailingTemplate>
+        <DataTemplate>
+            <arc:Button Variant="Ghost" Size="Small" Width="22" Height="22" MinHeight="0" Padding="0"
+                        Command="{Binding AddPageCommand}">
+                <arc:ArcGlyph Data="{x:Static arc:ArcIcons.Plus}" Size="14" />
+            </arc:Button>
+        </DataTemplate>
+    </arc:Sidebar.SectionHeaderTrailingTemplate>
+</arc:Sidebar>
+```
 
 ### 圖示窄欄
 
