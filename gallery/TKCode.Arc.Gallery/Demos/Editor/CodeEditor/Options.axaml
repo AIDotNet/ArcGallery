@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.CodeEditorOptionsDemo">
+    <StackPanel Spacing="12" MaxWidth="720">
+        <WrapPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,20,8">
+                <arc:Switch x:Name="Wrap" IsChecked="True" VerticalAlignment="Center" />
+                <TextBlock Text="Word wrap" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,20,8">
+                <arc:Switch x:Name="Numbers" IsChecked="True" VerticalAlignment="Center" />
+                <TextBlock Text="Line numbers" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,20,8">
+                <arc:Switch x:Name="Guides" IsChecked="True" VerticalAlignment="Center" />
+                <TextBlock Text="Indent guides" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,20,8">
+                <arc:Switch x:Name="ReadOnly" VerticalAlignment="Center" />
+                <TextBlock Text="Read-only" VerticalAlignment="Center" />
+            </StackPanel>
+        </WrapPanel>
+        <arc:CodeEditor x:Name="Editor" Height="220"
+                        WordWrap="{Binding #Wrap.IsChecked}"
+                        ShowLineNumbers="{Binding #Numbers.IsChecked}"
+                        ShowIndentGuides="{Binding #Guides.IsChecked}"
+                        IsReadOnly="{Binding #ReadOnly.IsChecked}"
+                        AutomationProperties.Name="Notes" />
+        <TextBlock x:Name="Status" Foreground="{arc:ArcDesignTokenResource TextMuted}" />
+    </StackPanel>
+</UserControl>

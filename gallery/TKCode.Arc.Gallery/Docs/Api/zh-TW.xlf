@@ -8452,6 +8452,90 @@
         <source>Header text shown when `FileName` is empty (default "Source code").</source>
         <target>`FileName` 為空時顯示的標題文字（預設為「原始碼」）。</target>
       </trans-unit>
+      <trans-unit id="CodeEditor">
+        <source>A code editor modelled on the Monaco editor: a piece tree text buffer with undo, multiple cursors, auto-closing pairs, auto-indent, word wrap and Monaco's keybindings.</source>
+        <target>仿照 Monaco 編輯器的程式碼編輯器：具復原功能的 piece tree 文字緩衝、多游標、自動閉合括號、自動縮排、自動換行與 Monaco 的快捷鍵。</target>
+      </trans-unit>
+      <trans-unit id="CodeEditor.ColorDecorators">
+        <source>Whether color values (CSS hex, rgb, rgba, hsl, hsla, or what a language's color provider finds) show a swatch before them that opens a color picker, as Monaco's `colorDecorators` option (default true).</source>
+        <target>顏色值（CSS 的 hex、rgb、rgba、hsl、hsla，或語言的顏色提供者找到的顏色）前是否顯示一個色塊，按一下會開啟色彩選擇器，對應 Monaco 的 `colorDecorators` 選項（預設 true）。</target>
+      </trans-unit>
+      <trans-unit id="CodeEditor.Folding">
+        <source>Whether regions of the text can be folded (collapsed to their first line), as Monaco's `folding` option (default true): a column of chevrons in the gutter, shown while the pointer is over the gutter and always for folded regions, Monaco's folding keybindings (Ctrl+Shift+[ and ], Ctrl+K Ctrl+0, Ctrl+K Ctrl+J, ...), and an ellipsis after the first line of a folded region that unfolds it when clicked. Regions come from the indentation and the language's region markers (`#region`), or from the language's folding range provider.</source>
+        <target>文字區域是否可以摺疊（收合為第一行），對應 Monaco 的 `folding` 選項（預設 true）：邊欄中有一欄摺疊箭頭，指標在邊欄上時顯示，已摺疊的區域一律顯示；支援 Monaco 的摺疊快捷鍵（Ctrl+Shift+[ 與 ]、Ctrl+K Ctrl+0、Ctrl+K Ctrl+J 等）；已摺疊區域的第一行後有一個省略號，按一下即可展開。區域來自縮排與語言的區域標記（`#region`），或來自語言的摺疊範圍提供者。</target>
+      </trans-unit>
+      <trans-unit id="CodeEditor.FormatOnPaste">
+        <source>Whether pasted text is formatted by the language's range formatter, as Monaco's `formatOnPaste` option (default false).</source>
+        <target>貼上的文字是否由語言的範圍格式化工具格式化，對應 Monaco 的 `formatOnPaste` 選項（預設 false）。</target>
+      </trans-unit>
+      <trans-unit id="CodeEditor.FormatOnType">
+        <source>Whether the language's on-type formatter formats the line after typing one of its trigger characters, as Monaco's `formatOnType` option (default false).</source>
+        <target>輸入語言的某個觸發字元後，是否由語言的輸入時格式化工具格式化該行，對應 Monaco 的 `formatOnType` 選項（預設 false）。</target>
+      </trans-unit>
+      <trans-unit id="CodeEditor.InsertSpaces">
+        <source>Whether Tab and auto-indent insert spaces instead of tab characters (default true).</source>
+        <target>Tab 與自動縮排是否插入空格而不是 Tab 字元（預設 true）。</target>
+      </trans-unit>
+      <trans-unit id="CodeEditor.IsReadOnly">
+        <source>Whether the user cannot change the text. The cursor still moves, and text can still be selected and copied.</source>
+        <target>使用者是否不能修改文字。游標仍可移動，文字仍可選取與複製。</target>
+      </trans-unit>
+      <trans-unit id="CodeEditor.LanguageId">
+        <source>The language of the document, by id (`csharp`, `typescript`) or name (`C#`, `TypeScript`): its syntax highlighting and its configuration (brackets, auto-closing pairs, indentation). The 89 built-in languages of the Monaco editor are known. Default `plaintext`.</source>
+        <target>文件的語言，可用 id（`csharp`、`typescript`）或名稱（`C#`、`TypeScript`）指定：決定語法標示與語言設定（括號、自動閉合配對、縮排）。內建 Monaco 編輯器的 89 種語言。預設 `plaintext`。</target>
+      </trans-unit>
+      <trans-unit id="CodeEditor.LinkOpening">
+        <source>Raised when the user opens a link in the text: Ctrl+click on it (Cmd+click on macOS), or the Open Link action. Set `Handled` to open it yourself (or not at all); otherwise the editor asks the platform's launcher to open it.</source>
+        <target>使用者開啟文字中的連結時引發：Ctrl+按一下（macOS 上為 Cmd+按一下）或「開啟連結」動作。將 `Handled` 設為 true 可自行開啟（或不開啟）；否則編輯器請平台的啟動器開啟它。</target>
+      </trans-unit>
+      <trans-unit id="CodeEditor.LinkedEditing">
+        <source>Whether ranges the language links (an HTML tag's name in its start and end tag) change together while typing, as Monaco's `linkedEditing` option (default false).</source>
+        <target>語言連結的範圍（例如 HTML 標籤開始與結束標籤中的名稱）是否在輸入時一起變更，對應 Monaco 的 `linkedEditing` 選項（預設 false）。</target>
+      </trans-unit>
+      <trans-unit id="CodeEditor.ShowIndentGuides">
+        <source>Whether vertical lines mark the indentation levels, with the one of the block the cursor is in highlighted, as Monaco's `guides.indentation` option (default true).</source>
+        <target>是否用豎線標出各級縮排，並突顯游標所在程式碼區塊的那一條，對應 Monaco 的 `guides.indentation` 選項（預設 true）。</target>
+      </trans-unit>
+      <trans-unit id="CodeEditor.ShowLineNumbers">
+        <source>Whether line numbers show left of the text (default true).</source>
+        <target>是否在文字左側顯示行號（預設 true）。</target>
+      </trans-unit>
+      <trans-unit id="CodeEditor.ShowMinimap">
+        <source>Whether a zoomed out picture of the document shows at the right edge, with a slider to scroll it, as Monaco's `minimap.enabled` option (default true).</source>
+        <target>是否在右側顯示文件的縮圖，並附有用於捲動的滑桿，對應 Monaco 的 `minimap.enabled` 選項（預設 true）。</target>
+      </trans-unit>
+      <trans-unit id="CodeEditor.SmoothScrolling">
+        <source>Whether scrolling animates (the wheel, Page Up / Page Down and revealing the cursor), as Monaco's `smoothScrolling` option (default false).</source>
+        <target>捲動是否帶有動畫（滾輪、Page Up / Page Down 與捲動到游標處），對應 Monaco 的 `smoothScrolling` 選項（預設 false）。</target>
+      </trans-unit>
+      <trans-unit id="CodeEditor.StickyScroll">
+        <source>Whether the lines that start the scopes around the top of the view (classes, functions, blocks) stick to the top while their scope scrolls, as Monaco's `stickyScroll.enabled` option (default true). The scopes come from the language's document symbols, else its folding ranges, else indentation; clicking a sticky line reveals it.</source>
+        <target>檢視頂端附近各個範圍（類別、函式、程式碼區塊）的起始行，是否在其範圍捲動時固定在頂端，對應 Monaco 的 `stickyScroll.enabled` 選項（預設 true）。範圍來自語言的文件符號，其次是摺疊範圍，再次是縮排；按一下固定的行會跳至該處。</target>
+      </trans-unit>
+      <trans-unit id="CodeEditor.StickyScrollMaxLineCount">
+        <source>The most lines that stick at the top, as Monaco's `stickyScroll.maxLineCount` option (1 to 20, default 5); never more than a quarter of the editor's height.</source>
+        <target>最多固定在頂端的行數，對應 Monaco 的 `stickyScroll.maxLineCount` 選項（1 到 20，預設 5）；不超過編輯器高度的四分之一。</target>
+      </trans-unit>
+      <trans-unit id="CodeEditor.TabFocusMode">
+        <source>Whether Tab and Shift+Tab move the keyboard focus out of the editor instead of indenting, as Monaco's `tabFocusMode` option (default false). Ctrl+M (Ctrl+Shift+M on macOS) toggles it, so that keyboard users can leave the editor.</source>
+        <target>Tab 與 Shift+Tab 是否把鍵盤焦點移出編輯器而不是縮排，對應 Monaco 的 `tabFocusMode` 選項（預設 false）。Ctrl+M（macOS 上為 Ctrl+Shift+M）切換它，方便鍵盤使用者離開編輯器。</target>
+      </trans-unit>
+      <trans-unit id="CodeEditor.TabSize">
+        <source>The width of a tab, in spaces (at least 1; default 4); the indent size follows it.</source>
+        <target>一個 Tab 的寬度，以空格計（至少 1；預設 4）；縮排大小隨之變化。</target>
+      </trans-unit>
+      <trans-unit id="CodeEditor.Text">
+        <source>The text of the document. Setting it replaces the document and clears the undo history; typing updates it (two-way by default).</source>
+        <target>文件的文字。設定它會取代文件並清除復原紀錄；輸入會更新它（預設雙向繫結）。</target>
+      </trans-unit>
+      <trans-unit id="CodeEditor.TextChanged">
+        <source>Raised when the user or the program changed the text of the document.</source>
+        <target>使用者或程式修改了文件的文字時引發。</target>
+      </trans-unit>
+      <trans-unit id="CodeEditor.WordWrap">
+        <source>Whether long lines wrap at the width of the editor (default false). Wrapped parts have no line number.</source>
+        <target>長行是否在編輯器寬度處換行（預設 false）。換出來的部分沒有行號。</target>
+      </trans-unit>
       <trans-unit id="CodeMagicMove">
         <source>A code block that moves between versions of a snippet: words that stay glide to their new line and column, removed words fade and lift out, and new code types in behind an accent caret while the block grows or shrinks to the new line count. Step dots, the arrow keys and a sideways drag walk a tutorial or changelog through each change.</source>
         <target>在一段程式碼的各個版本之間移動的程式碼區塊：留下的詞滑到新的行和欄，刪除的詞淡出並上浮，新程式碼在強調色游標後輸入，同時程式碼區塊按新的行數變高或變矮。步驟圓點、方向鍵和橫向拖曳帶著教學或更新日誌走過每一處改動。</target>
@@ -12307,6 +12391,42 @@
       <trans-unit id="DictationControl.TranscriptChanged">
         <source>Raised whenever the live transcript changes (render it in your field, the interim part muted). Bubbles.</source>
         <target>即時轉寫內容每次變化時引發（在你的輸入框中呈現，暫定部分用淡色）。會向上傳遞。</target>
+      </trans-unit>
+      <trans-unit id="DiffEditor">
+        <source>Shows the differences between two texts, modelled on the Monaco diff editor: the original text (read-only) and the modified text side by side with their lines aligned, or inline in one editor; inserted and removed lines and characters highlighted, unchanged regions that can be hidden, moved blocks, arrows that revert a change, an overview ruler of the changes, and F7 / Shift+F7 to go to the next / previous change. The diff is computed again after edits.</source>
+        <target>顯示兩段文字之間的差異，仿照 Monaco 的差異編輯器：原始文字（唯讀）與修改後的文字並排顯示、各行對齊，或內嵌顯示在一個編輯器中；標示插入與刪除的行和字元，未變更的區域可以隱藏，標出移動的程式碼區塊，提供還原變更的箭頭與變更的概觀尺規，F7 / Shift+F7 移至下一處 / 上一處變更。編輯後會重新計算差異。</target>
+      </trans-unit>
+      <trans-unit id="DiffEditor.DiffComputed">
+        <source>Raised on the UI thread each time a diff was computed and shown, with its size.</source>
+        <target>每次計算並顯示了差異後在 UI 執行緒上引發，附有差異的大小。</target>
+      </trans-unit>
+      <trans-unit id="DiffEditor.HideUnchangedRegions">
+        <source>Whether long runs of unchanged lines are collapsed to a bar that expands them (default false).</source>
+        <target>較長的未變更行是否摺疊成一條可展開的橫列（預設 false）。</target>
+      </trans-unit>
+      <trans-unit id="DiffEditor.IgnoreTrimWhitespace">
+        <source>Whether changes of leading and trailing whitespace are ignored (default true, as in Monaco).</source>
+        <target>是否忽略行首與行尾空白的變化（預設 true，與 Monaco 相同）。</target>
+      </trans-unit>
+      <trans-unit id="DiffEditor.IsReadOnly">
+        <source>Whether the modified text cannot be edited either (the original text never can). Default false.</source>
+        <target>修改後的文字是否也不能編輯（原始文字始終不能編輯）。預設 false。</target>
+      </trans-unit>
+      <trans-unit id="DiffEditor.LanguageId">
+        <source>The language of both texts, by id (`csharp`) or name (`C#`), for syntax highlighting. Default `plaintext`.</source>
+        <target>兩段文字的語言，以 id（`csharp`）或名稱（`C#`）表示，用於語法標示。預設 `plaintext`。</target>
+      </trans-unit>
+      <trans-unit id="DiffEditor.ModifiedText">
+        <source>The modified text (right, or the inline editor); editing it updates the property (two-way by default).</source>
+        <target>修改後的文字（右側，或內嵌編輯器中）；編輯它會更新該屬性（預設雙向繫結）。</target>
+      </trans-unit>
+      <trans-unit id="DiffEditor.OriginalText">
+        <source>The original text, shown read-only (left, or as removed lines inline).</source>
+        <target>原始文字，以唯讀方式顯示（左側，或內嵌時顯示為刪除的行）。</target>
+      </trans-unit>
+      <trans-unit id="DiffEditor.RenderSideBySide">
+        <source>Whether the two texts show side by side (default true); otherwise one editor shows the removed lines inline.</source>
+        <target>兩段文字是否並排顯示（預設 true）；否則由一個編輯器內嵌顯示刪除的行。</target>
       </trans-unit>
       <trans-unit id="DnsResolution">
         <source>An animated explainer of how a domain name is resolved: the browser asks its recursive resolver, the resolver finds nothing in its cache and walks the name servers from the top (a root server refers it to the top-level domain's servers, those refer it to the domain's own name servers, which answer with the address), stores the answer for its time to live and hands it back; asked again, it answers from the cache. Packets travel between the parts, a message log names each exchange, and two readouts count the round trips and the lookup time. Play, pause, step, restart and a 0.5× / 1× / 2× speed control drive it; under reduced motion it opens on its end and steps apply in place. Timings and addresses are illustrative.</source>
