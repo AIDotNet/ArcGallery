@@ -341,6 +341,21 @@
         <source>Dark</source>
       </segment>
     </unit>
+    <unit id="Density">
+      <segment>
+        <source>Density</source>
+      </segment>
+    </unit>
+    <unit id="DensityCompact">
+      <segment>
+        <source>Compact</source>
+      </segment>
+    </unit>
+    <unit id="DensityDefault">
+      <segment>
+        <source>Default</source>
+      </segment>
+    </unit>
     <unit id="Failed">
       <segment>
         <source>Failed</source>

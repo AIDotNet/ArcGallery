@@ -11,6 +11,7 @@ public sealed class GalleryTheme
     public bool IsDark { get; private set; }
     public ArcAccentPreset Accent { get; private set; } = ArcAccentPreset.Neutral;
     public bool IsPixel { get; private set; }
+    public ArcDensity Density { get; private set; } = ArcDensity.Default;
 
     /// <summary>How round the corners are: 0 as shipped, 1 half, 2 square. The Pixel style is always square.</summary>
     public int Corners { get; private set; }
@@ -35,6 +36,12 @@ public sealed class GalleryTheme
     public Task SetPixelAsync(bool pixel)
     {
         IsPixel = pixel;
+        return ApplyAsync();
+    }
+
+    public Task SetDensityAsync(ArcDensity density)
+    {
+        Density = density;
         return ApplyAsync();
     }
 
@@ -74,11 +81,13 @@ public sealed class GalleryTheme
         }
         var dark = IsDark;
         var pixel = IsPixel;
+        var density = Density;
         var accent = Accent;
         var corners = CornerStyle;
         manager.Apply(t =>
         {
-            t.Appearance(dark ? ArcAppearance.Dark : ArcAppearance.Light);
+            t.Appearance(dark ? ArcAppearance.Dark : ArcAppearance.Light)
+                .Density(density);
             if (pixel)
             {
                 // The Pixel style brings its own palette and square corners.

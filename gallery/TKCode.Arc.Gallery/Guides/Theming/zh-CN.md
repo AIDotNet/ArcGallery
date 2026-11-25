@@ -310,6 +310,28 @@ panel.Resources[ArcDesignTokens.Key(ArcDesignTokenKind.BodyFontFamily)] = new Fo
 
 使用该字体的 TrueType（`.ttf`）版本，或者只保留用到字形的子集，可以避免大部分开销。
 
+## 紧凑密度
+
+面向信息密集的桌面工作台或后台表单，只需一行配置即可将全局布局密度切换为 `ArcDensity.Compact`，无需安装额外包或额外注册：
+
+```csharp
+// 启动时开启紧凑风格
+AppBuilder.Configure<App>()
+    .UsePlatformDetect()
+    .UseArc(arc => arc
+        .UseArcControls()
+        .WithTheme(t => t.Compact()));
+
+// 运行时热切换（原地更新令牌，不重建控件）
+ArcTheme.Apply(t => t.Compact());
+ArcTheme.Apply(t => t.Density(ArcDensity.Default));
+```
+
+紧凑密度会整体收紧全局控件高度档位（`ControlSizeSM / MD / LG`：`36 / 44 / 50` → `28 / 34 / 40`）、间距、字号（`TypeXS` 保持 12px 以保证清晰度）、主圆角（`18 / 26 / 34` → `10 / 16 / 20`）以及高频控件的专属高度、内边距与行高（`ExpandableCard`、`Card`、`Table`、`TreeView`、`Combobox`、`Select`、`MenuEntry`、`Tabs`、`Dialog`、`Drawer`、`Switch`、`Sidebar`、`DataGrid` 等）。
+
+- **局部作用域。** 在任意容器上设置 `arc:ArcThemeScope.Density="Compact"` 即可只让该子树进入紧凑模式，同时继续跟随应用的明暗、强调色与预设。
+- **任意组合。** 密度在主题预设（`Corners`、`Pixel`）和显式 `Token(...)` 覆盖之前计算，因此 `t.Compact().Corners(ArcCornerStyle.Square)` 与 `t.Corners(ArcCornerStyle.Square).Compact()` 结果完全一致，应用自己的 `Token(...)` 覆盖始终优先生效。
+
 ## 圆角风格
 
 Arc 的圆角偏大：控件 18、面板 26、表面 34。如果产品想要更方的外观，请改用圆角风格，而不是只覆盖四个 `Radius*`

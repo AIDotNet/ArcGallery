@@ -352,6 +352,35 @@ while it is pressed with such a font, set `IsPressScaleEnabled="False"` on the b
 
 A TrueType (`.ttf`) build of the font, or a subset with only the glyphs you use, avoids most of the cost.
 
+## Compact density
+
+For information-dense desktop layouts, switch the theme's layout density to `ArcDensity.Compact` with one call—no extra
+package or registration is needed:
+
+```csharp
+// At startup
+AppBuilder.Configure<App>()
+    .UsePlatformDetect()
+    .UseArc(arc => arc
+        .UseArcControls()
+        .WithTheme(t => t.Compact()));
+
+// At runtime (updates tokens in place without rebuilding controls)
+ArcTheme.Apply(t => t.Compact());
+ArcTheme.Apply(t => t.Density(ArcDensity.Default));
+```
+
+Compact density tightens the global height scale (`ControlSizeSM / MD / LG`: `36 / 44 / 50` → `28 / 34 / 40`), spacing,
+body font sizes (keeping `TypeXS` at 12px for readability), default radii (`18 / 26 / 34` → `10 / 16 / 20`) and
+control-specific heights, paddings and row heights (`ExpandableCard`, `Card`, `Table`, `TreeView`, `Combobox`, `Select`,
+`MenuEntry`, `Tabs`, `Dialog`, `Drawer`, `Switch`, `Sidebar`, `DataGrid`, and more).
+
+- **Subtree scope.** Set `arc:ArcThemeScope.Density="Compact"` on any panel to make only that subtree compact while
+  still following the application's appearance, accent and presets.
+- **Composable.** Density runs before theme presets (`Corners`, `Pixel`) and explicit `Token(...)` overrides, so
+  `t.Compact().Corners(ArcCornerStyle.Square)` and `t.Corners(ArcCornerStyle.Square).Compact()` produce the same result,
+  and your own `Token(...)` overrides always win.
+
 ## Corner style
 
 Arc's corners are round: 18 for controls, 26 for panels, 34 for surfaces. If your product wants squarer corners, change

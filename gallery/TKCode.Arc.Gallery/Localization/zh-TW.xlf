@@ -409,6 +409,24 @@
         <target state="translated">深色</target>
       </segment>
     </unit>
+    <unit id="Density">
+      <segment>
+        <source>Density</source>
+        <target state="translated">密度</target>
+      </segment>
+    </unit>
+    <unit id="DensityCompact">
+      <segment>
+        <source>Compact</source>
+        <target state="translated">緊湊</target>
+      </segment>
+    </unit>
+    <unit id="DensityDefault">
+      <segment>
+        <source>Default</source>
+        <target state="translated">預設</target>
+      </segment>
+    </unit>
     <unit id="Failed">
       <segment>
         <source>Failed</source>

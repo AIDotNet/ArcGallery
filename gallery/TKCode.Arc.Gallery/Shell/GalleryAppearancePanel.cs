@@ -22,6 +22,7 @@ public sealed class GalleryAppearancePanel : Border
     private readonly Control _owner;
     private readonly GallerySegmented _mode = new(GalleryShellLangResourceKind.Light, GalleryShellLangResourceKind.Dark);
     private readonly GallerySegmented _style = new("Arc", "Pixel");
+    private readonly GallerySegmented _density = new(GalleryShellLangResourceKind.DensityDefault, GalleryShellLangResourceKind.DensityCompact);
     private readonly GallerySegmented _corners = new(GalleryShellLangResourceKind.CornersDefault, GalleryShellLangResourceKind.CornersHalf, GalleryShellLangResourceKind.CornersSquare);
     private readonly GallerySegmented _motion = new(GalleryShellLangResourceKind.MotionFull, GalleryShellLangResourceKind.MotionReduced, GalleryShellLangResourceKind.MotionOff);
     private readonly Dictionary<ArcAccentPreset, (Button Button, Ellipse Dot)> _swatches = new();
@@ -35,6 +36,7 @@ public sealed class GalleryAppearancePanel : Border
         var stack = new StackPanel { Spacing = 16 };
         stack.Children.Add(Section(GalleryShellLangResourceKind.Mode, _mode));
         stack.Children.Add(Section(GalleryShellLangResourceKind.Style, _style));
+        stack.Children.Add(Section(GalleryShellLangResourceKind.Density, _density));
         stack.Children.Add(Section(GalleryShellLangResourceKind.Corners, _corners));
         stack.Children.Add(Section(GalleryShellLangResourceKind.Accent, BuildAccents()));
         stack.Children.Add(Section(GalleryShellLangResourceKind.Motion, _motion));
@@ -49,6 +51,7 @@ public sealed class GalleryAppearancePanel : Border
 
         _mode.SelectionChanged += async index => await _theme.SetDarkAsync(index == 1);
         _style.SelectionChanged += async index => await _theme.SetPixelAsync(index == 1);
+        _density.SelectionChanged += async index => await _theme.SetDensityAsync(index == 1 ? ArcDensity.Compact : ArcDensity.Default);
         _corners.SelectionChanged += async index => await _theme.SetCornersAsync(index);
         _motion.SelectionChanged += index => _theme.SetMotion(_owner, index switch
         {
@@ -117,6 +120,7 @@ public sealed class GalleryAppearancePanel : Border
     {
         _mode.SelectedIndex = _theme.IsDark ? 1 : 0;
         _style.SelectedIndex = _theme.IsPixel ? 1 : 0;
+        _density.SelectedIndex = _theme.Density == ArcDensity.Compact ? 1 : 0;
         _corners.SelectedIndex = _theme.IsPixel ? 2 : _theme.Corners;
         _motion.SelectedIndex = _theme.MotionLevel switch
         {
