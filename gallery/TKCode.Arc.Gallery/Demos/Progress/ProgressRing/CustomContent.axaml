@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.ProgressRingCustomContentDemo">
+    <StackPanel Orientation="Horizontal" Spacing="28" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <arc:ProgressRing Value="3" Maximum="5" Size="Large" Label="Files synced">
+            <arc:ProgressRing.Content>
+                <TextBlock Text="3/5"
+                           FontSize="13"
+                           FontWeight="{arc:ArcDesignTokenResource WeightMedium}"
+                           Foreground="{arc:ArcDesignTokenResource Foreground}" />
+            </arc:ProgressRing.Content>
+        </arc:ProgressRing>
+        <arc:ProgressRing Value="82" Size="Large" Thickness="5" Label="Storage">
+            <arc:ProgressRing.Content>
+                <TextBlock Text="82%"
+                           FontSize="13"
+                           FontWeight="{arc:ArcDesignTokenResource WeightMedium}"
+                           Foreground="{arc:ArcDesignTokenResource Foreground}" />
+            </arc:ProgressRing.Content>
+        </arc:ProgressRing>
+    </StackPanel>
+</UserControl>

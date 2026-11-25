@@ -1,7 +1,7 @@
 ---
 title: 單選群組
 summary: 從可見的一組選項中選取一項。
-source-hash: 28fd18020daf
+source-hash: 660ef6bdee35
 ---
 
 <Demo name="Plans" />
@@ -164,6 +164,23 @@ public partial class UpgradeViewModel : ObservableObject
 - 範本的根元素不是 `TextBlock` 時請設定 `AutomationProperties.Name`：列只會從文字標籤取得名稱。說明是列的說明文字。
 - 也可以使用 `ItemContainerTheme`。讓它基於列的主題 `BasedOn="{StaticResource {x:Type arc:RadioGroupItem}}"`，這樣列會保留圓環、圓點和焦點環。
 - `RadioOption` 會自行設定所在列的標籤、說明和停用狀態，這些值優先於樣式。
+
+### 水平與無邊框版面
+
+設定 `Orientation="Horizontal"` 可將選項水平排列，設定 `Variant="Borderless"` 可移除卡片邊框、懸停填滿與滑動外框，適合精簡的行內設定項目。
+
+<Demo name="HorizontalBorderless" />
+
+```xml
+<arc:RadioGroup Header="Playback background"
+                Orientation="Horizontal"
+                Variant="Borderless"
+                SelectedValue="blur">
+    <arc:RadioOption Value="none" Label="None" />
+    <arc:RadioOption Value="blur" Label="Blur" />
+    <arc:RadioOption Value="cover" Label="Cover art" />
+</arc:RadioGroup>
+```
 
 ### 停用選項
 

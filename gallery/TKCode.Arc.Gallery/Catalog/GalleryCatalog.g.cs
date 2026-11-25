@@ -147,6 +147,7 @@ public static partial class GalleryCatalog
         new("Progress", "Progress", "进度",
         [
             new("Progress", "Progress", "progress", 3, "Show how much of a known task is complete."),
+            new("ProgressRing", "Progress ring", "progress-ring", 3, "Show determinate circular progress or an indeterminate loading ring.", IsArc: false, AddedOn: "2026-11-25"),
             new("Skeleton", "Skeleton", "skeleton", 3, "Reserve space while content is still loading."),
             new("Stepper", "Stepper", "stepper", 4, "Show where a person is in a multi-step flow and what is done."),
             new("Countdown", "Countdown", "countdown", 7, "A launch countdown with rolling digits that morphs into a live state at zero."),

@@ -16,13 +16,13 @@ public class GallerySmokeTests
     [AvaloniaFact]
     public void Catalog_Lists_All_Components()
     {
-        GalleryCatalog.Count.ShouldBe(129);
+        GalleryCatalog.Count.ShouldBe(130);
         GalleryCatalog.Categories.Length.ShouldBe(22);
         // PageViewer sits in Arc's Media group but has no Arc original to link to (design/components/pdf/pdf.md, section 1).
         // AvatarUpload sits in the Editors group but is an independent implementation of a Pro-like component, so it does not
         // link to an Arc page (design/decisions/0043, design/components/editors/avatar-upload.md).
-        // The seven Pro-like components filed in Arc's groups as on uiarc.dev (design/decisions/0047) do not link either.
-        string[] unlinked = ["PageViewer", "AvatarUpload", "EmojiPicker", "MegaMenuMorph", "TocProgress", "ShareAccess", "ConfirmPopover", "UndoToast", "WindowRange"];
+        // The seven Pro-like components filed in Arc's groups as on uiarc.dev (design/decisions/0047) and ProgressRing do not link either.
+        string[] unlinked = ["PageViewer", "AvatarUpload", "EmojiPicker", "MegaMenuMorph", "TocProgress", "ShareAccess", "ConfirmPopover", "UndoToast", "WindowRange", "ProgressRing"];
         GalleryCatalog.Categories.ShouldAllBe(c => c.IsArc && c.Entries.Where(e => !unlinked.Contains(e.ClassName)).All(e => e.IsArc && e.ArcUrl != null));
         GalleryCatalog.Categories.SelectMany(c => c.Entries).Where(e => unlinked.Contains(e.ClassName)).ShouldAllBe(e => !e.IsArc && e.ArcUrl == null);
         GalleryCatalog.AllEntries.First(e => e.ClassName == "PageViewer").ArcUrl.ShouldBeNull();

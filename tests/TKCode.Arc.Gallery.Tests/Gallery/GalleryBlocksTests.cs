@@ -97,7 +97,7 @@ public class GalleryBlocksTests
     [AvaloniaFact]
     public void Blocks_Are_Not_Counted_As_Arc_Components()
     {
-        GalleryCatalog.Count.ShouldBe(129);
+        GalleryCatalog.Count.ShouldBe(130);
         GalleryCatalog.AllCategories.ShouldNotContain(Blocks);
         GalleryCatalog.AllCategories.ShouldNotContain(GalleryCatalog.Screens);
     }

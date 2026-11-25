@@ -29289,8 +29289,8 @@
         <target>網格欄可收窄到的最小寬度，低於此寬度時網格會減少一欄（Arc 預設 180）。</target>
       </trans-unit>
       <trans-unit id="RadioGroup">
-        <source>Arc radio group: choose one option from a visible set. One highlight (a `ControlOn` border with a faint fill) glides to the chosen row on the morph spring while the new dot springs in and the old one shrinks away, so a change reads as a single physical move. Arrow keys take the same path; the group is one tab stop (the selected row). Options come from `ItemsSource` or inline `RadioOption` items; `SelectedValue` (two-way) is the selected option's `Value`. The `Header` is the legend and the group's accessible name.</source>
-        <target>Arc 單選群組：從一組可見選項中選取其一。一個高亮框（`ControlOn` 邊框加淡色填滿）會以變形彈簧滑動到所選列，新的圓點彈入，舊的圓點縮小消失，因此變化看起來像一次連貫的物理移動。方向鍵走同樣的路徑；整個群組只有一個 Tab 停駐點（所選列）。選項來自 `ItemsSource` 或內嵌的 `RadioOption` 項目；`SelectedValue`（雙向繫結）為所選選項的 `Value`。`Header` 為圖例，也是該群組的無障礙名稱。</target>
+        <source>Arc radio group: choose one option from a visible set. In the default variant one highlight (a `ControlOn` border with a faint fill) glides to the chosen row on the morph spring while the new dot springs in and the old one shrinks away, so a change reads as a single physical move. `Orientation` arranges the options vertically or horizontally, and `Variant` switches between bordered rows and a minimal borderless radio style. Arrow keys take the same path; the group is one tab stop (the selected row). Options come from `ItemsSource` or inline `RadioOption` items; `SelectedValue` (two-way) is the selected option's `Value`. The `Header` is the legend and the group's accessible name.</source>
+        <target>Arc 單選群組：從可見的一組選項中選取一項。預設樣式下，一個反白（`ControlOn` 邊框加淡色填滿）按形變彈簧滑向所選列，新圓點彈入、舊圓點縮去，使切換呈現單一物理移動。`Orientation` 控制垂直或水平排列，`Variant` 在帶邊框列與無邊框精簡單選樣式之間切換。方向鍵走同一路徑；整個群組是一個 Tab 停靠點（所選列）。選項來自 `ItemsSource` 或內嵌 `RadioOption`；`SelectedValue`（雙向）為所選選項的 `Value`。`Header` 是圖例，也是該群組的無障礙名稱。</target>
       </trans-unit>
       <trans-unit id="RadioGroupItem">
         <source>One row of a `RadioGroup`: a ring with a springing dot, the label (the row's content) and an optional description. The group creates a row for each option. For a `RadioOption` the row takes its label, description and disabled state from the option; for any other item the label is the group's `ItemTemplate`, and a style on `arc|RadioGroupItem` (or the group's `ItemContainerTheme`) can bind `Description`, `IsEnabled` and `AutomationProperties.Name` to the item.</source>
@@ -43859,6 +43859,54 @@
       <trans-unit id="WorkflowZoomControls.Target">
         <source>The canvas the buttons zoom.</source>
         <target>按鈕所縮放的畫布。</target>
+      </trans-unit>
+      <trans-unit id="ProgressRing">
+        <source>A circular progress and loading indicator. In determinate mode (`IsIndeterminate` is false, the default), one smooth spring drives both the clockwise arc and the optional center percentage, turning to the success color with a check at 100%. In indeterminate mode (`IsIndeterminate` is true), a smooth arc orbits continuously under full motion and breathes softly under reduced motion.</source>
+        <target>圓形進度與載入指示器。在確定模式（`IsIndeterminate` 為 false，預設值）下，單一平滑彈簧同時驅動順時針圓弧與可選的中心百分比，並在 100% 時切換為成功色和勾號；在不確定模式（`IsIndeterminate` 為 true）下，圓弧在完整動效下持續旋轉，在減弱動效下柔和呼吸。</target>
+      </trans-unit>
+      <trans-unit id="ProgressRing.Content">
+        <source>Optional custom content centered inside the ring; takes precedence over the built-in percentage readout.</source>
+        <target>可選的置中自訂內容；設定後優先於內建百分比讀數顯示。</target>
+      </trans-unit>
+      <trans-unit id="ProgressRing.ContentTemplate">
+        <source>Data template used to display `Content` inside the ring.</source>
+        <target>用於在圓環內部呈現 `Content` 的資料範本。</target>
+      </trans-unit>
+      <trans-unit id="ProgressRing.IsComplete">
+        <source>True when determinate `Percentage` reaches 100.</source>
+        <target>確定模式下 `Percentage` 達到 100 時為 true。</target>
+      </trans-unit>
+      <trans-unit id="ProgressRing.IsIndeterminate">
+        <source>When true, displays a continuous spinning loading ring instead of determinate progress.</source>
+        <target>為 true 時顯示持續旋轉的載入環，而非確定進度。</target>
+      </trans-unit>
+      <trans-unit id="ProgressRing.IsValueVisible">
+        <source>Shows the counted percentage (and completion check at 100%) centered inside the ring in determinate mode.</source>
+        <target>在確定模式下於圓環中心顯示計數百分比（100% 時顯示完成勾號）。</target>
+      </trans-unit>
+      <trans-unit id="ProgressRing.Label">
+        <source>Optional visible label shown below the ring; also serves as the accessible name.</source>
+        <target>顯示在圓環下方的可選可見標籤，同時作為無障礙名稱。</target>
+      </trans-unit>
+      <trans-unit id="ProgressRing.Percentage">
+        <source>Whole percentage of the range clamped to 0–100.</source>
+        <target>限制在 0–100 範圍內的整數百分比。</target>
+      </trans-unit>
+      <trans-unit id="ProgressRing.Size">
+        <source>Preset ring size: `Small`, `Medium` (default), or `Large`.</source>
+        <target>預設圓環尺寸：`Small`、`Medium`（預設）或 `Large`。</target>
+      </trans-unit>
+      <trans-unit id="ProgressRing.Thickness">
+        <source>Stroke thickness of the ring track and indicator arc.</source>
+        <target>圓環軌道與進度弧線的描邊粗細。</target>
+      </trans-unit>
+      <trans-unit id="RadioGroup.Orientation">
+        <source>How the options are arranged: `Vertical` (default) or `Horizontal`.</source>
+        <target>選項的排列方向：`Vertical`（預設）或 `Horizontal`。</target>
+      </trans-unit>
+      <trans-unit id="RadioGroup.Variant">
+        <source>Row chrome: `Default` (bordered rows with gliding highlight) or `Borderless`.</source>
+        <target>列外觀樣式：`Default`（帶邊框列與滑動反白）或 `Borderless`（無邊框精簡樣式）。</target>
       </trans-unit>
     </body>
   </file>

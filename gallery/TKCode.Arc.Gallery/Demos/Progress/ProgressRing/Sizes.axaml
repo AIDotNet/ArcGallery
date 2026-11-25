@@ -1,0 +1,10 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.ProgressRingSizesDemo">
+    <StackPanel Orientation="Horizontal" Spacing="24" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <arc:ProgressRing IsIndeterminate="True" Size="Small" Label="Small" />
+        <arc:ProgressRing IsIndeterminate="True" Size="Medium" Label="Medium" />
+        <arc:ProgressRing IsIndeterminate="True" Size="Large" Label="Large" />
+    </StackPanel>
+</UserControl>
