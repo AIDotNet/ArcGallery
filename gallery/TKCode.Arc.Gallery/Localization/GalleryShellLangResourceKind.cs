@@ -94,6 +94,7 @@ public enum GalleryShellLangResourceKind
     Category_Video,
     Category_Pdf,
     Category_Graphics3D,
+    Category_Editor,
     Category_Agents,
     Category_Layout,
     Category_Tables,
