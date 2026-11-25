@@ -139,6 +139,12 @@
         <target state="translated">三維</target>
       </segment>
     </unit>
+    <unit id="Category_Editor">
+      <segment>
+        <source>Code editor</source>
+        <target state="translated">程式碼編輯器</target>
+      </segment>
+    </unit>
     <unit id="Category_Agents">
       <segment>
         <source>Agents</source>

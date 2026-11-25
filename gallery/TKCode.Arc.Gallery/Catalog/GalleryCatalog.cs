@@ -191,6 +191,15 @@ public static partial class GalleryCatalog
                 "Render A2UI messages from an AI agent with Arc controls: the agent describes forms, choices, lists and charts as JSON, the surface draws them, keeps what the user enters and sends the user's actions back.",
                 IsArc: false, AddedOn: "2026-11-14"),
         ], IsArc: false),
+        new("Editor", "Code editor", "代码编辑器",
+        [
+            new("CodeEditor", "Code editor", "code-editor", 0,
+                "Edit source code like in Monaco: syntax highlighting for 89 languages, Monaco's keybindings, multiple cursors, auto-closing brackets, auto-indent, word wrap, undo and redo.",
+                IsArc: false, AddedOn: "2026-11-24"),
+            new("DiffEditor", "Diff editor", "diff-editor", 0,
+                "Compare two texts like Monaco's diff editor: side by side or inline, changed lines and characters highlighted, moved blocks, unchanged regions collapsed, and arrows that revert a change.",
+                IsArc: false, AddedOn: "2026-11-24"),
+        ], IsArc: false),
         new("Layout", "Layout", "布局",
         [
             new("WaterfallPanel", "Waterfall panel", "waterfall-panel", 0,
@@ -643,10 +652,13 @@ public static partial class GalleryCatalog
     /// <summary>The agents group (TKCode.Arc.A2UI); listed after 3D, not part of the Arc components.</summary>
     public static GalleryCategory Agents => Extras[7];
 
-    /// <summary>The Components section of the sidebar: Arc's groups with Advanced charts, Workflow, Dock, Ribbon, Video, PDF, 3D and Agents after Charts, then the other extras.</summary>
+    /// <summary>The code editor group (TKCode.Arc.Editor.Controls); listed after 3D, not part of the Arc components.</summary>
+    public static GalleryCategory Editor => Extras[8];
+
+    /// <summary>The Components section of the sidebar: Arc's groups with Advanced charts, Workflow, Dock, Ribbon, Video, PDF, 3D, Code editor and Agents after Charts, then the other extras.</summary>
     public static IEnumerable<GalleryCategory> AllCategories => s_allCategories ??=
-        Categories.SelectMany(c => c.Code == "Charts" ? new[] { c, AdvancedCharts, Workflow, Dock, Ribbon, Video, Pdf, Graphics3D, Agents } : new[] { c })
-                  .Concat(Extras.Where(e => !ReferenceEquals(e, AdvancedCharts) && !ReferenceEquals(e, Workflow) && !ReferenceEquals(e, Dock) && !ReferenceEquals(e, Ribbon) && !ReferenceEquals(e, Video) && !ReferenceEquals(e, Pdf) && !ReferenceEquals(e, Graphics3D) && !ReferenceEquals(e, Agents)))
+        Categories.SelectMany(c => c.Code == "Charts" ? new[] { c, AdvancedCharts, Workflow, Dock, Ribbon, Video, Pdf, Graphics3D, Editor, Agents } : new[] { c })
+                  .Concat(Extras.Where(e => !ReferenceEquals(e, AdvancedCharts) && !ReferenceEquals(e, Workflow) && !ReferenceEquals(e, Dock) && !ReferenceEquals(e, Ribbon) && !ReferenceEquals(e, Video) && !ReferenceEquals(e, Pdf) && !ReferenceEquals(e, Graphics3D) && !ReferenceEquals(e, Editor) && !ReferenceEquals(e, Agents)))
                   .ToArray();
 
     // The lists below are built once, when first read: they are read on every page opening. Not in field initializers, whose

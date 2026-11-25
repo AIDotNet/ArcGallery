@@ -116,6 +116,11 @@
         <source>3D</source>
       </segment>
     </unit>
+    <unit id="Category_Editor">
+      <segment>
+        <source>Code editor</source>
+      </segment>
+    </unit>
     <unit id="Category_Agents">
       <segment>
         <source>Agents</source>

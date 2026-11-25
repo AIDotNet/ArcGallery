@@ -108,6 +108,7 @@ public static class GalleryText
             "Video" => GalleryShellLangResourceKind.Category_Video,
             "Pdf" => GalleryShellLangResourceKind.Category_Pdf,
             "Graphics3D" => GalleryShellLangResourceKind.Category_Graphics3D,
+            "Editor" => GalleryShellLangResourceKind.Category_Editor,
             "Agents" => GalleryShellLangResourceKind.Category_Agents,
             "Layout" => GalleryShellLangResourceKind.Category_Layout,
             "Tables" => GalleryShellLangResourceKind.Category_Tables,

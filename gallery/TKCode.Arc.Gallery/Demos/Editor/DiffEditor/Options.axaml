@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.DiffEditorOptionsDemo">
+    <StackPanel Spacing="12" MaxWidth="900">
+        <WrapPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,20,8">
+                <arc:Switch x:Name="SideBySide" IsChecked="True" VerticalAlignment="Center" />
+                <TextBlock Text="Side by side" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,20,8">
+                <arc:Switch x:Name="HideUnchanged" IsChecked="True" VerticalAlignment="Center" />
+                <TextBlock Text="Hide unchanged regions" VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,20,8">
+                <arc:Switch x:Name="IgnoreWhitespace" IsChecked="True" VerticalAlignment="Center" />
+                <TextBlock Text="Ignore whitespace" VerticalAlignment="Center" />
+            </StackPanel>
+        </WrapPanel>
+        <arc:DiffEditor x:Name="Diff" Height="300" LanguageId="json"
+                        RenderSideBySide="{Binding #SideBySide.IsChecked}"
+                        HideUnchangedRegions="{Binding #HideUnchanged.IsChecked}"
+                        IgnoreTrimWhitespace="{Binding #IgnoreWhitespace.IsChecked}"
+                        AutomationProperties.Name="Changes to settings.json" />
+        <TextBlock x:Name="Status" Foreground="{arc:ArcDesignTokenResource TextMuted}" />
+    </StackPanel>
+</UserControl>
