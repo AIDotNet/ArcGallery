@@ -1,0 +1,12 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.ProgressRingDeterminateDemo">
+    <StackPanel Spacing="16" HorizontalAlignment="Center" Width="280">
+        <StackPanel Orientation="Horizontal" Spacing="24" HorizontalAlignment="Center">
+            <arc:ProgressRing Value="{Binding #Slider.Value}" Size="Medium" IsValueVisible="True" />
+            <arc:ProgressRing Value="{Binding #Slider.Value}" Size="Large" IsValueVisible="True" />
+        </StackPanel>
+        <arc:Slider x:Name="Slider" Minimum="0" Maximum="100" Value="64" />
+    </StackPanel>
+</UserControl>

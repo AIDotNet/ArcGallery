@@ -203,6 +203,24 @@ without it `SelectedValue` is the item itself.
   so the row keeps its ring, dot and focus ring.
 - A `RadioOption` sets its row's label, description and disabled state itself, and those values win over a style.
 
+### Horizontal and borderless layout
+
+Set `Orientation="Horizontal"` to lay the options out side by side, and `Variant="Borderless"` to remove the card
+border, hover fill and gliding outline for compact inline settings rows.
+
+<Demo name="HorizontalBorderless" />
+
+```xml
+<arc:RadioGroup Header="Playback background"
+                Orientation="Horizontal"
+                Variant="Borderless"
+                SelectedValue="blur">
+    <arc:RadioOption Value="none" Label="None" />
+    <arc:RadioOption Value="blur" Label="Blur" />
+    <arc:RadioOption Value="cover" Label="Cover art" />
+</arc:RadioGroup>
+```
+
 ### Disabled options
 
 `IsEnabled="False"` keeps an option visible but unavailable. Arrow keys skip disabled options, and the row cannot be selected

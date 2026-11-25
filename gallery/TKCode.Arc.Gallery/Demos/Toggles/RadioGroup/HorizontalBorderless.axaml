@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.RadioGroupHorizontalBorderlessDemo">
+    <StackPanel Spacing="20" HorizontalAlignment="Center">
+        <arc:RadioGroup Header="Playback background"
+                        Orientation="Horizontal"
+                        Variant="Borderless"
+                        SelectedValue="blur">
+            <arc:RadioOption Value="none" Label="None" />
+            <arc:RadioOption Value="blur" Label="Blur" />
+            <arc:RadioOption Value="cover" Label="Cover art" />
+        </arc:RadioGroup>
+        <arc:RadioGroup Header="Density (horizontal bordered)"
+                        Orientation="Horizontal"
+                        SelectedValue="comfortable">
+            <arc:RadioOption Value="compact" Label="Compact" />
+            <arc:RadioOption Value="comfortable" Label="Comfortable" />
+            <arc:RadioOption Value="spacious" Label="Spacious" />
+        </arc:RadioGroup>
+    </StackPanel>
+</UserControl>

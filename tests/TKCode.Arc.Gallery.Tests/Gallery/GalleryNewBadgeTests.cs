@@ -38,10 +38,10 @@ public class GalleryNewBadgeTests
     [Fact]
     public void The_Arc_Component_Count_Includes_Tree_Table()
     {
-        // 129: the Arc components plus PageViewer, AvatarUpload and the seven Pro-like components filed in Arc's groups
+        // 130: the Arc components plus PageViewer, AvatarUpload, ProgressRing and the seven Pro-like components filed in Arc's groups
         // (EmojiPicker, MegaMenuMorph, TocProgress, ShareAccess, ConfirmPopover, UndoToast, WindowRange), which have no Arc
         // page to link to; Slot text is listed under Special › Type, as on uiarc.dev.
-        GalleryCatalog.Count.ShouldBe(129);
+        GalleryCatalog.Count.ShouldBe(130);
         GalleryCatalog.Categories.Length.ShouldBe(22);
     }
 
