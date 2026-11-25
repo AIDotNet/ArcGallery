@@ -41,6 +41,7 @@ public sealed class GalleryShell : Grid
     private readonly StackPanel _chrome = new();
     private readonly Grid _body = new() { ColumnDefinitions = new ColumnDefinitions("Auto,*"), RowDefinitions = new RowDefinitions("Auto,*") };
     private readonly Drawer _drawer = new() { Side = DrawerSide.Left };
+    private Dialog? _templatesPromo;
     private readonly Border _browseBar = new() { BorderThickness = new Thickness(0, 0, 0, 1), Padding = new Thickness(12, 6), IsVisible = false };
     private readonly TextBlock _browseTitle = GalleryUi.Text(string.Empty, ArcDesignTokenKind.TextSecondary, 13);
     private bool _isNarrow;
@@ -87,7 +88,11 @@ public sealed class GalleryShell : Grid
         Focusable = true;
         AttachedToVisualTree += (_, _) =>
         {
-            Dispatcher.UIThread.Post(() => Focus());
+            Dispatcher.UIThread.Post(() =>
+            {
+                Focus();
+                TryShowTemplatesPromo();
+            });
             ScheduleSidebarPreparation();
         };
         Navigate(initial ?? GalleryRoute.Home);
@@ -172,6 +177,25 @@ public sealed class GalleryShell : Grid
 
     /// <summary>The drawer that holds the sidebar on a narrow page.</summary>
     public Drawer SidebarDrawer => _drawer;
+
+    /// <summary>The daily templates popup dialog, once created.</summary>
+    internal Dialog? TemplatesPromoDialog => _templatesPromo;
+
+    private void TryShowTemplatesPromo()
+    {
+        if (!IsAttachedToVisualTree() || _templatesPromo is not null || !GalleryTemplatesPromo.ShouldShowToday())
+        {
+            return;
+        }
+        var dialog = GalleryTemplatesPromo.CreateDialog(this);
+        _templatesPromo = dialog;
+        Children.Add(dialog);
+        dialog.Open();
+        if (dialog.IsOpen)
+        {
+            GalleryTemplatesPromo.MarkShownToday();
+        }
+    }
 
     /// <summary>The line that opens the drawer on a narrow page with a sidebar.</summary>
     public Control BrowseBar => _browseBar;

@@ -1981,5 +1981,35 @@
         <source>Copy the group number</source>
       </segment>
     </unit>
+    <unit id="TemplatesPromoTitle">
+      <segment>
+        <source>More free TKCode.Arc starter templates</source>
+      </segment>
+    </unit>
+    <unit id="TemplatesPromoDescription">
+      <segment>
+        <source>Visit tkcode.si to explore more free, ready-to-use TKCode.Arc rapid development templates for Avalonia.</source>
+      </segment>
+    </unit>
+    <unit id="TemplatesPromoBadge">
+      <segment>
+        <source>Free templates</source>
+      </segment>
+    </unit>
+    <unit id="TemplatesPromoNote">
+      <segment>
+        <source>Shown at most once a day.</source>
+      </segment>
+    </unit>
+    <unit id="TemplatesPromoAction">
+      <segment>
+        <source>Explore templates</source>
+      </segment>
+    </unit>
+    <unit id="TemplatesPromoLater">
+      <segment>
+        <source>Later</source>
+      </segment>
+    </unit>
   </file>
 </xliff>

@@ -2377,5 +2377,41 @@
         <target state="translated">複製群號</target>
       </segment>
     </unit>
+    <unit id="TemplatesPromoTitle">
+      <segment>
+        <source>More free TKCode.Arc starter templates</source>
+        <target state="translated">更多免費的 TKCode.Arc 快速開發範本</target>
+      </segment>
+    </unit>
+    <unit id="TemplatesPromoDescription">
+      <segment>
+        <source>Visit tkcode.si to explore more free, ready-to-use TKCode.Arc rapid development templates for Avalonia.</source>
+        <target state="translated">前往 tkcode.si，取得更多免費開箱即用的 TKCode.Arc 快速開發範本，加速你的 Avalonia 應用開發。</target>
+      </segment>
+    </unit>
+    <unit id="TemplatesPromoBadge">
+      <segment>
+        <source>Free templates</source>
+        <target state="translated">免費範本</target>
+      </segment>
+    </unit>
+    <unit id="TemplatesPromoNote">
+      <segment>
+        <source>Shown at most once a day.</source>
+        <target state="translated">此彈窗每天僅提示一次。</target>
+      </segment>
+    </unit>
+    <unit id="TemplatesPromoAction">
+      <segment>
+        <source>Explore templates</source>
+        <target state="translated">立即前往</target>
+      </segment>
+    </unit>
+    <unit id="TemplatesPromoLater">
+      <segment>
+        <source>Later</source>
+        <target state="translated">稍後再說</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

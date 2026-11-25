@@ -14,6 +14,7 @@ public partial class App : Application
         {
             GalleryHost.Kind = GalleryHostKind.Desktop;
             GalleryUpdates.Store = new FileUpdateStore();
+            GalleryTemplatesPromo.Store = new FileTemplatesPromoStore();
             var window = new GalleryWindow();
             window.Opened += (_, _) =>
             {

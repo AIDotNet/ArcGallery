@@ -201,6 +201,25 @@ dotnetRuntime.setModuleImports('arc-lang', {
     }
 });
 
+// The daily templates popup (BrowserTemplatesPromoStore.cs): remembers the local date (yyyy-MM-dd) it was last shown.
+const promoDateKey = 'arc.gallery.templatesPromoDate';
+dotnetRuntime.setModuleImports('arc-promo', {
+    read: () => {
+        try {
+            return localStorage.getItem(promoDateKey) ?? '';
+        } catch {
+            return '';
+        }
+    },
+    write: date => {
+        try {
+            localStorage.setItem(promoDateKey, date);
+        } catch {
+            // Storage may be blocked; the in-session guard still keeps it to once per page load.
+        }
+    }
+});
+
 // Avalonia.Browser (12.1.4) types every keydown whose key is one character, but macOS browsers keep the letter in key while an input
 // method owns the keystroke (keyCode 229). The letter would land in the text box, and writing the box's text back to Avalonia's input
 // element ends the composition, so pinyin could not be typed. Those keydowns stay away from Avalonia; the input method answers with

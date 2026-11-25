@@ -402,4 +402,10 @@ public enum GalleryShellLangResourceKind
     HomeCommunityText,
     HomeCommunityGroup,
     HomeCommunityCopy,
+    TemplatesPromoTitle,
+    TemplatesPromoDescription,
+    TemplatesPromoBadge,
+    TemplatesPromoNote,
+    TemplatesPromoAction,
+    TemplatesPromoLater,
 }

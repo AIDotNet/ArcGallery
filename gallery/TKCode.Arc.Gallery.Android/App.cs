@@ -16,6 +16,7 @@ public partial class App : Avalonia.Application
         {
             GalleryHost.Kind = GalleryHostKind.Desktop;
             GalleryHost.ClientOs = GalleryClientOs.Android;
+            GalleryTemplatesPromo.Store = new AndroidTemplatesPromoStore();
             var shell = new GalleryShell();
             // Android draws the app under the status and navigation bars (the system forces it from API 35); the safe area is
             // what is left, so the shell sits inside it instead of under the clock.
@@ -35,5 +36,21 @@ public partial class App : Avalonia.Application
             singleView.MainView = frame;
         }
         base.OnFrameworkInitializationCompleted();
+    }
+}
+
+/// <summary>Keeps the last date (<c>yyyy-MM-dd</c>) the templates popup was shown in the app's local storage folder.</summary>
+internal sealed class AndroidTemplatesPromoStore : IGalleryTemplatesPromoStore
+{
+    private readonly string _path = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) is { Length: > 0 } root ? root : Path.GetTempPath(),
+        "TKCode.Arc.Gallery", "templates-promo-date");
+
+    public string? ReadLastShownDate() => File.Exists(_path) ? File.ReadAllText(_path).Trim() : null;
+
+    public void WriteLastShownDate(string date)
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(_path)!);
+        File.WriteAllText(_path, date);
     }
 }

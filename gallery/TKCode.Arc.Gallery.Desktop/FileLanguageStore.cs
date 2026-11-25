@@ -36,3 +36,18 @@ internal sealed class FileUpdateStore : IGalleryUpdateStore
         File.WriteAllText(_path, value ? "true" : "false");
     }
 }
+
+/// <summary>Keeps the last date (<c>yyyy-MM-dd</c>) the templates popup was shown in <c>TKCode.Arc.Gallery/templates-promo-date</c>.</summary>
+internal sealed class FileTemplatesPromoStore : IGalleryTemplatesPromoStore
+{
+    private readonly string _path = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TKCode.Arc.Gallery", "templates-promo-date");
+
+    public string? ReadLastShownDate() => File.Exists(_path) ? File.ReadAllText(_path).Trim() : null;
+
+    public void WriteLastShownDate(string date)
+    {
+        Directory.CreateDirectory(Path.GetDirectoryName(_path)!);
+        File.WriteAllText(_path, date);
+    }
+}
