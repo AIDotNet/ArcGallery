@@ -1,7 +1,7 @@
 ---
 title: 数字输入框
 summary: 通过清晰的增减控件输入有范围限制的数字。
-source-hash: 77afb26be6d0
+source-hash: bbf4ebdb4fab
 ---
 
 <Demo name="Default" />
@@ -264,6 +264,10 @@ public partial class SeatPlanViewModel : ObservableObject
 - 在用户仍在输入有效数字时就显示 `ErrorMessage`。应在提交时或字段失去焦点后再设置。
 - 在大范围上使用很小的 `Step`。在 0 到 999 之间以 0.01 为步长需要按很多次，因此使用 `MoneyInput` 或 `Input` 直接输入会更快。
 - 当限制从上下文中并不明显时，用 `IsLimitHintEnabled="False"` 隐藏限制提示。没有提示时，停住的步进器看起来像是坏了。
+
+### 右键菜单
+
+右键单击、上下文菜单键或 `Shift+F10` 会打开与 `Input` 相同的菜单：撤销、重做、剪切、复制、粘贴和全选，不适用的项会置灰。设置 `IsDefaultContextMenuEnabled="False"` 可以关闭它，也可以给字段设置自己的 `ContextMenu`。
 
 ### 常见问题
 

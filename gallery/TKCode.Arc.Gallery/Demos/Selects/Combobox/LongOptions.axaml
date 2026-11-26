@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.ComboboxLongOptionsDemo">
+    <arc:Combobox Label="Editor font"
+                  Description="The menu is wider than the 180 px field, so both Nerd Font names read in full."
+                  HorizontalAlignment="Center"
+                  Width="180"
+                  SelectedIndex="0">
+        <arc:SelectItem Content="JetBrainsMono Nerd Font" />
+        <arc:SelectItem Content="JetBrainsMono Nerd Font Mono" />
+        <arc:SelectItem Content="Cascadia Code" />
+        <arc:SelectItem Content="Fira Code" />
+        <arc:SelectItem Content="SF Mono" />
+    </arc:Combobox>
+</UserControl>

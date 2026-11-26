@@ -1,7 +1,7 @@
 ---
 title: 多選
 summary: 從固定清單中選擇多個值的下拉欄位，已選值以標籤片形式顯示在欄位內。
-source-hash: ba21981c8ec8
+source-hash: 18d5cbbd33f4
 ---
 
 <Demo name="Chips" />
@@ -52,7 +52,7 @@ source-hash: ba21981c8ec8
 6. **下拉箭頭**：16 px 的向下箭頭。選單展開時旋轉 180 度。選取值時，它的左外距從 8 px 增加到 34 px，使旁邊的清除按鈕不會與箭頭重疊。
 7. **清除按鈕**：22 px 的圓形按鈕，內含 14 px 的叉號，距觸發器右邊緣 36 px。當至少選取一個值且欄位啟用時顯示，名稱為「清除選取項目」。
 8. **說明**（`Description`）：觸發器下方 12 px 的淡化輔助文字。它同時是欄位的無障礙說明文字。
-9. **選單**：帶 1 px 邊框、面板圓角與 5 px 內距的抬升表面。它在觸發器下方 8 px 處展開，寬度與觸發器相同。每個選項列高 38 px，圓角為 21 px，已選取的選項顯示勾選標記。停用的選項以 42% 的不透明度繪製。
+9. **選單**：帶 1 px 邊框、面板圓角與 5 px 內距的抬升表面。它在觸發器下方 8 px 處展開，寬度不小於觸發器，選項需要時會更寬（見「選單寬度與長選項」）。每個選項列高 38 px，圓角為 21 px，已選取的選項顯示勾選標記。停用的選項以 42% 的不透明度繪製。
 
 預設情況下，選單沒有高度限制。當長清單會超出螢幕時，`MaxDropDownHeight` 可以限制其高度（參見資料結構一節）。
 
@@ -183,6 +183,30 @@ labels.UnselectAll();
 
 只有在值無法變更時才停用欄位，並在附近說明原因，例如在說明中寫明：「發佈核准後鎖定。」停用的欄位仍會顯示其標籤，因此使用者可以讀取目前的選擇。
 
+### 選單寬度與長選項
+
+選單不必與欄位等寬。它的寬度取最寬選項所需的寬度；欄位寬度或 `MenuMinWidth` 較大時取較大者，再受 `MenuMaxWidth` 與視窗寬度（視窗寬度減去兩側各 16 px）限制。因此較窄的欄位也能開啟足夠寬的選單來完整顯示最長的名稱，欄位本身的尺寸不變。
+
+- 最寬選項只在前 200 個選項中測量，包含列內距、圖示、附註文字與勾選標記的預留空間。更長清單的其餘部分不會再撐寬選單。
+- 選單開啟時、開啟期間選項變更時、字型、`MenuMinWidth` 或 `MenuMaxWidth` 改變時，以及欄位調整大小時，都會重新計算寬度。
+- `MenuMinWidth`（預設 0）是下限，`MenuMaxWidth`（預設不限）是上限。
+- `ShowTrimmedOptionToolTip`（預設 `True`）：當選項的文字因 `MenuMaxWidth` 或視窗而仍被截斷時，滑鼠停留會在工具提示中顯示完整文字。放得下的選項不顯示工具提示。設為 `False` 即可關閉。
+
+當選單不應蓋住一直留在螢幕上的內容（例如側邊欄），或不希望某個特別長的選項把選單撐滿整個視窗時，請設定 `MenuMaxWidth`。比上限更寬的選項會以省略號截斷，完整文字保留在工具提示中。
+
+```xml
+<StackPanel Width="360" Spacing="16">
+    <arc:MultiSelect Label="Notify teams" Width="200" MenuMinWidth="240">
+        <arc:SelectItem Content="Platform engineering" />
+        <arc:SelectItem Content="Customer success operations" />
+    </arc:MultiSelect>
+    <arc:MultiSelect Label="Notify teams" Width="200" MenuMaxWidth="260">
+        <arc:SelectItem Content="Platform engineering" />
+        <arc:SelectItem Content="Customer success and support operations" />
+    </arc:MultiSelect>
+</StackPanel>
+```
+
 ### 資料結構與效能
 
 選項可以是 `SelectItem` 子元素或 `SelectOption` 記錄，控制項會自行繪製每個可見的選項（`SelectItem` 只是資料載體，而不是容器），因此選單不會為每個項目建立一個控制項。讓項目模型保持精簡：一個值、一個名稱，以及所需的旗標（`IsDisabled`、`Keywords`）。把大頭照或帳號詳細資料等較重的資料放在檢視模型中，並在儲存時查詢。
@@ -272,6 +296,10 @@ labels.UnselectAll();
 
 **使用者能用鍵盤或滑鼠選取全部選項嗎？** Arc 沒有全選控制項。`SelectAll()` 可在程式碼中使用，並且只會選取已啟用的選項。
 
+**為什麼選單比欄位寬？** 選單會依最寬的選項擴展，讓較長的名稱不被截斷，欄位本身的寬度不變。設定 `MenuMaxWidth` 可以限制選單寬度（見「選單寬度與長選項」）。
+
+**如何讓選單與欄位保持一樣寬？** 將 `MenuMaxWidth` 設為欄位的寬度，或繫結到欄位的 `Bounds.Width`。比它更寬的選項會被截斷，並在工具提示中顯示完整文字。
+
 ## API 參考
 
 <!-- api: MultiSelect -->
@@ -326,6 +354,7 @@ labels.UnselectAll();
 - `MultiSelect` 在任何寬度下形態都不變。已選值保持在一列：標籤依剩餘空間收縮，「+N」標籤保持原有大小，因此輸入框高度不變。
 - 單一標籤最寬 `ChipMaxWidth`（144 px）。`MaxVisibleChips` 決定摺疊為「+N」標籤之前顯示幾個標籤，預設為 2。
 - 選單預設沒有高度上限。設定 `MaxDropDownHeight`，讓長清單捲動並留在螢幕內。
+- 選單寬度不小於觸發器，會依最寬的選項擴展，直到 `MenuMaxWidth` 與視窗的限制。
 - 選單選項為 `OptionHeight`（38 px）高的列。點選或輕觸選項會切換其選取狀態，並保持選單開啟；懸停只改變邊框和背景，不依賴懸停也能選取。
 - 在窄的篩選列中把 `MaxVisibleChips` 設為 1；選項超過十幾個時，把 `MaxDropDownHeight` 設為 320。
 

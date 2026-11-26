@@ -1,7 +1,7 @@
 ---
 title: 樹狀選擇
 summary: 在下拉樹中選擇一個節點或勾選多個節點，搜尋時保留每個符合項目的路徑，勾選父節點即勾選整個分支。
-source-hash: 984cb4be884c
+source-hash: 0a05b587c5d3
 ---
 
 <Demo name="Preview" />
@@ -73,6 +73,24 @@ treeSelect.DisabledSelector = node => ((FileNode)node).IsLocked;
 
 <Demo name="LargeTree" />
 
+### 選單寬度與長選項
+
+選單不必與欄位等寬。它的寬度取最寬一列所需的寬度；欄位寬度或 `MenuMinWidth` 較大時取較大者，再受 `MenuMaxWidth` 與視窗寬度（視窗寬度減去兩側各 16 px）限制。因此較窄的欄位也能開啟足夠寬的選單來完整顯示最長的名稱，欄位本身的尺寸不變。
+
+- 最寬一列只在前 200 個選項中測量，包含列內距、圖示、附註文字與勾選標記的預留空間，以及縮排、展開箭頭與核取方塊。更長清單的其餘部分不會再撐寬選單。樹狀主題規定的彈出層最小寬度仍然作為下限。
+- 選單開啟時、開啟期間選項變更時、字型、`MenuMinWidth` 或 `MenuMaxWidth` 改變時，以及欄位調整大小時，都會重新計算寬度。
+- `MenuMinWidth`（預設 0）是下限，`MenuMaxWidth`（預設不限）是上限。
+- `ShowTrimmedOptionToolTip`（預設 `True`）：當選項的文字因 `MenuMaxWidth` 或視窗而仍被截斷時，滑鼠停留會在工具提示中顯示完整文字。放得下的選項不顯示工具提示。設為 `False` 即可關閉。
+
+當選單不應蓋住一直留在螢幕上的內容（例如側邊欄），或不希望某個特別長的選項把選單撐滿整個視窗時，請設定 `MenuMaxWidth`。比上限更寬的選項會以省略號截斷，完整文字保留在工具提示中。
+
+```xml
+<StackPanel Width="360" Spacing="16">
+    <arc:TreeSelect Width="220" Placeholder="Choose a folder" MenuMinWidth="320" />
+    <arc:TreeSelect Width="220" Placeholder="Choose a folder" MenuMaxWidth="280" ShowTrimmedOptionToolTip="False" />
+</StackPanel>
+```
+
 ## API 參考
 
 <!-- api: TreeSelect -->
@@ -114,7 +132,7 @@ treeSelect.DisabledSelector = node => ((FileNode)node).IsLocked;
 ## 響應式
 
 - 沒有中斷點。欄位佔用給定的寬度（至少 200 px）。
-- 選單與欄位同寬，至少 240 px；過長的標籤以省略號截斷。
+- 選單寬度不小於欄位，且至少 240 px，會依最寬的列擴展（受 `MenuMaxWidth` 與視窗限制）；仍然放不下的列以省略號截斷標籤，並在工具提示中顯示。
 - 樹在 `MaxDropDownHeight`（320 px）內捲動。下方空間不足時選單翻到欄位上方。
 
 ## 相關元件

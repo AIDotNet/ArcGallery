@@ -242,6 +242,12 @@ caret sits and tells the person how to add structure.
 Set both when the field is a comment or a note, so the empty state explains the next step. Keep the placeholder
 short: it disappears as soon as text is typed, and the hint disappears with it.
 
+### Localization
+
+The editor's built-in text follows the app's language (`UseLanguages(...)` at startup, `ArcLanguage.Set` later) and changes as soon as the language does. It ships in English, Simplified Chinese and Traditional Chinese. That covers the menus (slash commands, turn into, table, code language), the toolbar and the find bar, the default placeholder and block hint, the names a screen reader hears, and the announcements it makes ("Heading 1", "2 of 5").
+
+Slash search matches the label and keywords in the current language and the English ones too, so `/heading` and `/标题` both find Heading while the menu is in Chinese. A `Placeholder` or `BlockHint` you set is shown as written; leave them unset to get the translated defaults. The text of your own content, the `CodeLanguages` labels you supply and the document itself are never translated.
+
 ### Read only
 
 With `IsReadOnly` set, editing, the toolbar and the shortcuts are off. The text can still be selected and copied,

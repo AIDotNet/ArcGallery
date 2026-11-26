@@ -1,7 +1,7 @@
 ---
 title: 搜索框
 summary: 随输入过滤当前视图中已有项目的搜索框，清除按钮出现时不会挤动工具栏。
-source-hash: d6e0b91cb971
+source-hash: f93558f1b9a3
 ---
 
 <Demo name="FilterList" />
@@ -239,6 +239,10 @@ search.TextChanged += async (_, _) =>
 - 在已经随每次按键筛选的列表中使用 `SearchSubmitted`。这样 Enter 不会产生任何效果，人员会不知道它有什么用。
 - 在搜索框中放入一个已选值。应使用 `Combobox`，它保存的是选择，而不是自由输入的查询。
 - 只依赖 Escape 清空字段。清除按钮是可见的提示，而 Escape 并不容易被发现。
+
+### 右键菜单
+
+右键单击、上下文菜单键或 `Shift+F10` 会打开与 `Input` 相同的菜单：撤销、重做、剪切、复制、粘贴和全选，不适用的项会置灰。设置 `IsDefaultContextMenuEnabled="False"` 可以关闭它，也可以给字段设置自己的 `ContextMenu`。
 
 ### 常见问题
 

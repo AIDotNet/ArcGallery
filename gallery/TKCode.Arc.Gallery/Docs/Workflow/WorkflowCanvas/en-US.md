@@ -72,6 +72,22 @@ Set the final states before the canvas appears to show a run from history: nothi
 
 <Demo name="LeftToRight" />
 
+### Port side per step
+
+A step's ports sit on the sides `LayoutDirection` gives them. `PortLayout` on a `WorkflowNode` overrides that for one step: `TopToBottom` puts its input on top and its outputs at the bottom, `LeftToRight` puts the input on the left and the outputs on the right. Left at `null`, the step follows the canvas. Use it when part of a workflow reads in the other direction, such as a trigger above a row of approval steps.
+
+Each end of an edge takes its direction from its own step: a Bezier edge between two such steps leaves along the side of the step it starts at and enters along the side of the step it ends at, and a `Step` edge is one rounded elbow. The connect preview, the ports a drag can land on and the JSON that copy and paste carry follow the same sides. Arranging (`ArrangeNodes`) and the arrow keys between steps still follow the canvas's `LayoutDirection`, so give the steps a `Position` when you mix directions.
+
+<Demo name="MixedPorts" />
+
+```csharp
+var approve = new WorkflowNode("approve", "Manager approval")
+{
+    PortLayout = WorkflowLayoutDirection.LeftToRight,
+    Position = new Point(340, 200)
+};
+```
+
 ### Edge styles
 
 `EdgeStyle` draws the edges as curves (`Bezier`, the default, as in Arc), right angles with rounded corners (`Step`), or straight lines (`Straight`). The data of a run draws along any of them.

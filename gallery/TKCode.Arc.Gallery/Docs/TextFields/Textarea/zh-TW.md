@@ -1,7 +1,7 @@
 ---
 title: 多行文字框
 summary: 用於備註、描述和較長文字的多行輸入欄位。
-source-hash: b31414b04fec
+source-hash: 5ee50723810e
 ---
 
 <Demo name="LiveCount" />
@@ -240,6 +240,10 @@ notes.FrameHeight = 200;
 - 用 `Textarea` 填寫單行內容，例如姓名或主旨。Enter 會新增一行，貼上的文字也會保留其換行。
 - 在使用者需要閱讀長文字的表單中關閉 `IsResizable`。欄位將只有最小高度，文字會在一個小視窗中捲動。
 - 依賴把手服務鍵盤使用者。把手只回應指標，因此應使欄位的高度在不縮放時也能正常運作。
+
+### 右鍵選單
+
+按一下滑鼠右鍵、按下內容功能表鍵或 `Shift+F10` 會開啟與 `Input` 相同的選單：復原、重做、剪下、複製、貼上與全選，不適用的項目會停用。設定 `IsDefaultContextMenuEnabled="False"` 可以關閉它，也可以替欄位設定自己的 `ContextMenu`。
 
 ### 常見問題
 

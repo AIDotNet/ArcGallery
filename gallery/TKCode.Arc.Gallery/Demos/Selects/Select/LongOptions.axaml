@@ -1,0 +1,24 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:arc="https://github.com/AIDotNet/TKCode.Arc"
+             x:Class="TKCode.Arc.Gallery.Demos.SelectLongOptionsDemo">
+    <StackPanel Orientation="Horizontal" Spacing="24" HorizontalAlignment="Center">
+        <arc:Select Label="Team"
+                    Description="The menu grows to fit the longest name."
+                    Width="120"
+                    SelectedIndex="0">
+            <arc:SelectItem Content="Design" />
+            <arc:SelectItem Content="Platform engineering" />
+            <arc:SelectItem Content="Customer success operations" />
+        </arc:Select>
+        <arc:Select Label="Team, capped"
+                    Description="MenuMaxWidth 200: hover a trimmed row."
+                    Width="120"
+                    MenuMaxWidth="200"
+                    SelectedIndex="0">
+            <arc:SelectItem Content="Design" />
+            <arc:SelectItem Content="Platform engineering" />
+            <arc:SelectItem Content="Customer success and support operations" />
+        </arc:Select>
+    </StackPanel>
+</UserControl>

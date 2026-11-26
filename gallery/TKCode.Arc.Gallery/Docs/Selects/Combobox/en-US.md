@@ -211,6 +211,34 @@ message does not appear while the person is still searching.
 | The value is still available | On save, because an option can be disabled later | A message below the field that names the option |
 | The owner must belong to the team | On the server response | The same message row, cleared when the value changes |
 
+### Menu width and long options
+
+The menu does not have to match the field. Its width is the width the widest option needs, raised to the field's width or `MenuMinWidth` when either is larger, and then capped by `MenuMaxWidth` and by the window (the window width less 16 px on each side). A narrow field can therefore open a menu wide enough for its longest names, and the field keeps its own size.
+
+- The widest option is measured over the first 200 options and includes the row padding, the icon, the meta text and the space for the check mark. The rest of a longer list does not widen the menu.
+- The width is worked out again when the menu opens, when the items change while it is open, when the font, `MenuMinWidth` or `MenuMaxWidth` change, and when the field is resized.
+- `MenuMinWidth` (default 0) is a floor and `MenuMaxWidth` (default unlimited) is a ceiling.
+- `ShowTrimmedOptionToolTip` (default `True`) shows the full text of an option in a tooltip on hover when its text is still trimmed, because of `MenuMaxWidth` or the window. An option that fits shows no tooltip. Set it to `False` to turn the tooltips off.
+
+Set `MenuMaxWidth` when the menu must not cover something that stays on screen, such as a sidebar, or when one very long option should not stretch the menu across the window. Options wider than the ceiling are trimmed with an ellipsis and keep their full text in the tooltip.
+
+<Demo name="LongOptions" />
+
+```xml
+<StackPanel Width="360" Spacing="16">
+    <arc:Combobox Label="Editor font" Width="180">
+        <arc:SelectItem Content="JetBrainsMono Nerd Font" />
+        <arc:SelectItem Content="JetBrainsMono Nerd Font Mono" />
+    </arc:Combobox>
+    <arc:Combobox Label="Editor font"
+                  Width="180"
+                  MenuMaxWidth="{Binding Bounds.Width, RelativeSource={RelativeSource Self}}">
+        <arc:SelectItem Content="JetBrainsMono Nerd Font" />
+        <arc:SelectItem Content="JetBrainsMono Nerd Font Mono" />
+    </arc:Combobox>
+</StackPanel>
+```
+
 ### Inline options and disabled options
 
 Disabled options show in the list but cannot be picked. The arrow keys skip them. Use this for an option that exists but
@@ -333,6 +361,10 @@ The list opens when the field gains focus or when a person types.
 **Does focusing the field open the list?** Yes. Focus opens the list, and typing opens it too. `Enter` picks the
 highlighted option and closes it, and `Tab` closes it and moves focus on.
 
+**Why is the menu wider than the field?** The menu grows to fit its widest option, so that long names are not trimmed, and the field keeps its own width. Set `MenuMaxWidth` to cap the menu (see "Menu width and long options").
+
+**How do I keep the menu as wide as the field?** Set `MenuMaxWidth` to the field's width, or bind it to the field's `Bounds.Width`. Options wider than that are trimmed and show their full text in a tooltip.
+
 ## API reference
 
 <!-- api: Combobox -->
@@ -382,7 +414,8 @@ highlighted option and closes it, and `Tab` closes it and moves focus on.
 
 - `Combobox` does not change at a breakpoint. The field takes the width its parent gives it, and it never gets narrower
   than 200 px (`MinWidth`).
-- The list is as wide as the field and reads the `ArcViewport`: its height is the smaller of `MaxDropDownHeight` (300
+- The list is at least as wide as the field, grows to fit its widest option (up to `MenuMaxWidth` and the window), and
+  reads the `ArcViewport`: its height is the smaller of `MaxDropDownHeight` (300
   px) and 40% of the viewport height, so it stays on screen in a short window or a phone preview.
 - Options are rows `OptionHeight` (36 px) tall. The list scrolls vertically, and horizontal scrolling is off.
 - A click or tap on an option picks it and closes the list. Hover and focus only change colors, so nothing depends on

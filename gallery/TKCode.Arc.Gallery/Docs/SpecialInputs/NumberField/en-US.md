@@ -318,6 +318,10 @@ limit, which keeps the screen calm until it has something to say.
 - Hiding the limit note with `IsLimitHintEnabled="False"` when the limit is not obvious from the context. Without the note,
   a stopped stepper looks broken.
 
+### Context menu
+
+Right-click, the context-menu key or `Shift+F10` opens the same menu as in `Input`: Undo, Redo, Cut, Copy, Paste and Select all, with the rows that do not apply disabled. Set `IsDefaultContextMenuEnabled="False"` to turn it off, or give the field your own `ContextMenu`.
+
 ### Common questions
 
 **Why does the plus stepper look dimmed?** The value is at the maximum. The stepper dims to 32% but stays pressable, so a

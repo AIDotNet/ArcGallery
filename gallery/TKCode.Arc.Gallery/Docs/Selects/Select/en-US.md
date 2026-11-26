@@ -69,7 +69,7 @@ mark. `SelectItem` children and `SelectOption` records both work, and a `SelectI
 4. **Chevron**: a 16 px down arrow after the value, with a 12 px gap. It rotates 180 degrees while the menu is open.
 5. **Description** (`Description`): 12 px muted copy under the trigger. It is also the field's accessible help text.
 6. **Menu**: a raised surface with a 1 px border, a 20 px corner radius and 6 px of padding. It opens 4 px below the
-   trigger and is exactly as wide as the trigger.
+   trigger, at least as wide as the trigger and wider when an option needs it (see "Menu width and long options").
 7. **Option rows**: 36 px high with a 14 px corner radius. The label starts 11 px in and 34 px stay free on the right
    for the check mark, which sits 10 px from the right edge. The highlighted row uses the muted surface color, and
    disabled rows are drawn at 45% opacity.
@@ -231,6 +231,33 @@ of thousands of items stays responsive. A disabled `Select` ignores input and do
 Lower `MaxDropDownHeight` when the field sits near the bottom of a window or in a narrow dialog, so the menu stays
 inside the window. Avoid a height so small that only one row fits.
 
+### Menu width and long options
+
+The menu does not have to match the field. Its width is the width the widest option needs, raised to the field's width or `MenuMinWidth` when either is larger, and then capped by `MenuMaxWidth` and by the window (the window width less 16 px on each side). A narrow field can therefore open a menu wide enough for its longest names, and the field keeps its own size.
+
+- The widest option is measured over the first 200 options and includes the row padding, the icon, the meta text and the space for the check mark. The rest of a longer list does not widen the menu.
+- The width is worked out again when the menu opens, when the items change while it is open, when the font, `MenuMinWidth` or `MenuMaxWidth` change, and when the field is resized.
+- `MenuMinWidth` (default 0) is a floor and `MenuMaxWidth` (default unlimited) is a ceiling.
+- `ShowTrimmedOptionToolTip` (default `True`) shows the full text of an option in a tooltip on hover when its text is still trimmed, because of `MenuMaxWidth` or the window. An option that fits shows no tooltip. Set it to `False` to turn the tooltips off.
+
+Set `MenuMaxWidth` when the menu must not cover something that stays on screen, such as a sidebar, or when one very long option should not stretch the menu across the window. Options wider than the ceiling are trimmed with an ellipsis and keep their full text in the tooltip.
+
+<Demo name="LongOptions" />
+
+```xml
+<StackPanel Width="360" Spacing="16">
+    <arc:Select Label="Team" Width="120">
+        <arc:SelectItem Content="Design" />
+        <arc:SelectItem Content="Platform engineering" />
+        <arc:SelectItem Content="Customer success operations" />
+    </arc:Select>
+    <arc:Select Label="Team" Width="120" MenuMaxWidth="200">
+        <arc:SelectItem Content="Platform engineering" />
+        <arc:SelectItem Content="Customer success and support operations" />
+    </arc:Select>
+</StackPanel>
+```
+
 ### Data shape and performance
 
 Options can be strings, records, `SelectOption` values or inline `SelectItem` children. The control draws each visible
@@ -360,6 +387,10 @@ suggest that it can change.
 **Does typing change the value?** Yes. With the menu closed, typing a letter picks the next option whose text starts
 with it, without opening the menu. With the menu open, typing highlights the match, and Enter picks it.
 
+**Why is the menu wider than the field?** The menu grows to fit its widest option, so that long names are not trimmed, and the field keeps its own width. Set `MenuMaxWidth` to cap the menu (see "Menu width and long options").
+
+**How do I keep the menu as wide as the field?** Set `MenuMaxWidth` to the field's width, or bind it to the field's `Bounds.Width`. Options wider than that are trimmed and show their full text in a tooltip.
+
 ## API reference
 
 <!-- api: Select -->
@@ -414,7 +445,8 @@ Page and typeahead keys.
 
 - The trigger takes the width it is given (at least 180 px). Let it stretch in a narrow form instead of setting a fixed
   `Width`.
-- The menu opens as large as the trigger and stays an anchored menu on every screen size; it does not turn into a
+- The menu is at least as wide as the trigger, grows to fit its widest option and stays inside the window (16 px margin
+  on each side); set `MenuMaxWidth` to cap it. It stays an anchored menu on every screen size; it does not turn into a
   bottom sheet.
 - The menu stays inside the viewport: it flips above the trigger when there is no room below and slides back from the
   edges. Inside an `ArcViewportHost` (a phone preview) the host is the viewport.

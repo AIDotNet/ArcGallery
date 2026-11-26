@@ -81,6 +81,24 @@ opens all).
 
 <Demo name="LargeTree" />
 
+### Menu width and long options
+
+The menu does not have to match the field. Its width is the width the widest row needs, raised to the field's width or `MenuMinWidth` when either is larger, and then capped by `MenuMaxWidth` and by the window (the window width less 16 px on each side). A narrow field can therefore open a menu wide enough for its longest names, and the field keeps its own size.
+
+- The widest row is measured over the first 200 options and includes the row padding, the icon, the meta text and the space for the check mark, plus the indentation, the chevron and the checkbox. The rest of a longer list does not widen the menu. The theme minimum popup width of the tree still applies as a floor.
+- The width is worked out again when the menu opens, when the items change while it is open, when the font, `MenuMinWidth` or `MenuMaxWidth` change, and when the field is resized.
+- `MenuMinWidth` (default 0) is a floor and `MenuMaxWidth` (default unlimited) is a ceiling.
+- `ShowTrimmedOptionToolTip` (default `True`) shows the full text of an option in a tooltip on hover when its text is still trimmed, because of `MenuMaxWidth` or the window. An option that fits shows no tooltip. Set it to `False` to turn the tooltips off.
+
+Set `MenuMaxWidth` when the menu must not cover something that stays on screen, such as a sidebar, or when one very long option should not stretch the menu across the window. Options wider than the ceiling are trimmed with an ellipsis and keep their full text in the tooltip.
+
+```xml
+<StackPanel Width="360" Spacing="16">
+    <arc:TreeSelect Width="220" Placeholder="Choose a folder" MenuMinWidth="320" />
+    <arc:TreeSelect Width="220" Placeholder="Choose a folder" MenuMaxWidth="280" ShowTrimmedOptionToolTip="False" />
+</StackPanel>
+```
+
 ## API reference
 
 <!-- api: TreeSelect -->
@@ -124,7 +142,8 @@ opens all).
 ## Responsive behavior
 
 - No breakpoint. The field takes the width it is given (at least 200 px).
-- The menu is as wide as the field and at least 240 px; rows trim long labels with an ellipsis.
+- The menu is at least as wide as the field and at least 240 px, and grows to fit its widest row, up to `MenuMaxWidth`
+  and the window. A row that is still too wide trims its label with an ellipsis and shows it in a tooltip.
 - The tree scrolls within `MaxDropDownHeight` (320 px). The menu flips above the field when there is no room below.
 
 ## Related

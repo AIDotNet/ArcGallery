@@ -1,7 +1,7 @@
 ---
 title: 富文本编辑器
 summary: 轻量编辑器，支持 Markdown 快捷输入、浮动工具栏、斜杠菜单，并可输出 HTML 与 Markdown。
-source-hash: b07d90f6dc18
+source-hash: 008e80a1c66e
 ---
 
 <Demo name="Shortcuts" />
@@ -184,6 +184,12 @@ editor.ImageSourceRequested += (_, e) =>
 <Demo name="Placeholder" />
 
 当字段用于评论或备注时，两者都应设置，让空状态说明下一步该做什么。占位文字要简短：开始输入文字后它就会消失，块提示也随之消失。
+
+### 本地化
+
+编辑器的内置文字跟随应用的语言（启动时用 `UseLanguages(...)`，之后用 `ArcLanguage.Set`），语言一变就立即更新。它提供英文、简体中文和繁体中文，涵盖菜单（斜杠命令、转换为、表格、代码语言）、工具栏和查找栏、默认的占位文字与块提示、读屏软件读出的名称，以及它播报的内容（“标题 1”“第 2 项，共 5 项”）。
+
+斜杠搜索既匹配当前语言的名称和关键词，也匹配英文的，所以菜单是中文时，`/heading` 和 `/标题` 都能找到标题。你设置的 `Placeholder` 或 `BlockHint` 会原样显示；不设置则使用已翻译的默认值。你自己的内容、你提供的 `CodeLanguages` 标签以及文档本身不会被翻译。
 
 ### 只读
 
