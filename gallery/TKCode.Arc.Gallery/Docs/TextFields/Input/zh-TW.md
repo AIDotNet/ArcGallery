@@ -1,7 +1,7 @@
 ---
 title: 輸入框
 summary: 用於輸入簡短文字的文字方塊，內建標籤、說明文字與錯誤提示列。
-source-hash: 9fc207893694
+source-hash: 1b6c4d027204
 ---
 
 <Demo name="Playground" />
@@ -178,6 +178,25 @@ endpoint.TextChanged += (_, _) => endpoint.ErrorMessage = null;
 - **停用**：欄位淡化到 50% 並移出 Tab 順序。只在值暫時不適用時使用，並在附近說明原因，例如在開啟該功能的開關的說明中。
 - **無效**：顯示危險色邊框與錯誤列。錯誤應保留到值被修正為止，不要在取得焦點時清除。
 
+### 右鍵選單
+
+在欄位取得焦點時按一下滑鼠右鍵、按下內容功能表鍵或 `Shift+F10`，會開啟一個選單，包含復原、重做、剪下、複製、貼上與全選，每一項都附有目前平台的快速鍵提示（Windows 與 Linux 為 `Ctrl`，macOS 為 `Cmd`）。復原與重做只在欄位保有復原歷程時顯示。不適用的項目會停用：沒有選取範圍時的剪下與複製、剪貼簿裡沒有文字時的貼上、欄位為空時的全選。唯讀欄位只顯示複製與全選。選單文字會跟隨應用程式的語言（英文、簡體中文與繁體中文）。`Textarea`、`PasswordField`、`SearchField`、`NumberField`、`MoneyInput`、`PhoneInput` 與 `DatePicker` 開啟的是同一個選單。
+
+自己的選單會取代它：在欄位上設定 `ContextMenu`、`ContextFlyout` 或 `arc:ContextMenu.Menu`，開啟的就是你的選單。要關閉預設選單，請在欄位上設定 `IsDefaultContextMenuEnabled="False"`；或在視窗、表單或面板上設定可繼承的 `arc:TextContextMenu.IsEnabled="False"`，關閉其中所有文字欄位的預設選單。
+
+```xml
+<StackPanel Spacing="12">
+    <!-- Off for this field only. -->
+    <arc:Input Label="Coupon code" IsDefaultContextMenuEnabled="False" />
+
+    <!-- Off for every text field inside the panel (a window or a form works the same way). -->
+    <StackPanel Spacing="12" arc:TextContextMenu.IsEnabled="False">
+        <arc:Input Label="Name" />
+        <arc:Textarea Label="Notes" />
+    </StackPanel>
+</StackPanel>
+```
+
 ### Field 基礎
 
 `Field` 在 `FieldFrame` 外加上標籤與訊息列。挑選器與特殊輸入框會重複使用這兩者。
@@ -258,7 +277,7 @@ SaaS 管理後台中的一個設定表單。標籤是簡短的名詞，輔助文
 
 **如何要求電子郵件鍵盤或自動填入提示？** 使用 Avalonia 的附加屬性 `TextInputOptions.ContentType`，例如 `TextInputOptions.ContentType="Email"`。螢幕小鍵盤與輸入法會據此調整。
 
-**為什麼沒有右鍵選單？** Arc 輸入框不提供內容選單；剪下、複製、貼上、復原與全選都可以用鍵盤完成。
+**可以修改或移除右鍵選單嗎？** 可以。在欄位上設定 `ContextMenu`、`ContextFlyout` 或 `arc:ContextMenu.Menu`，會取代預設選單。`IsDefaultContextMenuEnabled="False"` 只關閉一個欄位的選單；在視窗、表單或面板上設定 `arc:TextContextMenu.IsEnabled="False"`，則會關閉其中所有文字欄位的選單。
 
 **逐詞改寫對中文或日文文案有效嗎？** 訊息列以空格分詞。沒有空格的文案會作為一個整體變化，仍有動畫，但會整列改寫。
 
@@ -284,6 +303,7 @@ SaaS 管理後台中的一個設定表單。標籤是簡短的名詞，輔助文
 | `Ctrl+Left` / `Ctrl+Right`（macOS 上為 `Option`） | 依詞移動游標 |
 | `Shift` + 以上任一按鍵 | 擴大選取範圍 |
 | `Ctrl+A`、`Ctrl+C`、`Ctrl+X`、`Ctrl+V`（macOS 上為 `Cmd`） | 全選、複製、剪下、貼上 |
+| `Menu` 鍵 / `Shift+F10` | 開啟右鍵選單（復原、重做、剪下、複製、貼上、全選） |
 | `Ctrl+Z` / `Ctrl+Y`（macOS 上為 `Cmd+Z` / `Cmd+Shift+Z`） | 復原、重做 |
 | `Enter` | 輸入框本身不處理；視窗有預設按鈕時觸發該按鈕 |
 

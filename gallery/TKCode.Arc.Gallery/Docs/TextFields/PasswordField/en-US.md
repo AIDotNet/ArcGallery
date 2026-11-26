@@ -300,6 +300,10 @@ button is the form's default, so Enter in the password field submits the form.
 - Using a placeholder that looks like a value, such as "••••••••". A person can mistake it for a saved password.
 - Placing the field in a dense toolbar or header. A password is a form value; search or filter fields belong there.
 
+### Context menu
+
+Right-click, the context-menu key or `Shift+F10` opens the same menu as in `Input`: Undo, Redo, Cut, Copy, Paste and Select all, with the rows that do not apply disabled. Cut and Copy are always disabled, so the password cannot be copied out of the field. Set `IsDefaultContextMenuEnabled="False"` to turn it off, or give the field your own `ContextMenu`.
+
 ### Common questions
 
 **How do I change the mask character?** `PasswordChar` (inherited from the text box) sets the character. It defaults to

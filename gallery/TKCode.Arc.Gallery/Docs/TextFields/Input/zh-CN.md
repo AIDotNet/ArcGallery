@@ -1,7 +1,7 @@
 ---
 title: 输入框
 summary: 用于输入简短文本的文本框，自带标签、帮助文字与错误提示行。
-source-hash: 9fc207893694
+source-hash: 1b6c4d027204
 ---
 
 <Demo name="Playground" />
@@ -178,6 +178,25 @@ endpoint.TextChanged += (_, _) => endpoint.ErrorMessage = null;
 - **禁用**：字段淡化到 50% 并移出 Tab 顺序。只在值暂时不适用时使用，并在附近说明原因，例如在开启该功能的开关的描述中。
 - **无效**：显示危险色边框与错误行。错误应保留到值被修正为止，不要在获得焦点时清除。
 
+### 右键菜单
+
+在字段获得焦点时右键单击、按上下文菜单键或 `Shift+F10`，会打开一个菜单，包含撤销、重做、剪切、复制、粘贴和全选，每项都带有当前平台的快捷键提示（Windows 和 Linux 为 `Ctrl`，macOS 为 `Cmd`）。撤销和重做只在字段保留撤销历史时显示。不适用的项会置灰：没有选区时的剪切和复制、剪贴板里没有文本时的粘贴、字段为空时的全选。只读字段只显示复制和全选。菜单文字跟随应用的语言（英文、简体中文和繁体中文）。`Textarea`、`PasswordField`、`SearchField`、`NumberField`、`MoneyInput`、`PhoneInput` 和 `DatePicker` 打开的是同一个菜单。
+
+自己的菜单会替换它：在字段上设置 `ContextMenu`、`ContextFlyout` 或 `arc:ContextMenu.Menu`，打开的就是你的菜单。要关闭默认菜单，在字段上设置 `IsDefaultContextMenuEnabled="False"`；或在窗口、表单或面板上设置可继承的 `arc:TextContextMenu.IsEnabled="False"`，关闭其中所有文本字段的默认菜单。
+
+```xml
+<StackPanel Spacing="12">
+    <!-- Off for this field only. -->
+    <arc:Input Label="Coupon code" IsDefaultContextMenuEnabled="False" />
+
+    <!-- Off for every text field inside the panel (a window or a form works the same way). -->
+    <StackPanel Spacing="12" arc:TextContextMenu.IsEnabled="False">
+        <arc:Input Label="Name" />
+        <arc:Textarea Label="Notes" />
+    </StackPanel>
+</StackPanel>
+```
+
 ### Field 基础
 
 `Field` 在 `FieldFrame` 外加上标签与消息行。选择器与特殊输入框会复用这两者。
@@ -258,7 +277,7 @@ SaaS 管理后台中的一个设置表单。标签是简短的名词，辅助文
 
 **如何请求邮箱键盘或自动填充提示？** 使用 Avalonia 的附加属性 `TextInputOptions.ContentType`，例如 `TextInputOptions.ContentType="Email"`。屏幕键盘与输入法会据此调整。
 
-**为什么没有右键菜单？** Arc 输入框不提供上下文菜单；剪切、复制、粘贴、撤销与全选都可以用键盘完成。
+**可以修改或去掉右键菜单吗？** 可以。在字段上设置 `ContextMenu`、`ContextFlyout` 或 `arc:ContextMenu.Menu`，会替换默认菜单。`IsDefaultContextMenuEnabled="False"` 只关闭一个字段的菜单；在窗口、表单或面板上设置 `arc:TextContextMenu.IsEnabled="False"`，则关闭其中所有文本字段的菜单。
 
 **逐词改写对中文或日文文案有效吗？** 消息行按空格分词。没有空格的文案会作为一个整体变化，仍有动画，但会整行改写。
 
@@ -284,6 +303,7 @@ SaaS 管理后台中的一个设置表单。标签是简短的名词，辅助文
 | `Ctrl+Left` / `Ctrl+Right`（macOS 上为 `Option`） | 按词移动光标 |
 | `Shift` + 以上任一按键 | 扩展选区 |
 | `Ctrl+A`、`Ctrl+C`、`Ctrl+X`、`Ctrl+V`（macOS 上为 `Cmd`） | 全选、复制、剪切、粘贴 |
+| `Menu` 键 / `Shift+F10` | 打开右键菜单（撤销、重做、剪切、复制、粘贴、全选） |
 | `Ctrl+Z` / `Ctrl+Y`（macOS 上为 `Cmd+Z` / `Cmd+Shift+Z`） | 撤销、重做 |
 | `Enter` | 输入框本身不处理；窗口有默认按钮时触发该按钮 |
 

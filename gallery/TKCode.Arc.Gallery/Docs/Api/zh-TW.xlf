@@ -9212,6 +9212,14 @@
         <source>Tallest the list gets (Arc: min(300px, 40% of the window)).</source>
         <target>清單可達到的最大高度（Arc 為 min(300px, 視窗高度的 40%)）。</target>
       </trans-unit>
+      <trans-unit id="Combobox.MenuMaxWidth">
+        <source>The widest the menu gets (default infinity: bounded only by the window). Options wider than this are trimmed.</source>
+        <target>選單的最大寬度（預設無限，僅受視窗限制）。超出此寬度的選項會被截斷。</target>
+      </trans-unit>
+      <trans-unit id="Combobox.MenuMinWidth">
+        <source>The narrowest the menu gets (default 0). The menu is as wide as its widest option needs, never narrower than the field or this value, and never wider than `MenuMaxWidth` or the window.</source>
+        <target>選單的最小寬度（預設 0）。選單依最寬選項所需的寬度展開，不會窄於欄位或此值，也不會寬於 `MenuMaxWidth` 或視窗。</target>
+      </trans-unit>
       <trans-unit id="Combobox.Placeholder">
         <source>Shown while the field is empty (Arc: "Search or select…"). While searching the chosen label takes its place.</source>
         <target>欄位為空時顯示（Arc 為“Search or select…”）。搜尋時，所選標籤會取代此文字。</target>
@@ -9223,6 +9231,10 @@
       <trans-unit id="Combobox.SelectedText">
         <source>Label of the selected option, or null.</source>
         <target>所選選項的標籤；無選取項時為 null。</target>
+      </trans-unit>
+      <trans-unit id="Combobox.ShowTrimmedOptionToolTip">
+        <source>Whether an option whose text is trimmed shows its full text in a tooltip on hover (default true).</source>
+        <target>文字被截斷的選項在滑鼠停留時是否以工具提示顯示完整文字（預設 true）。</target>
       </trans-unit>
       <trans-unit id="Combobox.Size">
         <source>Trigger height: Small 36, Medium 44 (default), Large 50, as for the text fields.</source>
@@ -14927,6 +14939,10 @@
       <trans-unit id="FieldTextBox.ErrorMessage">
         <source>Error copy under the frame; non-empty makes the field invalid.</source>
         <target>外框下方的錯誤提示；不為空時欄位為無效狀態。</target>
+      </trans-unit>
+      <trans-unit id="FieldTextBox.IsDefaultContextMenuEnabled">
+        <source>Whether right-click (and the ContextMenu key / Shift+F10) opens the default Cut / Copy / Paste menu (default true). Inherited, so a window or form can switch it off for every input inside; a `ContextMenu` or `ContextFlyout` set on the input always replaces it.</source>
+        <target>按右鍵（以及選單鍵 / Shift+F10）是否開啟預設的剪下 / 複製 / 貼上選單（預設 true）。此屬性可繼承，視窗或表單可以一次為其中所有輸入框關閉它；在輸入框上設定的 `ContextMenu` 或 `ContextFlyout` 一律會取代它。</target>
       </trans-unit>
       <trans-unit id="FieldTextBox.IsInvalid">
         <source>Invalid state; always true while an error is shown.</source>
@@ -24748,6 +24764,14 @@
         <source>Defines the `MaxVisibleChips` property.</source>
         <target>定義 `MaxVisibleChips` 屬性。</target>
       </trans-unit>
+      <trans-unit id="MultiSelect.MenuMaxWidth">
+        <source>The widest the menu gets (default infinity: bounded only by the window). Options wider than this are trimmed.</source>
+        <target>選單的最大寬度（預設無限，僅受視窗限制）。超出此寬度的選項會被截斷。</target>
+      </trans-unit>
+      <trans-unit id="MultiSelect.MenuMinWidth">
+        <source>The narrowest the menu gets (default 0). The menu is as wide as its widest option needs, never narrower than the field or this value, and never wider than `MenuMaxWidth` or the window.</source>
+        <target>選單的最小寬度（預設 0）。選單依最寬選項所需的寬度展開，不會窄於欄位或此值，也不會寬於 `MenuMaxWidth` 或視窗。</target>
+      </trans-unit>
       <trans-unit id="MultiSelect.Placeholder">
         <source>Shown while nothing is selected (Arc: "Select options").</source>
         <target>未選取任何項目時顯示（Arc：“Select options”）。</target>
@@ -24763,6 +24787,10 @@
       <trans-unit id="MultiSelect.SelectedValues">
         <source>Defines the `SelectedValues` property.</source>
         <target>定義 `SelectedValues` 屬性。</target>
+      </trans-unit>
+      <trans-unit id="MultiSelect.ShowTrimmedOptionToolTip">
+        <source>Whether an option whose text is trimmed shows its full text in a tooltip on hover (default true).</source>
+        <target>文字被截斷的選項在滑鼠停留時是否以工具提示顯示完整文字（預設 true）。</target>
       </trans-unit>
       <trans-unit id="MultiSelect.Size">
         <source>Trigger height: Small 36, Medium 44 (default), Large 50, as for the text fields.</source>
@@ -32736,6 +32764,14 @@
         <source>Defines the `MaxDropDownHeight` property.</source>
         <target>定義 `MaxDropDownHeight` 屬性。</target>
       </trans-unit>
+      <trans-unit id="Select.MenuMaxWidth">
+        <source>The widest the menu gets (default infinity: bounded only by the window). Options wider than this are trimmed.</source>
+        <target>選單的最大寬度（預設無限，僅受視窗限制）。超出此寬度的選項會被截斷。</target>
+      </trans-unit>
+      <trans-unit id="Select.MenuMinWidth">
+        <source>The narrowest the menu gets (default 0: no minimum beyond the field's own width). The menu is as wide as its widest option needs, never narrower than the field or this value, and never wider than `MenuMaxWidth` or the window.</source>
+        <target>選單的最小寬度（預設 0：除欄位本身的寬度外沒有其他下限）。選單依最寬選項所需的寬度展開，不會窄於欄位或此值，也不會寬於 `MenuMaxWidth` 或視窗。</target>
+      </trans-unit>
       <trans-unit id="Select.Placeholder">
         <source>Defines the `Placeholder` property.</source>
         <target>定義 `Placeholder` 屬性。</target>
@@ -32743,6 +32779,10 @@
       <trans-unit id="Select.SelectedText">
         <source>Defines the `SelectedText` property.</source>
         <target>定義 `SelectedText` 屬性。</target>
+      </trans-unit>
+      <trans-unit id="Select.ShowTrimmedOptionToolTip">
+        <source>Whether an option whose text is trimmed shows its full text in a tooltip on hover (default true).</source>
+        <target>文字被截斷的選項在滑鼠停留時是否以工具提示顯示完整文字（預設 true）。</target>
       </trans-unit>
       <trans-unit id="Select.Size">
         <source>Trigger height: Small 36, Medium 44 (default), Large 50, as for the text fields.</source>
@@ -40128,6 +40168,14 @@
         <source>Chips shown in a multi-select field before the rest fold into "+N".</source>
         <target>多選欄位中顯示的標籤數，其餘摺疊為 "+N"。</target>
       </trans-unit>
+      <trans-unit id="TreeSelect.MenuMaxWidth">
+        <source>The widest the menu gets (default infinity: bounded only by the window). Rows wider than this are trimmed.</source>
+        <target>選單的最大寬度（預設無限，僅受視窗限制）。超出此寬度的列會被截斷。</target>
+      </trans-unit>
+      <trans-unit id="TreeSelect.MenuMinWidth">
+        <source>The narrowest the menu gets (default 0; the theme's popup minimum applies as well). The menu is as wide as its widest row needs, never narrower than the field or this value, and never wider than `MenuMaxWidth` or the window.</source>
+        <target>選單的最小寬度（預設 0；主題的彈出層最小寬度同樣適用）。選單依最寬列所需的寬度展開，不會窄於欄位或此值，也不會寬於 `MenuMaxWidth` 或視窗。</target>
+      </trans-unit>
       <trans-unit id="TreeSelect.PathSeparator">
         <source>Text between the nodes of the full path.</source>
         <target>完整路徑中節點之間的文字。</target>
@@ -40171,6 +40219,10 @@
       <trans-unit id="TreeSelect.ShowFullPath">
         <source>In single mode, show the whole path in the field (true) or only the selected node (false).</source>
         <target>單選模式下，在欄位中顯示完整路徑（true）或只顯示選取的節點（false）。</target>
+      </trans-unit>
+      <trans-unit id="TreeSelect.ShowTrimmedOptionToolTip">
+        <source>Whether a row whose text is trimmed shows its full text in a tooltip on hover (default true).</source>
+        <target>文字被截斷的列在滑鼠停留時是否以工具提示顯示完整文字（預設 true）。</target>
       </trans-unit>
       <trans-unit id="TreeSelect.Size">
         <source>Trigger height: Small 36, Medium 44 (default), Large 50, as for the text fields.</source>
@@ -43787,6 +43839,10 @@
       <trans-unit id="WorkflowNode.Kind">
         <source>Your own category of the step (trigger, action, condition); screen readers read it after the title.</source>
         <target>你自訂的步驟類別（如觸發器、動作、條件）；螢幕閱讀器會在標題之後朗讀它。</target>
+      </trans-unit>
+      <trans-unit id="WorkflowNode.PortLayout">
+        <source>Which sides of the card its ports are on: `TopToBottom` takes data in at the top and sends it out at the bottom, `LeftToRight` in at the left and out at the right. Null (the default) follows `LayoutDirection`. Auto layout always follows the canvas.</source>
+        <target>卡片的連接埠位於哪兩側：`TopToBottom` 從頂端輸入、從底端輸出，`LeftToRight` 從左側輸入、從右側輸出。null（預設）跟隨 `LayoutDirection`。自動排版一律跟隨畫布。</target>
       </trans-unit>
       <trans-unit id="WorkflowNode.Position">
         <source>The card's top-left corner on the canvas. NaN (the default) lets the canvas place the step by arranging the whole workflow, and writes the place it chose back here.</source>

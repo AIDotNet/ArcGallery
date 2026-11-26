@@ -1,7 +1,7 @@
 ---
 title: 密码框
 summary: 用于输入已有密码或密钥的掩码输入框，框内带显示切换按钮。
-source-hash: 6221685c538a
+source-hash: dc69799ce643
 ---
 
 <Demo name="SignIn" />
@@ -249,6 +249,10 @@ public partial class SignInViewModel : ObservableObject
 - 因为用户觉得圆点难以辨认就把遮蔽默认关闭。应提供切换按钮，并保留默认值。
 - 使用看起来像真实值的占位文字，例如“••••••••”。用户可能会把它误认为已保存的密码。
 - 把字段放在密集的工具栏或页头中。密码是表单值；搜索或筛选字段才应放在那里。
+
+### 右键菜单
+
+右键单击、上下文菜单键或 `Shift+F10` 会打开与 `Input` 相同的菜单：撤销、重做、剪切、复制、粘贴和全选，不适用的项会置灰。剪切和复制始终置灰，密码不能从字段里复制出去。设置 `IsDefaultContextMenuEnabled="False"` 可以关闭它，也可以给字段设置自己的 `ContextMenu`。
 
 ### 常见问题
 

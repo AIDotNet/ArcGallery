@@ -220,6 +220,25 @@ A field can be disabled, read-only or invalid.
 - **Invalid** shows the danger border and the error row. Keep the error until the value is fixed; do not clear it
   on focus.
 
+### Context menu
+
+A right-click, or the context-menu key or `Shift+F10` with the field focused, opens a menu of Undo, Redo, Cut, Copy, Paste and Select all, each with its shortcut for the platform (`Ctrl` on Windows and Linux, `Cmd` on macOS). Undo and Redo show only while the field keeps an undo history. A row that does not apply is disabled: Cut and Copy without a selection, Paste when the clipboard holds no text, Select all in an empty field. A read-only field shows only Copy and Select all. The menu text follows the app's language (English, Simplified and Traditional Chinese). The same menu opens in `Textarea`, `PasswordField`, `SearchField`, `NumberField`, `MoneyInput`, `PhoneInput` and `DatePicker`.
+
+Your own menu replaces it: set `ContextMenu`, `ContextFlyout` or `arc:ContextMenu.Menu` on the field and that one opens instead. To turn the default menu off, set `IsDefaultContextMenuEnabled="False"` on the field, or the inherited `arc:TextContextMenu.IsEnabled="False"` on a window, a form or a panel to turn it off for every text field inside.
+
+```xml
+<StackPanel Spacing="12">
+    <!-- Off for this field only. -->
+    <arc:Input Label="Coupon code" IsDefaultContextMenuEnabled="False" />
+
+    <!-- Off for every text field inside the panel (a window or a form works the same way). -->
+    <StackPanel Spacing="12" arc:TextContextMenu.IsEnabled="False">
+        <arc:Input Label="Name" />
+        <arc:Textarea Label="Notes" />
+    </StackPanel>
+</StackPanel>
+```
+
 ### Field foundation
 
 `Field` adds a label and message rows around a `FieldFrame`. Pickers and special inputs reuse both.
@@ -314,7 +333,7 @@ primary `Button`; Enter in any field then presses it.
 `TextInputOptions.ContentType`, for example `TextInputOptions.ContentType="Email"`. On-screen keyboards and input
 methods use it.
 
-**Why is there no right-click menu?** The Arc input has no context menu; cut, copy, paste, undo and select all work
+**Can I change or remove the right-click menu?** Yes. A `ContextMenu`, `ContextFlyout` or `arc:ContextMenu.Menu` that you set on the field replaces the default one. `IsDefaultContextMenuEnabled="False"` removes it from one field, and `arc:TextContextMenu.IsEnabled="False"` on a window, form or panel removes it from every text field inside.
 from the keyboard.
 
 **Does the word-by-word rewrite work for Chinese or Japanese copy?** The row splits text at spaces. Copy without
@@ -344,6 +363,7 @@ spaces changes as one piece, which still animates but rewrites the whole line.
 | `Ctrl+Left` / `Ctrl+Right` (`Option` on macOS) | Move the caret by word |
 | `Shift` + any of the above | Extend the selection |
 | `Ctrl+A`, `Ctrl+C`, `Ctrl+X`, `Ctrl+V` (`Cmd` on macOS) | Select all, copy, cut, paste |
+| `Menu` key / `Shift+F10` | Open the context menu (Undo, Redo, Cut, Copy, Paste, Select all) |
 | `Ctrl+Z` / `Ctrl+Y` (`Cmd+Z` / `Cmd+Shift+Z` on macOS) | Undo, redo |
 | `Enter` | Not handled by the input; presses the window's default button when there is one |
 

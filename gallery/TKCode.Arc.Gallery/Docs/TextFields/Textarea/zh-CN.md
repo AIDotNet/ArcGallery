@@ -1,7 +1,7 @@
 ---
 title: 多行文本框
 summary: 用于备注、描述和较长文本的多行输入字段。
-source-hash: b31414b04fec
+source-hash: 5ee50723810e
 ---
 
 <Demo name="LiveCount" />
@@ -240,6 +240,10 @@ notes.FrameHeight = 200;
 - 用 `Textarea` 填写单行内容，例如姓名或主题。Enter 会添加一行，粘贴的文字也会保留其换行。
 - 在用户需要阅读长文本的表单中关闭 `IsResizable`。字段将只有最小高度，文字会在一个小窗口中滚动。
 - 依赖手柄服务键盘用户。手柄只响应指针，因此应使字段的高度在不缩放时也能正常工作。
+
+### 右键菜单
+
+右键单击、上下文菜单键或 `Shift+F10` 会打开与 `Input` 相同的菜单：撤销、重做、剪切、复制、粘贴和全选，不适用的项会置灰。设置 `IsDefaultContextMenuEnabled="False"` 可以关闭它，也可以给字段设置自己的 `ContextMenu`。
 
 ### 常见问题
 

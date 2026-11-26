@@ -1,7 +1,7 @@
 ---
 title: 金额输入框
 summary: 带有实时分组、宽度稳定、数字滚动与最小单位输出的货币输入框。
-source-hash: e786765be98d
+source-hash: 5cea40dcd1d0
 ---
 
 <Demo name="Default" />
@@ -243,6 +243,10 @@ public partial class RefundViewModel : ObservableValidator
 - 在输入第一个字符时就对最小值报错。最小值在失去焦点时检查，让用户先输完内容。
 - 金额修正后仍保留过时的 `ErrorMessage`。请把它设为 `null`，让内置的范围错误或辅助文字重新出现。
 - 在金融界面上依赖当前区域文化。机器的区域设置变化会改变分组与符号。
+
+### 右键菜单
+
+右键单击、上下文菜单键或 `Shift+F10` 会打开与 `Input` 相同的菜单：撤销、重做、剪切、复制、粘贴和全选，不适用的项会置灰。金额不保留撤销历史，所以菜单里没有撤销和重做。设置 `IsDefaultContextMenuEnabled="False"` 可以关闭它，也可以给字段设置自己的 `ContextMenu`。
 
 ### 常见问题
 

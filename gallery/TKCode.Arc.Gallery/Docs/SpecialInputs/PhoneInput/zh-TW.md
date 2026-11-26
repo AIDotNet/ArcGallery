@@ -1,7 +1,7 @@
 ---
 title: 電話輸入框
 summary: 帶國家或地區選擇器、輸入時即時格式化並輸出 E.164 格式的電話欄位。
-source-hash: 484ee280417c
+source-hash: b128373da70e
 ---
 
 <Demo name="Default" />
@@ -254,6 +254,10 @@ public partial class ContactViewModel : ObservableObject
 - 依賴國旗 emoji 表達含義。在 Windows 上國旗會顯示為兩個字母，因此國家或地區名稱與國碼才是可靠的提示。
 - 在使用者離開欄位之前就顯示驗證訊息。元件有意等待失去焦點，避免仍在輸入的號碼閃現錯誤。
 - 原地修改 `Countries` 或 `PreferredCountries`。應指派一個新清單，因為選擇器是依屬性指派重建的。
+
+### 右鍵選單
+
+按一下滑鼠右鍵、按下內容功能表鍵或 `Shift+F10` 會開啟與 `Input` 相同的選單：復原、重做、剪下、複製、貼上與全選，不適用的項目會停用。設定 `IsDefaultContextMenuEnabled="False"` 可以關閉它，也可以替欄位設定自己的 `ContextMenu`。
 
 ### 常見問題
 

@@ -281,6 +281,10 @@ that repeats the query, so the person can see what did not match.
 - Putting a chosen value in a search field. Use `Combobox`, which keeps the choice rather than a free query.
 - Relying on Escape alone to clear the field. The clear button is the visible affordance, and Escape is not discoverable.
 
+### Context menu
+
+Right-click, the context-menu key or `Shift+F10` opens the same menu as in `Input`: Undo, Redo, Cut, Copy, Paste and Select all, with the rows that do not apply disabled. Set `IsDefaultContextMenuEnabled="False"` to turn it off, or give the field your own `ContextMenu`.
+
 ### Common questions
 
 **Why does Escape do nothing in a read-only field?** Escape clears only a field that has text and is not read-only. The

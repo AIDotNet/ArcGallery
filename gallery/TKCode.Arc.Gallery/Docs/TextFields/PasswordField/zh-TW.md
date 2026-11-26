@@ -1,7 +1,7 @@
 ---
 title: 密碼欄位
 summary: 用於輸入既有密碼或金鑰的遮罩輸入框，框內帶顯示切換按鈕。
-source-hash: 6221685c538a
+source-hash: dc69799ce643
 ---
 
 <Demo name="SignIn" />
@@ -249,6 +249,10 @@ public partial class SignInViewModel : ObservableObject
 - 因為使用者覺得圓點難以辨認就把遮蔽預設關閉。應提供切換按鈕，並保留預設值。
 - 使用看起來像真實值的預留位置文字，例如「••••••••」。使用者可能會把它誤認為已儲存的密碼。
 - 把欄位放在密集的工具列或頁首中。密碼是表單值；搜尋或篩選欄位才應放在那裡。
+
+### 右鍵選單
+
+按一下滑鼠右鍵、按下內容功能表鍵或 `Shift+F10` 會開啟與 `Input` 相同的選單：復原、重做、剪下、複製、貼上與全選，不適用的項目會停用。剪下與複製一律停用，密碼無法從欄位中複製出去。設定 `IsDefaultContextMenuEnabled="False"` 可以關閉它，也可以替欄位設定自己的 `ContextMenu`。
 
 ### 常見問題
 

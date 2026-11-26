@@ -75,7 +75,7 @@ the chip row, the clear button and the menu. `SelectItem` children and `SelectOp
 8. **Description** (`Description`): 12 px muted helper copy under the trigger. It is also the field's accessible help
    text.
 9. **Menu**: a raised surface with a 1 px border, the panel radius and 5 px of padding. It opens 8 px below the
-   trigger and is as wide as the trigger. Each option row is 38 px high with a 21 px corner radius and a check mark
+   trigger, is at least as wide as the trigger and is wider when an option needs it (see "Menu width and long options"). Each option row is 38 px high with a 21 px corner radius and a check mark
    for each picked option. Disabled options are drawn at 42% opacity.
 
 The field has no height limit for its menu by default. `MaxDropDownHeight` caps it when a long list would run off the
@@ -236,6 +236,30 @@ the clear button and fades to 50% opacity with the "not allowed" cursor.
 Disable the field only while the value cannot change, and say why nearby, for example in the description: "Locked
 after the release is approved." A disabled field still shows its chips, so people can read the current set.
 
+### Menu width and long options
+
+The menu does not have to match the field. Its width is the width the widest option needs, raised to the field's width or `MenuMinWidth` when either is larger, and then capped by `MenuMaxWidth` and by the window (the window width less 16 px on each side). A narrow field can therefore open a menu wide enough for its longest names, and the field keeps its own size.
+
+- The widest option is measured over the first 200 options and includes the row padding, the icon, the meta text and the space for the check mark. The rest of a longer list does not widen the menu.
+- The width is worked out again when the menu opens, when the items change while it is open, when the font, `MenuMinWidth` or `MenuMaxWidth` change, and when the field is resized.
+- `MenuMinWidth` (default 0) is a floor and `MenuMaxWidth` (default unlimited) is a ceiling.
+- `ShowTrimmedOptionToolTip` (default `True`) shows the full text of an option in a tooltip on hover when its text is still trimmed, because of `MenuMaxWidth` or the window. An option that fits shows no tooltip. Set it to `False` to turn the tooltips off.
+
+Set `MenuMaxWidth` when the menu must not cover something that stays on screen, such as a sidebar, or when one very long option should not stretch the menu across the window. Options wider than the ceiling are trimmed with an ellipsis and keep their full text in the tooltip.
+
+```xml
+<StackPanel Width="360" Spacing="16">
+    <arc:MultiSelect Label="Notify teams" Width="200" MenuMinWidth="240">
+        <arc:SelectItem Content="Platform engineering" />
+        <arc:SelectItem Content="Customer success operations" />
+    </arc:MultiSelect>
+    <arc:MultiSelect Label="Notify teams" Width="200" MenuMaxWidth="260">
+        <arc:SelectItem Content="Platform engineering" />
+        <arc:SelectItem Content="Customer success and support operations" />
+    </arc:MultiSelect>
+</StackPanel>
+```
+
 ### Data shape and performance
 
 Options are `SelectItem` children or `SelectOption` records, and the control draws each visible option itself
@@ -349,6 +373,10 @@ Use a button for submitting the form.
 **Can a person select all options with the keyboard or the mouse?** Arc has no select-all control. `SelectAll()` is
 available in code, and it picks only the enabled options.
 
+**Why is the menu wider than the field?** The menu grows to fit its widest option, so that long names are not trimmed, and the field keeps its own width. Set `MenuMaxWidth` to cap the menu (see "Menu width and long options").
+
+**How do I keep the menu as wide as the field?** Set `MenuMaxWidth` to the field's width, or bind it to the field's `Bounds.Width`. Options wider than that are trimmed and show their full text in a tooltip.
+
 ## API reference
 
 <!-- api: MultiSelect -->
@@ -409,6 +437,7 @@ trigger.
 - A chip is at most `ChipMaxWidth` (144 px) wide. `MaxVisibleChips` sets how many show before the rest fold into a +N
   chip; the default is 2.
 - The menu has no height cap by default. Set `MaxDropDownHeight` so a long list scrolls and stays on screen.
+- The menu is at least as wide as the trigger and grows to fit its widest option, up to `MenuMaxWidth` and the window.
 - Menu rows are `OptionHeight` (38 px) tall. A click or tap on an option toggles it and keeps the menu open. Hover only
   changes the border and background, so picking works without hover.
 - In a narrow filter bar, set `MaxVisibleChips` to 1. For more than about a dozen options, set `MaxDropDownHeight` to

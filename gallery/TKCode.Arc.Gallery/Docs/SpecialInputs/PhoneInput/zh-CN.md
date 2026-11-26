@@ -1,7 +1,7 @@
 ---
 title: 电话输入框
 summary: 带国家/地区选择器、输入时即时格式化并输出 E.164 格式的电话字段。
-source-hash: 484ee280417c
+source-hash: b128373da70e
 ---
 
 <Demo name="Default" />
@@ -254,6 +254,10 @@ public partial class ContactViewModel : ObservableObject
 - 依赖国旗 emoji 表达含义。在 Windows 上国旗显示为两个字母，因此国家/地区名称与区号才是可靠的提示。
 - 在用户离开字段之前就显示校验消息。组件有意等待失去焦点，避免仍在输入的号码闪现错误。
 - 原地修改 `Countries` 或 `PreferredCountries`。应赋一个新列表，因为选择器是根据属性赋值重建的。
+
+### 右键菜单
+
+右键单击、上下文菜单键或 `Shift+F10` 会打开与 `Input` 相同的菜单：撤销、重做、剪切、复制、粘贴和全选，不适用的项会置灰。设置 `IsDefaultContextMenuEnabled="False"` 可以关闭它，也可以给字段设置自己的 `ContextMenu`。
 
 ### 常见问题
 

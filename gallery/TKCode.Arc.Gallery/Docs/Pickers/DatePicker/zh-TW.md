@@ -1,7 +1,7 @@
 ---
 title: 日期選擇器
 summary: 日期欄位：可直接輸入日期，也可從日曆彈出層中選擇，標籤與錯誤列與其他欄位一致。
-source-hash: 859601883f34
+source-hash: 2a8a692e55d5
 ---
 
 <Demo name="DateField" />
@@ -267,6 +267,10 @@ public partial class InvoiceViewModel : ObservableValidator
 - 在同一頁面上同時放置行事曆彈出視窗和另一個可見的 `Calendar` 來表示同一個值。同一個日期的兩個檢視會讓使用者編輯錯誤的那一個。
 - 只依賴 Alt+Down 快速鍵。說明中應寫明行事曆會開啟，因為不知道該按鍵的使用者永遠找不到彈出視窗。
 - 每次按鍵都替換錯誤訊息。錯誤是在值確認時檢查的，輸入過程中不斷變化的訊息只會造成干擾。
+
+### 右鍵選單
+
+按一下滑鼠右鍵、按下內容功能表鍵或 `Shift+F10` 會開啟與 `Input` 相同的選單：復原、重做、剪下、複製、貼上與全選，不適用的項目會停用。設定 `IsDefaultContextMenuEnabled="False"` 可以關閉它，也可以替欄位設定自己的 `ContextMenu`。
 
 ### 常見問題
 

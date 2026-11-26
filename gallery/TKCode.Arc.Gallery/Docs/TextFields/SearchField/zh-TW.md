@@ -1,7 +1,7 @@
 ---
 title: 搜尋欄位
 summary: 隨輸入篩選目前檢視中既有項目的搜尋框，清除按鈕出現時不會擠動工具列。
-source-hash: d6e0b91cb971
+source-hash: f93558f1b9a3
 ---
 
 <Demo name="FilterList" />
@@ -239,6 +239,10 @@ search.TextChanged += async (_, _) =>
 - 在已經隨每次按鍵篩選的清單中使用 `SearchSubmitted`。這樣 Enter 不會產生任何效果，使用者會不知道它有什麼用。
 - 在搜尋欄位中放入一個已選值。應使用 `Combobox`，它保存的是選擇，而不是自由輸入的查詢。
 - 只依賴 Escape 清除欄位。清除按鈕是可見的提示，而 Escape 並不容易被發現。
+
+### 右鍵選單
+
+按一下滑鼠右鍵、按下內容功能表鍵或 `Shift+F10` 會開啟與 `Input` 相同的選單：復原、重做、剪下、複製、貼上與全選，不適用的項目會停用。設定 `IsDefaultContextMenuEnabled="False"` 可以關閉它，也可以替欄位設定自己的 `ContextMenu`。
 
 ### 常見問題
 

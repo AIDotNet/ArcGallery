@@ -298,6 +298,10 @@ uses the explicit message, which replaces the built-in range error, because the 
 - Relying on the current culture for a financial screen. A machine set to another locale changes the grouping and the
   symbol.
 
+### Context menu
+
+Right-click, the context-menu key or `Shift+F10` opens the same menu as in `Input`: Undo, Redo, Cut, Copy, Paste and Select all, with the rows that do not apply disabled. The amount keeps no undo history, so the menu has no Undo or Redo. Set `IsDefaultContextMenuEnabled="False"` to turn it off, or give the field your own `ContextMenu`.
+
 ### Common questions
 
 **Why does the empty field show 0.00?** Those are ghost digits that mark where the cents go. `Value` is `null` and

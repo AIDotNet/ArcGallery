@@ -1,7 +1,7 @@
 ---
 title: 金額輸入框
 summary: 帶有即時分組、寬度穩定、數字滾動與最小單位輸出的貨幣輸入框。
-source-hash: e786765be98d
+source-hash: 5cea40dcd1d0
 ---
 
 <Demo name="Default" />
@@ -243,6 +243,10 @@ public partial class RefundViewModel : ObservableValidator
 - 在輸入第一個字元時就對最小值報錯。最小值在失去焦點時檢查，讓使用者先輸完內容。
 - 金額修正後仍保留過時的 `ErrorMessage`。請把它設為 `null`，讓內建的範圍錯誤或輔助文字重新出現。
 - 在金融畫面上依賴目前的地區文化。機器的地區設定變化會改變分組與符號。
+
+### 右鍵選單
+
+按一下滑鼠右鍵、按下內容功能表鍵或 `Shift+F10` 會開啟與 `Input` 相同的選單：復原、重做、剪下、複製、貼上與全選，不適用的項目會停用。金額不保留復原歷程，所以選單中沒有復原與重做。設定 `IsDefaultContextMenuEnabled="False"` 可以關閉它，也可以替欄位設定自己的 `ContextMenu`。
 
 ### 常見問題
 

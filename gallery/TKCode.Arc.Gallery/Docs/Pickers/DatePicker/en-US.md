@@ -339,6 +339,10 @@ reference is an `Input` because it is an identifier, not a date.
 - Swapping error messages on every keystroke. Errors are checked when the value is committed, so a message that changes
   while typing reads as noise.
 
+### Context menu
+
+Right-click, the context-menu key or `Shift+F10` opens the same menu as in `Input`: Undo, Redo, Cut, Copy, Paste and Select all, with the rows that do not apply disabled. Set `IsDefaultContextMenuEnabled="False"` to turn it off, or give the field your own `ContextMenu`.
+
 ### Common questions
 
 **Why does the field go back to the old date when I type an invalid one?** A typed value is committed on Enter or when

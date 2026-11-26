@@ -1,7 +1,7 @@
 ---
 title: Workflow canvas
 summary: "在点阵画布上展示工作流并播放其运行过程：各步骤依次点亮，数据沿连线绘制，每个步骤都报告其结果和耗时。"
-source-hash: 7ed0eba35631
+source-hash: 5bc9a7e9ec5b
 ---
 
 <Demo name="Preview" />
@@ -72,6 +72,22 @@ branch.State = WorkflowNodeState.Running;
 `LayoutDirection="LeftToRight"` 会让工作流沿画布从左到右展开：连线从卡片的右侧引出，并进入下一张卡片的左侧；排列时各层会并排放置。
 
 <Demo name="LeftToRight" />
+
+### 每个步骤的端口方向
+
+步骤的端口位于 `LayoutDirection` 决定的那些侧面。`WorkflowNode` 上的 `PortLayout` 可以为单个步骤覆盖它：`TopToBottom` 把输入放在顶部、输出放在底部，`LeftToRight` 把输入放在左侧、输出放在右侧。保持 `null` 时，步骤跟随画布。当工作流的一部分要按另一个方向阅读时使用它，例如触发器下面接一排审批步骤。
+
+连线的每一端都按自己所属步骤取方向：两个这样的步骤之间的 Bezier 连线，沿起点步骤的那一侧引出，沿终点步骤的那一侧进入；`Step` 连线则是一个圆角拐弯。连接预览、拖动时可以落下的端口，以及复制粘贴所带的 JSON，都遵循同样的侧面。排列（`ArrangeNodes`）和步骤之间的方向键导航仍然跟随画布的 `LayoutDirection`，所以混用方向时请为步骤设置 `Position`。
+
+<Demo name="MixedPorts" />
+
+```csharp
+var approve = new WorkflowNode("approve", "Manager approval")
+{
+    PortLayout = WorkflowLayoutDirection.LeftToRight,
+    Position = new Point(340, 200)
+};
+```
 
 ### 连线样式
 

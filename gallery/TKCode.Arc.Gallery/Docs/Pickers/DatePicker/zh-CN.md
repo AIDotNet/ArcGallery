@@ -1,7 +1,7 @@
 ---
 title: 日期选择器
 summary: 日期字段：可直接输入日期，也可从日历弹层中选择，标签与错误行与其他字段一致。
-source-hash: 859601883f34
+source-hash: 2a8a692e55d5
 ---
 
 <Demo name="DateField" />
@@ -267,6 +267,10 @@ public partial class InvoiceViewModel : ObservableValidator
 - 在同一页面上同时放置日历弹层和另一个可见的 `Calendar` 来表示同一个值。同一个日期的两个视图会让使用者编辑错误的那一个。
 - 只依赖 Alt+Down 快捷键。说明中应写明日历会打开，因为不知道该按键的使用者永远找不到弹层。
 - 每次按键都替换错误消息。错误是在值提交时检查的，输入过程中不断变化的消息只会造成干扰。
+
+### 右键菜单
+
+右键单击、上下文菜单键或 `Shift+F10` 会打开与 `Input` 相同的菜单：撤销、重做、剪切、复制、粘贴和全选，不适用的项会置灰。设置 `IsDefaultContextMenuEnabled="False"` 可以关闭它，也可以给字段设置自己的 `ContextMenu`。
 
 ### 常见问题
 

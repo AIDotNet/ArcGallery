@@ -1,7 +1,7 @@
 ---
 title: 多选
 summary: 从固定列表中选择多个值的下拉字段，已选值以纸片形式显示在字段内。
-source-hash: ba21981c8ec8
+source-hash: 18d5cbbd33f4
 ---
 
 <Demo name="Chips" />
@@ -52,7 +52,7 @@ source-hash: ba21981c8ec8
 6. **下拉箭头**：16 px 的向下箭头。菜单展开时旋转 180 度。选中值时，它的左外边距从 8 px 增加到 34 px，使旁边的清除按钮不会与箭头重叠。
 7. **清除按钮**：22 px 的圆形按钮，内含 14 px 的叉号，距触发器右边缘 36 px。当至少选中一个值且字段启用时显示，名称为“清除选择”。
 8. **说明**（`Description`）：触发器下方 12 px 的弱化辅助文字。它同时是字段的无障碍帮助文本。
-9. **菜单**：带 1 px 边框、面板圆角和 5 px 内边距的抬起表面。它在触发器下方 8 px 处展开，宽度与触发器相同。每个选项行高 38 px，圆角为 21 px，已选中的选项显示勾选标记。禁用的选项以 42% 的不透明度绘制。
+9. **菜单**：带 1 px 边框、面板圆角和 5 px 内边距的抬起表面。它在触发器下方 8 px 处展开，宽度不小于触发器，选项需要时会更宽（见“菜单宽度与长选项”）。每个选项行高 38 px，圆角为 21 px，已选中的选项显示勾选标记。禁用的选项以 42% 的不透明度绘制。
 
 默认情况下，菜单没有高度限制。当长列表会超出屏幕时，`MaxDropDownHeight` 可以限制其高度（参见数据结构一节）。
 
@@ -183,6 +183,30 @@ labels.UnselectAll();
 
 只有在值无法更改时才禁用字段，并在附近说明原因，例如在说明中写明：“发布获批后锁定。”被禁用的字段仍会显示其标签，因此人可以读取当前的选择。
 
+### 菜单宽度与长选项
+
+菜单不必与字段等宽。它的宽度取最宽选项所需的宽度；字段宽度或 `MenuMinWidth` 更大时取较大者，再受 `MenuMaxWidth` 和窗口宽度（窗口宽度减去两侧各 16 px）限制。因此较窄的字段也能打开足够宽的菜单来完整显示最长的名称，字段本身的尺寸不变。
+
+- 最宽选项只在前 200 个选项中测量，包含行内边距、图标、附注文字和勾选标记的占位。更长列表的其余部分不会再撑宽菜单。
+- 菜单展开时、展开期间选项发生变化时、字体、`MenuMinWidth` 或 `MenuMaxWidth` 改变时，以及字段调整大小时，都会重新计算宽度。
+- `MenuMinWidth`（默认 0）是下限，`MenuMaxWidth`（默认不限）是上限。
+- `ShowTrimmedOptionToolTip`（默认 `True`）：当选项的文字因 `MenuMaxWidth` 或窗口而仍被截断时，悬停会在工具提示中显示完整文字。放得下的选项不显示工具提示。设为 `False` 可关闭。
+
+当菜单不应盖住始终留在屏幕上的内容（例如侧边栏），或不希望某个特别长的选项把菜单撑满整个窗口时，设置 `MenuMaxWidth`。比上限更宽的选项会以省略号截断，完整文字保留在工具提示中。
+
+```xml
+<StackPanel Width="360" Spacing="16">
+    <arc:MultiSelect Label="Notify teams" Width="200" MenuMinWidth="240">
+        <arc:SelectItem Content="Platform engineering" />
+        <arc:SelectItem Content="Customer success operations" />
+    </arc:MultiSelect>
+    <arc:MultiSelect Label="Notify teams" Width="200" MenuMaxWidth="260">
+        <arc:SelectItem Content="Platform engineering" />
+        <arc:SelectItem Content="Customer success and support operations" />
+    </arc:MultiSelect>
+</StackPanel>
+```
+
 ### 数据结构与性能
 
 选项可以是 `SelectItem` 子元素或 `SelectOption` 记录，控件会自行绘制每个可见的选项（`SelectItem` 只是数据载体，而不是容器），因此菜单不会为每个项创建一个控件。让项模型保持精简：一个值、一个名称以及所需的标志（`IsDisabled`、`Keywords`）。把头像或账号详情等较重的数据放在视图模型中，并在保存时查询。
@@ -272,6 +296,10 @@ labels.UnselectAll();
 
 **人能用键盘或鼠标选择全部选项吗？** Arc 没有全选控件。`SelectAll()` 可在代码中使用，并且只会选中已启用的选项。
 
+**为什么菜单比字段宽？** 菜单会按最宽的选项扩展，让较长的名称不被截断，字段本身的宽度不变。设置 `MenuMaxWidth` 可以限制菜单宽度（见“菜单宽度与长选项”）。
+
+**如何让菜单与字段保持一样宽？** 把 `MenuMaxWidth` 设为字段的宽度，或绑定到字段的 `Bounds.Width`。比它更宽的选项会被截断，并在工具提示中显示完整文字。
+
 ## API 参考
 
 <!-- api: MultiSelect -->
@@ -326,6 +354,7 @@ labels.UnselectAll();
 - `MultiSelect` 在任何宽度下形态都不变。已选值保持在一行：标签按剩余空间收缩，“+N”标签保持原有大小，因此输入框高度不变。
 - 单个标签最宽 `ChipMaxWidth`（144 px）。`MaxVisibleChips` 决定折叠为“+N”标签之前显示几个标签，默认为 2。
 - 菜单默认没有高度上限。设置 `MaxDropDownHeight`，让长列表滚动并留在屏幕内。
+- 菜单宽度不小于触发器，会按最宽的选项扩展，直到 `MenuMaxWidth` 和窗口的限制。
 - 菜单选项为 `OptionHeight`（38 px）高的行。点击或点按选项会切换其选中状态，并保持菜单打开；悬停只改变边框和背景，不依赖悬停也能选择。
 - 在窄的筛选栏中把 `MaxVisibleChips` 设为 1；选项超过十几个时，把 `MaxDropDownHeight` 设为 320。
 

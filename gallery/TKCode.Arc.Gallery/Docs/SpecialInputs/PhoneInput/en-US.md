@@ -326,6 +326,10 @@ names what happens next.
 - Mutating `Countries` or `PreferredCountries` in place. Assign a new list, because the picker rebuilds from the
   property assignment.
 
+### Context menu
+
+Right-click, the context-menu key or `Shift+F10` opens the same menu as in `Input`: Undo, Redo, Cut, Copy, Paste and Select all, with the rows that do not apply disabled. Set `IsDefaultContextMenuEnabled="False"` to turn it off, or give the field your own `ContextMenu`.
+
 ### Common questions
 
 **The number I pasted picked a different country. Is that a bug?** No. A pasted or typed international number ("+44 ...",

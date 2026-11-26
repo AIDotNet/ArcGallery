@@ -287,6 +287,10 @@ description in the same words everywhere it appears, so a reply shows "character
 - Relying on the grip for keyboard users. The grip responds to the pointer only, so give the field a height that works
   without resizing.
 
+### Context menu
+
+Right-click, the context-menu key or `Shift+F10` opens the same menu as in `Input`: Undo, Redo, Cut, Copy, Paste and Select all, with the rows that do not apply disabled. Set `IsDefaultContextMenuEnabled="False"` to turn it off, or give the field your own `ContextMenu`.
+
 ### Common questions
 
 **Why does the field stay the same height while I type more lines?** It holds its height so the form layout does not

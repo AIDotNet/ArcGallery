@@ -1,7 +1,7 @@
 ---
 title: 组合框
 summary: 无需离开字段即可搜索并从列表中选择。
-source-hash: 52f92876b66e
+source-hash: 3e17249cb7dc
 ---
 
 <Demo name="Searchable" />
@@ -174,6 +174,34 @@ zone.FocusInput();
 | 值仍然可用 | 保存时，因为选项之后可能被禁用 | 字段下方的消息，并指出该选项 |
 | 负责人必须属于团队 | 服务端返回结果时 | 同一消息行，值变化时清除 |
 
+### 菜单宽度与长选项
+
+菜单不必与字段等宽。它的宽度取最宽选项所需的宽度；字段宽度或 `MenuMinWidth` 更大时取较大者，再受 `MenuMaxWidth` 和窗口宽度（窗口宽度减去两侧各 16 px）限制。因此较窄的字段也能打开足够宽的菜单来完整显示最长的名称，字段本身的尺寸不变。
+
+- 最宽选项只在前 200 个选项中测量，包含行内边距、图标、附注文字和勾选标记的占位。更长列表的其余部分不会再撑宽菜单。
+- 菜单展开时、展开期间选项发生变化时、字体、`MenuMinWidth` 或 `MenuMaxWidth` 改变时，以及字段调整大小时，都会重新计算宽度。
+- `MenuMinWidth`（默认 0）是下限，`MenuMaxWidth`（默认不限）是上限。
+- `ShowTrimmedOptionToolTip`（默认 `True`）：当选项的文字因 `MenuMaxWidth` 或窗口而仍被截断时，悬停会在工具提示中显示完整文字。放得下的选项不显示工具提示。设为 `False` 可关闭。
+
+当菜单不应盖住始终留在屏幕上的内容（例如侧边栏），或不希望某个特别长的选项把菜单撑满整个窗口时，设置 `MenuMaxWidth`。比上限更宽的选项会以省略号截断，完整文字保留在工具提示中。
+
+<Demo name="LongOptions" />
+
+```xml
+<StackPanel Width="360" Spacing="16">
+    <arc:Combobox Label="Editor font" Width="180">
+        <arc:SelectItem Content="JetBrainsMono Nerd Font" />
+        <arc:SelectItem Content="JetBrainsMono Nerd Font Mono" />
+    </arc:Combobox>
+    <arc:Combobox Label="Editor font"
+                  Width="180"
+                  MenuMaxWidth="{Binding Bounds.Width, RelativeSource={RelativeSource Self}}">
+        <arc:SelectItem Content="JetBrainsMono Nerd Font" />
+        <arc:SelectItem Content="JetBrainsMono Nerd Font Mono" />
+    </arc:Combobox>
+</StackPanel>
+```
+
 ### 内联选项与禁用选项
 
 禁用的选项会显示在列表中，但无法选取。方向键会跳过它们。这适用于存在但对用户不可用的选项，例如已关闭的成本中心。请在选项标签或说明中解释原因，而不要只把该行变灰。
@@ -275,6 +303,10 @@ zone.FocusInput();
 
 **聚焦字段会打开列表吗？** 会。获得焦点会打开列表，输入也会打开它。`Enter` 选取高亮的选项并关闭列表，`Tab` 则关闭列表并把焦点移走。
 
+**为什么菜单比字段宽？** 菜单会按最宽的选项扩展，让较长的名称不被截断，字段本身的宽度不变。设置 `MenuMaxWidth` 可以限制菜单宽度（见“菜单宽度与长选项”）。
+
+**如何让菜单与字段保持一样宽？** 把 `MenuMaxWidth` 设为字段的宽度，或绑定到字段的 `Bounds.Width`。比它更宽的选项会被截断，并在工具提示中显示完整文字。
+
 ## API 参考
 
 <!-- api: Combobox -->
@@ -320,7 +352,7 @@ zone.FocusInput();
 ## 响应式
 
 - `Combobox` 在任何宽度下形态都不变。输入框占满父级给它的宽度，宽度不会小于 200 px（`MinWidth`）。
-- 下拉列表与输入框同宽，并读取 `ArcViewport`：高度取 `MaxDropDownHeight`（300 px）与视口高度 40% 中较小的值，因此在较矮的窗口或手机预览中仍留在屏幕内。
+- 下拉列表宽度不小于输入框，会按最宽的选项扩展（受 `MenuMaxWidth` 和窗口限制），并读取 `ArcViewport`：高度取 `MaxDropDownHeight`（300 px）与视口高度 40% 中较小的值，因此在较矮的窗口或手机预览中仍留在屏幕内。
 - 选项是 `OptionHeight`（36 px）高的行。列表只能纵向滚动，横向滚动已关闭。
 - 点击或点按选项即选中并关闭列表。悬停和聚焦只改变颜色，没有任何操作依赖悬停。
 - 让输入框拉伸，而不是设置固定的 `Width`；只有希望列表短于 300 px 时才设置 `MaxDropDownHeight`。
