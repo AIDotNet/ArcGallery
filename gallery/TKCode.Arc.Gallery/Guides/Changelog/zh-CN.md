@@ -1,13 +1,127 @@
 ---
 title: 更新日志
-source-hash: 979af7532964
+source-hash: 45b04f2015c7
 ---
 
 # 更新日志
 
 TKCode.Arc 的所有重要变更，最新的在前。版本遵循[语义化版本](https://semver.org/)。从 1.0.0 起，破坏性 API 变更只在新的主版本中出现；更早的 `-preview` 版本在各发布版本之间可能变更 API。同样的列表也保存在仓库的 `CHANGELOG.md` 中。
 
-每次发布附带的 NuGet 包：`TKCode.Arc`、`TKCode.Arc.Core`、`TKCode.Arc.Foundation`（0.3.2 起）、`TKCode.Arc.Fonts` `TKCode.Arc.Icons.Lucide`、`TKCode.Arc.Blocks`、`TKCode.Arc.AdvancedCharts` 、`TKCode.Arc.Special`、`TKCode.Arc.Workflow`、`TKCode.Arc.Dock`（0.4.0-preview.2 起）、`TKCode.Arc.Themes.Pixel`、`TKCode.Arc.Themes.Corners`、`TKCode.Arc.Mobile`、`TKCode.Arc.Terminal`、`TKCode.Arc.Audio`、`TKCode.Arc.Audio.Native`、`TKCode.Arc.Audio.Browser`、`TKCode.Arc.Templates`（0.4.0-preview.6 起）、`TKCode.Arc.Pdf`、`TKCode.Arc.Pdf.Native` 和 `TKCode.Arc.Pdf.Browser`（1.0.0 起），`TKCode.Arc.Video`、`TKCode.Arc.Video.Native` 和 `TKCode.Arc.Video.Browser`（1.1.0-preview.1 起），`TKCode.Arc.Markdown` 和 `TKCode.Arc.Highlighting`（1.1.1 起），`TKCode.Arc.Ribbon`（1.2.0 起）。此外还有跟随主版本发布的预览包：`TKCode.Arc.Graphics3D`、`TKCode.Arc.Graphics3D.WebGpu`、`TKCode.Arc.Graphics3D.Controls` 和 `TKCode.Arc.Graphics3D.Browser`（1.2.0-preview.3 起）。
+每次发布附带的 NuGet 包：`TKCode.Arc`、`TKCode.Arc.Core`、`TKCode.Arc.Foundation`（0.3.2 起）、`TKCode.Arc.Fonts`、`TKCode.Arc.Icons.Lucide`、`TKCode.Arc.Blocks`、`TKCode.Arc.AdvancedCharts`、`TKCode.Arc.Special`、`TKCode.Arc.Workflow`、`TKCode.Arc.Dock`（0.4.0-preview.2 起）、`TKCode.Arc.Themes.Pixel`、`TKCode.Arc.Themes.Corners`、`TKCode.Arc.Mobile`、`TKCode.Arc.Terminal`、`TKCode.Arc.Audio`、`TKCode.Arc.Audio.Native`、`TKCode.Arc.Audio.Browser`、`TKCode.Arc.Templates`（0.4.0-preview.6 起）、`TKCode.Arc.Pdf`、`TKCode.Arc.Pdf.Native` 和 `TKCode.Arc.Pdf.Browser`（1.0.0 起）、`TKCode.Arc.Video`、`TKCode.Arc.Video.Native` 和 `TKCode.Arc.Video.Browser`（1.1.0-preview.1 起）、`TKCode.Arc.Markdown` 和 `TKCode.Arc.Highlighting`（1.1.1 起）、`TKCode.Arc.Ribbon`（1.2.0 起）、`TKCode.Arc.StreamMark`、`TKCode.Arc.StreamMark.TextMate`、`TKCode.Arc.StreamMark.RaTeX` 和 `TKCode.Arc.StreamMark.Mermaid`（1.3.0-preview.3 起）、`TKCode.Arc.Editor`、`TKCode.Arc.Editor.Controls` 和 `TKCode.Arc.Editor.Lsp`（1.3.2-preview.1 起）。此外还有跟随主版本发布的预览包：`TKCode.Arc.Graphics3D`、`TKCode.Arc.Graphics3D.WebGpu`、`TKCode.Arc.Graphics3D.Controls` 和 `TKCode.Arc.Graphics3D.Browser`（1.2.0-preview.3 起）。
+
+## 1.3.2-preview.5（2026-11-26）
+
+降低内存占用的补丁预览版：`TKCode.Arc.Core` 中的模态背景模糊改为一次性模糊快照，不再每帧对整个窗口执行模糊 `Effect`（在 Retina Metal 窗口的长时间会话中减少约 100 MB GPU 显存占用，带模糊的模态打开期间仅约 1.5 MB）；`TKCode.Arc.StreamMark.TextMate` 不再向嵌入 Markdown 的其他语言语法中编译 Markdown 及其约 48 种围栏代码语言（Shell 代码片段的托管内存从约 66 MB 降至 14 MB）。无公开 API 变更。安装时使用 `--version 1.3.2-preview.5`（或 `--prerelease`）。
+
+### 变更
+
+- 模态背景模糊（`TKCode.Arc.Core`；`Dialog`、`Drawer`、`Card`、`CommandPaletteDialog` 以及所有带 `BackdropBlur` 的 `ModalPresence`）：不再在窗口内容上设置每帧重绘整个窗口的模糊 `Effect`，而是在第一个带模糊的模态打开时对内容截取一次半尺寸快照、模糊一次（并扩展边缘以覆盖窗口边缘），随后在覆盖层底部放大显示并随遮罩淡入淡出。在 Retina Metal 窗口上，旧方案每帧会申请多张窗口尺寸的临时纹理（3072×2048，每张约 24 MB）且在模态关闭后仍被 Metal 驱动保留，长时间会话约占 100 MB GPU 显存；快照方案仅占约 1.5 MB，并在最后一个带模糊的模态关闭时释放。堆叠模态共享同一份快照（按最大半径模糊）；内容尺寸变化时会重新截取。模糊背景后面的内容在模态打开期间不再刷新。无公开 API 变更。
+
+### 修复
+
+- `TKCode.Arc.StreamMark.TextMate`：除 Markdown 外的其他语法不再嵌入 `text.html.markdown`。TextMate 会编译语法可达的所有子语法，而 Markdown 嵌入了约 48 种围栏代码语言，导致高亮一段 Shell 代码（其 heredoc 嵌入了 Markdown、Ruby、Python 和 HTML）时要编译 49 套语法和约 20,600 条规则、占用约 66 MB 托管内存；现在仅编译约 4,800 条规则、占用约 14 MB（F# 从 20,700 条规则降至 335 条）。仅不再着色嵌入在其他语言中的 Markdown（如 Shell heredoc、F# 文档注释），Markdown 本身的围栏代码高亮不受影响。
+
+## 1.3.2-preview.4（2026-11-26）
+
+针对 [#202](https://github.com/AIDotNet/TKCode.Arc/issues/202)、[#204](https://github.com/AIDotNet/TKCode.Arc/issues/204)、[#205](https://github.com/AIDotNet/TKCode.Arc/issues/205)、[#207](https://github.com/AIDotNet/TKCode.Arc/issues/207)、[#208](https://github.com/AIDotNet/TKCode.Arc/issues/208)、[#209](https://github.com/AIDotNet/TKCode.Arc/issues/209) 和 [#210](https://github.com/AIDotNet/TKCode.Arc/issues/210) 的补丁预览版：修复 `TKCode.Arc.Dock`、`MenuSurface`、`TKCode.Arc.StreamMark` 与 `TKCode.Arc.StreamMark.TextMate` 的内存和释放驻留问题，在 `TKCode.Arc.Highlighting` 中公开共享 TextMate 高亮器，为 `TKCode.Arc.Blocks` 和 `TKCode.Arc.Special` 增加支持 NativeAOT 与裁剪的按需选择性注册，并发布紧凑密度（`ArcDensity`）、`ProgressRing` 以及横向/无边框 `RadioGroup` 模式。现有公开 API 无破坏性变更。安装时使用 `--version 1.3.2-preview.4`（或 `--prerelease`）。
+
+### 新增
+
+- 支持裁剪与 NativeAOT 的按需选择性注册（`TKCode.Arc.Foundation.Generators`、`TKCode.Arc.Blocks`、`TKCode.Arc.Special`）：基础生成器现在会生成无 `.cctor` 的 `ArcGeneratedThemeAssets` 类及按主题拆分的工厂方法，`UseArcBlocks(Action<ArcBlocksBuilder>)` / `UseArcSpecial(Action<ArcSpecialBuilder>)` 只注册选中的控件、令牌与已编译 XAML 主题，不再保留整个程序集的资源表引用（[#210](https://github.com/AIDotNet/TKCode.Arc/issues/210)）。
+- `ArcHighlighting.SharedHighlighter`（`TKCode.Arc.Highlighting`）：公开 `UseArcHighlighting()` 使用的共享 `TextMateSyntaxHighlighter` 实例，宿主应用可复用同一套 Light+ 语法注册表与 Oniguruma 原生堆，无需再实例化第二个高亮器（[#209](https://github.com/AIDotNet/TKCode.Arc/issues/209)）。
+- 紧凑密度主题轴（`ArcDensity`、`ArcThemeBuilder.Compact()`、`ArcThemeScope.Density`）（[#205](https://github.com/AIDotNet/TKCode.Arc/issues/205)）。
+- `ProgressRing` 控件与横向 / 无边框 `RadioGroup` 模式（[#202](https://github.com/AIDotNet/TKCode.Arc/issues/202)、[#204](https://github.com/AIDotNet/TKCode.Arc/issues/204)）。
+
+### 修复
+
+- `TKCode.Arc.Dock` 与 `MenuSurface`（`TKCode.Arc`）：`DockWorkspace._known` 改用 `WeakReference<DockPane>` 搭配记录已关闭面板 ID 的 `HashSet<string>` 来跟踪关闭后的面板，使已关闭的动态面板及其 `Content` 可视化树能被 GC 回收，同时 `SaveLayout()` 仍保留已关闭 ID 且存活的强引用面板仍可恢复；`DockWorkspace.Flush()`、`DockLayout.FinishClose()` 与 `MenuSurface.OnPopupClosed()` 也会清理残留的 `_recentDocumentGroup`、`_paneBeforeFlyout`、`PlacementTarget` 与 `OverlayInputPassThroughElement` 引用（[#207](https://github.com/AIDotNet/TKCode.Arc/issues/207)）。
+- `TKCode.Arc.StreamMark`：`TextSegmentView`、`CodeBlockView`/`CodeTextView`、`DiffBlockView`/`DiffBodyView`、`DiagramBlockView` 和 `MathBlockView` 在脱离可视化树时会释放缓存的 `TextLayout` / `SegmentLayout` 原生资源、定时器与 `CancellationTokenSource`，重新挂载时再按需懒重建；`TranscriptPanel` 在脱离时取消订阅集合与文档的 `SnapshotReady` 事件（[#208](https://github.com/AIDotNet/TKCode.Arc/issues/208)）。
+- `TKCode.Arc.StreamMark.TextMate`：`TextMateHighlightSession.TokenizeLine` 现在向 `OnigRegExp` 传入单行子串切片，而非整篇多行文档字符串的切片，防止 `OnigRegExp._lastSearchString` 长期钉住大型多行代码缓冲区，同时保持行内正则缓存生效（[#209](https://github.com/AIDotNet/TKCode.Arc/issues/209)）。
+
+## 1.3.2-preview.3（2026-11-25）
+
+聚焦性能、内存与程序集体积的补丁预览版，在全库范围内采用 C# 13、14 与 15 特性，无公开 API 变更：`TKCode.Arc.Editor.Lsp` 将 16 个无标签 LSP 3.17 联合类型从 `JsonElement` 迁移为 C# 15 `union` 类型并配合统一的零分配 `System.Text.Json` 11 分类器，DLL 体积减少约 106 KB，批量解码提速最高达 2.89 倍（`Completion`、`DocumentSymbols`、`Diagnostics`、`InlayHints`）；`TKCode.Arc.Editor`、`TKCode.Arc`、`TKCode.Arc.StreamMark`、`TKCode.Arc.StreamMark.RaTeX`、`TKCode.Arc.Graphics3D`、`TKCode.Arc.Workflow`、`TKCode.Arc.AdvancedCharts`、`TKCode.Arc.Blocks` 与 `TKCode.Arc.Special` 采用内部 C# 15 `union` 类型、`System.Threading.Lock`、`params ReadOnlySpan<T>`、`JsonSourceGenerationMode.Metadata`、显式状态枚举、`field` 与空条件赋值（`net11.0` Release 合并 DLL 减少 `181.5 KB`，生成的 `.g.cs` 减少 `160.3 KB`，代码减少 `12,441` 行）。安装时使用 `--version 1.3.2-preview.3`（或 `--prerelease`）。
+
+### 变更
+
+- `TKCode.Arc.Editor.Lsp`：将 16 个无标签 `JsonElement` LSP 3.17 联合属性替换为 C# 15 `union` 类型，在 `net11.0` 上由零分配的 `JsonTypeClassifierFactory` 驱动（`net8.0` 和 `net10.0` 上使用 AOT 安全的回退转换器）；为 `LspJsonContext` 启用 `JsonSourceGenerationMode.Metadata`；将 86 个协议 DTO 从 `record` 改为 `sealed class` 并移除未使用的协议类型（`net11.0` DLL 缩小 `16.7%`，批量解码最高提速 `2.89×`，`Completion` GC 分配减少 `51.6%`）。
+- `TKCode.Arc.Editor`、`TKCode.Arc` 与 `TKCode.Arc.StreamMark.RaTeX`：将内部判别联合（`StringOrMarkdown`、`SemanticTokensOrEdits`、`SemanticTokensDto`、`PendingChange`、`MentionInputSuggestion`、`DrawOp`）转换为 C# 15 `union` 类型（`SemanticTokensOrEdits` 包装堆分配减少 `100%`，`MentionInput` 建议分配减少 `64.8%`），并将约 44 个 `TKCode.Arc.Editor` 内部 `record` 精简为 `sealed class`（DLL 减少 `61 KB`）。
+- 并发、热路径与状态机：在 `net10.0+` 上跨 `TKCode.Arc.Editor`、`TKCode.Arc.StreamMark` 和 `TKCode.Arc.StreamMark.RaTeX` 采用 C# 13 `System.Threading.Lock`（共 19 处锁）；将 `ContextKeyExpr.And`/`Or`、`HierarchicalKind.Append`、`LspCapabilities` 和 `TKCode.Arc.Graphics3D` 材质辅助方法切换为 `params ReadOnlySpan<T>`（`HierarchicalKind.Append` 分配减少 `47.8%`）；为 `RaTeX`、`WorkflowClipboard` 和 `DataGridLayoutState` JSON 上下文启用 `JsonSourceGenerationMode.Metadata`；在 `Jpeg`（`AcRefineState`）和 `StreamingDocument`（`WorkerState`）中以显式 `byte` 枚举替代原始整型/布尔状态字段；并在 14 个包中使用 C# 14 `?.=` / `field` / `extension(...)` 精简样板代码。
+
+## 1.3.2-preview.2（2026-11-25）
+
+针对 [#197](https://github.com/AIDotNet/TKCode.Arc/issues/197)、[#198](https://github.com/AIDotNet/TKCode.Arc/issues/198)、[#199](https://github.com/AIDotNet/TKCode.Arc/issues/199) 和 [#201](https://github.com/AIDotNet/TKCode.Arc/issues/201) 的补丁预览版：`ArcWindow` 在应用内模态打开时保持标题栏可交互并移除 Linux X11 下重复的系统标题栏，`SettingsPage` / `SettingsSection` 支持视口高度拉伸与垂直居中，`UsageMeter` 新增 `ArcLanguage` 本地化及 `UsageMeterLabels` 覆盖。现有公开 API 无破坏性变更。安装时使用 `--version 1.3.2-preview.2`（或 `--prerelease`）。
+
+### 新增
+
+- `ArcWindow.OverlayCoversTitleBar`（`TKCode.Arc`，默认 `false`）：`ArcWindow` 模板现在将内容包裹在 `ArcOverlayHost`（`PART_ContentOverlayHost`）中，应用内模态覆盖层（`Dialog`、`Drawer`、`BottomSheet`）默认仅覆盖内容区域——保留内容背景模糊的同时让 `TitleBar` 保持清晰、可拖动，最小化/最大化/关闭按钮也可点击（包括锚定到窗口或标题栏的模态）。设为 `OverlayCoversTitleBar="True"` 可改为覆盖整个窗口；`TitleBar` 的工具提示、菜单和吐司继续共享窗口覆盖层（[#197](https://github.com/AIDotNet/TKCode.Arc/issues/197)）。
+- `UsageMeter` 本地化（`TKCode.Arc`）：新增 `UsageMeterLangResourceKind`（`ArcLanguage` 内置 `en-US`、`zh-CN` 和 `zh-TW` 资源，支持运行时切换语言自动刷新）及 `UsageMeter.Labels`（`UsageMeterLabels`），用于自定义汇总标题、状态徽标、默认图例标签与无障碍文本。原有的英文默认值和显式 `FreeLabel` / `OverLabel` 保持向后兼容（[#199](https://github.com/AIDotNet/TKCode.Arc/issues/199)）。
+
+### 修复
+
+- Linux X11 上的 `ArcWindow`（`TKCode.Arc`）：当 `ExtendClientAreaToDecorationsHint` 为 `true` 时，主题在 Linux 上自动以主题优先级设置 `WindowDecorations="BorderOnly"`（显式本地值依然优先，关闭扩展客户区时恢复为 `Full`），并添加 `:frame-edge`（`ArcWindow.FrameEdgePseudoClass`）在普通状态下绘制 1 px 边框，消除 `ukwm` 等 X11 窗口管理器上重复的服务端标题栏，同时保留 Avalonia 边缘调整大小手柄（[#201](https://github.com/AIDotNet/TKCode.Arc/issues/201)）。
+- `SettingsPage` 与 `SettingsSection`（`TKCode.Arc.Blocks`）：将 `SettingsPageTheme.axaml` 中嵌套的纵向 `StackPanel` 容器（`PART_ContentStack` 和 `SettingsSection` 模板）替换为 `Grid` 布局，并将 `SettingsSection` 的 `PART_ContentPresenter` 绑定到 `VerticalContentAlignment`（默认 `Stretch`），使短于视口高度的区块内容可以垂直居中、拉伸或用 `*` 行固定页脚，同时超出视口的内容仍可正常滚动并在有未保存更改时保留 `PART_SaveBarRoom` 间距（[#198](https://github.com/AIDotNet/TKCode.Arc/issues/198)）。
+
+## 1.3.2-preview.1（2026-11-24）
+
+全新代码编辑器预览版，带来三个新包：`TKCode.Arc.Editor`（移植自 Visual Studio Code 所用 Monaco 编辑器的 .NET 引擎）、`TKCode.Arc.Editor.Controls`（`CodeEditor` 和 `DiffEditor`，通过 `UseArcCodeEditor()` 启用）以及 `TKCode.Arc.Editor.Lsp`（Language Server Protocol 客户端）。`CodeEditor` 支持 Monaco 编辑器的 89 种语言高亮及查找替换、代码折叠、多光标、代码片段、小地图、粘性滚动等编辑功能，接入语言服务器后还可提供补全、悬停提示、诊断、跳转导航、重命名和代码操作；`DiffEditor` 支持并排或内联对比两段文本。本预览版同时包含 [#186](https://github.com/AIDotNet/TKCode.Arc/issues/186) 至 [#195](https://github.com/AIDotNet/TKCode.Arc/issues/195) 的新增功能与修复（`Tabs` 卡片样式与可关闭标签、`TimePicker` 秒级精度、选择器前缀图标、`Sidebar` 分组标题尾部内容、原生毛玻璃背景及多项修复）。现有公开 API 无破坏性变更。安装时使用 `--version 1.3.2-preview.1`。
+
+### 新增
+
+- `TKCode.Arc.Editor`（新包）：移植自 Monaco 编辑器（vscode commit b57d5c9e，MIT）的无 UI 依赖 .NET 代码编辑器引擎及单元测试，包含支持撤销/查找/装饰的 Piece Tree 文本模型、光标与视图模型（自动换行、隐藏区域、注入文本）、支持 monaco-editor 内置 89 种语言与主题的 Monarch 分词器、括号配对、缩进参考线、语言特性提供者、诊断标记以及差异比对算法。类型在形态稳定前保持内部可见，`TKCode.Arc.Editor.Controls` 作为公开入口。
+- `TKCode.Arc.Editor.Controls`（新包）：封装编辑器引擎的 Avalonia 控件 `CodeEditor`，通过 `UseArcCodeEditor()` 启用。提供 `Text`（双向）、`LanguageId`、`IsReadOnly`、`TabSize`、`InsertSpaces`、`WordWrap`、`ShowLineNumbers`、`ShowIndentGuides`、`SmoothScrolling` 和 `TextChanged`；Monaco 快捷键、自动闭合括号与自动缩进；列选择、鼠标选择、输入法行内组合、分层绘制、Arc 风格覆盖滚动条、89 种 Monaco 语言的增量 Monarch 高亮、括号配对着色、缩进参考线以及 `CodeEditorToken`。
+- `CodeEditor` 编辑特性（与 Monaco 一致，macOS 上 Ctrl 对应 Cmd）：
+  - 查找与替换（Ctrl+F / Ctrl+H，区分大小写、全词匹配、正则表达式、选区内查找、保留大小写、全部替换）。
+  - 基于缩进、`#region` 标记和折叠范围提供者的代码折叠（`Folding`，默认开启）。
+  - 行操作、行注释与块注释切换（Ctrl+/、Shift+Alt+A）、括号跳转、缩进命令、扩大/缩小选区、光标撤销（Ctrl+U）。
+  - 多光标编辑、相同词与符号高亮、文本拖放、可点击链接（`LinkOpening`）以及不可见字符或形近字符框选提示。
+  - VS Code 语法代码片段（`InsertSnippet(string)`）、右侧小地图（`ShowMinimap`，默认开启）与概览标尺、粘性滚动（`StickyScroll`、`StickyScrollMaxLineCount`）、CSS 颜色色块与取色器（`ColorDecorators`）、文档/选区格式化（`FormatOnType`、`FormatOnPaste`）及 HTML 标签联动编辑（`LinkedEditing`）。
+  - 来自提供者的语言特性（补全、悬停提示、F8 / Shift+F8 诊断跳转、参数提示、代码操作、重命名、转到定义/引用/实现及 Peek 视图、Code Lens、内联提示、幽灵文本内联补全、语义着色），屏幕阅读器无障碍支持、`TabFocusMode`（Ctrl+M）以及触屏选词和惯性滚动。
+- `DiffEditor`（新增，`TKCode.Arc.Editor.Controls`）：仿 Monaco 差异编辑器展示两段文本的差异，支持行对齐的并排视图或内联视图（`RenderSideBySide`），高亮变更行与字符、移动块、变更概览标尺、还原箭头、F7 / Shift+F7 跳转以及折叠长段未变更区域（`HideUnchangedRegions`）。提供 `OriginalText`、`ModifiedText`（双向）、`LanguageId`、`IgnoreTrimWhitespace`、`IsReadOnly`、`DiffComputed` 和 `DiffEditorToken`。
+- `TKCode.Arc.Editor.Lsp`（新包）：代码编辑器的 Language Server Protocol 客户端。`LanguageClient` 通过一对流与任意语言服务器通信（JSON-RPC 2.0、源生成序列化、支持 AOT 与裁剪）；`CodeEditor.AttachLanguageClient(client, documentUri)` 负责文档增量同步，并接入诊断、补全、悬停、签名帮助、导航、高亮、重命名、代码操作、Code Lens、格式化、符号、折叠、选区范围、语义令牌、内联提示、颜色和联动编辑。
+- `Sidebar.SectionHeaderTrailingTemplate` 与 `Sidebar.TrailingPlacement`（配 `SidebarTrailingPlacement` 枚举，`TKCode.Arc.Blocks`）：支持在分组标题右侧放置自定义操作内容，以及通过 `TrailingPlacement="End"` 将行的尾部图标/模板对齐至行末（[#186](https://github.com/AIDotNet/TKCode.Arc/issues/186)）。
+- `TimePicker` 秒级精度与分列下拉布局：新增 `Precision`（`Minute` / `Second`）、`SecondStep` 与 `DropDownLayout`（`Auto` / `List` / `Columns`），并支持跨列键盘导航（[#194](https://github.com/AIDotNet/TKCode.Arc/issues/194)）。
+- `DatePicker` 与 `TimePicker` 前缀图标：`TimePicker.Prefix`（新增）和 `DatePicker.Prefix` 现在承载日历/时钟图标，可替换为其他内容或通过 `Prefix="{x:Null}"` 隐藏（[#195](https://github.com/AIDotNet/TKCode.Arc/issues/195)）。
+- `GlassBackdrop.Mode`（`Brush` 或 `Native`）与 `GlassBackdrop.Cache`（`TKCode.Arc.Special`）：`Native` 模式使用 Avalonia 12.2 的 `Visual.BackdropEffect` 为 `GlassCard`、`GlassMenu`、`GlassSegmented` 和 `GlassTabBar` 模糊背后内容，无需再设置 `GlassBackdrop.Source`（[#188](https://github.com/AIDotNet/TKCode.Arc/issues/188)）。
+- `Tabs` 浏览器风格标签页（`TKCode.Arc`）：新增 `Tabs.Variant`（`Pill` 或 `Card`）、可关闭标签（`TabItem.IsClosable`、`Tabs.AreTabsClosable`、`TabCloseRequested`、`CloseTabCommand`）以及新建标签按钮（`Tabs.IsAddButtonVisible`、`TabAddRequested`、`AddTabCommand`）（[#187](https://github.com/AIDotNet/TKCode.Arc/issues/187)）。
+
+### 修复
+
+- `Tooltip`（`TKCode.Arc`）：作为 `arc:Tooltip.Tip` 传入的控件现在会继承触发元素的 `DataContext`（`ArcContentSwap` 仅对非控件数据应用 `ContentTemplate`），且提示文本在宿主自定义 `TextBlock` 样式下也能保持气泡前景色（[#190](https://github.com/AIDotNet/TKCode.Arc/issues/190)）。
+- `WindowCaptionButtons`：在 Windows 上悬停最小化、最大化/还原或关闭按钮时，不再同时显示系统提示与 Arc 提示（[#191](https://github.com/AIDotNet/TKCode.Arc/issues/191)）。
+- `ArcGlyph`（及 `LucideIcon`）：未显式设置或继承 `Foreground` 的图标现在按主题 `Foreground` 令牌绘制，不再不可见或固定为黑色（[#192](https://github.com/AIDotNet/TKCode.Arc/issues/192)）。
+- 限高 `ScrollViewer` 中的 `ReorderableList`：拖动时抬起的行及其阴影改在覆盖层中绘制，不再被滚动视口裁切（[#193](https://github.com/AIDotNet/TKCode.Arc/issues/193)）。
+- `ShareSheet`：弹开与收起动画期间按钮与面板内容不再出现 1 像素抖动（[#189](https://github.com/AIDotNet/TKCode.Arc/issues/189)）。
+
+## 1.3.1（2026-11-23）
+
+整合 `1.3.1-preview.1`（`Card` 悬停修复 [#174](https://github.com/AIDotNet/TKCode.Arc/issues/174)、`ArcThemeBuilder` `FontFamily` 重载 [#173](https://github.com/AIDotNet/TKCode.Arc/issues/173)）与 `1.3.1-preview.2`（`PdfViewer.Source` 绑定转换 [#175](https://github.com/AIDotNet/TKCode.Arc/issues/175)）的稳定补丁版，并首次发布以下更新：`Slider` / `ElasticSlider` 气泡显隐控制（[#176](https://github.com/AIDotNet/TKCode.Arc/issues/176)）、`Sidebar` 分组与展开状态数据绑定（[#177](https://github.com/AIDotNet/TKCode.Arc/issues/177)）、StreamMark 代码块排版资源（[#178](https://github.com/AIDotNet/TKCode.Arc/issues/178)）、嵌套区块状态隔离（[#179](https://github.com/AIDotNet/TKCode.Arc/issues/179)）、`MarkdownStream.ShowCaret`（[#180](https://github.com/AIDotNet/TKCode.Arc/issues/180)），以及以 Avalonia `12.2.0` 为首的依赖和原生资源升级。没有删除或重命名任何公开 API。安装时无需 `--prerelease`。各预览版说明见下方。
+
+### 从 1.3.0 升级
+
+- 把所有 `TKCode.Arc*` 包设为 `1.3.1`。
+- Avalonia 从 `12.1.6` 升级至 `12.2.0`（包版本范围 `[12.2.0, 13.0.0)`）。请将应用中的 Avalonia 包同步升级到 `12.2.0` 或更高的 12.x 版本。
+- 现有公开 API 无变化，无需修改业务代码。
+
+### 新增
+
+- `Slider.IsBubbleVisible` 与 `ElasticSlider.IsBubbleVisible`（`TKCode.Arc`，默认 `true`）：设为 `false` 可在指针交互和拖动时隐藏浮动数值气泡 / 拖动标签（[#176](https://github.com/AIDotNet/TKCode.Arc/issues/176)）。
+- `Sidebar.SectionsSource`、`SectionHeaderMember` / `SectionHeaderMemberBinding`、`SectionItemsMember` / `SectionItemsMemberBinding`、`SectionIsCollapsibleMember` / `SectionIsCollapsibleMemberBinding`、`SectionIsExpandedMember` / `SectionIsExpandedMemberBinding`、`SectionIsVisibleMember` / `SectionIsVisibleMemberBinding` 以及 `IsExpandedMember` / `IsExpandedMemberBinding`（`TKCode.Arc.Blocks`）：支持直接从视图模型集合绑定分组导航及分组/子项的展开状态，支持透传 `SidebarSection`、集合更新时保持实例，并与 `ItemsSource` 及显式 `Sections` 共存（[#177](https://github.com/AIDotNet/TKCode.Arc/issues/177)）。
+- `MarkdownResourceKeys.CodeFontSize`（`"Md.CodeFontSize"`）与 `MarkdownResourceKeys.CodeLineHeight`（`"Md.CodeLineHeight"`），以及 `MarkdownStyle.CodeFontSize` 与 `MarkdownStyle.CodeLineHeight` 的 `init` 设置器（`TKCode.Arc.StreamMark`）：可通过 Avalonia 资源或 `MarkdownResourceAlias` 独立于正文排版覆盖围栏代码块的字号和行高（[#178](https://github.com/AIDotNet/TKCode.Arc/issues/178)）。
+- `MarkdownStream.ShowCaret`（`TKCode.Arc.StreamMark`，默认 `true`）：支持在构造时或流式输出中途从任意线程隐藏或切换流式光标，并在变更时立即重绘（[#180](https://github.com/AIDotNet/TKCode.Arc/issues/180)）。
+
+### 变更
+
+- 依赖与资源升级：
+  - Avalonia `12.1.6` → `12.2.0`（包版本范围 `[12.2.0, 13.0.0)`）。
+  - Mermaider `0.17.0` → `0.18.0`（`TKCode.Arc.StreamMark.Mermaid`）。
+  - 模板包引用（`TKCode.Arc.Templates`）：`Microsoft.Extensions.DependencyInjection` `10.0.14` → `10.0.15`，`Microsoft.NET.Test.Sdk` `18.11.0` → `18.12.0`。
+  - .NET SDK 固定版本（`global.json`）：`11.0.100-rc.2.26504.105` → `11.0.100`（正式版）。
+  - 原生与浏览器资源：PDFium `chromium/8111` → `chromium/8165`（`TKCode.Arc.Pdf.Native`）、pdf.js `6.4.299` → `6.5.438`（`TKCode.Arc.Pdf.Browser`）、miniaudio `0.11.25` → `0.11.26`（`TKCode.Arc.Audio.Native`），以及 RaTeX `ae391d72` → `d49c6fad`（`v0.1.16+`，`TKCode.Arc.StreamMark.RaTeX`）。
+
+### 修复
+
+- `TKCode.Arc.StreamMark`：容器（如引用块、提示框、列表与折叠区）内嵌套的代码块、图表块、差异块与折叠块现在按各自区块隔离 `BlockStateStore` 键，不再与外层片段索引冲突，避免同级嵌套区块共享高亮、折叠或图表渲染状态（[#179](https://github.com/AIDotNet/TKCode.Arc/issues/179)）。
 
 ## 1.3.1-preview.2（2026-11-23）
 
